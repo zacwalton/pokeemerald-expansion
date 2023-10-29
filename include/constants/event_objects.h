@@ -240,8 +240,6 @@
 #define OBJ_EVENT_GFX_LINK_RS_MAY                236
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
-#define OBJ_EVENT_GFX_ANIMATED_BALL              OBJ_EVENT_GFX_ITEM_BALL // replaces ITEM_BALL
-#define OBJ_EVENT_GFX_OW_MON                     OBJ_EVENT_GFX_REGICE
 #define OBJ_EVENT_GFX_LIGHT_SPRITE               OBJ_EVENT_GFX_QUINTY_PLUMP
 
 // NOTE: By default, the max value for NUM_OBJ_EVENT_GFX is 239.
@@ -277,22 +275,6 @@
 #define OBJ_EVENT_GFX_VAR_E  (OBJ_EVENT_GFX_VARS + 0xE)
 #define OBJ_EVENT_GFX_VAR_F  (OBJ_EVENT_GFX_VARS + 0xF) // 255
 
-#define OBJ_EVENT_GFX_MON_BASE  0x200 // 512
-#define OBJ_EVENT_GFX_SPECIES_BITS 11
-#define OBJ_EVENT_GFX_SPECIES_MASK ((1 << OBJ_EVENT_GFX_SPECIES_BITS) - 1)
-
-#define OW_SPECIES(x) (((x)->graphicsId & OBJ_EVENT_GFX_SPECIES_MASK) - OBJ_EVENT_GFX_MON_BASE)
-#define OW_FORM(x) ((x)->graphicsId >> OBJ_EVENT_GFX_SPECIES_BITS)
-
-// If true, follower pokemon will bob up and down
-// during their idle & walking animations
-#define OW_MON_BOBBING  TRUE
-
-// If true, adds a small amount of overhead
-// to OW code so that large (48x48, 64x64) OWs
-// will display correctly under bridges, etc.
-#define LARGE_OW_SUPPORT TRUE
-
 #define SHADOW_SIZE_S   0
 #define SHADOW_SIZE_M   1
 #define SHADOW_SIZE_L   2
@@ -317,7 +299,6 @@
 // Special object event local ids
 #define OBJ_EVENT_ID_PLAYER 0xFF
 #define OBJ_EVENT_ID_CAMERA 0x7F
-#define OBJ_EVENT_ID_FOLLOWER 0xFE
 
 // Object event local ids referenced in C files
 #define LOCALID_ROUTE111_PLAYER_FALLING 45

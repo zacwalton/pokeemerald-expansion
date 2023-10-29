@@ -3821,11 +3821,6 @@ bool8 FieldCallback_PrepareFadeInFromMenu(void)
     return TRUE;
 }
 
-bool8 FieldCallback_PrepareFadeInForTeleport(void) { // same as above, but removes follower pokemon
-    RemoveFollowingPokemon();
-    return FieldCallback_PrepareFadeInFromMenu();
-}
-
 static void Task_FieldMoveWaitForFade(u8 taskId)
 {
     if (IsWeatherNotFadingIn() == TRUE)
