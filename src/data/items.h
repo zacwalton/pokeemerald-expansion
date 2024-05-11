@@ -12624,4 +12624,18 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
+
+    [ITEM_EON_FLUTE] =
+    {
+        .name = _("EON FLUTE"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "A flute that can\n"
+            "summon LATIAS or\n"
+            "LATIOS."),
+		.importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_EonFlute,
+    },
 };
