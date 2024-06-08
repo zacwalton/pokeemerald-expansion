@@ -814,7 +814,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     SetWarpDestination(mapGroup, mapNum, WARP_ID_NONE, -1, -1);
 
     // Dont transition map music between BF Outside West/East
-    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER)
+    if (gMapHeader.regionMapSectionId != sLastMapSectionId)
         TransitionMapMusic();
 
     ApplyCurrentWarp();
