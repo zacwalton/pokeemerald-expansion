@@ -4642,14 +4642,14 @@
       "blockdata_filepath": "data/layouts/Route119_South/map.bin"
     },
     {
-      "id": "LAYOUT_GIBBAN_ISLAND",
-      "name": "GibbanIsland_Layout",
+      "id": "LAYOUT_GIBAN_ISLAND",
+      "name": "GibanIsland_Layout",
       "width": 80,
       "height": 40,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Petalburg",
-      "border_filepath": "data/layouts/GibbanIsland/border.bin",
-      "blockdata_filepath": "data/layouts/GibbanIsland/map.bin"
+      "border_filepath": "data/layouts/GibanIsland/border.bin",
+      "blockdata_filepath": "data/layouts/GibanIsland/map.bin"
     },
     {
       "id": "LAYOUT_WILD_IDLAND_NORTH",
@@ -4682,14 +4682,14 @@
       "blockdata_filepath": "data/layouts/RuggedSea_Route132/map.bin"
     },
     {
-      "id": "LAYOUT_ROUTE_SEA_ROUTE118",
-      "name": "RouteSea_Route118_Layout",
+      "id": "LAYOUT_RUGGED_SEA_ROUTE118",
+      "name": "RuggedSea_Route118_Layout",
       "width": 80,
       "height": 40,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Petalburg",
-      "border_filepath": "data/layouts/RouteSea_Route118/border.bin",
-      "blockdata_filepath": "data/layouts/RouteSea_Route118/map.bin"
+      "border_filepath": "data/layouts/RuggedSea_Route118/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route118/map.bin"
     },
     {
       "id": "LAYOUT_RUGGED_SEA_ROUTE133",
