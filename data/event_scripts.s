@@ -1119,7 +1119,7 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/Route119_South/scripts.inc"
 
-	.include "data/maps/GibanIsland/scripts.inc"
+	.include "data/maps/GibbanIsland/scripts.inc"
 
 	.include "data/maps/WildIdland_North/scripts.inc"
 
@@ -1127,7 +1127,7 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/RuggedSea_Route132/scripts.inc"
 
-	.include "data/maps/RuggedSea_Route118/scripts.inc"
+	.include "data/maps/RouteSea_Route118/scripts.inc"
 
 	.include "data/maps/RuggedSea_Route133/scripts.inc"
 
