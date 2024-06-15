@@ -20,7 +20,7 @@
     },
     {
       "map": "MAP_LAVARIDGE_TOWN",
-      "offset": 40,
+      "offset": 36,
       "direction": "left"
     },
     {
@@ -257,7 +257,9 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",
