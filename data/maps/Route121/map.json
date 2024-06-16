@@ -20,13 +20,23 @@
     },
     {
       "map": "MAP_ROUTE120",
-      "offset": -80,
+      "offset": -78,
       "direction": "left"
     },
     {
       "map": "MAP_LILYCOVE_CITY",
       "offset": -10,
       "direction": "right"
+    },
+    {
+      "map": "MAP_MT_PYRE_EXTERIOR",
+      "offset": 32,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_MT_PYRE_EXT",
+      "offset": 32,
+      "direction": "down"
     }
   ],
   "object_events": [

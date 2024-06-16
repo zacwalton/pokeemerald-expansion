@@ -15,13 +15,23 @@
   "connections": [
     {
       "map": "MAP_RUSTBORO_CITY",
-      "offset": 0,
+      "offset": 30,
       "direction": "down"
     },
     {
       "map": "MAP_ROUTE114",
-      "offset": -40,
+      "offset": -68,
       "direction": "right"
+    },
+    {
+      "map": "MAP_FORINA",
+      "offset": 36,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_RUSTBORO_PIER",
+      "offset": 0,
+      "direction": "down"
     }
   ],
   "object_events": [

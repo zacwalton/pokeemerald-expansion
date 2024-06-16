@@ -22,6 +22,11 @@
       "map": "MAP_ROUTE113",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_METEOR_FALLS_EXTERIOR",
+      "offset": 0,
+      "direction": "down"
     }
   ],
   "object_events": [

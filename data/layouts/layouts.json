@@ -2626,8 +2626,8 @@
       "name": "Route130_Layout",
       "width": 80,
       "height": 40,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Cave",
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/Route130/border.bin",
       "blockdata_filepath": "data/layouts/Route130/map.bin"
     },
@@ -4410,6 +4410,376 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_LITTLEROOT",
+      "name": "RuggedSea_Littleroot_Layout",
+      "width": 80,
+      "height": 84,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Littleroot_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Littleroot/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Littleroot/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_ROUTE107",
+      "name": "RuggedSea_Route107_Layout",
+      "width": 84,
+      "height": 20,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Dewford_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Route107/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route107/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_SLATEPORT",
+      "name": "RuggedSea_Slateport_Layout",
+      "width": 56,
+      "height": 65,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Dewford_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Slateport/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Slateport/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_ROUTE118",
+      "name": "RuggedSea_Route118_Layout",
+      "width": 139,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Pacifidlog_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Route118/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route118/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_ROUTE126",
+      "name": "RuggedSea_Route126_Layout",
+      "width": 40,
+      "height": 90,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lilycove_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Route126/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route126/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_ROUTE132",
+      "name": "RuggedSea_Route132_Layout",
+      "width": 61,
+      "height": 90,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Pacifidlog_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Route132/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route132/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_ROUTE133",
+      "name": "RuggedSea_Route133_Layout",
+      "width": 60,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Pacifidlog_Summer",
+      "border_filepath": "data/layouts/RuggedSea_Route133/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Route133/map.bin"
+    },
+    {
+      "id": "LAYOUT_OLDALE_RUINS",
+      "name": "OldaleRuins_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Littleroot_Summer",
+      "border_filepath": "data/layouts/OldaleRuins/border.bin",
+      "blockdata_filepath": "data/layouts/OldaleRuins/map.bin"
+    },
+    {
+      "id": "LAYOUT_OLD_POWER_PLANT",
+      "name": "OldPowerPlant_Layout",
+      "width": 40,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Slateport_Summer",
+      "border_filepath": "data/layouts/OldPowerPlant/border.bin",
+      "blockdata_filepath": "data/layouts/OldPowerPlant/map.bin"
+    },
+    {
+      "id": "LAYOUT_VERDALE_FALLS",
+      "name": "VerdaleFalls_Layout",
+      "width": 100,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Mauville_Summer",
+      "border_filepath": "data/layouts/VerdaleFalls/border.bin",
+      "blockdata_filepath": "data/layouts/VerdaleFalls/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEA_MAUVILLE",
+      "name": "SeaMauville_Layout",
+      "width": 56,
+      "height": 35,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Dewford_Summer",
+      "border_filepath": "data/layouts/SeaMauville/border.bin",
+      "blockdata_filepath": "data/layouts/SeaMauville/map.bin"
+    },
+    {
+      "id": "LAYOUT_DEWFORD_ISLAND",
+      "name": "DewfordIsland_Layout",
+      "width": 70,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Dewford_Summer",
+      "border_filepath": "data/layouts/DewfordIsland/border.bin",
+      "blockdata_filepath": "data/layouts/DewfordIsland/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_PIER",
+      "name": "RustboroPier_Layout",
+      "width": 30,
+      "height": 80,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Rustboro_Summer",
+      "border_filepath": "data/layouts/RustboroPier/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroPier/map.bin"
+    },
+    {
+      "id": "LAYOUT_FORINA",
+      "name": "Forina_Layout",
+      "width": 76,
+      "height": 64,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Forina_Summer",
+      "border_filepath": "data/layouts/Forina/border.bin",
+      "blockdata_filepath": "data/layouts/Forina/map.bin"
+    },
+    {
+      "id": "LAYOUT_VALLEY_OF_STEEL",
+      "name": "ValleyOfSteel_Layout",
+      "width": 106,
+      "height": 44,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "border_filepath": "data/layouts/ValleyOfSteel/border.bin",
+      "blockdata_filepath": "data/layouts/ValleyOfSteel/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE111_SOUTH",
+      "name": "Route111_South_Layout",
+      "width": 100,
+      "height": 42,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Mauville_Summer",
+      "border_filepath": "data/layouts/Route111_South/border.bin",
+      "blockdata_filepath": "data/layouts/Route111_South/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE111_NORTH",
+      "name": "Route111_North_Layout",
+      "width": 45,
+      "height": 146,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_111_Summer",
+      "border_filepath": "data/layouts/Route111_North/border.bin",
+      "blockdata_filepath": "data/layouts/Route111_North/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE111_DESERT",
+      "name": "Route111_Desert_Layout",
+      "width": 65,
+      "height": 62,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_111_Summer",
+      "border_filepath": "data/layouts/Route111_Desert/border.bin",
+      "blockdata_filepath": "data/layouts/Route111_Desert/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_CHIMNEY_EXTERIOR",
+      "name": "MtChimneyExterior_Layout",
+      "width": 106,
+      "height": 70,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "border_filepath": "data/layouts/MtChimneyExterior/border.bin",
+      "blockdata_filepath": "data/layouts/MtChimneyExterior/map.bin"
+    },
+    {
+      "id": "LAYOUT_METEOR_FALLS_EXTERIOR",
+      "name": "MeteorFallsExterior_Layout",
+      "width": 40,
+      "height": 60,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Forina_Summer",
+      "border_filepath": "data/layouts/MeteorFallsExterior/border.bin",
+      "blockdata_filepath": "data/layouts/MeteorFallsExterior/map.bin"
+    },
+    {
+      "id": "LAYOUT_SLATEPORT_LIGHTHOUSE",
+      "name": "SlateportLighthouse_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Slateport_Summer",
+      "border_filepath": "data/layouts/SlateportLighthouse/border.bin",
+      "blockdata_filepath": "data/layouts/SlateportLighthouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_EXT",
+      "name": "MtPyreExt_Layout",
+      "width": 68,
+      "height": 80,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lilycove_Summer",
+      "border_filepath": "data/layouts/MtPyreExt/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyreExt/map.bin"
+    },
+    {
+      "id": "LAYOUT_SAFARI_ZONE_NW",
+      "name": "SafariZoneNW_Layout",
+      "width": 42,
+      "height": 42,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Safari_Zone_Summer",
+      "border_filepath": "data/layouts/SafariZoneNW/border.bin",
+      "blockdata_filepath": "data/layouts/SafariZoneNW/map.bin"
+    },
+    {
+      "id": "LAYOUT_SAFARI_ZONE_SW",
+      "name": "SafariZoneSW_Layout",
+      "width": 42,
+      "height": 42,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Safari_Zone_Summer",
+      "border_filepath": "data/layouts/SafariZoneSW/border.bin",
+      "blockdata_filepath": "data/layouts/SafariZoneSW/map.bin"
+    },
+    {
+      "id": "LAYOUT_SAFARI_ZONE_NE",
+      "name": "SafariZoneNE_Layout",
+      "width": 43,
+      "height": 42,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Safari_Zone_Summer",
+      "border_filepath": "data/layouts/SafariZoneNE/border.bin",
+      "blockdata_filepath": "data/layouts/SafariZoneNE/map.bin"
+    },
+    {
+      "id": "LAYOUT_SAFARI_ZONE_SE",
+      "name": "SafariZoneSE_Layout",
+      "width": 43,
+      "height": 42,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Safari_Zone_Summer",
+      "border_filepath": "data/layouts/SafariZoneSE/border.bin",
+      "blockdata_filepath": "data/layouts/SafariZoneSE/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE119_SOUTH",
+      "name": "Route119_South_Layout",
+      "width": 80,
+      "height": 62,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Foretree_Summer",
+      "border_filepath": "data/layouts/Route119_South/border.bin",
+      "blockdata_filepath": "data/layouts/Route119_South/map.bin"
+    },
+    {
+      "id": "LAYOUT_GIBAN_ISLAND",
+      "name": "GibanIsland_Layout",
+      "width": 80,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Pacifidlog_Summer",
+      "border_filepath": "data/layouts/GibanIsland/border.bin",
+      "blockdata_filepath": "data/layouts/GibanIsland/map.bin"
+    },
+    {
+      "id": "LAYOUT_WILD_ISLAND_NORTH",
+      "name": "WildIsland_North_Layout",
+      "width": 106,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Slateport_Summer",
+      "border_filepath": "data/layouts/WildIsland_North/border.bin",
+      "blockdata_filepath": "data/layouts/WildIsland_North/map.bin"
+    },
+    {
+      "id": "LAYOUT_WILD_ISLAND_SOUTH",
+      "name": "WildIsland_South_Layout",
+      "width": 96,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Slateport_Summer",
+      "border_filepath": "data/layouts/WildIsland_South/border.bin",
+      "blockdata_filepath": "data/layouts/WildIsland_South/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE126_SOUTH",
+      "name": "Route126_South_Layout",
+      "width": 140,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Sootopolis_Summer",
+      "border_filepath": "data/layouts/Route126_South/border.bin",
+      "blockdata_filepath": "data/layouts/Route126_South/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE126_EAST",
+      "name": "Route126_East_Layout",
+      "width": 45,
+      "height": 100,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Sootopolis_Summer",
+      "border_filepath": "data/layouts/Route126_East/border.bin",
+      "blockdata_filepath": "data/layouts/Route126_East/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE126_WEST",
+      "name": "Route126_West_Layout",
+      "width": 45,
+      "height": 100,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Sootopolis_Summer",
+      "border_filepath": "data/layouts/Route126_West/border.bin",
+      "blockdata_filepath": "data/layouts/Route126_West/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE126_NORTH",
+      "name": "Route126_North_Layout",
+      "width": 50,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Sootopolis_Summer",
+      "border_filepath": "data/layouts/Route126_North/border.bin",
+      "blockdata_filepath": "data/layouts/Route126_North/map.bin"
+    },
+    {
+      "id": "LAYOUT_LILYCOVE_BAY",
+      "name": "LilycoveBay_Layout",
+      "width": 80,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lilycove_Summer",
+      "border_filepath": "data/layouts/LilycoveBay/border.bin",
+      "blockdata_filepath": "data/layouts/LilycoveBay/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE122_WEST",
+      "name": "Route122_West_Layout",
+      "width": 40,
+      "height": 90,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lilycove_Summer",
+      "border_filepath": "data/layouts/Route122_West/border.bin",
+      "blockdata_filepath": "data/layouts/Route122_West/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE124_SOUTH",
+      "name": "Route124_South_Layout",
+      "width": 140,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Mossdeep_Summer",
+      "border_filepath": "data/layouts/Route124_South/border.bin",
+      "blockdata_filepath": "data/layouts/Route124_South/map.bin"
     }
   ]
 }

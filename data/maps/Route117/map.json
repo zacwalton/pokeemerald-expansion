@@ -20,8 +20,13 @@
     },
     {
       "map": "MAP_MAUVILLE_CITY",
-      "offset": 0,
+      "offset": 10,
       "direction": "right"
+    },
+    {
+      "map": "MAP_VALLEY_OF_STEEL",
+      "offset": -46,
+      "direction": "up"
     }
   ],
   "object_events": [

@@ -20,8 +20,13 @@
     },
     {
       "map": "MAP_ROUTE124",
-      "offset": -10,
+      "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_LILYCOVE_BAY",
+      "offset": 0,
+      "direction": "down"
     }
   ],
   "object_events": [
@@ -412,7 +417,9 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",

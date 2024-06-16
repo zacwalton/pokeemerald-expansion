@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_MAUVILLE_CITY",
-      "offset": 0,
+      "offset": -10,
       "direction": "up"
     },
     {
@@ -27,6 +27,21 @@
       "map": "MAP_ROUTE103",
       "offset": 60,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE134",
+      "offset": 40,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_SOUTH",
+      "offset": 50,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_NORTH",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

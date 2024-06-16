@@ -27,6 +27,11 @@
       "map": "MAP_ROUTE124",
       "offset": -40,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE124_SOUTH",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

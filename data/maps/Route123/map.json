@@ -15,13 +15,38 @@
   "connections": [
     {
       "map": "MAP_ROUTE122",
-      "offset": 100,
+      "offset": 80,
       "direction": "up"
     },
     {
       "map": "MAP_ROUTE118",
-      "offset": 0,
+      "offset": -51,
       "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE133",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE132",
+      "offset": 60,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE118",
+      "offset": 121,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_MT_PYRE_EXTERIOR",
+      "offset": 112,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_MT_PYRE_EXT",
+      "offset": 112,
+      "direction": "up"
     }
   ],
   "object_events": [

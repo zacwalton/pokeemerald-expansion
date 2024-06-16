@@ -15,8 +15,13 @@
   "connections": [
     {
       "map": "MAP_ROUTE112",
-      "offset": -40,
+      "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_MT_CHIMNEY_EXTERIOR",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

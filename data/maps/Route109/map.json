@@ -20,7 +20,17 @@
     },
     {
       "map": "MAP_ROUTE108",
-      "offset": 40,
+      "offset": 50,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_SEA_MAUVILLE",
+      "offset": 15,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_SLATEPORT",
+      "offset": -50,
       "direction": "left"
     }
   ],

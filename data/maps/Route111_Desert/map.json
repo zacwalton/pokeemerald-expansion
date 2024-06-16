@@ -1,0 +1,49 @@
+{
+  "id": "MAP_ROUTE111_DESERT",
+  "name": "Route111_Desert",
+  "layout": "LAYOUT_ROUTE111_DESERT",
+  "music": "MUS_DUMMY",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE111_NORTH",
+      "offset": -84,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SW",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SE",
+      "offset": 42,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE119_SOUTH",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

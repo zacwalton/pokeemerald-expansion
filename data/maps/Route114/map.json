@@ -15,12 +15,22 @@
   "connections": [
     {
       "map": "MAP_ROUTE115",
-      "offset": 40,
+      "offset": 68,
       "direction": "left"
     },
     {
       "map": "MAP_FALLARBOR_TOWN",
       "offset": 0,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_FORINA",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_METEOR_FALLS_EXTERIOR",
+      "offset": 44,
       "direction": "right"
     }
   ],

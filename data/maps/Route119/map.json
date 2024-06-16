@@ -14,14 +14,24 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE118",
-      "offset": -40,
+      "map": "MAP_ROUTE119_SOUTH",
+      "offset": -20,
       "direction": "down"
     },
     {
       "map": "MAP_FORTREE_CITY",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SE",
+      "offset": 42,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_NE",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

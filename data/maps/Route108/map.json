@@ -20,8 +20,18 @@
     },
     {
       "map": "MAP_ROUTE109",
-      "offset": -40,
+      "offset": -50,
       "direction": "right"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE107",
+      "offset": -60,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SEA_MAUVILLE",
+      "offset": 24,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -126,7 +136,9 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "hidden_item",

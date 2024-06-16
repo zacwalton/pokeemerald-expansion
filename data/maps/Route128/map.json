@@ -32,6 +32,11 @@
       "map": "MAP_UNDERWATER_ROUTE128",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_ROUTE126_SOUTH",
+      "offset": -49,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -166,8 +171,12 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "hidden_item",

@@ -15,12 +15,12 @@
   "connections": [
     {
       "map": "MAP_PETALBURG_CITY",
-      "offset": -10,
+      "offset": 0,
       "direction": "left"
     },
     {
       "map": "MAP_OLDALE_TOWN",
-      "offset": 0,
+      "offset": 22,
       "direction": "right"
     }
   ],

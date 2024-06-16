@@ -14,24 +14,29 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE111",
+      "map": "MAP_ROUTE111_SOUTH",
       "offset": 0,
       "direction": "up"
     },
     {
       "map": "MAP_ROUTE110",
-      "offset": 0,
+      "offset": 10,
       "direction": "down"
     },
     {
       "map": "MAP_ROUTE117",
-      "offset": 0,
+      "offset": -10,
       "direction": "left"
     },
     {
       "map": "MAP_ROUTE118",
-      "offset": 0,
+      "offset": -42,
       "direction": "right"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_NORTH",
+      "offset": 84,
+      "direction": "down"
     }
   ],
   "object_events": [

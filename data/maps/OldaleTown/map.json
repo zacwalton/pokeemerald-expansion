@@ -25,8 +25,13 @@
     },
     {
       "map": "MAP_ROUTE102",
-      "offset": 0,
+      "offset": -22,
       "direction": "left"
+    },
+    {
+      "map": "MAP_OLDALE_RUINS",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

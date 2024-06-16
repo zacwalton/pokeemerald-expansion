@@ -22,6 +22,16 @@
       "map": "MAP_RUSTBORO_CITY",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_VERDANTURF_TOWN",
+      "offset": 10,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_FORINA",
+      "offset": -2,
+      "direction": "up"
     }
   ],
   "object_events": [

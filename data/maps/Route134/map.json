@@ -20,8 +20,23 @@
     },
     {
       "map": "MAP_ROUTE133",
-      "offset": 0,
+      "offset": -50,
       "direction": "right"
+    },
+    {
+      "map": "MAP_SLATEPORT_LIGHTHOUSE",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE110",
+      "offset": -40,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_SOUTH",
+      "offset": 34,
+      "direction": "up"
     }
   ],
   "object_events": [

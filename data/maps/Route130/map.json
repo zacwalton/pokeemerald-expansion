@@ -20,7 +20,7 @@
     },
     {
       "map": "MAP_ROUTE129",
-      "offset": 0,
+      "offset": -10,
       "direction": "right"
     }
   ],
@@ -78,7 +78,13 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

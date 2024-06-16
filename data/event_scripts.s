@@ -1072,3 +1072,77 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+	.include "data/maps/RuggedSea_Littleroot/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route107/scripts.inc"
+
+	.include "data/maps/RuggedSea_Slateport/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route118/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route126/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route132/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route133/scripts.inc"
+
+	.include "data/maps/OldaleRuins/scripts.inc"
+
+	.include "data/maps/OldPowerPlant/scripts.inc"
+
+	.include "data/maps/VerdaleFalls/scripts.inc"
+
+	.include "data/maps/SeaMauville/scripts.inc"
+
+	.include "data/maps/DewfordIsland/scripts.inc"
+
+	.include "data/maps/RustboroPier/scripts.inc"
+
+	.include "data/maps/Forina/scripts.inc"
+
+	.include "data/maps/ValleyOfSteel/scripts.inc"
+
+	.include "data/maps/Route111_South/scripts.inc"
+
+	.include "data/maps/Route111_North/scripts.inc"
+
+	.include "data/maps/Route111_Desert/scripts.inc"
+
+	.include "data/maps/MtChimneyExterior/scripts.inc"
+
+	.include "data/maps/MeteorFallsExterior/scripts.inc"
+
+	.include "data/maps/SlateportLighthouse/scripts.inc"
+
+	.include "data/maps/MtPyreExt/scripts.inc"
+
+	.include "data/maps/SafariZoneNW/scripts.inc"
+
+	.include "data/maps/SafariZoneSW/scripts.inc"
+
+	.include "data/maps/SafariZoneNE/scripts.inc"
+
+	.include "data/maps/SafariZoneSE/scripts.inc"
+
+	.include "data/maps/Route119_South/scripts.inc"
+
+	.include "data/maps/GibanIsland/scripts.inc"
+
+	.include "data/maps/WildIsland_North/scripts.inc"
+
+	.include "data/maps/WildIsland_South/scripts.inc"
+
+	.include "data/maps/Route126_South/scripts.inc"
+
+	.include "data/maps/Route126_East/scripts.inc"
+
+	.include "data/maps/Route126_West/scripts.inc"
+
+	.include "data/maps/Route126_North/scripts.inc"
+
+	.include "data/maps/LilycoveBay/scripts.inc"
+
+	.include "data/maps/Route122_West/scripts.inc"
+
+	.include "data/maps/Route124_South/scripts.inc"

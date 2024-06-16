@@ -22,6 +22,16 @@
       "map": "MAP_ROUTE130",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_GIBAN_ISLAND",
+      "offset": -59,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SKY_PILLAR_OUTSIDE",
+      "offset": 21,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -139,6 +149,10 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

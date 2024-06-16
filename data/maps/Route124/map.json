@@ -14,13 +14,13 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE126",
+      "map": "MAP_ROUTE124_SOUTH",
       "offset": 0,
       "direction": "down"
     },
     {
       "map": "MAP_LILYCOVE_CITY",
-      "offset": 10,
+      "offset": 0,
       "direction": "left"
     },
     {
@@ -206,7 +206,9 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",
