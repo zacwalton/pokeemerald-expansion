@@ -1,5 +1,11 @@
 GraniteCave_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, GraniteCave_Reset_B1F_Boulder
 	.byte 0
+
+@ Probably a good practice to not have Boulders permanently moved
+GraniteCave_Reset_B1F_Boulder::
+	clearflag FLAG_BOULDER_GRANITE_CAVE_B1F
+	end
 
 GraniteCave_1F_EventScript_Hiker::
 	lock

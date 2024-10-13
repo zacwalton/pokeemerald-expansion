@@ -1,4 +1,28 @@
-# pokeemerald-expansion
+# GhoulMage's pokeemerald-expansion
+
+### Branch - Boulders Falling Through Cracked Holes
+
+## Implementation
+
+Just like for the player, we check every frame if any object is above a cracked tile (it doesn't have to be a hole). If it is, we set the VAR_OBJECT_HOLE to 1 and the VAR_OBJECT_HOLE_ID to the object's localId (not the map index) for the Event Script to activate, removing the boulder and setting its flag. This is very similar to how the default Player-Falling-Through-Holes works.
+The map in the lower floor has to check on transition if the flag from the top boulder has been set, if it is then it means that the top boulder is hidden, and it should will clear the relevant flag to show its boulder.
+
+## Details
+* I used the unused vars in place of 0x40DB and 0x40DC to keep track if there's an object that fell and that object localId's.
+    * The TEMP or 0x800X vars might also do the trick if you want the unused variables for something else, but you need to be careful of not interfering with other scripts.
+* An example Boulder can be found in Granite Cave.
+    * I used the unused flags in place of 0x264 and 0x265 for the B1F and B2f Boulder.
+    * As another example, upon reentering the main floor of Granite Cave, that Boulder's flag is cleared, resetting to the top floor.
+
+## Notes
+
+* There's nothing to keep track of the top Boulder's last X,Y location.
+* This script checks for all objects. That means that any object might fall down holes.
+    * This also means that you could adapt the code to move anything through floors.
+
+I'm open to pull requests, suggestions or Issues for bugs.
+
+# Original pokeemerald-expansion README.md
 
 ### Important: DO NOT use GitHub's "Download Zip" option. Using this option will not download the commit history required to update your expansion version or merge other feature branches. Instead, please read [this guide](https://github.com/Pawkkie/Team-Aquas-Asset-Repo/wiki/The-Basics-of-GitHub) to learn how to fork the repository and clone locally from there.
 

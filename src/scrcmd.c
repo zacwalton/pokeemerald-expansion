@@ -735,6 +735,12 @@ bool8 ScrCmd_setstepcallback(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_setobjectstepcallback(struct ScriptContext *ctx)
+{
+    ActivateObjectPerStepCallback(ScriptReadByte(ctx));
+    return FALSE;
+}
+
 bool8 ScrCmd_setmaplayoutindex(struct ScriptContext *ctx)
 {
     u16 value = VarGet(ScriptReadHalfword(ctx));

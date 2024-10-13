@@ -54,6 +54,7 @@ static void FortreeBridgePerStepCallback(u8);
 static void PacifidlogBridgePerStepCallback(u8);
 static void SootopolisGymIcePerStepCallback(u8);
 static void CrackedFloorPerStepCallback(u8);
+static void CrackedFloorObjectPerStepCallback(u8);
 static void Task_MuddySlope(u8);
 
 static const TaskFunc sPerStepCallbacks[] =
@@ -66,6 +67,12 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_TRUCK]             = EndTruckSequence,
     [STEP_CB_SECRET_BASE]       = SecretBasePerStepCallback,
     [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback
+};
+
+static const TaskFunc sObjectPerStepCallbacks[] =
+{
+    [STEP_CB_DUMMY]             = DummyPerStepCallback,
+    [STEP_CB_CRACKED_FLOOR]     = CrackedFloorObjectPerStepCallback
 };
 
 // Each array has 4 pairs of data, each pair representing two metatiles of a log and their relative position.
@@ -141,6 +148,12 @@ static void Task_RunPerStepCallback(u8 taskId)
     sPerStepCallbacks[idx](taskId);
 }
 
+static void Task_ObjectRunPerStepCallback(u8 taskId)
+{
+    int idx = gTasks[taskId].tCallbackId;
+    sObjectPerStepCallbacks[idx](taskId);
+}
+
 #define tState           data[0]
 #define tAmbientCryState data[1]
 #define tAmbientCryDelay data[2]
@@ -185,6 +198,11 @@ void SetUpFieldTasks(void)
         u8 taskId = CreateTask(Task_RunPerStepCallback, 80);
         gTasks[taskId].tCallbackId = STEP_CB_DUMMY;
     }
+    if(!FuncIsActiveTask(Task_ObjectRunPerStepCallback))
+    {
+        u8 taskId = CreateTask(Task_ObjectRunPerStepCallback, 80);
+        gTasks[taskId].tCallbackId = STEP_CB_DUMMY;
+    }
 
     if (!FuncIsActiveTask(Task_MuddySlope))
         CreateTask(Task_MuddySlope, 80);
@@ -211,6 +229,22 @@ void ActivatePerStepCallback(u8 callbackId)
     }
 }
 
+void ActivateObjectPerStepCallback(u8 callbackId){
+    u8 taskId = FindTaskIdByFunc(Task_ObjectRunPerStepCallback);
+    if(taskId != TASK_NONE){
+        s32 i;
+        s16 *data = gTasks[taskId].data;
+
+        for(i = 0; i < NUM_TASK_DATA; i++)
+            data[i] = 0;
+
+        if(callbackId >= ARRAY_COUNT(sObjectPerStepCallbacks))
+            tCallbackId = STEP_CB_DUMMY;
+        else
+            tCallbackId = callbackId;
+    }
+}
+
 void ResetFieldTasksArgs(void)
 {
     u8 taskId;
@@ -218,6 +252,10 @@ void ResetFieldTasksArgs(void)
 
     taskId = FindTaskIdByFunc(Task_RunPerStepCallback);
     if (taskId != TASK_NONE)
+        data = gTasks[taskId].data;
+
+    taskId = FindTaskIdByFunc(Task_ObjectRunPerStepCallback);
+    if(taskId != TASK_NONE)
         data = gTasks[taskId].data;
 
     taskId = FindTaskIdByFunc(Task_RunTimeBasedEvents);
@@ -837,6 +875,36 @@ static void CrackedFloorPerStepCallback(u8 taskId)
             tFloor2Delay = 3;
             tFloor2X = x;
             tFloor2Y = y;
+        }
+    }
+}
+
+// We don't need all the defines but I'm placing this func here
+// because it mimics the func above
+static void CrackedFloorObjectPerStepCallback(u8 taskId)
+{
+    int i;
+    s16 x, y;
+
+    for(i = 0; i < gMapHeader.events->objectEventCount; i++) {
+        if(i == gPlayerAvatar.objectEventId
+            || gObjectEvents[i].invisible
+            || VarGet(VAR_OBJECT_HOLE_ID) == gObjectEvents[i].localId)
+            continue;
+        
+        x = gObjectEvents[i].currentCoords.x;
+        y = gObjectEvents[i].currentCoords.y;
+        u16 behavior = MapGridGetMetatileBehaviorAt(x, y);
+        
+        // We are checking on cracked floors regardless of if the hole has been opened or not.
+        if (MetatileBehavior_IsCrackedFloor(behavior)
+            || MetatileBehavior_IsCrackedFloorHole(behavior)
+            || MetatileBehavior_IsCrackedIce(behavior))
+        {
+            SetCrackedFloorHoleMetatile(x, y);
+            VarSet(VAR_OBJECT_HOLE, 1);
+            VarSet(VAR_OBJECT_HOLE_ID, gObjectEvents[i].localId);
+            // TODO: Maybe put x and y in some variable to keep track of the new boulder position in the lower map?
         }
     }
 }
