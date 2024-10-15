@@ -29,7 +29,7 @@
       "direction": "left"
     },
     {
-      "map": "MAP_SKY_PILLAR_OUTSIDE",
+      "map": "MAP_SKY_PILLAR_EXTERIOR",
       "offset": 0,
       "direction": "right"
     },

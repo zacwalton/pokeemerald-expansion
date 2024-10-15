@@ -27,6 +27,16 @@
       "map": "MAP_MT_PYRE_EXT",
       "offset": -30,
       "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE118",
+      "offset": -59,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE126",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

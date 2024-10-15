@@ -29,13 +29,13 @@
       "direction": "down"
     },
     {
-      "map": "MAP_ROUTE110",
-      "offset": -40,
+      "map": "MAP_WILD_ISLAND_SOUTH",
+      "offset": 34,
       "direction": "up"
     },
     {
-      "map": "MAP_WILD_ISLAND_SOUTH",
-      "offset": 34,
+      "map": "MAP_WILD_ISLAND_EAST",
+      "offset": -3,
       "direction": "up"
     }
   ],

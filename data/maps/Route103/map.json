@@ -20,8 +20,13 @@
     },
     {
       "map": "MAP_ROUTE110",
-      "offset": -60,
+      "offset": -50,
       "direction": "right"
+    },
+    {
+      "map": "MAP_VERDALE_FALLS",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [
