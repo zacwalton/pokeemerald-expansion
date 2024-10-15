@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_MT_PYRE_EXTERIOR",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE122_WEST",
       "offset": 0,
       "direction": "down"
@@ -35,8 +30,18 @@
     },
     {
       "map": "MAP_MT_PYRE_EXT",
-      "offset": 0,
+      "offset": -5,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE124_SOUTH",
+      "offset": -15,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE124",
+      "offset": -55,
+      "direction": "right"
     }
   ],
   "object_events": [

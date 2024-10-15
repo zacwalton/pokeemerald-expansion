@@ -20,13 +20,18 @@
     },
     {
       "map": "MAP_ROUTE130",
-      "offset": 10,
+      "offset": 0,
       "direction": "left"
     },
     {
       "map": "MAP_UNDERWATER_ROUTE129",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_BATTLE_FRONTIER",
+      "offset": 40,
+      "direction": "left"
     }
   ],
   "object_events": [

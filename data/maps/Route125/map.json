@@ -19,14 +19,14 @@
       "direction": "down"
     },
     {
-      "map": "MAP_ROUTE124",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_UNDERWATER_ROUTE125",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_ROUTE124_SOUTH",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

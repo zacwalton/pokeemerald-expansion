@@ -14,27 +14,32 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE124",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
-      "map": "MAP_ROUTE126_EAST",
-      "offset": 0,
-      "direction": "down"
-    },
-    {
       "map": "MAP_ROUTE126_NORTH",
-      "offset": 45,
+      "offset": -25,
       "direction": "down"
     },
     {
       "map": "MAP_ROUTE126_WEST",
-      "offset": 95,
+      "offset": 25,
       "direction": "down"
     },
     {
       "map": "MAP_MOSSDEEP_CITY",
+      "offset": 40,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_LILYCOVE_BAY",
+      "offset": 15,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE124",
+      "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE125",
       "offset": 0,
       "direction": "right"
     }

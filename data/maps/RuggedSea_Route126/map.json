@@ -22,6 +22,16 @@
       "map": "MAP_ROUTE126_EAST",
       "offset": 20,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE122_WEST",
+      "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE118",
+      "offset": -99,
+      "direction": "down"
     }
   ],
   "object_events": [

@@ -32,6 +32,26 @@
       "map": "MAP_RUGGED_SEA_ROUTE132",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE122_WEST",
+      "offset": 59,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE126",
+      "offset": 99,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SKY_PILLAR_EXTERIOR",
+      "offset": 80,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE131",
+      "offset": 120,
+      "direction": "down"
     }
   ],
   "object_events": [

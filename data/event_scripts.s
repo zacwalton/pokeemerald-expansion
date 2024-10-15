@@ -1146,3 +1146,17 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/Route122_West/scripts.inc"
 
 	.include "data/maps/Route124_South/scripts.inc"
+
+	.include "data/maps/Route127_North/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route131/scripts.inc"
+
+	.include "data/maps/SkyPillar_Exterior/scripts.inc"
+
+	.include "data/maps/DontoIsland/scripts.inc"
+
+	.include "data/maps/RuggedSea_Route130/scripts.inc"
+
+	.include "data/maps/WildIsland_East/scripts.inc"
+
+	.include "data/maps/RuggedSea_BattleFrontier/scripts.inc"
