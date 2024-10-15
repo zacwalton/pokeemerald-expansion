@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE127",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
       "map": "MAP_ROUTE129",
       "offset": 0,
       "direction": "down"
@@ -34,9 +29,19 @@
       "direction": "dive"
     },
     {
-      "map": "MAP_ROUTE126_SOUTH",
-      "offset": -49,
+      "map": "MAP_ROUTE127_NORTH",
+      "offset": -10,
       "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE130",
+      "offset": -120,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

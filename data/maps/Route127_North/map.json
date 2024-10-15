@@ -1,0 +1,54 @@
+{
+  "id": "MAP_ROUTE127_NORTH",
+  "name": "Route127_North",
+  "layout": "LAYOUT_ROUTE127_NORTH",
+  "music": "MUS_DUMMY",
+  "region_map_section": "MAPSEC_MOSSDEEP_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_OCEAN_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE127",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE126_SOUTH",
+      "offset": 20,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE126_WEST",
+      "offset": -80,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE128",
+      "offset": 10,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": -79,
+      "direction": "down"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

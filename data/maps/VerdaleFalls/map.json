@@ -17,6 +17,21 @@
       "map": "MAP_VERDANTURF_TOWN",
       "offset": -10,
       "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE110",
+      "offset": 0,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE103",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE117",
+      "offset": 30,
+      "direction": "up"
     }
   ],
   "object_events": [

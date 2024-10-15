@@ -20,8 +20,23 @@
     },
     {
       "map": "MAP_ROUTE129",
-      "offset": -10,
+      "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE128",
+      "offset": 120,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": -9,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": 31,
+      "direction": "up"
     }
   ],
   "object_events": [

@@ -19,11 +19,6 @@
       "direction": "down"
     },
     {
-      "map": "MAP_ROUTE110",
-      "offset": -50,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE133",
       "offset": 0,
       "direction": "right"
@@ -32,6 +27,11 @@
       "map": "MAP_WILD_ISLAND_NORTH",
       "offset": 0,
       "direction": "up"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_EAST",
+      "offset": -50,
+      "direction": "left"
     }
   ],
   "object_events": [

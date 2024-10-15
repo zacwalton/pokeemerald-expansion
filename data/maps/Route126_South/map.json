@@ -34,8 +34,23 @@
       "direction": "left"
     },
     {
-      "map": "MAP_ROUTE128",
-      "offset": 49,
+      "map": "MAP_ROUTE127_NORTH",
+      "offset": -20,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE131",
+      "offset": -19,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": 21,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": 61,
       "direction": "down"
     }
   ],

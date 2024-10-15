@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE124_SOUTH",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
       "map": "MAP_SOOTOPOLIS_CITY",
       "offset": 40,
       "direction": "right"
@@ -37,6 +32,11 @@
       "map": "MAP_ROUTE126_SOUTH",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE124",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

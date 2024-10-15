@@ -27,6 +27,11 @@
       "map": "MAP_VALLEY_OF_STEEL",
       "offset": -46,
       "direction": "up"
+    },
+    {
+      "map": "MAP_VERDALE_FALLS",
+      "offset": -30,
+      "direction": "down"
     }
   ],
   "object_events": [

@@ -15,13 +15,8 @@
   "connections": [
     {
       "map": "MAP_ROUTE124_SOUTH",
-      "offset": -95,
+      "offset": -25,
       "direction": "up"
-    },
-    {
-      "map": "MAP_ROUTE127",
-      "offset": 0,
-      "direction": "right"
     },
     {
       "map": "MAP_ROUTE126_SOUTH",
@@ -37,6 +32,16 @@
       "map": "MAP_ROUTE126_NORTH",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE127",
+      "offset": 0,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE127_NORTH",
+      "offset": 80,
+      "direction": "right"
     }
   ],
   "object_events": [

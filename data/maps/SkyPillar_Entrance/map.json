@@ -12,8 +12,10 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
-  "object_events": [],
+  "connections": 0,
+  "object_events": [
+
+  ],
   "warp_events": [
     {
       "x": 6,
@@ -26,10 +28,14 @@
       "x": 14,
       "y": 4,
       "elevation": 3,
-      "dest_map": "MAP_SKY_PILLAR_OUTSIDE",
+      "dest_map": "MAP_SKY_PILLAR_EXTERIOR",
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

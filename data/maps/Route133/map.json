@@ -32,6 +32,11 @@
       "map": "MAP_RUGGED_SEA_ROUTE133",
       "offset": 10,
       "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE132",
+      "offset": -40,
+      "direction": "right"
     }
   ],
   "object_events": [

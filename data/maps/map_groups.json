@@ -129,7 +129,14 @@
     "Route126_North",
     "LilycoveBay",
     "Route122_West",
-    "Route124_South"
+    "Route124_South",
+    "Route127_North",
+    "RuggedSea_Route131",
+    "SkyPillar_Exterior",
+    "DontoIsland",
+    "RuggedSea_Route130",
+    "WildIsland_East",
+    "RuggedSea_BattleFrontier"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
