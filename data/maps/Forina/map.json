@@ -32,6 +32,11 @@
       "map": "MAP_METEOR_FALLS_EXTERIOR",
       "offset": 36,
       "direction": "up"
+    },
+    {
+      "map": "MAP_LAVARIDGE_TOWN",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

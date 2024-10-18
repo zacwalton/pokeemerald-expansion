@@ -2,10 +2,10 @@
   "id": "MAP_ROUTE111_NORTH",
   "name": "Route111_North",
   "layout": "LAYOUT_ROUTE111_NORTH",
-  "music": "MUS_DUMMY",
-  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "music": "MUS_ROUTE110",
+  "region_map_section": "MAPSEC_ROUTE_111",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
+  "weather": "WEATHER_SUNNY",
   "map_type": "MAP_TYPE_ROUTE",
   "allow_cycling": true,
   "allow_escaping": false,
@@ -50,13 +50,309 @@
     }
   ],
   "object_events": [
-
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 32,
+      "y": 128,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 33,
+      "y": 131,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 32,
+      "y": 133,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 36,
+      "y": 131,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 32,
+      "y": 136,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 39,
+      "y": 131,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 40,
+      "y": 137,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    }
   ],
   "warp_events": [
 
   ],
   "coord_events": [
-
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 107,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerDown"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 108,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerDown"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 107,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 108,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 109,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 110,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 111,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 111,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 112,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 112,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 112,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 61,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerUp"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 60,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerUp"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 60,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerUp"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerLeft"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 58,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_ViciousSandstormTriggerLeft"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 58,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 59,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 59,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 60,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SandstormTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 55,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 56,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 57,
+      "elevation": 0,
+      "var": "TRIGGER_RUN_IMMEDIATELY",
+      "var_value": "0",
+      "script": "Route111_North_EventScript_SunTrigger"
+    }
   ],
   "bg_events": [
 

@@ -42,8 +42,8 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",
-      "x": 35,
-      "y": 5,
+      "x": 31,
+      "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_BERRY_TREE_GROWTH",
       "movement_range_x": 0,
@@ -55,8 +55,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",
-      "x": 36,
-      "y": 5,
+      "x": 32,
+      "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_BERRY_TREE_GROWTH",
       "movement_range_x": 0,
@@ -68,8 +68,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",
-      "x": 37,
-      "y": 5,
+      "x": 33,
+      "y": 48,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_BERRY_TREE_GROWTH",
       "movement_range_x": 0,
@@ -81,8 +81,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
-      "x": 64,
-      "y": 10,
+      "x": 60,
+      "y": 53,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -94,8 +94,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
-      "x": 33,
-      "y": 8,
+      "x": 29,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -107,8 +107,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CAMERAMAN",
-      "x": 34,
-      "y": 8,
+      "x": 30,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -120,8 +120,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
-      "x": 12,
-      "y": 10,
+      "x": 8,
+      "y": 53,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -133,8 +133,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
-      "x": 33,
-      "y": 8,
+      "x": 29,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -146,8 +146,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CAMERAMAN",
-      "x": 34,
-      "y": 8,
+      "x": 30,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -159,8 +159,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
-      "x": 33,
-      "y": 8,
+      "x": 29,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -172,8 +172,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CAMERAMAN",
-      "x": 34,
-      "y": 8,
+      "x": 30,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -185,8 +185,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
-      "x": 38,
-      "y": 8,
+      "x": 34,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -198,8 +198,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
-      "x": 28,
-      "y": 8,
+      "x": 24,
+      "y": 50,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -211,8 +211,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
-      "x": 7,
-      "y": 12,
+      "x": 3,
+      "y": 55,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -224,8 +224,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
-      "x": 14,
-      "y": 14,
+      "x": 10,
+      "y": 57,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -237,8 +237,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
-      "x": 56,
-      "y": 7,
+      "x": 52,
+      "y": 49,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP_AND_RIGHT",
       "movement_range_x": 0,
@@ -250,8 +250,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
-      "x": 39,
-      "y": 15,
+      "x": 32,
+      "y": 57,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -263,8 +263,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
-      "x": 17,
-      "y": 11,
+      "x": 13,
+      "y": 54,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP_AND_LEFT",
       "movement_range_x": 1,
@@ -276,8 +276,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_STEVEN",
-      "x": 44,
-      "y": 7,
+      "x": 39,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -289,8 +289,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 69,
-      "y": 7,
+      "x": 65,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -302,8 +302,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
-      "x": 7,
-      "y": 7,
+      "x": 3,
+      "y": 50,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -316,15 +316,15 @@
   ],
   "warp_events": [
     {
-      "x": 42,
-      "y": 6,
+      "x": 38,
+      "y": 48,
       "elevation": 0,
       "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
       "dest_warp_id": "0"
     },
     {
-      "x": 9,
-      "y": 6,
+      "x": 5,
+      "y": 49,
       "elevation": 0,
       "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
       "dest_warp_id": "0"
@@ -333,8 +333,8 @@
   "coord_events": [
     {
       "type": "trigger",
-      "x": 43,
-      "y": 11,
+      "x": 37,
+      "y": 54,
       "elevation": 3,
       "var": "VAR_ROUTE118_STATE",
       "var_value": "0",
@@ -342,8 +342,8 @@
     },
     {
       "type": "trigger",
-      "x": 44,
-      "y": 11,
+      "x": 38,
+      "y": 54,
       "elevation": 3,
       "var": "VAR_ROUTE118_STATE",
       "var_value": "0",
@@ -351,8 +351,8 @@
     },
     {
       "type": "trigger",
-      "x": 45,
-      "y": 11,
+      "x": 39,
+      "y": 54,
       "elevation": 3,
       "var": "VAR_ROUTE118_STATE",
       "var_value": "0",
@@ -362,67 +362,67 @@
   "bg_events": [
     {
       "type": "secret_base",
-      "x": 47,
-      "y": 14,
+      "x": 43,
+      "y": 56,
       "elevation": 0,
       "secret_base_id": "SECRET_BASE_RED_CAVE1_1"
     },
     {
       "type": "sign",
-      "x": 13,
-      "y": 6,
+      "x": 9,
+      "y": 49,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route118_EventScript_RouteSignMauville"
     },
     {
       "type": "sign",
-      "x": 56,
-      "y": 8,
+      "x": 52,
+      "y": 50,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route118_EventScript_RouteSign119"
     },
     {
       "type": "secret_base",
-      "x": 67,
-      "y": 6,
+      "x": 63,
+      "y": 48,
       "elevation": 0,
       "secret_base_id": "SECRET_BASE_RED_CAVE2_1"
     },
     {
       "type": "secret_base",
-      "x": 29,
-      "y": 5,
+      "x": 25,
+      "y": 47,
       "elevation": 0,
       "secret_base_id": "SECRET_BASE_YELLOW_CAVE1_2"
     },
     {
       "type": "secret_base",
-      "x": 47,
-      "y": 5,
+      "x": 43,
+      "y": 48,
       "elevation": 0,
       "secret_base_id": "SECRET_BASE_TREE1_3"
     },
     {
       "type": "secret_base",
-      "x": 46,
-      "y": 5,
+      "x": 42,
+      "y": 48,
       "elevation": 0,
       "secret_base_id": "SECRET_BASE_TREE2_1"
     },
     {
       "type": "hidden_item",
-      "x": 31,
-      "y": 13,
+      "x": 27,
+      "y": 55,
       "elevation": 3,
       "item": "ITEM_IRON",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_118_IRON"
     },
     {
       "type": "hidden_item",
-      "x": 12,
-      "y": 14,
+      "x": 8,
+      "y": 57,
       "elevation": 3,
       "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_118_HEART_SCALE"

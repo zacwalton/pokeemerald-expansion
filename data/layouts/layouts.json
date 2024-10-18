@@ -317,7 +317,7 @@
       "width": 68,
       "height": 100,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Route_104_Summer",
+      "secondary_tileset": "gTileset_Rustboro_Summer",
       "border_filepath": "data/layouts/Route115/border.bin",
       "blockdata_filepath": "data/layouts/Route115/map.bin"
     },
