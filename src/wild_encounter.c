@@ -23,6 +23,7 @@
 #include "constants/items.h"
 #include "constants/layouts.h"
 #include "constants/weather.h"
+#include "battle_tower.h"
 
 extern const u8 EventScript_SprayWoreOff[];
 
@@ -305,12 +306,34 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
+#if WILD_MON_CURVE_LIMIT_MAX_LEVEL
+// Values are examples
+static const u8 wildMonMaxLevelCurveTable[NUM_SPECIES] =
+{
+    [SPECIES_NONE] = 0,
+    [SPECIES_ZIGZAGOON] = 10,
+    [SPECIES_WURMPLE] = 2,
+    [SPECIES_MAKUHITA] = 1,
+};
+
+static u8 LimitWildMonLevelCurve(u16 species, u8 currentCurve) {
+    if(wildMonMaxLevelCurveTable[species] != 0
+        && wildMonMaxLevelCurveTable[species] < currentCurve)
+        return wildMonMaxLevelCurveTable[species];
+    
+    return currentCurve;
+}
+#endif
+
 static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIndex, u8 area)
 {
     u8 min;
     u8 max;
     u8 range;
     u8 rand;
+    u8 curvedLevel;
+    u8 curveAmount = 0;
+    u16 wildPokemonSpecies = wildPokemon[wildMonIndex].species;
 
     if (LURE_STEP_COUNT == 0)
     {
@@ -325,7 +348,20 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             min = wildPokemon[wildMonIndex].maxLevel;
             max = wildPokemon[wildMonIndex].minLevel;
         }
+        
+        curvedLevel = GetPartyMonCurvedLevel();
+        
+        if(max < curvedLevel)
+            curveAmount = (((3 * curvedLevel) + max) / 4) - max;
+
+        #if WILD_MON_CURVE_LIMIT_MAX_LEVEL
+        curveAmount = LimitWildMonLevelCurve(wildPokemonSpecies, curveAmount);
+        #endif
+
         range = max - min + 1;
+        if ((range < (curveAmount * 4) && (range != 0)))
+            range = curveAmount / 4;
+        
         rand = Random() % range;
 
         // check ability for max level mon
@@ -335,18 +371,19 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE)
             {
                 if (Random() % 2 == 0)
-                    return max;
+                    return max + curveAmount;
 
                 if (rand != 0)
                     rand--;
             }
         }
-        return min + rand;
+        
+        return min + rand + curveAmount;
     }
     else
     {
         // Looks for the max level of all slots that share the same species as the selected slot.
-        max = GetMaxLevelOfSpeciesInWildTable(wildPokemon, wildPokemon[wildMonIndex].species, area);
+        max = GetMaxLevelOfSpeciesInWildTable(wildPokemon, wildPokemonSpecies, area);
         if (max > 0)
             return max + 1;
         else // Failsafe

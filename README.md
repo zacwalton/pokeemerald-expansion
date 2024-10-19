@@ -1,26 +1,22 @@
 # GhoulMage's pokeemerald-expansion
 
-### Branch - Boulders Falling Through Cracked Holes
+### Branch - Wild Pokémon Level Curve
 
 ## Implementation
 
-Just like for the player, we check every frame if any object is above a cracked tile (it doesn't have to be a hole). If it is, we set the VAR_OBJECT_HOLE to 1 and the VAR_OBJECT_HOLE_ID to the object's localId (not the map index) for the Event Script to activate, removing the boulder and setting its flag. This is very similar to how the default Player-Falling-Through-Holes works.
-The map in the lower floor has to check on transition if the flag from the top boulder has been set, if it is then it means that the top boulder is hidden, and it should will clear the relevant flag to show its boulder.
+We get an accumulation of the levels in the player party between the party size to get the correct amount to "curve". Then in ChooseWildMonLevel we select a random level accounting for that curve we got.
 
 ## Details
-* I used the unused vars in place of 0x40DB and 0x40DC to keep track if there's an object that fell and that object localId's.
-    * The TEMP or 0x800X vars might also do the trick if you want the unused variables for something else, but you need to be careful of not interfering with other scripts.
-* An example Boulder can be found in Granite Cave.
-    * I used the unused flags in place of 0x264 and 0x265 for the B1F and B2f Boulder.
-    * As another example, upon reentering the main floor of Granite Cave, that Boulder's flag is cleared, resetting to the top floor.
+* Defines changing various behaviours (mostly in GetPartyMonCurvedLevel) are located near GetPartyMonCurvedLevel in src/pokemon.c
+    * It could go in include/battle.h or include/wild_encounter.h though, but it's just preference.
+* To limit the amount certain species can level up you can add an entry for them in wildMonMaxLevelCurveTable in src/wild_encounter.c
+    * To enable it you need to set WILD_MON_CURVE_LIMIT_MAX_LEVEL to TRUE
+    * Default value (0) means no limit.
+* Takes into account fainted mons in the party (with a define), eggs and the abilities Hustle, Vital Spirit and Pressure
 
-## Notes
+## Contributing
 
-* There's nothing to keep track of the top Boulder's last X,Y location.
-* This script checks for all objects. That means that any object might fall down holes.
-    * This also means that you could adapt the code to move anything through floors.
-
-I'm open to pull requests, suggestions or Issues for bugs.
+I'm always open to pull requests, suggestions or Issues for bugs.
 
 # Original pokeemerald-expansion README.md
 
