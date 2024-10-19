@@ -1,0 +1,37 @@
+name: 💾 Bugs/Glitches 🖥️
+description: Everything that doesn't look to be intentional.
+labels: ["bug", "status: unconfirmed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill in all required fields with as many details as possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Describe the issue you are experiencing.
+        Attach images/videos if possible.
+      placeholder: |
+        Please enter a description of the issue. Here you can also attach log screenshots, gifs or a video
+    validations:
+      required: true
+  - type: dropdown
+    id: branch
+    attributes:
+      label: Version
+      description: What version of pokeemerald-expansion are you using as a base?
+      options:
+        - fallingBoulders
+        - wildMonCurve
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Discord contact info
+      description: Provide your Discord tag here so I can contact you in case we need more details. If you have DMs closed I won't be able to contact you as well.
+      placeholder: ex. ghoulmage
+    validations:
+      required: false
