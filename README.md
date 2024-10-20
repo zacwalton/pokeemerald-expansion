@@ -4,6 +4,7 @@ There's nothing to see here. Check out the branches!
 
 * [Make Boulders (and objects in general) fall through cracked holes.](https://github.com/GhoulMage/pokeemerald-expansion/tree/fallingBoulders)
 * [Wild Pokémon Level Curve (with settings!)](https://github.com/GhoulMage/pokeemerald-expansion/tree/wildMonCurve)
+* [Wild Pokémon Evolve Dynamically (by chance!)](https://github.com/GhoulMage/pokeemerald-expansion/tree/wildMonDynamicEvo)
 * [Move Tutors Reteach (with new dialogue for coming back!)](https://github.com/GhoulMage/pokeemerald-expansion/tree/moveTutorsRe)
 
 ### Important: DO NOT use GitHub's "Download Zip" option. Using this option will not download the commit history required to update your expansion version or merge other feature branches. Instead, please read [this guide](https://github.com/Pawkkie/Team-Aquas-Asset-Repo/wiki/The-Basics-of-GitHub) to learn how to fork the repository and clone locally from there.
