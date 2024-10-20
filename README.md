@@ -7,6 +7,10 @@ There's nothing to see here. Check out the branches!
 * [Wild Pokémon Evolve Dynamically (by chance!)](https://github.com/GhoulMage/pokeemerald-expansion/tree/wildMonDynamicEvo)
 * [Move Tutors Reteach (with new dialogue for coming back!)](https://github.com/GhoulMage/pokeemerald-expansion/tree/moveTutorsRe)
 
+## Note about my formatting
+
+It might be inconsistent as I'm trying to mimic pokeemerald-expansion's. I'm not used to single-line braces, :masuda:
+
 ### Important: DO NOT use GitHub's "Download Zip" option. Using this option will not download the commit history required to update your expansion version or merge other feature branches. Instead, please read [this guide](https://github.com/Pawkkie/Team-Aquas-Asset-Repo/wiki/The-Basics-of-GitHub) to learn how to fork the repository and clone locally from there.
 
 ## What is pokeemerald-expansion?
