@@ -25,6 +25,8 @@ body:
       options:
         - fallingBoulders
         - wildMonCurve
+        - wildMonDynamicEvo
+        - moveTutorsRe
     validations:
       required: true
   - type: input
