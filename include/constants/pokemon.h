@@ -299,6 +299,18 @@
 #define EVO_DEFEAT_THREE_WITH_ITEM        51     // Pokémon levels up after having defeat 3 Pokémon of the same species holding the specified item
 #define EVO_OVERWORLD_STEPS               52     // Pokémon levels up after having taken a specific amount of steps in the overworld (or as the party lead if OW_FOLLOWERS_ENABLED is FALSE) without switching
 
+// Only used in dynamic wild mon evolutions
+#define EVO_METHOD_COUNT                  53
+
+#define WILD_MON_EVO_BANS                   TRUE
+#define WILD_MON_EVO_TIME_OF_DAY_REQUIRED   TRUE
+#define WILD_MON_EVO_CHANCE_BY_STAGE        TRUE // If a mon doesn't evolve the first time, keep trying?
+
+// Chances for wild mons to even be attempting to dynamically evolve
+#define WILD_MON_EVO_CHANCE_STAGE1          33 // First or up to first branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE2          13 // Second or up to second branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE3          9 // Third or up to third branch evolution. Most mons do not have these type of evolutions
+
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL            0
 #define EVO_MODE_CANT_STOP         1
