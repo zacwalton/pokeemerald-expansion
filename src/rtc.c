@@ -418,3 +418,44 @@ void FormatDecimalTimeWithoutSeconds(u8 *txtPtr, s8 hour, s8 minute, bool32 is24
     *txtPtr++ = EOS;
     *txtPtr = EOS;
 }
+
+u8 Rtc_GetSeason(void)
+{
+	u8 season;
+	RtcGetInfo(&sRtc);
+	
+	if (sRtc.month == 3 || sRtc.month == 4 || sRtc.month == 5)
+	{
+		season = 0;
+		return season;
+	}
+	else if (sRtc.month == 9 || sRtc.month == 16 || sRtc.month == 17)
+	{
+		season = 2;
+		return season;
+	}
+	else if (sRtc.month == 18 || sRtc.month == 1 || sRtc.month == 2)
+	{
+		season = 3;
+		return season;
+	}
+	else
+		season = 1;
+		return season;
+}
+
+u8 Rtc_GetDateDay(void)
+{
+	u8 currentdateday;
+	RtcGetInfo(&sRtc);
+	currentdateday = sRtc.day;
+	return currentdateday;
+}
+
+u8 Rtc_GetDateMonth(void)
+{
+	u8 currentdatemonth;
+	RtcGetInfo(&sRtc);
+	currentdatemonth = sRtc.month;
+	return currentdatemonth;
+}

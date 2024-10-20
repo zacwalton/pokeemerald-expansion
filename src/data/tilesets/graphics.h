@@ -1957,3 +1957,41 @@ const u16 gTilesetPalettes_Sootopolis_Summer[][16] =
 };
 
 const u32 gTilesetTiles_Sootopolis_Summer[] = INCBIN_U32("data/tilesets/secondary/sootopolis_summer/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Hoenn_Autumn[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_autumn/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Hoenn_Autumn[] = INCBIN_U32("data/tilesets/primary/hoenn_autumn/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Littleroot_Autumn[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/littleroot_autumn/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Littleroot_Autumn[] = INCBIN_U32("data/tilesets/secondary/littleroot_autumn/tiles.4bpp.lz");

@@ -51,6 +51,17 @@ bool8 IsMirageIslandPresent(void)
     return FALSE;
 }
 
+/*bool8 IsMirageIslandPresent(void)  // currently causes a crash when entering route 130 on the specified date
+{
+	u8 currentdateday;
+	u8 currentdatemonth;
+	currentdateday = Rtc_GetDateDay();
+	currentdatemonth = Rtc_GetDateMonth();
+	if (currentdatemonth == 3 && currentdateday == 3)
+		return TRUE;
+	else return FALSE;
+}*/
+
 void UpdateShoalTideFlag(void)
 {
     static const u8 tide[] =
@@ -115,4 +126,29 @@ void UpdateBirchState(u16 days)
     u16 *state = GetVarPointer(VAR_BIRCH_STATE);
     *state += days;
     *state %= 7;
+}
+
+u8 MapSeason(void)
+{
+	u8 season;
+	season = Rtc_GetSeason();
+	
+if (season == 0)
+{
+gSpecialVar_Result = 0;
+return 0;
+}
+else if (season == 1)
+{
+gSpecialVar_Result = 1;
+return 1;
+}
+else if (season == 2)
+{
+gSpecialVar_Result = 2;
+return 2;
+}
+else
+gSpecialVar_Result = 3;
+return season;
 }

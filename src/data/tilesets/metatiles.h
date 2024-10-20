@@ -258,3 +258,9 @@ const u16 gMetatileAttributes_Slateport_Summer[] = INCBIN_U16("data/tilesets/sec
 
 const u16 gMetatiles_Sootopolis_Summer[] = INCBIN_U16("data/tilesets/secondary/sootopolis_summer/metatiles.bin");
 const u16 gMetatileAttributes_Sootopolis_Summer[] = INCBIN_U16("data/tilesets/secondary/sootopolis_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Hoenn_Autumn[] = INCBIN_U16("data/tilesets/primary/hoenn_autumn/metatiles.bin");
+const u16 gMetatileAttributes_Hoenn_Autumn[] = INCBIN_U16("data/tilesets/primary/hoenn_autumn/metatile_attributes.bin");
+
+const u16 gMetatiles_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatiles.bin");
+const u16 gMetatileAttributes_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatile_attributes.bin");

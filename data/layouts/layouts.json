@@ -112,6 +112,36 @@
       "blockdata_filepath": "data/layouts/LittlerootTown/map.bin"
     },
     {
+      "id": "LAYOUT_LITTLEROOT_TOWN_SUMMER",
+      "name": "LittlerootTown_Layout_Summer",
+      "width": 44,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Littleroot_Summer",
+      "border_filepath": "data/layouts/LittlerootTown_Summer/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_Summer/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_TOWN_AUTUMN",
+      "name": "LittlerootTown_Layout_Autumn",
+      "width": 44,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Autumn",
+      "secondary_tileset": "gTileset_Littleroot_Autumn",
+      "border_filepath": "data/layouts/LittlerootTown_Autumn/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_Autumn/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_TOWN_WINTER",
+      "name": "LittlerootTown_Layout_Winter",
+      "width": 44,
+      "height": 50,
+      "primary_tileset": "gTileset_Hoenn_Autumn",
+      "secondary_tileset": "gTileset_Littleroot_Autumn",
+      "border_filepath": "data/layouts/LittlerootTown_Winter/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_Winter/map.bin"
+    },
+    {
       "id": "LAYOUT_OLDALE_TOWN",
       "name": "OldaleTown_Layout",
       "width": 30,

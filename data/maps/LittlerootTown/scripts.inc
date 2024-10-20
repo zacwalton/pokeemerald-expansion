@@ -4,6 +4,7 @@
 .set LOCALID_BIRCH, 8
 
 LittlerootTown_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_OnWarp
@@ -39,6 +40,20 @@ LittlerootTown_MapScripts::
 	@ 4: Received Pokedex
 
 
+LittlerootTown_OnLoad:
+	specialvar VAR_RESULT, Rtc_GetSeason
+	compare VAR_RESULT, 1
+	goto_if_eq LittlerootTown_EventScript_Summer
+	specialvar VAR_RESULT, MapSeason
+	compare VAR_RESULT, 2
+	goto_if_eq LittlerootTown_EventScript_Autumn
+	compare VAR_RESULT, 3
+	goto_if_eq LittlerootTown_EventScript_Winter
+	compare VAR_RESULT, 0
+	goto_if_eq LittlerootTown_EventScript_Spring
+
+
+	
 LittlerootTown_OnTransition:
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
@@ -52,6 +67,22 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_HideMapNamePopup
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_EventScript_LeftLabAfterDexUpgrade
 	end
+	
+LittlerootTown_EventScript_Summer::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SUMMER
+	end
+	
+LittlerootTown_EventScript_Autumn::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_AUTUMN
+	end
+
+LittlerootTown_EventScript_Winter::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_WINTER
+	end
+	
+LittlerootTown_EventScript_Spring::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SUMMER
+	end	
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
@@ -396,6 +427,10 @@ LittlerootTown_EventScript_TownSign::
 	msgbox LittlerootTown_Text_TownSign, MSGBOX_SIGN
 	end
 
+LittlerootTown_EventScript_TestTownSign::
+	msgbox LittlerootTown_Text_TestTownSign, MSGBOX_SIGN
+	end
+	
 LittlerootTown_EventScript_BirchsLabSign::
 	msgbox LittlerootTown_Text_ProfBirchsLab, MSGBOX_SIGN
 	end
@@ -406,6 +441,14 @@ LittlerootTown_EventScript_BrendansHouseSign::
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PlayersHouseSignMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_BirchsHouseSignFemale
 	releaseall
+	end
+
+LittlerootTown_EventScript_ThirdHouseSign::
+	lock
+	specialvar VAR_RESULT, Rtc_GetSeason
+	buffernumberstring STR_VAR_1, VAR_RESULT
+	MSGBOX LittlerootTown_Text_TestTownSign
+	release
 	end
 
 LittlerootTown_EventScript_PlayersHouseSignMale::
@@ -998,6 +1041,10 @@ LittlerootTown_Text_GoodLuckCatchingPokemon:
 LittlerootTown_Text_TownSign:
 	.string "LITTLEROOT TOWN\n"
 	.string "“A town that can't be shaded any hue.”$"
+	
+LittlerootTown_Text_TestTownSign:
+	.string "It is {STR_VAR_1}\n"
+	.string "“A town that can't be shaded any hue.”$"
 
 LittlerootTown_Text_ProfBirchsLab:
 	.string "PROF. BIRCH'S POKéMON LAB$"
@@ -1007,7 +1054,7 @@ LittlerootTown_Text_PlayersHouse:
 
 LittlerootTown_Text_ProfBirchsHouse:
 	.string "PROF. BIRCH'S HOUSE$"
-
+	
 LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "PROF. BIRCH: Well, well, {PLAYER}{KUN}!\n"
 	.string "That was good work out there!\p"
@@ -1018,4 +1065,3 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
-

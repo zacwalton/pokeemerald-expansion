@@ -1012,3 +1012,25 @@ const struct Tileset gTileset_Sootopolis_Summer =
     .metatileAttributes = gMetatileAttributes_Sootopolis_Summer,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Hoenn_Autumn =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_Hoenn_Autumn,
+    .palettes = gTilesetPalettes_Hoenn_Autumn,
+    .metatiles = gMetatiles_Hoenn_Autumn,
+    .metatileAttributes = gMetatileAttributes_Hoenn_Autumn,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_Littleroot_Autumn =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Littleroot_Autumn,
+    .palettes = gTilesetPalettes_Littleroot_Autumn,
+    .metatiles = gMetatiles_Littleroot_Autumn,
+    .metatileAttributes = gMetatileAttributes_Littleroot_Autumn,
+    .callback = NULL,
+};
