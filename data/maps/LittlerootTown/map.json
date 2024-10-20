@@ -17,13 +17,28 @@
       "map": "MAP_ROUTE101",
       "offset": 0,
       "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_LITTLEROOT",
+      "offset": -34,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE107",
+      "offset": -40,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_SLATEPORT",
+      "offset": -30,
+      "direction": "right"
     }
   ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
-      "x": 16,
-      "y": 10,
+      "x": 8,
+      "y": 5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -36,7 +51,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 12,
-      "y": 13,
+      "y": 18,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 2,
@@ -48,8 +63,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_2",
-      "x": 14,
-      "y": 17,
+      "x": 21,
+      "y": 11,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 2,
@@ -141,8 +156,8 @@
       "dest_warp_id": "1"
     },
     {
-      "x": 7,
-      "y": 16,
+      "x": 27,
+      "y": 7,
       "elevation": 0,
       "dest_map": "MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB",
       "dest_warp_id": "0"
@@ -234,16 +249,16 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 15,
-      "y": 13,
+      "x": 13,
+      "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LittlerootTown_EventScript_TownSign"
     },
     {
       "type": "sign",
-      "x": 6,
-      "y": 17,
+      "x": 26,
+      "y": 8,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LittlerootTown_EventScript_BirchsLabSign"
@@ -263,6 +278,22 @@
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "LittlerootTown_EventScript_MaysHouseSign"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 16,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LittlerootTown_EventScript_ThirdHouseSign"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "LittlerootTown_EventScript_TestTownSign"
     }
   ]
 }

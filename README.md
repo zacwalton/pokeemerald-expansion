@@ -9,16 +9,16 @@ pokeemerald-expansion is a decomp hack base project based off pret's [pokeemeral
 If you use pokeemerald-expansion in your hack, please add RHH (Rom Hacking Hideout) to your credits list. Optionally, you can list the version used, so it can help players know what features to expect.
 You can phrase it as the following:
 ```
-Based off RHH's pokeemerald-expansion v1.8.0 https://github.com/rh-hideout/pokeemerald-expansion/
+Based off RHH's pokeemerald-expansion 1.9.3 https://github.com/rh-hideout/pokeemerald-expansion/
 ```
 
 ## What features are included?
 - ***IMPORTANT*❗❗ Read through these to learn what features you can toggle**:
-    - [Battle configurations](/include/config/battle.h)
-    - [Pokémon configurations](/include/config/pokemon.h)
-    - [Item configurations](/include/config/item.h)
-    - [Overworld configurations](/include/config/overworld.h)
-    - [Debug configurations](/include/config/debug.h)
+    - [Battle configurations](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/battle.h)
+    - [Pokémon configurations](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/pokemon.h)
+    - [Item configurations](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/item.h)
+    - [Overworld configurations](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/overworld.h)
+    - [Debug configurations](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/debug.h)
 - ***Upgraded battle engine.***
     - Gen5+ damage calculation.
     - 2v2 Wild battles support.
@@ -62,7 +62,7 @@ Based off RHH's pokeemerald-expansion v1.8.0 https://github.com/rh-hideout/pokee
     - Recalculating stats at the end of every battle.
     - Level 100 Pokémon can earn EVs.
     - Inverse battle support.
-    - TONS of other features listed [here](/include/config/battle.h).
+    - TONS of other features listed [here](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/config/battle.h).
 - ***Full Trainer customization***
     - Nickname, EVs, IVs, moves, ability, ball, friendship, nature, gender, shininess.
     - Custom tag battle support (teaming up an NPC in a double battle).
@@ -94,7 +94,7 @@ Based off RHH's pokeemerald-expansion v1.8.0 https://github.com/rh-hideout/pokee
     - All gender differences.
         - Custom female icons for female Hippopotas Hippowdon, Pikachu and Wobbufett
     - 3 Perfect IVs on Legendaries, Mythicals and Ultra Beasts.
-- ***Customizable form change tables. Full list of methods [here](/include/constants/form_change_types.h).***
+- ***Customizable form change tables. Full list of methods [here](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/constants/form_change_types.h).***
     - Item holding (eg. Giratina/Arceus)
     - Item using (eg. Oricorio)
         - Time of day option for Shaymin
@@ -115,7 +115,7 @@ Based off RHH's pokeemerald-expansion v1.8.0 https://github.com/rh-hideout/pokee
     - Egg Move Transfer, including Mirror Herb (configurable).
     - Nature inheriting 100% of the time with Everstone (configurable)
     - Gen6+ Ability inheriting (configurable).
-- ***Items from newer Generations. Full list [here](/include/constants/items.h).***
+- ***Items from newer Generations. Full list [here](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/include/constants/items.h).***
     - ***Gen 6+ Exp. Share*** (configurable)
     - Berserk Gene
     - Most battle items from Gen 4+
@@ -141,6 +141,14 @@ Based off RHH's pokeemerald-expansion v1.8.0 https://github.com/rh-hideout/pokee
     - [Nature Colors](https://github.com/DizzyEggg/pokeemerald/tree/nature_color) in summary screen by @DizzyEggg
     - [Dynamic Multichoice](https://github.com/SBird1337/pokeemerald/tree/feature/dynmulti) by @SBird1337
     - [Saveblock Cleansing](https://github.com/ghoulslash/pokeemerald/tree/saveblock) by @ghoulslash
+    - [Followers & Expanded IDs](https://github.com/aarant/pokeemerald/tree/followers-expanded-id) by @aarant
+        - May be disabled.
+        - Includes Pokémon followers like in HGSS, including interactions.
+        - ***Expands the amount of possible object event IDs beyond 255.***
+        - ***Includes an implementation of dynamic overworld palettes (DOWP).***
+        - **Additional features**:
+            - *Pokémon overworld sprites up to Generation 8.*
+            - *Integration with our Pokémon Sprite Visualizer, allowing users to browse through the follower sprites alongside battle sprites.*
 - ***Other features***
     - Pressing B while holding a Pokémon drops them like in modern games (configurable).
     - Running indoors (configurable).
@@ -170,7 +178,7 @@ With this, you'll get the latest version of pokeemerald-expansion, plus a couple
 - Check your current version.
     - You can check in the debug menu's `Utilities -> Expansion Version` option.
     - If the option is not available, you possibly have version 1.6.2 or older. In that case, please check the [changelogs](CHANGELOG.md) to determine your version based on the features available on your repository.
-- Once you have your remote set up, run the command `git pull RHH expansion/X.Y.Z`, replacing X, Y and Z with the digits of the respective version you want to update to (eg, to update to 1.8.2, use `git pull RHH expansion/1.8.2`).
+- Once you have your remote set up, run the command `git pull RHH expansion/X.Y.Z`, replacing X, Y and Z with the digits of the respective version you want to update to (eg, to update to 1.9.3, use `git pull RHH expansion/1.9.3`).
     - ***Important:*** If you are several versions behind, we recommend updating one minor version at a time, skipping directly to the latest patch version (eg, 1.5.3 -> 1.6.2 -> 1.7.4 and so on)
 - Alternatively, you can update to unreleased versions of the expansion.
     - ***master (stable):*** It contains unreleased **bugfixes** that will come in the next patch version. To merge, use `git pull RHH master`.

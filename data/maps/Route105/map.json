@@ -27,6 +27,11 @@
       "map": "MAP_UNDERWATER_ROUTE105",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_LITTLEROOT",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [
@@ -144,7 +149,9 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "hidden_item",

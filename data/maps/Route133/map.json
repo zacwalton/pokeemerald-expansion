@@ -15,12 +15,27 @@
   "connections": [
     {
       "map": "MAP_ROUTE134",
-      "offset": 0,
+      "offset": 50,
       "direction": "left"
     },
     {
       "map": "MAP_ROUTE132",
+      "offset": 50,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_SOUTH",
       "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE133",
+      "offset": 10,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE132",
+      "offset": -40,
       "direction": "right"
     }
   ],
@@ -156,7 +171,13 @@
       "flag": "FLAG_ITEM_ROUTE_133_MAX_REVIVE"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

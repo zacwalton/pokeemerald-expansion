@@ -1,0 +1,54 @@
+{
+  "id": "MAP_RUGGED_SEA_ROUTE130",
+  "name": "RuggedSea_Route130",
+  "layout": "LAYOUT_RUGGED_SEA_ROUTE130",
+  "music": "MUS_CAVE_OF_ORIGIN",
+  "region_map_section": "MAPSEC_SKY_PILLAR",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_OCEAN_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE130",
+      "offset": -31,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE128",
+      "offset": 0,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE126_SOUTH",
+      "offset": -61,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE127_NORTH",
+      "offset": 79,
+      "direction": "up"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

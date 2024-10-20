@@ -20,7 +20,17 @@
     },
     {
       "map": "MAP_ROUTE108",
-      "offset": 40,
+      "offset": 50,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_SEA_MAUVILLE",
+      "offset": 15,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_SLATEPORT",
+      "offset": -50,
       "direction": "left"
     }
   ],
@@ -236,7 +246,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 8,
-      "y": 41,
+      "y": 39,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -249,7 +259,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_4",
       "x": 9,
-      "y": 41,
+      "y": 39,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -262,7 +272,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
       "x": 33,
-      "y": 6,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -273,9 +283,9 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_ZIGZAGOON_2",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(ZIGZAGOON)",
       "x": 32,
-      "y": 6,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -347,7 +357,9 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",
@@ -367,7 +379,7 @@
     },
     {
       "type": "hidden_item",
-      "x": 16,
+      "x": 17,
       "y": 23,
       "elevation": 3,
       "item": "ITEM_REVIVE",
@@ -375,8 +387,8 @@
     },
     {
       "type": "hidden_item",
-      "x": 33,
-      "y": 5,
+      "x": 34,
+      "y": 4,
       "elevation": 3,
       "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_1"
@@ -408,7 +420,7 @@
     {
       "type": "hidden_item",
       "x": 8,
-      "y": 42,
+      "y": 41,
       "elevation": 3,
       "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_3"

@@ -14,6 +14,16 @@ LilycoveCity_OnTransition:
 	setflag FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER
 	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
 	call Common_EventScript_SetupRivalGfxId
+		special UpdateShoalTideFlag
+	goto_if_set FLAG_SYS_SHOAL_TIDE, LilycoveCity_LowTide_EventScript_SetHighTide
+	goto LilycoveCity_LowTide_EventScript_SetLowTide
+
+LilycoveCity_LowTide_EventScript_SetHighTide::
+	setmaplayoutindex LAYOUT_LILYCOVE_CITY
+	end
+
+LilycoveCity_LowTide_EventScript_SetLowTide::
+	setmaplayoutindex LAYOUT_LILYCOVE_CITY_LOWTIDE
 	end
 
 LilycoveCity_OnLoad:

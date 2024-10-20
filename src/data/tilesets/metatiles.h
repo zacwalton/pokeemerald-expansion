@@ -207,3 +207,60 @@ const u16 gMetatileAttributes_MysteryEventsHouse[] = INCBIN_U16("data/tilesets/s
 
 const u16 gMetatiles_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatiles.bin");
 const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatile_attributes.bin");
+
+const u16 gMetatiles_Hoenn_Summer[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/metatiles.bin");
+const u16 gMetatileAttributes_Hoenn_Summer[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Dewford_Summer[] = INCBIN_U16("data/tilesets/secondary/dewford_summer/metatiles.bin");
+const u16 gMetatileAttributes_Dewford_Summer[] = INCBIN_U16("data/tilesets/secondary/dewford_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Fallarbor_Summer[] = INCBIN_U16("data/tilesets/secondary/fallarbor_summer/metatiles.bin");
+const u16 gMetatileAttributes_Fallarbor_Summer[] = INCBIN_U16("data/tilesets/secondary/fallarbor_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Foretree_Summer[] = INCBIN_U16("data/tilesets/secondary/foretree_summer/metatiles.bin");
+const u16 gMetatileAttributes_Foretree_Summer[] = INCBIN_U16("data/tilesets/secondary/foretree_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Forina_Summer[] = INCBIN_U16("data/tilesets/secondary/forina_summer/metatiles.bin");
+const u16 gMetatileAttributes_Forina_Summer[] = INCBIN_U16("data/tilesets/secondary/forina_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Lavaridge_Summer[] = INCBIN_U16("data/tilesets/secondary/lavaridge_summer/metatiles.bin");
+const u16 gMetatileAttributes_Lavaridge_Summer[] = INCBIN_U16("data/tilesets/secondary/lavaridge_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Lilycove_Summer[] = INCBIN_U16("data/tilesets/secondary/lilycove_summer/metatiles.bin");
+const u16 gMetatileAttributes_Lilycove_Summer[] = INCBIN_U16("data/tilesets/secondary/lilycove_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Littleroot_Summer[] = INCBIN_U16("data/tilesets/secondary/littleroot_summer/metatiles.bin");
+const u16 gMetatileAttributes_Littleroot_Summer[] = INCBIN_U16("data/tilesets/secondary/littleroot_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Mauville_Summer[] = INCBIN_U16("data/tilesets/secondary/mauville_summer/metatiles.bin");
+const u16 gMetatileAttributes_Mauville_Summer[] = INCBIN_U16("data/tilesets/secondary/mauville_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Mossdeep_Summer[] = INCBIN_U16("data/tilesets/secondary/mossdeep_summer/metatiles.bin");
+const u16 gMetatileAttributes_Mossdeep_Summer[] = INCBIN_U16("data/tilesets/secondary/mossdeep_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Pacifidlog_Summer[] = INCBIN_U16("data/tilesets/secondary/pacifidlog_summer/metatiles.bin");
+const u16 gMetatileAttributes_Pacifidlog_Summer[] = INCBIN_U16("data/tilesets/secondary/pacifidlog_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Route_104_Summer[] = INCBIN_U16("data/tilesets/secondary/route_104_summer/metatiles.bin");
+const u16 gMetatileAttributes_Route_104_Summer[] = INCBIN_U16("data/tilesets/secondary/route_104_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Route_111_Summer[] = INCBIN_U16("data/tilesets/secondary/route_111_summer/metatiles.bin");
+const u16 gMetatileAttributes_Route_111_Summer[] = INCBIN_U16("data/tilesets/secondary/route_111_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Rustboro_Summer[] = INCBIN_U16("data/tilesets/secondary/rustboro_summer/metatiles.bin");
+const u16 gMetatileAttributes_Rustboro_Summer[] = INCBIN_U16("data/tilesets/secondary/rustboro_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Safari_Zone_Summer[] = INCBIN_U16("data/tilesets/secondary/safari_zone_summer/metatiles.bin");
+const u16 gMetatileAttributes_Safari_Zone_Summer[] = INCBIN_U16("data/tilesets/secondary/safari_zone_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Slateport_Summer[] = INCBIN_U16("data/tilesets/secondary/slateport_summer/metatiles.bin");
+const u16 gMetatileAttributes_Slateport_Summer[] = INCBIN_U16("data/tilesets/secondary/slateport_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Sootopolis_Summer[] = INCBIN_U16("data/tilesets/secondary/sootopolis_summer/metatiles.bin");
+const u16 gMetatileAttributes_Sootopolis_Summer[] = INCBIN_U16("data/tilesets/secondary/sootopolis_summer/metatile_attributes.bin");
+
+const u16 gMetatiles_Hoenn_Autumn[] = INCBIN_U16("data/tilesets/primary/hoenn_autumn/metatiles.bin");
+const u16 gMetatileAttributes_Hoenn_Autumn[] = INCBIN_U16("data/tilesets/primary/hoenn_autumn/metatile_attributes.bin");
+
+const u16 gMetatiles_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatiles.bin");
+const u16 gMetatileAttributes_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatile_attributes.bin");

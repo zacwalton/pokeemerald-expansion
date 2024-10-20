@@ -14,36 +14,41 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE126",
+      "map": "MAP_ROUTE124_SOUTH",
       "offset": 0,
-      "direction": "down"
+      "direction": "right"
     },
     {
       "map": "MAP_LILYCOVE_CITY",
-      "offset": 10,
+      "offset": -15,
       "direction": "left"
-    },
-    {
-      "map": "MAP_ROUTE125",
-      "offset": 0,
-      "direction": "right"
-    },
-    {
-      "map": "MAP_MOSSDEEP_CITY",
-      "offset": 40,
-      "direction": "right"
     },
     {
       "map": "MAP_UNDERWATER_ROUTE124",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_ROUTE126_NORTH",
+      "offset": 45,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE126_EAST",
+      "offset": 0,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_LILYCOVE_BAY",
+      "offset": 55,
+      "direction": "left"
     }
   ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 34,
-      "y": 25,
+      "x": 51,
+      "y": 28,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 5,
@@ -56,7 +61,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
       "x": 61,
-      "y": 74,
+      "y": 70,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_RIGHT",
       "movement_range_x": 5,
@@ -68,8 +73,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 49,
-      "y": 45,
+      "x": 48,
+      "y": 40,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_ROTATE_CLOCKWISE",
       "movement_range_x": 0,
@@ -81,8 +86,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 7,
-      "y": 23,
+      "x": 10,
+      "y": 17,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_AND_RIGHT",
       "movement_range_x": 6,
@@ -94,8 +99,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 58,
-      "y": 58,
+      "x": 61,
+      "y": 55,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_RIGHT_AND_LEFT",
       "movement_range_x": 7,
@@ -108,7 +113,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 28,
-      "y": 12,
+      "y": 8,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -120,7 +125,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 31,
+      "x": 64,
       "y": 53,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
@@ -134,7 +139,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 58,
-      "y": 11,
+      "y": 7,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -146,8 +151,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 18,
-      "y": 44,
+      "x": 25,
+      "y": 17,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -159,8 +164,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_TUBER_M_SWIMMING",
-      "x": 17,
-      "y": 44,
+      "x": 24,
+      "y": 17,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -172,8 +177,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 7,
-      "y": 29,
+      "x": 8,
+      "y": 23,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
@@ -186,7 +191,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
       "x": 69,
-      "y": 74,
+      "y": 70,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_LEFT",
       "movement_range_x": 1,
@@ -199,19 +204,21 @@
   ],
   "warp_events": [
     {
-      "x": 70,
-      "y": 48,
+      "x": 60,
+      "y": 39,
       "elevation": 3,
       "dest_map": "MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE",
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+
+  ],
   "bg_events": [
     {
       "type": "sign",
-      "x": 73,
-      "y": 48,
+      "x": 61,
+      "y": 50,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route124_EventScript_HuntersHouseSign"

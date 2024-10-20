@@ -22,6 +22,11 @@
       "map": "MAP_ROUTE108",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE107",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -117,7 +122,13 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

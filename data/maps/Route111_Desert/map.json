@@ -1,0 +1,55 @@
+{
+  "id": "MAP_ROUTE111_DESERT",
+  "name": "Route111_Desert",
+  "layout": "LAYOUT_ROUTE111_DESERT",
+  "music": "MUS_DESERT",
+  "region_map_section": "MAPSEC_ROUTE_111",
+  "requires_flash": false,
+  "weather": "WEATHER_SANDSTORM",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE111_NORTH",
+      "offset": -84,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SW",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SE",
+      "offset": 42,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE119_SOUTH",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 18,
+      "y": 23,
+      "elevation": 0,
+      "dest_map": "MAP_MIRAGE_TOWER_1F",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

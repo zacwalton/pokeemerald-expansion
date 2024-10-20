@@ -22,6 +22,21 @@
       "map": "MAP_ROUTE129",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE128",
+      "offset": 120,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": -9,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": 31,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -53,7 +68,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",
-      "x": 52,
+      "x": 61,
       "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_BERRY_TREE_GROWTH",
@@ -78,7 +93,13 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

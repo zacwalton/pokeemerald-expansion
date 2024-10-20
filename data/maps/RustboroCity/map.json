@@ -15,25 +15,30 @@
   "connections": [
     {
       "map": "MAP_ROUTE115",
-      "offset": 0,
+      "offset": -30,
       "direction": "up"
     },
     {
       "map": "MAP_ROUTE104",
-      "offset": 0,
+      "offset": -30,
       "direction": "down"
     },
     {
       "map": "MAP_ROUTE116",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_RUSTBORO_PIER",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
-      "x": 22,
-      "y": 34,
+      "x": 16,
+      "y": 47,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
       "movement_range_x": 0,
@@ -45,8 +50,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
-      "x": 19,
-      "y": 13,
+      "x": 13,
+      "y": 24,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -58,8 +63,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
-      "x": 25,
-      "y": 37,
+      "x": 23,
+      "y": 53,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -71,8 +76,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
-      "x": 21,
-      "y": 46,
+      "x": 15,
+      "y": 57,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
       "movement_range_x": 0,
@@ -84,10 +89,10 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_2",
-      "x": 12,
-      "y": 45,
+      "x": 0,
+      "y": 65,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -97,8 +102,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_3",
-      "x": 26,
-      "y": 23,
+      "x": 23,
+      "y": 34,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -110,8 +115,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
-      "x": 24,
-      "y": 51,
+      "x": 16,
+      "y": 65,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -123,8 +128,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
-      "x": 25,
-      "y": 51,
+      "x": 17,
+      "y": 65,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -136,8 +141,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
-      "x": 30,
-      "y": 10,
+      "x": 28,
+      "y": 21,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 1,
@@ -149,8 +154,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
-      "x": 13,
-      "y": 21,
+      "x": 8,
+      "y": 31,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -162,8 +167,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_DEVON_EMPLOYEE",
-      "x": 13,
-      "y": 34,
+      "x": 7,
+      "y": 45,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -175,8 +180,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 36,
-      "y": 51,
+      "x": 38,
+      "y": 56,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -188,8 +193,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_4",
-      "x": 19,
-      "y": 27,
+      "x": 13,
+      "y": 38,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -201,8 +206,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
-      "x": 16,
-      "y": 50,
+      "x": 10,
+      "y": 63,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -214,8 +219,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
-      "x": 11,
-      "y": 15,
+      "x": 5,
+      "y": 27,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
@@ -227,8 +232,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
-      "x": 31,
-      "y": 36,
+      "x": 28,
+      "y": 45,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -241,85 +246,85 @@
   ],
   "warp_events": [
     {
-      "x": 27,
-      "y": 19,
+      "x": 20,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_GYM",
       "dest_warp_id": "0"
     },
     {
-      "x": 13,
-      "y": 30,
+      "x": 8,
+      "y": 44,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_FLAT1_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 16,
-      "y": 45,
+      "x": 9,
+      "y": 58,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_MART",
       "dest_warp_id": "0"
     },
     {
-      "x": 16,
-      "y": 38,
+      "x": 9,
+      "y": 51,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_POKEMON_CENTER_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 27,
-      "y": 34,
+      "x": 21,
+      "y": 48,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_POKEMON_SCHOOL",
       "dest_warp_id": "0"
     },
     {
-      "x": 11,
-      "y": 15,
+      "x": 5,
+      "y": 26,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_DEVON_CORP_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 12,
-      "y": 15,
+      "x": 6,
+      "y": 26,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_DEVON_CORP_1F",
       "dest_warp_id": "1"
     },
     {
-      "x": 33,
-      "y": 19,
+      "x": 27,
+      "y": 31,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE1",
       "dest_warp_id": "0"
     },
     {
-      "x": 9,
-      "y": 38,
+      "x": 31,
+      "y": 16,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_CUTTERS_HOUSE",
       "dest_warp_id": "0"
     },
     {
-      "x": 30,
-      "y": 28,
+      "x": 22,
+      "y": 40,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE2",
       "dest_warp_id": "0"
     },
     {
-      "x": 5,
-      "y": 51,
+      "x": 1,
+      "y": 64,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_FLAT2_1F",
       "dest_warp_id": "0"
     },
     {
-      "x": 26,
-      "y": 46,
+      "x": 20,
+      "y": 59,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE3",
       "dest_warp_id": "0"
@@ -328,8 +333,8 @@
   "coord_events": [
     {
       "type": "trigger",
-      "x": 23,
-      "y": 20,
+      "x": 18,
+      "y": 32,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "1",
@@ -337,8 +342,8 @@
     },
     {
       "type": "trigger",
-      "x": 23,
-      "y": 21,
+      "x": 18,
+      "y": 33,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "1",
@@ -346,8 +351,8 @@
     },
     {
       "type": "trigger",
-      "x": 23,
-      "y": 22,
+      "x": 18,
+      "y": 34,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "1",
@@ -355,8 +360,8 @@
     },
     {
       "type": "trigger",
-      "x": 23,
-      "y": 23,
+      "x": 18,
+      "y": 35,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "1",
@@ -364,8 +369,8 @@
     },
     {
       "type": "trigger",
-      "x": 23,
-      "y": 24,
+      "x": 18,
+      "y": 36,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "1",
@@ -373,8 +378,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 9,
+      "x": 28,
+      "y": 20,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "2",
@@ -382,8 +387,8 @@
     },
     {
       "type": "trigger",
-      "x": 29,
-      "y": 10,
+      "x": 27,
+      "y": 21,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "2",
@@ -391,8 +396,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 11,
+      "x": 28,
+      "y": 22,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "2",
@@ -400,8 +405,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 12,
+      "x": 28,
+      "y": 23,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "2",
@@ -409,8 +414,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 9,
+      "x": 28,
+      "y": 20,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "4",
@@ -418,8 +423,8 @@
     },
     {
       "type": "trigger",
-      "x": 31,
-      "y": 10,
+      "x": 29,
+      "y": 21,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "4",
@@ -427,8 +432,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 11,
+      "x": 28,
+      "y": 22,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "4",
@@ -436,8 +441,8 @@
     },
     {
       "type": "trigger",
-      "x": 30,
-      "y": 12,
+      "x": 28,
+      "y": 23,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "4",
@@ -445,8 +450,8 @@
     },
     {
       "type": "trigger",
-      "x": 12,
-      "y": 53,
+      "x": 6,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -454,8 +459,8 @@
     },
     {
       "type": "trigger",
-      "x": 13,
-      "y": 53,
+      "x": 7,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -463,8 +468,8 @@
     },
     {
       "type": "trigger",
-      "x": 14,
-      "y": 53,
+      "x": 8,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -472,8 +477,8 @@
     },
     {
       "type": "trigger",
-      "x": 15,
-      "y": 53,
+      "x": 9,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -481,8 +486,8 @@
     },
     {
       "type": "trigger",
-      "x": 16,
-      "y": 53,
+      "x": 10,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -490,8 +495,8 @@
     },
     {
       "type": "trigger",
-      "x": 17,
-      "y": 53,
+      "x": 11,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -499,8 +504,8 @@
     },
     {
       "type": "trigger",
-      "x": 18,
-      "y": 53,
+      "x": 12,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -508,8 +513,8 @@
     },
     {
       "type": "trigger",
-      "x": 19,
-      "y": 53,
+      "x": 13,
+      "y": 66,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
       "var_value": "7",
@@ -519,35 +524,11 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 23,
-      "y": 19,
+      "x": 25,
+      "y": 40,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_EventScript_GymSign"
-    },
-    {
-      "type": "sign",
-      "x": 25,
-      "y": 35,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_EventScript_TrainersSchoolSign"
-    },
-    {
-      "type": "sign",
-      "x": 17,
-      "y": 45,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "Common_EventScript_ShowPokemartSign"
-    },
-    {
-      "type": "sign",
-      "x": 18,
-      "y": 38,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "Common_EventScript_ShowPokemonCenterSign"
     },
     {
       "type": "sign",
@@ -555,44 +536,68 @@
       "y": 49,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_EventScript_CitySign"
+      "script": "RustboroCity_EventScript_TrainersSchoolSign"
     },
     {
       "type": "sign",
-      "x": 18,
-      "y": 45,
+      "x": 10,
+      "y": 58,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "Common_EventScript_ShowPokemartSign"
     },
     {
       "type": "sign",
-      "x": 17,
-      "y": 38,
+      "x": 11,
+      "y": 51,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "Common_EventScript_ShowPokemonCenterSign"
     },
     {
       "type": "sign",
-      "x": 17,
-      "y": 20,
+      "x": 13,
+      "y": 59,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "RustboroCity_EventScript_CitySign"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 58,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Common_EventScript_ShowPokemartSign"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 51,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Common_EventScript_ShowPokemonCenterSign"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 29,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_EventScript_DevonCorpSign"
     },
     {
       "type": "sign",
-      "x": 30,
-      "y": 8,
+      "x": 28,
+      "y": 19,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_EventScript_TunnelSign"
     },
     {
       "type": "sign",
-      "x": 12,
-      "y": 38,
+      "x": 32,
+      "y": 19,
       "elevation": 3,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_EventScript_CuttersHouseSign"

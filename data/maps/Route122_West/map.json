@@ -1,0 +1,54 @@
+{
+  "id": "MAP_ROUTE122_WEST",
+  "name": "Route122_West",
+  "layout": "LAYOUT_ROUTE122_WEST",
+  "music": "MUS_DUMMY",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_MT_PYRE_EXTERIOR",
+      "offset": -30,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_LILYCOVE_BAY",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_MT_PYRE_EXT",
+      "offset": -30,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE118",
+      "offset": -59,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE126",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

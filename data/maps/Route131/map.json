@@ -14,21 +14,36 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_PACIFIDLOG_TOWN",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE130",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_GIBAN_ISLAND",
+      "offset": -59,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_SKY_PILLAR_EXTERIOR",
+      "offset": 21,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE131",
+      "offset": 61,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_PACIFIDLOG_TOWN",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 41,
-      "y": 32,
+      "x": 53,
+      "y": 33,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_SEQUENCE_UP_RIGHT_LEFT_DOWN",
       "movement_range_x": 5,
@@ -40,8 +55,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 18,
-      "y": 19,
+      "x": 80,
+      "y": 22,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_LEFT_AND_RIGHT",
       "movement_range_x": 0,
@@ -53,8 +68,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 10,
-      "y": 22,
+      "x": 29,
+      "y": 26,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_UP_AND_RIGHT",
       "movement_range_x": 6,
@@ -66,8 +81,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 31,
-      "y": 25,
+      "x": 98,
+      "y": 27,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_SEQUENCE_LEFT_DOWN_RIGHT_UP",
       "movement_range_x": 3,
@@ -79,8 +94,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 9,
-      "y": 16,
+      "x": 17,
+      "y": 18,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -92,8 +107,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_TUBER_M_SWIMMING",
-      "x": 8,
-      "y": 16,
+      "x": 16,
+      "y": 18,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -105,8 +120,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 52,
-      "y": 20,
+      "x": 66,
+      "y": 22,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_DOWN_AND_UP",
       "movement_range_x": 1,
@@ -118,8 +133,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 52,
-      "y": 27,
+      "x": 66,
+      "y": 28,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_UP_AND_DOWN",
       "movement_range_x": 1,
@@ -132,13 +147,17 @@
   ],
   "warp_events": [
     {
-      "x": 36,
-      "y": 6,
+      "x": 48,
+      "y": 2,
       "elevation": 3,
       "dest_map": "MAP_SKY_PILLAR_ENTRANCE",
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

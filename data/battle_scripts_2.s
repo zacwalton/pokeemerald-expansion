@@ -45,7 +45,7 @@ BattleScript_UseItemMessage:
 	printfromtable gTrainerUsedItemStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
-	
+
 BattleScript_ItemRestoreHPRet:
 	bichalfword gMoveResultFlags, MOVE_RESULT_NO_EFFECT
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
@@ -57,7 +57,11 @@ BattleScript_ItemRestoreHPRet:
 
 BattleScript_ItemRestoreHP::
 	call BattleScript_UseItemMessage
-	itemrestorehp BattleScript_ItemRestoreHPEnd
+	itemrestorehp BattleScript_ItemRestoreHPEnd, BattleScript_ItemRestoreHP_Battler
+	call BattleScript_ItemRestoreHP_Party
+	goto BattleScript_ItemRestoreHPEnd
+
+BattleScript_ItemRestoreHP_Battler::
 	call BattleScript_ItemRestoreHPRet
 BattleScript_ItemRestoreHPEnd:
 	end
@@ -67,7 +71,7 @@ BattleScript_ItemRestoreHP_Party::
 	bichalfword gMoveResultFlags, MOVE_RESULT_NO_EFFECT
 	printstring STRINGID_ITEMRESTOREDSPECIESHEALTH
 	waitmessage B_WAIT_TIME_LONG
-	end
+	return
 
 BattleScript_ItemRestoreHP_SendOutRevivedBattler:
 	switchinanim BS_SCRIPTING, FALSE
@@ -87,8 +91,13 @@ BattleScript_ItemCureStatusEnd:
 
 BattleScript_ItemHealAndCureStatus::
 	call BattleScript_UseItemMessage
-	itemrestorehp BattleScript_ItemCureStatusAfterItemMsg
+	itemrestorehp BattleScript_ItemCureStatusAfterItemMsg, BattleScript_ItemHealAndCureStatus_Battler
+	call BattleScript_ItemRestoreHP_Party
+	goto BattleScript_ItemHealAndCureStatusEnd
+
+BattleScript_ItemHealAndCureStatus_Battler::
 	call BattleScript_ItemRestoreHPRet
+BattleScript_ItemHealAndCureStatusEnd::
 	goto BattleScript_ItemCureStatusAfterItemMsg
 
 BattleScript_ItemIncreaseStat::
@@ -113,7 +122,7 @@ BattleScript_ItemSetMist::
 BattleScript_ItemSetFocusEnergy::
 	call BattleScript_UseItemMessage
 	jumpifstatus2 BS_ATTACKER, STATUS2_FOCUS_ENERGY_ANY, BattleScript_ButItFailed
-	setfocusenergy
+	setfocusenergy BS_ATTACKER
 	playmoveanimation BS_ATTACKER, MOVE_FOCUS_ENERGY
 	waitanimation
 	copybyte sBATTLER, gBattlerAttacker
@@ -150,7 +159,6 @@ BattleScript_SafariBallThrow::
 BattleScript_SuccessBallThrow::
 	setbyte sMON_CAUGHT, TRUE
 	incrementgamestat GAME_STAT_POKEMON_CAPTURES
-BattleScript_PrintCaughtMonInfo::
 	printstring STRINGID_GOTCHAPKMNCAUGHTPLAYER
 	jumpifbyte CMP_NOT_EQUAL, sEXP_CATCH, TRUE, BattleScript_TryPrintCaughtMonInfo
 	setbyte sGIVEEXP_STATE, 0
@@ -230,7 +238,7 @@ BattleScript_ActionWallyThrow:
 	waitmessage B_WAIT_TIME_LONG
 	returnatktoball
 	waitstate
-	trainerslidein BS_TARGET
+	trainerslidein BS_PLAYER1
 	waitstate
 	printstring STRINGID_YOUTHROWABALLNOWRIGHT
 	waitmessage B_WAIT_TIME_LONG
@@ -238,10 +246,10 @@ BattleScript_ActionWallyThrow:
 
 BattleScript_TrainerASlideMsgRet::
 	handletrainerslidemsg BS_SCRIPTING, 0
-	trainerslidein B_POSITION_OPPONENT_LEFT
+	trainerslidein BS_OPPONENT1
 	handletrainerslidemsg BS_SCRIPTING, 1
 	waitstate
-	trainerslideout B_POSITION_OPPONENT_LEFT
+	trainerslideout BS_OPPONENT1
 	waitstate
 	handletrainerslidemsg BS_SCRIPTING, 2
 	return
@@ -252,10 +260,10 @@ BattleScript_TrainerASlideMsgEnd2::
 
 BattleScript_TrainerBSlideMsgRet::
 	handletrainerslidemsg BS_SCRIPTING, 0
-	trainerslidein B_POSITION_OPPONENT_RIGHT
+	trainerslidein BS_OPPONENT2
 	handletrainerslidemsg BS_SCRIPTING, 1
 	waitstate
-	trainerslideout B_POSITION_OPPONENT_RIGHT
+	trainerslideout BS_OPPONENT2
 	waitstate
 	handletrainerslidemsg BS_SCRIPTING, 2
 	return

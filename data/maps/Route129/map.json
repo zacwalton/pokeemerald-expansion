@@ -27,6 +27,11 @@
       "map": "MAP_UNDERWATER_ROUTE129",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_BATTLE_FRONTIER",
+      "offset": 40,
+      "direction": "left"
     }
   ],
   "object_events": [
@@ -96,7 +101,13 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

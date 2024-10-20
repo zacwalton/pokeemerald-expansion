@@ -1,0 +1,49 @@
+{
+  "id": "MAP_WILD_ISLAND_SOUTH",
+  "name": "WildIsland_South",
+  "layout": "LAYOUT_WILD_ISLAND_SOUTH",
+  "music": "MUS_DUMMY",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE134",
+      "offset": -34,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE133",
+      "offset": 0,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_NORTH",
+      "offset": 0,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_WILD_ISLAND_EAST",
+      "offset": -50,
+      "direction": "left"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

@@ -15,13 +15,23 @@
   "connections": [
     {
       "map": "MAP_ROUTE133",
-      "offset": 0,
+      "offset": -50,
       "direction": "left"
     },
     {
       "map": "MAP_PACIFIDLOG_TOWN",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_GIBAN_ISLAND",
+      "offset": 61,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_ROUTE132",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -156,7 +166,13 @@
       "flag": "FLAG_ITEM_ROUTE_132_PROTEIN"
     }
   ],
-  "warp_events": [],
-  "coord_events": [],
-  "bg_events": []
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }
