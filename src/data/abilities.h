@@ -2607,4 +2607,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+	
+    [ABILITY_SUPERHOT] =
+    {
+        .name = _("Superhot"),
+        .description = COMPOUND_STRING("Water boosts Defense."),
+        .aiRating = 6,
+        .breakable = TRUE,
+    },
 };

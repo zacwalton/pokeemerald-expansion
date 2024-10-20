@@ -5290,6 +5290,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 if (moveType == TYPE_WATER)
                     effect = 1;
                 break;
+            case ABILITY_SUPERHOT:
+                if (moveType == TYPE_WATER && gMovesInfo[move].target != MOVE_TARGET_ALL_BATTLERS)
+                    effect = 2, statId = STAT_DEF, statAmount = 2;
+                break;
             case ABILITY_MOTOR_DRIVE:
                 if (moveType == TYPE_ELECTRIC && gMovesInfo[move].target != MOVE_TARGET_ALL_BATTLERS)
                     effect = 2, statId = STAT_SPEED;
@@ -6164,6 +6168,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_MAGMA_ARMOR:
+                if (gBattleMons[battler].status1 & (STATUS1_FREEZE | STATUS1_FROSTBITE))
+                {
+                    StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
+                    effect = 1;
+                }
+                break;
+            case ABILITY_SUPERHOT:
                 if (gBattleMons[battler].status1 & (STATUS1_FREEZE | STATUS1_FROSTBITE))
                 {
                     StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
@@ -10542,7 +10553,8 @@ uq4_12_t GetTypeEffectiveness(struct Pokemon *mon, u8 moveType)
                                        ||  abilityDef == ABILITY_EARTH_EATER))
          || (moveType == TYPE_WATER    && (abilityDef == ABILITY_WATER_ABSORB
                                        || abilityDef == ABILITY_DRY_SKIN
-                                       || abilityDef == ABILITY_STORM_DRAIN))
+                                       || abilityDef == ABILITY_STORM_DRAIN
+                                       || abilityDef == ABILITY_SUPERHOT))
          || (moveType == TYPE_ELECTRIC && (abilityDef == ABILITY_LIGHTNING_ROD // TODO: Add Gen 3/4 config check
                                        || abilityDef == ABILITY_VOLT_ABSORB
                                        || abilityDef == ABILITY_MOTOR_DRIVE)))
