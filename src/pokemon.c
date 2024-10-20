@@ -7055,11 +7055,17 @@ static const u16 wildMonBannedFromEvolving[] =
 
 bool8 CanTimeOfDayEvolution(u8 evolutionMethod) {
     switch(evolutionMethod){
+        case EVO_FRIENDSHIP_DAY:
         case EVO_LEVEL_DAY:
+        case EVO_ITEM_HOLD_DAY:
+        case EVO_ITEM_DAY:
         return GetTimeOfDay() != TIME_NIGHT;
         case EVO_LEVEL_DUSK:
         return GetTimeOfDay() == TIME_EVENING;
+        case EVO_FRIENDSHIP_NIGHT:
         case EVO_LEVEL_NIGHT:
+        case EVO_ITEM_HOLD_NIGHT:
+        case EVO_ITEM_NIGHT:
         return GetTimeOfDay() == TIME_NIGHT;
     }
 
