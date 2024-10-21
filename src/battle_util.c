@@ -2661,7 +2661,8 @@ u8 DoBattlerEndTurnEffects(void)
                 for (gBattlerAttacker = 0; gBattlerAttacker < gBattlersCount; gBattlerAttacker++)
                 {
                     if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
-                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF)
+                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF
+                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_CACOPHONY)
                     {
                         gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_SLEEP;
                         gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_NIGHTMARE;
@@ -5195,6 +5196,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             switch (gLastUsedAbility)
             {
             case ABILITY_SOUNDPROOF:
+                if (gMovesInfo[move].soundMove && !(moveTarget & MOVE_TARGET_USER))
+                    effect = 1;
+                break;
+            case ABILITY_CACOPHONY:
                 if (gMovesInfo[move].soundMove && !(moveTarget & MOVE_TARGET_USER))
                     effect = 1;
                 break;
@@ -9273,6 +9278,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_PUNK_ROCK:
+        if (gMovesInfo[move].soundMove)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_CACOPHONY:
         if (gMovesInfo[move].soundMove)
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;

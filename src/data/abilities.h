@@ -2615,4 +2615,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 6,
         .breakable = TRUE,
     },
+	
+    [ABILITY_CACOPHONY] =
+    {
+        .name = _("Cacophony"),
+        .description = COMPOUND_STRING("Ups and resists sound."),
+        .aiRating = 2,
+        .breakable = TRUE,
+    },
 };

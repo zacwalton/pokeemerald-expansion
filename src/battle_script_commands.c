@@ -2878,7 +2878,7 @@ void SetMoveEffect(bool32 primary, bool32 certain)
         {
         case STATUS1_SLEEP:
             // check active uproar
-            if (battlerAbility != ABILITY_SOUNDPROOF || B_UPROAR_IGNORE_SOUNDPROOF >= GEN_5)
+            if ((battlerAbility != ABILITY_SOUNDPROOF && battlerAbility != ABILITY_CACOPHONY) || B_UPROAR_IGNORE_SOUNDPROOF >= GEN_5)
             {
                 for (i = 0; i < gBattlersCount && !(gBattleMons[i].status2 & STATUS2_UPROAR); i++)
                     ;
@@ -11457,7 +11457,7 @@ bool8 UproarWakeUpCheck(u8 battler)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (!(gBattleMons[i].status2 & STATUS2_UPROAR) || (GetBattlerAbility(battler) == ABILITY_SOUNDPROOF && B_UPROAR_IGNORE_SOUNDPROOF < GEN_5))
+        if (!(gBattleMons[i].status2 & STATUS2_UPROAR) || ((GetBattlerAbility(battler) == ABILITY_SOUNDPROOF || GetBattlerAbility(battler) == ABILITY_CACOPHONY) && B_UPROAR_IGNORE_SOUNDPROOF < GEN_5))
             continue;
 
         gBattleScripting.battler = i;
@@ -13314,7 +13314,8 @@ static void Cmd_healpartystatus(void)
 
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_BELL;
 
-        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF
+        if ((GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF
+		 && GetBattlerAbility(gBattlerAttacker) != ABILITY_CACOPHONY) 
          || B_HEAL_BELL_SOUNDPROOF == GEN_5 || B_HEAL_BELL_SOUNDPROOF >= GEN_8)
         {
             gBattleMons[gBattlerAttacker].status1 = 0;
@@ -13330,7 +13331,7 @@ static void Cmd_healpartystatus(void)
 
         if (IsBattlerAlive(partner))
         {
-            if (GetBattlerAbility(partner) != ABILITY_SOUNDPROOF || B_HEAL_BELL_SOUNDPROOF == GEN_5)
+            if ((GetBattlerAbility(partner) != ABILITY_SOUNDPROOF && GetBattlerAbility(gBattlerAttacker) != ABILITY_CACOPHONY) || B_HEAL_BELL_SOUNDPROOF == GEN_5)
             {
                 gBattleMons[partner].status1 = 0;
                 gBattleMons[partner].status2 &= ~STATUS2_NIGHTMARE;
@@ -13376,7 +13377,7 @@ static void Cmd_healpartystatus(void)
                     #endif
                 }
 
-                if (ability != ABILITY_SOUNDPROOF)
+                if (ability != ABILITY_SOUNDPROOF && ability != ABILITY_CACOPHONY)
                     toHeal |= (1 << i);
             }
         }
@@ -13463,6 +13464,7 @@ static void Cmd_trysetperishsong(void)
     {
         if (gStatuses3[i] & STATUS3_PERISH_SONG
             || GetBattlerAbility(i) == ABILITY_SOUNDPROOF
+            || GetBattlerAbility(i) == ABILITY_CACOPHONY
             || BlocksPrankster(gCurrentMove, gBattlerAttacker, i, TRUE))
         {
             notAffectedCount++;
@@ -17320,7 +17322,14 @@ void BS_JumpIfBlockedBySoundproof(void)
         RecordAbilityBattle(battler, gLastUsedAbility);
         gBattlerAbility = battler;
     }
-    else
+    else if (gMovesInfo[gCurrentMove].soundMove && GetBattlerAbility(battler) == ABILITY_CACOPHONY)
+    {
+        gLastUsedAbility = ABILITY_CACOPHONY;
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+        RecordAbilityBattle(battler, gLastUsedAbility);
+        gBattlerAbility = battler;
+    }
+    else 
     {
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
