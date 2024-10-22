@@ -17,7 +17,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_NURSE",
       "x": 7,
-      "y": 2,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -29,7 +29,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
-      "x": 3,
+      "x": 4,
       "y": 13,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -42,7 +42,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MANIAC",
-      "x": 2,
+      "x": 3,
       "y": 14,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -54,9 +54,9 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
-      "x": 1,
-      "y": 3,
+      "graphics_id": "OBJ_EVENT_GFX_TEALA",
+      "x": 2,
+      "y": 2,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -67,9 +67,9 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_VAR_1",
-      "x": 2,
-      "y": 3,
+      "graphics_id": "OBJ_EVENT_GFX_TEALA",
+      "x": 3,
+      "y": 2,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -82,14 +82,14 @@
   ],
   "warp_events": [
     {
-      "x": 7,
+      "x": 8,
       "y": 15,
       "elevation": 3,
       "dest_map": "MAP_LILYCOVE_CITY",
       "dest_warp_id": "2"
     },
     {
-      "x": 6,
+      "x": 7,
       "y": 15,
       "elevation": 3,
       "dest_map": "MAP_LILYCOVE_CITY",
