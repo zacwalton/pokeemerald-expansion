@@ -2623,4 +2623,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 2,
         .breakable = TRUE,
     },
+    [ABILITY_DESERT_SPIRIT] =
+    {
+        .name = _("Desert Spirit"),
+        .description = COMPOUND_STRING("Ground Type affinities"),
+        .aiRating = 6,
+        .cantBeCopied = TRUE,
+        .cantBeSwapped = TRUE,
+        .cantBeTraced = TRUE,
+        .breakable = TRUE,
+    },
 };

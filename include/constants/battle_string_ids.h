@@ -712,6 +712,7 @@
 #define STRINGID_FOGLIFTED                            710
 #define STRINGID_PKMNMADESHELLGLEAM                   711
 #define STRINGID_FICKLEBEAMDOUBLED                    712
+#define STRINGID_PKMNWASDEFROSTEDSUN                  713
 
 #define BATTLESTRINGS_COUNT                           713
 
@@ -922,6 +923,7 @@
 // gGotDefrostedStringIds
 #define B_MSG_DEFROSTED         0
 #define B_MSG_DEFROSTED_BY_MOVE 1
+#define B_MSG_DEFROSTED_BY_SUN	2
 
 // gFrostbiteHealedStringIds
 #define B_MSG_FROSTBITE_HEALED         0
