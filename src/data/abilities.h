@@ -2633,4 +2633,13 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeTraced = TRUE,
         .breakable = TRUE,
     },
+
+    [ABILITY_DIAMOND_SKIN] =
+    {
+        .name = _("Diamond Skin"),
+        .description = COMPOUND_STRING("Halves physical damage."),
+        .aiRating = 7,
+        .breakable = TRUE,
+    },
+
 };
