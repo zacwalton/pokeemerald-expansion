@@ -454,6 +454,18 @@ u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
+// List of Wild mons that you cannot get through dynamic evolution
+static const u16 wildMonEvolutionsBanned[] =
+{
+    0,
+};
+
+// List of Wild mons that cannot evolve no matter what
+static const u16 wildMonBannedFromEvolving[] =
+{
+    0,
+};
+
 #if WILD_MON_EVO_BANS
 static bool8 MonEvolutionIsBanned(u16 species)
 {

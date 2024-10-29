@@ -7242,7 +7242,7 @@ u8 GetPartyMonCurvedLevel(void)
     for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
     {
         if (FlagGet(i))
-            badgeModifier += 5;
+            badgeModifier += 3;
     }
     #endif
 

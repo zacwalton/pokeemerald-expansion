@@ -307,9 +307,9 @@
 #define WILD_MON_EVO_CHANCE_BY_STAGE        TRUE // If a mon doesn't evolve the first time, keep trying?
 
 // Chances for wild mons to even be attempting to dynamically evolve
-#define WILD_MON_EVO_CHANCE_STAGE1          33 // First or up to first branch evolution
-#define WILD_MON_EVO_CHANCE_STAGE2          13 // Second or up to second branch evolution
-#define WILD_MON_EVO_CHANCE_STAGE3          9 // Third or up to third branch evolution. Most mons do not have these type of evolutions
+#define WILD_MON_EVO_CHANCE_STAGE1          50 // First or up to first branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE2          50 // Second or up to second branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE3          25 // Third or up to third branch evolution. Most mons do not have these type of evolutions
 
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL            0

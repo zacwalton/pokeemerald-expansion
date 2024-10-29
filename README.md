@@ -1,28 +1,4 @@
-# GhoulMage's pokeemerald-expansion
-
-### Branch - Wild Pokémon Level Curve
-
-## Implementation
-
-We get an accumulation of the levels in the player party between the party size to get the correct amount to "curve". Then in ChooseWildMonLevel we select a random level accounting for that curve we got.
-
-## Details
-* Defines changing various behaviours (mostly in GetPartyMonCurvedLevel) are located near GetPartyMonCurvedLevel in src/pokemon.c
-    * It could go in include/battle.h or include/wild_encounter.h though, but it's just preference.
-* To limit the amount certain species can level up you can add an entry for them in wildMonMaxLevelCurveTable in src/wild_encounter.c
-    * To enable it you need to set WILD_MON_CURVE_LIMIT_MAX_LEVEL to TRUE
-    * Default value (0) means no limit.
-* Takes into account fainted mons in the party (with a define), eggs and the abilities Hustle, Vital Spirit and Pressure
-
-## Contributing
-
-I'm always open to pull requests, suggestions or Issues for bugs.
-
-# Original pokeemerald-expansion README.md
-
-## Note about my formatting
-
-It might be inconsistent as I'm trying to mimic pokeemerald-expansion's. I'm not used to single-line braces, :masuda:
+# pokeemerald-expansion
 
 ### Important: DO NOT use GitHub's "Download Zip" option. Using this option will not download the commit history required to update your expansion version or merge other feature branches. Instead, please read [this guide](https://github.com/Pawkkie/Team-Aquas-Asset-Repo/wiki/The-Basics-of-GitHub) to learn how to fork the repository and clone locally from there.
 
