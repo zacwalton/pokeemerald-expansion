@@ -59,6 +59,8 @@
 #include "constants/union_room.h"
 #include "constants/weather.h"
 #include "wild_encounter.h"
+#include "constants/party_menu.h"
+#include "constants/pokemon.h"
 
 #define FRIENDSHIP_EVO_THRESHOLD ((P_FRIENDSHIP_EVO_THRESHOLD >= GEN_8) ? 160 : 220)
 
@@ -7036,8 +7038,6 @@ static const bool8 evoMethodIsLevel[EVO_METHOD_COUNT] =
 static const u16 wildMonEvolutionsBanned[] =
 {
     0,
-    SPECIES_CRAWDAUNT,
-    SPECIES_POLITOED,
 };
 
 // List of Wild mons that cannot evolve no matter what
@@ -7046,10 +7046,6 @@ static const u16 wildMonEvolutionsBanned[] =
 static const u16 wildMonBannedFromEvolving[] =
 {
     0,
-    SPECIES_MACHAMP,
-    SPECIES_FLAAFFY,
-    SPECIES_LAIRON,
-    SPECIES_METANG,
 };
 #endif
 
@@ -7229,4 +7225,56 @@ u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage)
     }
 
     return resultSpecies;
+}
+
+// These could be moved to include/battle.h or include/wild_encounter.h but in here they're more near its context, idk
+#define WILD_MON_CURVE_CONSIDER_FAINTED     FALSE
+#define WILD_MON_CURVE_BADGE_MODIFIER       TRUE
+#define WILD_MON_CURVE_LIMIT_BY_FIRST_MON   FALSE
+#define WILD_MON_CURVE_LIMIT_MAX_LEVEL      TRUE
+
+u8 GetPartyMonCurvedLevel(void)
+{
+    u8 adjustedLevel, currentLevel, monCount = 0, partyMon, badgeModifier = 0, firstMon = 0;
+    u16 i, totalLevel = 0;
+
+    #if WILD_MON_CURVE_BADGE_MODIFIER
+    for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
+    {
+        if (FlagGet(i))
+            badgeModifier += 5;
+    }
+    #endif
+
+    adjustedLevel = badgeModifier;
+
+    for (partyMon = 0; partyMon < PARTY_SIZE; partyMon++)
+    {
+        if ((GetMonData(&gPlayerParty[partyMon], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+            #if !WILD_MON_CURVE_CONSIDER_FAINTED
+            && !(GetAilmentFromStatus(GetMonData(&gPlayerParty[partyMon], MON_DATA_STATUS, NULL)) == AILMENT_FNT)
+            #endif
+            && !(GetMonData(&gPlayerParty[partyMon], MON_DATA_IS_EGG, NULL) || GetMonData(&gPlayerParty[partyMon], MON_DATA_SANITY_IS_BAD_EGG, NULL)))
+        {
+            currentLevel = GetMonData(&gPlayerParty[partyMon], MON_DATA_LEVEL, NULL);
+            totalLevel += currentLevel;
+            monCount++;
+
+            if (monCount == 1)
+                firstMon = currentLevel;
+
+            if (adjustedLevel < currentLevel)
+                adjustedLevel = (adjustedLevel + currentLevel) / 2;
+        }
+    }
+
+    if (adjustedLevel < (totalLevel / PARTY_SIZE))
+        adjustedLevel = (totalLevel + badgeModifier) / PARTY_SIZE;
+    
+    #if WILD_MON_CURVE_LIMIT_BY_FIRST_MON
+    if (adjustedLevel > firstMon)
+        adjustedLevel = firstMon;
+    #endif
+
+    return adjustedLevel;
 }

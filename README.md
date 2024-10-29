@@ -1,25 +1,18 @@
 # GhoulMage's pokeemerald-expansion
 
-### Branch - Wild Pokémon Dynamic Evolutions
-
-This goes very well with [Wild Pokémon Level Curves](https://github.com/GhoulMage/pokeemerald-expansion/tree/wildMonCurve).
+### Branch - Wild Pokémon Level Curve
 
 ## Implementation
 
-If the chance arises, we check through all available evolutions of the relevant species and find the last that matches (usually by time of day and/or level filter). Easier said than done as you can see in the commits, we need to separate various evo methods by functions to get relevant comparisons.
+We get an accumulation of the levels in the player party between the party size to get the correct amount to "curve". Then in ChooseWildMonLevel we select a random level accounting for that curve we got.
 
 ## Details
-* Defines changing various behaviours are located in include/constants/pokemon.h
-* Tables relevant to evolution methods and pokemon bans are located in src/pokemon.c
-* Takes into account gender evolutions, but only relevant to Cute Charm forcing opposite wild mon genders.
-
-## Notes
-* Evolutions are based on chance *even if the chance for a wild mon to evolve arises*.
-    * So for example if we have 33% chance to find a first stage evolution, and the species right now is Nincada, for it to be evolved to Ninjask it still takes a coinflip (by default 127 out of 255 = 50%~) for that to happen (0.33 x 0.5 = 0.165, 16.5% chance).
-* `WILD_MON_EVO_BANS` could have been separated by Per-Evolution bans and Per-Pokémon bans but I decided not to because it would be a bit of an `#if #endif` madness.
-* For time of day related evolutions I added a special case for them to require the time of day to be equal.
-    * This can be disabled with WILD_MON_EVO_TIME_OF_DAY_REQUIRED.
-    * On a related note, I'm a bit of a noob in C so I didn't do this, but the evolution tables could have pointers to functions returning a `bool8` to move the logic of a per-evolution method basis and have more customization. That would probably replace the `CanEvolve` and `CanXEvolution` functions.
+* Defines changing various behaviours (mostly in GetPartyMonCurvedLevel) are located near GetPartyMonCurvedLevel in src/pokemon.c
+    * It could go in include/battle.h or include/wild_encounter.h though, but it's just preference.
+* To limit the amount certain species can level up you can add an entry for them in wildMonMaxLevelCurveTable in src/wild_encounter.c
+    * To enable it you need to set WILD_MON_CURVE_LIMIT_MAX_LEVEL to TRUE
+    * Default value (0) means no limit.
+* Takes into account fainted mons in the party (with a define), eggs and the abilities Hustle, Vital Spirit and Pressure
 
 ## Contributing
 

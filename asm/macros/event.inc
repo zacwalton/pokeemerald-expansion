@@ -2321,3 +2321,8 @@
 	.macro togglefakertc
 	callnative Script_ToggleFakeRtc
 	.endm
+
+	.macro setobjectstepcallback stepCbId:req
+	.byte 0xe5
+	.byte \stepCbId
+	.endm
