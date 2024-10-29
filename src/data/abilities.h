@@ -2642,4 +2642,12 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .breakable = TRUE,
     },
 
+    [ABILITY_WAXY_SKIN] =
+    {
+        .name = _("Waxy Skin"),
+        .description = COMPOUND_STRING("Resistant to Fire and sandstorms."),
+        .aiRating = 5,
+        .breakable = TRUE,
+    },
+
 };

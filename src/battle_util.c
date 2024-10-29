@@ -2375,6 +2375,7 @@ u8 DoBattlerEndTurnEffects(void)
                   && ability != ABILITY_SAND_RUSH
                   && ability != ABILITY_OVERCOAT
                   && ability != ABILITY_DESERT_SPIRIT
+                  && ability != ABILITY_WAXY_SKIN
                   && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
                   && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
                   && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
@@ -6188,6 +6189,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
                 break;
             case ABILITY_WATER_VEIL:
+			case ABILITY_WAXY_SKIN:
             case ABILITY_WATER_BUBBLE:
                 if (gBattleMons[battler].status1 & STATUS1_BURN)
                 {
@@ -9407,6 +9409,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
     switch (defAbility)
     {
     case ABILITY_HEATPROOF:
+	case ABILITY_WAXY_SKIN:
     case ABILITY_WATER_BUBBLE:
         if (moveType == TYPE_FIRE)
         {
