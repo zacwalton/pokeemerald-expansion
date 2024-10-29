@@ -311,9 +311,6 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
 static const u8 wildMonMaxLevelCurveTable[NUM_SPECIES] =
 {
     [SPECIES_NONE] = 0,
-    [SPECIES_ZIGZAGOON] = 10,
-    [SPECIES_WURMPLE] = 2,
-    [SPECIES_MAKUHITA] = 1,
 };
 
 static u8 LimitWildMonLevelCurve(u16 species, u8 currentCurve) {
@@ -377,7 +374,10 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
                     rand--;
             }
         }
-        
+        if (gIsFishingEncounter)
+		{
+			return min + rand + (curveAmount /4);
+		}
         return min + rand + curveAmount;
     }
     else
@@ -458,12 +458,76 @@ u8 PickWildMonNature(void)
 static const u16 wildMonEvolutionsBanned[] =
 {
     0,
+	SPECIES_DRAGONITE,
+	SPECIES_TYRANITAR,
+	SPECIES_SALAMENCE,
+	SPECIES_METAGROSS,
+	SPECIES_GARCHOMP,
+	SPECIES_HYDREIGON,
+	SPECIES_GOODRA,
+	SPECIES_KOMMO_O,
+	SPECIES_DRAGAPULT,
+	SPECIES_BAXCALIBUR,
+	SPECIES_AGGRON,
+	SPECIES_FLYGON,
+	SPECIES_SLAKING,
+	SPECIES_WALREIN,
+	SPECIES_ARCHALUDON,
+	SPECIES_ARCANINE,
+	SPECIES_URSALUNA,
+	SPECIES_VOLCARONA,
+	SPECIES_KINGAMBIT,
+	SPECIES_TOGEKISS,
+	SPECIES_ALAKAZAM,
+	SPECIES_MACHAMP,
+	SPECIES_GOLEM,
+	SPECIES_GENGAR,
+	SPECIES_KINGDRA,
+	SPECIES_HUNTAIL,
+	SPECIES_GOREBYSS,
+	SPECIES_RHYPERIOR,
+	SPECIES_ELECTIVIRE,
+	SPECIES_MAGMORTAR,
+	SPECIES_PORYGON_Z,
+	SPECIES_DUSKNOIR,
+	SPECIES_MILOTIC,
+	SPECIES_GIGALITH,
+	SPECIES_CONKELDURR,
+	SPECIES_ESCAVALIER,
+	SPECIES_ACCELGOR,
+	SPECIES_CORVIKNIGHT,
+	SPECIES_PALAFIN,
+	SPECIES_MAMOSWINE,
+	SPECIES_SLOWKING,
+	SPECIES_SHEDINJA,
+	
 };
 
 // List of Wild mons that cannot evolve no matter what
 static const u16 wildMonBannedFromEvolving[] =
 {
     0,
+	SPECIES_GLOOM,
+	SPECIES_POLIWHIRL,
+	SPECIES_SCYTHER,
+	SPECIES_EEVEE,
+	SPECIES_APPLIN,
+	SPECIES_CHARCADET,
+	SPECIES_DUNSPARCE,
+	SPECIES_KUBFU,
+	SPECIES_PICHU,
+	SPECIES_AZURILL,
+	SPECIES_BUDEW,
+	SPECIES_CLEFFA,
+	SPECIES_HAPPINY,
+	SPECIES_IGGLYBUFF,
+	SPECIES_MIME_JR,
+	SPECIES_PICHU,
+	SPECIES_SMOOCHUM,
+	SPECIES_TOGEPI,
+	SPECIES_TYROGUE,
+	SPECIES_WYNAUT,
+	
 };
 
 #if WILD_MON_EVO_BANS
@@ -481,6 +545,10 @@ static bool8 MonEvolutionIsBanned(u16 species)
 
 static bool8 MonCannotDynamicEvolve(u16 species)
 {
+	if (gIsFishingEncounter)
+	{
+		return TRUE;
+	}
     u32 i;
     for (i = 0; i < ARRAY_COUNT(wildMonBannedFromEvolving); i++)
     {

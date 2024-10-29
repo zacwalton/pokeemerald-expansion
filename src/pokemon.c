@@ -7228,7 +7228,7 @@ u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage)
 }
 
 // These could be moved to include/battle.h or include/wild_encounter.h but in here they're more near its context, idk
-#define WILD_MON_CURVE_CONSIDER_FAINTED     FALSE
+#define WILD_MON_CURVE_CONSIDER_FAINTED     TRUE
 #define WILD_MON_CURVE_BADGE_MODIFIER       TRUE
 #define WILD_MON_CURVE_LIMIT_BY_FIRST_MON   FALSE
 #define WILD_MON_CURVE_LIMIT_MAX_LEVEL      TRUE
