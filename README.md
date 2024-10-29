@@ -1,4 +1,35 @@
-# pokeemerald-expansion
+# GhoulMage's pokeemerald-expansion
+
+### Branch - Wild Pokémon Dynamic Evolutions
+
+This goes very well with [Wild Pokémon Level Curves](https://github.com/GhoulMage/pokeemerald-expansion/tree/wildMonCurve).
+
+## Implementation
+
+If the chance arises, we check through all available evolutions of the relevant species and find the last that matches (usually by time of day and/or level filter). Easier said than done as you can see in the commits, we need to separate various evo methods by functions to get relevant comparisons.
+
+## Details
+* Defines changing various behaviours are located in include/constants/pokemon.h
+* Tables relevant to evolution methods and pokemon bans are located in src/pokemon.c
+* Takes into account gender evolutions, but only relevant to Cute Charm forcing opposite wild mon genders.
+
+## Notes
+* Evolutions are based on chance *even if the chance for a wild mon to evolve arises*.
+    * So for example if we have 33% chance to find a first stage evolution, and the species right now is Nincada, for it to be evolved to Ninjask it still takes a coinflip (by default 127 out of 255 = 50%~) for that to happen (0.33 x 0.5 = 0.165, 16.5% chance).
+* `WILD_MON_EVO_BANS` could have been separated by Per-Evolution bans and Per-Pokémon bans but I decided not to because it would be a bit of an `#if #endif` madness.
+* For time of day related evolutions I added a special case for them to require the time of day to be equal.
+    * This can be disabled with WILD_MON_EVO_TIME_OF_DAY_REQUIRED.
+    * On a related note, I'm a bit of a noob in C so I didn't do this, but the evolution tables could have pointers to functions returning a `bool8` to move the logic of a per-evolution method basis and have more customization. That would probably replace the `CanEvolve` and `CanXEvolution` functions.
+
+## Contributing
+
+I'm always open to pull requests, suggestions or Issues for bugs.
+
+# Original pokeemerald-expansion README.md
+
+## Note about my formatting
+
+It might be inconsistent as I'm trying to mimic pokeemerald-expansion's. I'm not used to single-line braces, :masuda:
 
 ### Important: DO NOT use GitHub's "Download Zip" option. Using this option will not download the commit history required to update your expansion version or merge other feature branches. Instead, please read [this guide](https://github.com/Pawkkie/Team-Aquas-Asset-Repo/wiki/The-Basics-of-GitHub) to learn how to fork the repository and clone locally from there.
 
