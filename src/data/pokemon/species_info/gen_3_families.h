@@ -8519,10 +8519,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TROPIUS
     [SPECIES_TROPIUS] =
     {
-        .baseHP        = 134,
+        .baseHP        = 130,
         .baseAttack    = 78,
         .baseDefense   = 88,
-        .baseSpeed     = 47,
+        .baseSpeed     = 51,
         .baseSpAttack  = 87,
         .baseSpDefense = 102,
         .types = MON_TYPES(TYPE_GRASS, TYPE_FLYING),
