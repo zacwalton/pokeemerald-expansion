@@ -1706,15 +1706,11 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         calc = (calc * 90) / 100;
 
     if ((WEATHER_HAS_EFFECT && gBattleWeather & B_WEATHER_FOG) 
-		!= ((IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST)) 
-		|| (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG)) 
-		|| (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_PSYCHIC))
-		|| (GetBattlerAbility(gBattlerAttacker) == ABILITY_KEEN_EYE)
-		|| (GetBattlerAbility(gBattlerAttacker) == ABILITY_TINTED_LENS) 
-		|| (GetBattlerAbility(gBattlerAttacker) == ABILITY_FORECAST) 
-		|| (GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE) 
-		|| (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES))) // ZETA adds additional immunities for Bug, Ghost, Psychic type mons and certain abilities
-        calc = (calc * 75) / 100; // modified by -3/5- - ZETA nerfed to 3/4
+		&& !((IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST)) || (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG)) || (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_PSYCHIC))
+		|| (atkAbility == ABILITY_KEEN_EYE)|| (atkAbility == ABILITY_TINTED_LENS) || (atkAbility == ABILITY_FORECAST) || (atkAbility == ABILITY_ILLUMINATE) || (atkAbility == ABILITY_COMPOUND_EYES))) // ZETA adds additional immunities for Bug, Ghost, Psychic type mons and certain abilities
+	{
+		calc = (calc * 75) / 100; // modified by -3/5- - ZETA nerfed to 3/4
+	}
 
     // ZETA added evasion freeze drop
     if (gBattleMons[battlerDef].status1 & STATUS1_FREEZE)
