@@ -380,6 +380,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    [EFFECT_FREEZE] =
+    {
+        .battleScript = BattleScript_EffectFreeze,
+        .battleTvScore = 4,
+        .encourageEncore = TRUE,
+    },
+
     [EFFECT_TWO_TURNS_ATTACK] =
     {
         .battleScript = BattleScript_EffectTwoTurnsAttack,
