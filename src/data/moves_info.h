@@ -20752,6 +20752,79 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .battleAnimScript = Move_ICE_BLITZ,
     },
 
+    [MOVE_APOTROPAISM] =
+    {
+        .name = COMPOUND_STRING("Apotropaism"),
+        .description = COMPOUND_STRING(
+            "The user creates a mark to\n"
+            "raise resistance to fairies."),
+        .effect = EFFECT_APOTROPAISM,
+        .power = 0,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_ALL_BATTLERS,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .zMove = { .effect = Z_EFFECT_SPDEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .skyBattleBanned = TRUE,
+        .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        .contestCategory = CONTEST_CATEGORY_CUTE,
+        .contestComboStarterId = COMBO_STARTER_WATER_SPORT,
+        .contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE},
+        .battleAnimScript = Move_APOTROPAISM,
+    },
+
+    [MOVE_SEA_STRIDE] =
+    {
+        .name = COMPOUND_STRING("Sea Stride"),
+        .description = COMPOUND_STRING(
+            "This attack does Bug\n"
+            "and Water-type damage."),
+        .effect = EFFECT_TWO_TYPED_MOVE,
+        .power = B_UPDATED_MOVE_DATA >= GEN_7 ? 100 : 80,
+        .type = TYPE_BUG,
+        .accuracy = 95,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .zMove = { .powerOverride = 170 },
+        .argument = TYPE_WATER,
+        .minimizeDoubleDamage = TRUE,
+        .gravityBanned = TRUE,
+        .skyBattleBanned = TRUE,
+        .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = Move_SEA_STRIDE,
+    },
+
+    [MOVE_MINERAL_SAP] =
+    {
+        .name = COMPOUND_STRING("Mineral Sap"),
+        .description = sDrainingKissDescription,
+        .effect = EFFECT_ABSORB,
+        .power = 50,
+        .type = TYPE_ROCK,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument = 75, // restores 75% HP instead of 50% HP
+        .makesContact = TRUE,
+        .healingMove = B_HEAL_BLOCKING >= GEN_6,
+        .contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = Move_GIGA_DRAIN,
+    },
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {

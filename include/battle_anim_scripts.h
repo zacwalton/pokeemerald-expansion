@@ -851,6 +851,8 @@ extern const u8 Move_UPPER_HAND[];
 extern const u8 Move_MALIGNANT_CHAIN[];
 extern const u8 Move_FLASH_FREEZE[];
 extern const u8 Move_ICE_BLITZ[];
+extern const u8 Move_APOTROPAISM[];
+extern const u8 Move_SEA_STRIDE[];
 extern const u8 Move_BREAKNECK_BLITZ[];
 extern const u8 Move_ALL_OUT_PUMMELING[];
 extern const u8 Move_SUPERSONIC_SKYSTRIKE[];

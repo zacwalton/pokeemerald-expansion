@@ -715,8 +715,10 @@
 #define STRINGID_PKMNWASDEFROSTEDSUN                  713
 #define STRINGID_PKMNISALREADYFROZEN                  714
 #define STRINGID_PKMNPREVENTSFREEZEWITH               715
+#define STRINGID_APOTROPAISMENDS                      716
+#define STRINGID_FAIRYWEAKENED						  717
 
-#define BATTLESTRINGS_COUNT                           716
+#define BATTLESTRINGS_COUNT                           718
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,
@@ -867,6 +869,7 @@
 // gSportsUsedStringIds
 #define B_MSG_WEAKEN_ELECTRIC 0
 #define B_MSG_WEAKEN_FIRE     1
+#define B_MSG_WEAKEN_FAIRY	  2
 
 // gCaughtMonStringIds
 #define B_MSG_SENT_SOMEONES_PC  0

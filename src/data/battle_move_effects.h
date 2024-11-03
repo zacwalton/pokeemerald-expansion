@@ -1110,6 +1110,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    [EFFECT_APOTROPAISM] =
+    {
+        .battleScript = BattleScript_EffectApotropaism,
+        .battleTvScore = 4,
+        .encourageEncore = TRUE,
+    },
+
     [EFFECT_CALM_MIND] =
     {
         .battleScript = BattleScript_EffectCalmMind,

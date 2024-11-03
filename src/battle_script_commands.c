@@ -14917,8 +14917,6 @@ static void Cmd_settypebasedhalvers(void)
 
     if (gMovesInfo[gCurrentMove].effect == EFFECT_MUD_SPORT)
     {
-        if (B_SPORT_TURNS >= GEN_6)
-        {
             if (!(gFieldStatuses & STATUS_FIELD_MUDSPORT))
             {
                 gFieldStatuses |= STATUS_FIELD_MUDSPORT;
@@ -14926,21 +14924,9 @@ static void Cmd_settypebasedhalvers(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
                 worked = TRUE;
             }
-        }
-        else
-        {
-            if (!(gStatuses4[gBattlerAttacker] & STATUS4_MUD_SPORT))
-            {
-                gStatuses4[gBattlerAttacker] |= STATUS4_MUD_SPORT;
-                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
-                worked = TRUE;
-            }
-        }
     }
-    else // Water Sport
+    else if (gMovesInfo[gCurrentMove].effect == EFFECT_WATER_SPORT)// Water Sport
     {
-        if (B_SPORT_TURNS >= GEN_6)
-        {
             if (!(gFieldStatuses & STATUS_FIELD_WATERSPORT))
             {
                 gFieldStatuses |= STATUS_FIELD_WATERSPORT;
@@ -14948,16 +14934,16 @@ static void Cmd_settypebasedhalvers(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
                 worked = TRUE;
             }
-        }
-        else
-        {
-            if (!(gStatuses4[gBattlerAttacker] & STATUS4_WATER_SPORT))
+    }
+    else // Apotropaism
+    {
+            if (!(gFieldStatuses & STATUS_FIELD_APOTROPAISM))
             {
-                gStatuses4[gBattlerAttacker] |= STATUS4_WATER_SPORT;
-                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
+                gFieldStatuses |= STATUS_FIELD_APOTROPAISM;
+                gFieldTimers.ApotropaismTimer = 5;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FAIRY;
                 worked = TRUE;
             }
-        }
     }
 
     if (worked)

@@ -5336,6 +5336,7 @@ BattleScript_EffectRecoilHP25::
 
 BattleScript_EffectMudSport::
 BattleScript_EffectWaterSport::
+BattleScript_EffectApotropaism::
 	attackcanceler
 	attackstring
 	ppreduce
@@ -6092,6 +6093,11 @@ BattleScript_MudSportEnds::
 
 BattleScript_WaterSportEnds::
 	printstring STRINGID_WATERSPORTENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_ApotropaismEnds::
+	printstring STRINGID_APOTROPAISMENDS
 	waitmessage B_WAIT_TIME_LONG
 	end2
 

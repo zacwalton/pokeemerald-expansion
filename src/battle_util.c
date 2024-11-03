@@ -1645,6 +1645,7 @@ enum
     ENDTURN_GRAVITY,
     ENDTURN_WATER_SPORT,
     ENDTURN_MUD_SPORT,
+	ENDTURN_APOTROPAISM,
     ENDTURN_TRICK_ROOM,
     ENDTURN_WONDER_ROOM,
     ENDTURN_MAGIC_ROOM,
@@ -2122,6 +2123,15 @@ u8 DoFieldEndTurnEffects(void)
             {
                 gFieldStatuses &= ~STATUS_FIELD_MUDSPORT;
                 BattleScriptExecute(BattleScript_MudSportEnds);
+                effect++;
+            }
+            gBattleStruct->turnCountersTracker++;
+            break;
+        case ENDTURN_APOTROPAISM:
+            if (gFieldStatuses & STATUS_FIELD_APOTROPAISM && --gFieldTimers.ApotropaismTimer == 0)
+            {
+                gFieldStatuses &= ~STATUS_FIELD_APOTROPAISM;
+                BattleScriptExecute(BattleScript_ApotropaismEnds);
                 effect++;
             }
             gBattleStruct->turnCountersTracker++;
@@ -6315,6 +6325,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect = i + 1;
             }
             break;
+        case ABILITYEFFECT_APOTROPAISM:
+            for (i = 0; i < gBattlersCount; i++)
+            {
+                if (gStatuses4[i] & STATUS4_APOTROPAISM)
+                    effect = i + 1;
+            }
+            break;
         default:
             for (i = 0; i < gBattlersCount; i++)
             {
@@ -9206,6 +9223,9 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
     if (moveType == TYPE_FIRE && ((gFieldStatuses & STATUS_FIELD_WATERSPORT)
     || AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_WATER_SPORT, 0)))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
+    if (moveType == TYPE_FAIRY && ((gFieldStatuses & STATUS_FIELD_APOTROPAISM)
+    || AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_APOTROPAISM, 0)))
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
 
     // attacker's abilities
