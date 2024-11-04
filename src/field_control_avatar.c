@@ -470,9 +470,12 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
 
 static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (/*FlagGet(FLAG_BADGE05_GET) == TRUE && */PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (/*FlagGet(FLAG_BADGE05_GET) == TRUE && */PartyHasMonWithSurf() == 1 && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
-
+    if (/*FlagGet(FLAG_BADGE05_GET) == TRUE && */PartyHasMonWithSurf() == 2 && IsPlayerFacingSurfableFishableWater() == TRUE)
+        return EventScript_UseSeaStride;
+    if (/*FlagGet(FLAG_BADGE05_GET) == TRUE && */PartyHasMonWithSurf() == 3 && IsPlayerFacingSurfableFishableWater() == TRUE)
+        return EventScript_UseMuddyWater;
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
     {
         if (/*FlagGet(FLAG_BADGE08_GET) == TRUE && */IsPlayerSurfingNorth() == TRUE)
