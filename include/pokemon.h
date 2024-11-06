@@ -510,6 +510,17 @@ struct MoveInfo
     u32 ignoresSubstitute:1;
     u32 forcePressure:1;
     u32 cantUseTwice:1;
+	u32 fieldEffectCut:1;
+	u32 fieldEffectFlash:1;
+	u32 fieldEffectSmash:1;
+	u32 fieldEffectShake:1;
+	u32 fieldEffectStrength:1;
+	u32 fieldEffectClimb:1;
+	u32 fieldEffectWarp:1;
+	u32 fieldEffectSurf:1;
+	u32 fieldEffectLava:1;
+	u32 fieldEffectDefog:1;
+	u32 fieldEffectHack:1;
 
     // Ban flags
     u32 gravityBanned:1;

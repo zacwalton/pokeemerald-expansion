@@ -2786,7 +2786,28 @@ static u8 DisplaySelectionWindow(u8 windowType)
     for (i = 0; i < sPartyMenuInternal->numActions; i++)
     {
         const u8 *text;
-        u8 fontColorsId = (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES) ? 4 : 3;
+        u8 fontColorsId;
+		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
+				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectStrength)
+					fontColorsId = 4;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSmash)
+					fontColorsId = 5;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectFlash)
+					fontColorsId = 6;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectCut)
+					fontColorsId = 7;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectClimb)
+					fontColorsId = 8;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectHack)
+					fontColorsId = 9;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectWarp)
+					fontColorsId = 10;
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSurf)
+					fontColorsId = 12;
+				else
+					fontColorsId = 11;
+		else 
+			fontColorsId = 3;
         if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
             text = gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].name;
         else

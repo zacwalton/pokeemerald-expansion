@@ -3,10 +3,73 @@ EventScript_CutTree::
 	lockall
 	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
 	checkpartymove MOVE_CUT
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_SteelRollerTree
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, MOVE_CUT
+	goto EventScript_CutTreeSuccess
+	
+EventScript_SteelRollerTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_STEEL_ROLLER
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_MetalClawTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_STEEL_ROLLER
+	goto EventScript_CutTreeSuccess
+	
+EventScript_MetalClawTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_METAL_CLAW
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_FrenzyPlantTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_METAL_CLAW
+	goto EventScript_CutTreeSuccess
+	
+EventScript_FrenzyPlantTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_FRENZY_PLANT
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_IceSpinnerTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_FRENZY_PLANT
+	goto EventScript_CutTreeSuccess
+	
+EventScript_IceSpinnerTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_ICE_SPINNER
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_SlashTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_ICE_SPINNER
+	goto EventScript_CutTreeSuccess
+	
+EventScript_SlashTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_SLASH
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_LeafBladeTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_SLASH
+	goto EventScript_CutTreeSuccess
+	
+EventScript_LeafBladeTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkpartymove MOVE_LEAF_BLADE
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_LEAF_BLADE
+	goto EventScript_CutTreeSuccess
+	
+EventScript_CutTreeSuccess::
 	msgbox Text_WantToCut, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelCut
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -46,15 +109,15 @@ EventScript_CancelCut::
 
 Text_WantToCut:
 	.string "This tree looks like it can be\n"
-	.string "CUT down!\p"
-	.string "Would you like to CUT it?$"
+	.string "{COLOR GREEN}Cut{COLOR DARK_GRAY} down!\p"
+	.string "Would you like to{COLOR GREEN} Cut {COLOR DARK_GRAY}it?$"
 
 Text_MonUsedFieldMove:
-	.string "{STR_VAR_1} used {STR_VAR_2}!$"
+	.string "{STR_VAR_1} used{COLOR GREEN} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
 Text_CantCut:
 	.string "This tree looks like it can be\n"
-	.string "CUT down!$"
+	.string "{COLOR GREEN}Cut {COLOR DARK_GRAY}down!$"
 
 @ Use rock smash from party menu
 EventScript_UseRockSmash::
@@ -70,6 +133,99 @@ EventScript_RockSmash::
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, MOVE_ROCK_SMASH
+	goto EventScript_RockSmashSuccess
+	
+EventScript_BrickBreakRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_BRICK_BREAK
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_BulldozeRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_BRICK_BREAK
+	goto EventScript_RockSmashSuccess
+	
+EventScript_BulldozeRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_BULLDOZE
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_HeadChargeRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_BULLDOZE
+	goto EventScript_RockSmashSuccess
+	
+EventScript_HeadChargeRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_HEAD_CHARGE
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_HeadSmashRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_HEAD_CHARGE
+	goto EventScript_RockSmashSuccess
+	
+EventScript_HeadSmashRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_HEAD_SMASH
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_FocusPunchRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_HEAD_SMASH
+	goto EventScript_RockSmashSuccess
+	
+EventScript_FocusPunchRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_FOCUS_PUNCH
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_HammerArmRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_FOCUS_PUNCH
+	goto EventScript_RockSmashSuccess
+	
+EventScript_HammerArmRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_HAMMER_ARM
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_HornDrillRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_HAMMER_ARM
+	goto EventScript_RockSmashSuccess
+	
+EventScript_HornDrillRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_HORN_DRILL
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_SuperpowerRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_HORN_DRILL
+	goto EventScript_RockSmashSuccess
+	
+EventScript_SuperpowerRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_SUPERPOWER
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_WoodHammerRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_SUPERPOWER
+	goto EventScript_RockSmashSuccess
+	
+EventScript_WoodHammerRock::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkpartymove MOVE_WOOD_HAMMER
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_WOOD_HAMMER
+	goto EventScript_RockSmashSuccess
+	
+EventScript_RockSmashSuccess::
 	msgbox Text_WantToSmash, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelSmash
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -221,11 +377,11 @@ EventScript_CancelSmash::
 
 Text_WantToSmash:
 	.string "This rock appears to be breakable.\n"
-	.string "Would you like to use ROCK SMASH?$"
+	.string "Would you like to {COLOR RED} Smash{COLOR DARK_GRAY} it?$"
 
 Text_CantSmash:
 	.string "It's a rugged rock, but a POKéMON\n"
-	.string "may be able to smash it.$"
+	.string "may be able to {COLOR RED}Smash {COLOR DARK_GRAY}it.$"
 
 EventScript_StrengthBoulder::
 	lockall
