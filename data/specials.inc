@@ -555,4 +555,5 @@ gSpecials::
 	def_special Script_GetChosenMonDefensiveIVs
 	def_special MapSeason
 	def_special Rtc_GetSeason
+	def_special HeadbuttWildEncounter
 	

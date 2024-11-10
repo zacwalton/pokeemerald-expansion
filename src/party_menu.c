@@ -2789,23 +2789,23 @@ static u8 DisplaySelectionWindow(u8 windowType)
         u8 fontColorsId;
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
 				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectStrength)
-					fontColorsId = 4;
+					fontColorsId = 4; //Light Gray
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSmash)
-					fontColorsId = 5;
+					fontColorsId = 5; //Red
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectFlash)
-					fontColorsId = 6;
+					fontColorsId = 6; //Light Red
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectCut)
-					fontColorsId = 7;
+					fontColorsId = 7; //Green
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectClimb)
-					fontColorsId = 8;
+					fontColorsId = 8; //Light Green
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectHack)
-					fontColorsId = 9;
+					fontColorsId = 9; //Dynamic 5 (Turquoise)
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectWarp)
-					fontColorsId = 10;
+					fontColorsId = 10; //Light Blue
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSurf)
-					fontColorsId = 12;
+					fontColorsId = 12; //Dynamic 6 (Teal)
 				else
-					fontColorsId = 11;
+					fontColorsId = 11; //Dynamic 4 (Aquamarine)
 		else 
 			fontColorsId = 3;
         if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)

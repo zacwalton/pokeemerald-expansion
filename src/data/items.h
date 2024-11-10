@@ -11563,7 +11563,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_BLIZZARD, // Todo
     },
 
-    [ITEM_TM_FOCUS_BLAST] =
+    [ITEM_TM_FOCUS_PUNCH] =
     {
         .name = _("TM86"),
         .price = 0,
@@ -11572,7 +11572,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_FOCUS_BLAST, // Todo
+        .secondaryId = MOVE_FOCUS_PUNCH, // Todo
     },
 
     [ITEM_TM_STONE_EDGE] =
@@ -11686,7 +11686,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_SHADOW_BALL, // Todo
     },
 
-    [ITEM_TM_SMART_STRIKE] =
+    [ITEM_TM_IRON_TAIL] =
     {
         .name = _("TM96"),
         .price = 0,
@@ -11695,7 +11695,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_SMART_STRIKE, // Todo
+        .secondaryId = MOVE_IRON_TAIL, // Todo
     },
 
     [ITEM_TM_FLASH_CANNON] =

@@ -87,7 +87,7 @@
     F(FIRE_BLAST) \
     F(THUNDER) \
     F(BLIZZARD) \
-    F(FOCUS_BLAST) \
+    F(FOCUS_PUNCH) \
     F(STONE_EDGE) \
     F(PSYSHOCK) \
     F(DAZZLING_GLEAM) \
@@ -97,7 +97,7 @@
     F(X_SCISSOR) \
     F(SHADOW_CLAW) \
     F(SHADOW_BALL) \
-    F(SMART_STRIKE) \
+    F(IRON_TAIL) \
     F(FLASH_CANNON) \
     F(ENERGY_BALL) \
     F(FLING) \
