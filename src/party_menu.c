@@ -556,6 +556,7 @@ static bool8 SetUpFieldMove_Surf(void);
 static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
+static bool8 SetUpFieldMove_RockClimb(void);
 void TryItemHoldFormChange(struct Pokemon *mon);
 static void ShowMoveSelectWindow(u8 slot);
 static void Task_HandleWhichMoveInput(u8 taskId);
@@ -7841,4 +7842,26 @@ void IsLastMonThatKnowsSurf(void)
         if (AnyStorageMonWithMove(move) != TRUE)
             gSpecialVar_Result = !P_CAN_FORGET_HIDDEN_MOVE;
     }
+}
+
+
+static void FieldCallback_RockClimb(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    FieldEffectStart(FLDEFF_USE_ROCK_CLIMB);
+}
+
+static bool8 SetUpFieldMove_RockClimb(void)
+{
+    s16 x, y;
+
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    if (MetatileBehavior_IsRockClimbable(MapGridGetMetatileBehaviorAt(x, y)))
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_RockClimb;
+        return TRUE;
+    }
+
+    return FALSE;
 }

@@ -745,10 +745,10 @@ static const u8 sFaceDirectionAnimNums[] = {
     [DIR_NORTH] = ANIM_STD_FACE_NORTH,
     [DIR_WEST] = ANIM_STD_FACE_WEST,
     [DIR_EAST] = ANIM_STD_FACE_EAST,
-    [DIR_SOUTHWEST] = ANIM_STD_FACE_SOUTH,
-    [DIR_SOUTHEAST] = ANIM_STD_FACE_SOUTH,
-    [DIR_NORTHWEST] = ANIM_STD_FACE_NORTH,
-    [DIR_NORTHEAST] = ANIM_STD_FACE_NORTH,
+    [DIR_SOUTHWEST] = ANIM_STD_FACE_WEST,
+    [DIR_SOUTHEAST] = ANIM_STD_FACE_EAST,
+    [DIR_NORTHWEST] = ANIM_STD_FACE_WEST,
+    [DIR_NORTHEAST] = ANIM_STD_FACE_EAST,
 };
 static const u8 sMoveDirectionAnimNums[] = {
     [DIR_NONE] = ANIM_STD_GO_SOUTH,
@@ -756,10 +756,10 @@ static const u8 sMoveDirectionAnimNums[] = {
     [DIR_NORTH] = ANIM_STD_GO_NORTH,
     [DIR_WEST] = ANIM_STD_GO_WEST,
     [DIR_EAST] = ANIM_STD_GO_EAST,
-    [DIR_SOUTHWEST] = ANIM_STD_GO_SOUTH,
-    [DIR_SOUTHEAST] = ANIM_STD_GO_SOUTH,
-    [DIR_NORTHWEST] = ANIM_STD_GO_NORTH,
-    [DIR_NORTHEAST] = ANIM_STD_GO_NORTH,
+    [DIR_SOUTHWEST] = ANIM_STD_GO_WEST,
+    [DIR_SOUTHEAST] = ANIM_STD_GO_EAST,
+    [DIR_NORTHWEST] = ANIM_STD_GO_WEST,
+    [DIR_NORTHEAST] = ANIM_STD_GO_EAST,
 };
 static const u8 sMoveDirectionFastAnimNums[] = {
     [DIR_NONE] = ANIM_STD_GO_FAST_SOUTH,
@@ -767,10 +767,10 @@ static const u8 sMoveDirectionFastAnimNums[] = {
     [DIR_NORTH] = ANIM_STD_GO_FAST_NORTH,
     [DIR_WEST] = ANIM_STD_GO_FAST_WEST,
     [DIR_EAST] = ANIM_STD_GO_FAST_EAST,
-    [DIR_SOUTHWEST] = ANIM_STD_GO_FAST_SOUTH,
-    [DIR_SOUTHEAST] = ANIM_STD_GO_FAST_SOUTH,
-    [DIR_NORTHWEST] = ANIM_STD_GO_FAST_NORTH,
-    [DIR_NORTHEAST] = ANIM_STD_GO_FAST_NORTH,
+    [DIR_SOUTHWEST] = ANIM_STD_GO_FAST_WEST,
+    [DIR_SOUTHEAST] = ANIM_STD_GO_FAST_EAST,
+    [DIR_NORTHWEST] = ANIM_STD_GO_FAST_WEST,
+    [DIR_NORTHEAST] = ANIM_STD_GO_FAST_EAST,
 };
 static const u8 sMoveDirectionFasterAnimNums[] = {
     [DIR_NONE] = ANIM_STD_GO_FASTER_SOUTH,
@@ -778,10 +778,10 @@ static const u8 sMoveDirectionFasterAnimNums[] = {
     [DIR_NORTH] = ANIM_STD_GO_FASTER_NORTH,
     [DIR_WEST] = ANIM_STD_GO_FASTER_WEST,
     [DIR_EAST] = ANIM_STD_GO_FASTER_EAST,
-    [DIR_SOUTHWEST] = ANIM_STD_GO_FASTER_SOUTH,
-    [DIR_SOUTHEAST] = ANIM_STD_GO_FASTER_SOUTH,
-    [DIR_NORTHWEST] = ANIM_STD_GO_FASTER_NORTH,
-    [DIR_NORTHEAST] = ANIM_STD_GO_FASTER_NORTH,
+    [DIR_SOUTHWEST] = ANIM_GET_ON_OFF_POKEMON_WEST,
+    [DIR_SOUTHEAST] = ANIM_GET_ON_OFF_POKEMON_EAST,
+    [DIR_NORTHWEST] = ANIM_GET_ON_OFF_POKEMON_WEST,
+    [DIR_NORTHEAST] = ANIM_GET_ON_OFF_POKEMON_EAST,
 };
 static const u8 sMoveDirectionFastestAnimNums[] = {
     [DIR_NONE] = ANIM_STD_GO_FASTEST_SOUTH,
@@ -1031,6 +1031,10 @@ const u8 gJumpSpecialMovementActions[] = {
     MOVEMENT_ACTION_JUMP_SPECIAL_DOWN,
     MOVEMENT_ACTION_JUMP_SPECIAL_DOWN,
     MOVEMENT_ACTION_JUMP_SPECIAL_UP,
+    MOVEMENT_ACTION_JUMP_SPECIAL_LEFT,
+    MOVEMENT_ACTION_JUMP_SPECIAL_RIGHT,
+    MOVEMENT_ACTION_JUMP_SPECIAL_LEFT,
+    MOVEMENT_ACTION_JUMP_SPECIAL_RIGHT,
     MOVEMENT_ACTION_JUMP_SPECIAL_LEFT,
     MOVEMENT_ACTION_JUMP_SPECIAL_RIGHT,
 };
@@ -10650,3 +10654,39 @@ void GetDaycareGraphics(struct ScriptContext *ctx)
     }
     gSpecialVar_Result = i;
 }
+
+// fast diagonal
+bool8 MovementAction_WalkFastDiagonalUpLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, DIR_NORTHWEST, 1);
+    return MovementAction_WalkFastDiagonal_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkFastDiagonalUpRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, DIR_NORTHEAST, 1);
+    return MovementAction_WalkFastDiagonal_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkFastDiagonalDownLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, DIR_SOUTHWEST, 1);
+    return MovementAction_WalkFastDiagonal_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkFastDiagonalDownRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, DIR_SOUTHEAST, 1);
+    return MovementAction_WalkFastDiagonal_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkFastDiagonal_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (UpdateMovementNormal(objectEvent, sprite))
+    {
+        sprite->data[2] = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+

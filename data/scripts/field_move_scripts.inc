@@ -533,32 +533,30 @@ EventScript_Headbutt::
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick 0, VAR_RESULT
 	buffermovename 1, MOVE_HEADBUTT
+	goto EventScript_HeadbuttSuccess
+	
+EventScript_HeadbuttSuccess::
 	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_CancelHeadbutt
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
 	closemessage
+EventScript_HeadbuttCommon::
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004
 	dofieldeffect FLDEFF_USE_HEADBUTT
 	waitstate
 	goto EventScript_HeadbuttTree
-	end
-
-EventScript_CantHeadbuttTree::
-	msgbox Text_CantHeadbuttTree, MSGBOX_DEFAULT
-	releaseall
-	end
-
-EventScript_CancelHeadbutt::
-	closemessage
-	releaseall
-	end
-
 @ Use headbutt from party menu
 EventScript_UseHeadbutt::
 	lockall
 	dofieldeffect FLDEFF_USE_HEADBUTT
 	waitstate
 EventScript_HeadbuttTree:
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	applymovement VAR_LAST_TALKED, Movement_Headbutt
+	waitmovement 0
 	setvar VAR_0x8004, 1  @ vertical pan
 	setvar VAR_0x8005, 1  @ horizontal pan
 	setvar VAR_0x8006, 8  @ num shakes
@@ -570,6 +568,20 @@ EventScript_HeadbuttTree:
 	goto_if_eq EventScript_EndHeadbutt
 	waitstate
 EventScript_EndHeadbutt:
+	releaseall
+	end
+
+Movement_Headbutt:
+	cut_tree
+	step_end
+
+EventScript_CantHeadbuttTree::
+	msgbox Text_CantHeadbuttTree, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CancelHeadbutt::
+	closemessage
 	releaseall
 	end
 
@@ -617,9 +629,43 @@ Text_FailSweetScent:
 	.string "Looks like there's nothing here…$"
 
 Text_WantToHeadbutt:
-	.string "It's a moderated sized tree.\n"
-	.string "Would you like to use HEADBUTT?$"
+	.string "It's a large, formidable tree.\n"
+	.string "Would you like to{COLOR DYNAMIC_COLOR4} Shake{COLOR DARK_GRAY} it?$"
 
 Text_CantHeadbuttTree:
 	.string "There's a large, formidable tree.\n"
-	.string "It looks like it can be headbutted!$"
+	.string "It looks like it can be{COLOR DYNAMIC_COLOR4} Shook{COLOR DARK_GRAY}!$"
+	
+EventScript_UseRockClimb::
+	lockall
+	checkpartymove MOVE_ROCK_CLIMB
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_CantRockClimb
+	bufferpartymonnick 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
+	msgbox Text_WantToRockClimb, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_EndRockClimb
+	msgbox Text_MonUsedRockClimb, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_ROCK_CLIMB
+	waitstate
+	goto EventScript_EndRockClimb
+	
+EventScript_CantRockClimb::
+	msgbox Text_CantRockClimb, MSGBOX_DEFAULT
+	
+EventScript_EndRockClimb::
+	releaseall
+	end
+	
+Text_WantToRockClimb:
+    .string "The cliff is steep.\n"
+    .string "Would you like to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it?$"
+    
+Text_MonUsedRockClimb:
+    .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}Rock Climb{COLOR DARK_GRAY}!$"
+    
+Text_CantRockClimb:
+    .string "The cliff is steep.\n"
+    .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
