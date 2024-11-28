@@ -2789,21 +2789,21 @@ static u8 DisplaySelectionWindow(u8 windowType)
         const u8 *text;
         u8 fontColorsId;
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
-				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectStrength)
+				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
 					fontColorsId = 4; //Light Gray
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSmash)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SMASH)
 					fontColorsId = 5; //Red
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectFlash)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_FLASH)
 					fontColorsId = 6; //Light Red
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectCut)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_CUT)
 					fontColorsId = 7; //Green
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectClimb)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_CLIMB)
 					fontColorsId = 8; //Light Green
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectHack)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_HACK)
 					fontColorsId = 9; //Dynamic 5 (Turquoise)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectWarp)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_WARP)
 					fontColorsId = 10; //Light Blue
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldEffectSurf)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SURF)
 					fontColorsId = 12; //Dynamic 6 (Teal)
 				else
 					fontColorsId = 11; //Dynamic 4 (Aquamarine)

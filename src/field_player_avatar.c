@@ -1274,7 +1274,7 @@ u8 GetPlayerAvatarGenderByGraphicsId(u16 gfxId)
     }
 }
 
-u8 PartyHasMonWithSurf(void)
+bool8 PartyHasMonWithSurf(void)
 {
     u8 i;
 
@@ -1284,12 +1284,12 @@ u8 PartyHasMonWithSurf(void)
         {
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
                 break;
-            if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
-                return 1;
-            if (MonKnowsMove(&gPlayerParty[i], MOVE_SEA_STRIDE))
-                return 2;
-            if (MonKnowsMove(&gPlayerParty[i], MOVE_MUDDY_WATER))
-                return 3;
+		for (u8 j = 0; j < MAX_MON_MOVES; j++)
+			{
+				u16 moveId = GetMonData(&gPlayerParty[i], MON_DATA_MOVE1 + j, NULL);
+				if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SURF)
+                return TRUE;
+			}
         }
     }
     return FALSE;
