@@ -562,7 +562,10 @@ enum FieldMoveType
     IS_FIELD_MOVE_JUMP 		= 1 << 14, 		// 0x4000		Jump up ledges - not implemented
     IS_FIELD_MOVE_WARP 		= 1 << 15, 		// 0x8000		Warp to known locations - currently has no effect
 	IS_FIELD_MOVE_HACK		= 1 << 16, 		// 0x10000		Charge Beam - open locked electronic doors, not implemented
-	IS_FIELD_MOVE_DEFOG		= 1 << 17 		// 0x20000		Defog - not implemented
+	IS_FIELD_MOVE_DEFOG		= 1 << 17,		// 0x20000		Defog - not implemented
+	IS_FIELD_MOVE_ESCAPE	= 1 << 18,		// 0x40000 		Dig - escape from caves effect - currently unused
+	IS_FIELD_MOVE_LURE		= 1 << 19,		// 0x80000 		Sweet Scent effect - currently unused
+	IS_FIELD_MOVE_SECRET	= 1 << 20		// 0x100000		Secret Power
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}

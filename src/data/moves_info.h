@@ -2398,7 +2398,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_DIG,
-		.fieldMoveFlags = IS_FIELD_MOVE_SMASH | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_WARP ,
+		.fieldMoveFlags = IS_FIELD_MOVE_ESCAPE | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_WARP,
     },
 
     [MOVE_TOXIC] =
@@ -3301,6 +3301,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         .battleAnimScript = Move_WATERFALL,
+		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL,
     },
 
     [MOVE_CLAMP] =
@@ -5889,6 +5890,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = COMBO_STARTER_SWEET_SCENT,
         .contestComboMoves = {0},
         .battleAnimScript = Move_SWEET_SCENT,
+		.fieldMoveFlags = IS_FIELD_MOVE_LURE,
     },
 
     [MOVE_IRON_TAIL] =
@@ -7406,7 +7408,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_SECRET_POWER,
-		.fieldMoveFlags = IS_FIELD_MOVE_CUT | IS_FIELD_MOVE_SMASH | IS_FIELD_MOVE_SHAKE,
+		.fieldMoveFlags = IS_FIELD_MOVE_CUT | IS_FIELD_MOVE_SMASH | IS_FIELD_MOVE_SHAKE | IS_FIELD_MOVE_SECRET,
     },
 
     [MOVE_DIVE] =
@@ -8656,6 +8658,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_BOUNCE,
+		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL | IS_FIELD_MOVE_JUMP,
     },
 
     [MOVE_MUD_SHOT] =
@@ -12017,7 +12020,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_TELEKINESIS,
-		.fieldMoveFlags = IS_FIELD_MOVE_PUSH,
+		.fieldMoveFlags = IS_FIELD_MOVE_PUSH | IS_FIELD_MOVE_SHAKE,
     },
 
     [MOVE_MAGIC_ROOM] =
@@ -12863,7 +12866,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_ACROBATICS,
-		.fieldMoveFlags = IS_FIELD_MOVE_CLIMB,
+		.fieldMoveFlags = IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_JUMP,
     },
 
     [MOVE_REFLECT_TYPE] =
@@ -15530,7 +15533,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = Move_DRAGON_ASCENT,
-		.fieldMoveFlags = IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_SOAR,
+		.fieldMoveFlags = IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_SOAR | IS_FIELD_MOVE_WATERFALL,
     },
 
     [MOVE_HYPERSPACE_FURY] =
