@@ -246,28 +246,6 @@
 #define EVOLUTIONS_END                    0xFFFF // Not an actual evolution, used to mark the end of an evolution array.
 
 
-// Only used in dynamic wild mon evolutions
-#define EVO_METHOD_COUNT                  53
-
-#define WILD_MON_EVO_BANS                   TRUE
-#define WILD_MON_EVO_TIME_OF_DAY_REQUIRED   TRUE
-#define WILD_MON_EVO_CHANCE_BY_STAGE        TRUE // If a mon doesn't evolve the first time, keep trying?
-
-// Chances for wild mons to even be attempting to dynamically evolve
-#define WILD_MON_EVO_CHANCE_STAGE1          50 // First or up to first branch evolution
-#define WILD_MON_EVO_CHANCE_STAGE2          50 // Second or up to second branch evolution
-#define WILD_MON_EVO_CHANCE_STAGE3          25 // Third or up to third branch evolution. Most mons do not have these type of evolutions
-
-// Evolution 'modes,' for GetEvolutionTargetSpecies
-#define EVO_MODE_NORMAL            0
-#define EVO_MODE_CANT_STOP         1
-#define EVO_MODE_TRADE             2
-#define EVO_MODE_ITEM_USE          3
-#define EVO_MODE_ITEM_CHECK        4 // If an Everstone is being held, still want to show that the stone *could* be used on that Pokémon to evolve
-#define EVO_MODE_BATTLE_SPECIAL    5
-#define EVO_MODE_OVERWORLD_SPECIAL 6
-#define EVO_MODE_BATTLE_ONLY       7 // This mode is only used in battles to support Tandemaus' unique requirement
-
 enum EvolutionMethods {
     EVO_NONE,                            // Not an actual evolution, used to generate offspring that can't evolve into the specified species, like regional forms.
     EVO_FRIENDSHIP,                      // Pokémon levels up with friendship ≥ 220
@@ -363,5 +341,27 @@ enum EvolutionMode {
 #else
 #define LEGENDARY_PERFECT_IV_COUNT 0
 #endif
+
+// Only used in dynamic wild mon evolutions
+#define EVO_METHOD_COUNT                  53
+
+#define WILD_MON_EVO_BANS                   TRUE
+#define WILD_MON_EVO_TIME_OF_DAY_REQUIRED   TRUE
+#define WILD_MON_EVO_CHANCE_BY_STAGE        TRUE // If a mon doesn't evolve the first time, keep trying?
+
+// Chances for wild mons to even be attempting to dynamically evolve
+#define WILD_MON_EVO_CHANCE_STAGE1          50 // First or up to first branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE2          50 // Second or up to second branch evolution
+#define WILD_MON_EVO_CHANCE_STAGE3          25 // Third or up to third branch evolution. Most mons do not have these type of evolutions
+
+// Evolution 'modes,' for GetEvolutionTargetSpecies
+#define EVO_MODE_NORMAL            0
+#define EVO_MODE_CANT_STOP         1
+#define EVO_MODE_TRADE             2
+#define EVO_MODE_ITEM_USE          3
+#define EVO_MODE_ITEM_CHECK        4 // If an Everstone is being held, still want to show that the stone *could* be used on that Pokémon to evolve
+#define EVO_MODE_BATTLE_SPECIAL    5
+#define EVO_MODE_OVERWORLD_SPECIAL 6
+#define EVO_MODE_BATTLE_ONLY       7 // This mode is only used in battles to support Tandemaus' unique requirement
 
 #endif // GUARD_CONSTANTS_POKEMON_H

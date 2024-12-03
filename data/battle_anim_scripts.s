@@ -18052,9 +18052,6 @@ gBattleAnimMove_MalignantChain::
 	waitforvisualfinish
 	end
 
-Move_REVIVAL_BLESSING::
-	goto Move_LUNAR_BLESSING
-
 gBattleAnimMove_PopulationBomb::
 	loadspritegfx ANIM_TAG_CUT
 	monbg ANIM_TARGET

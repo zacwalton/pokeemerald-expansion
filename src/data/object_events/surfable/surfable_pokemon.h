@@ -468,19 +468,19 @@ const struct RideablePokemon gSurfablePokemon[] =
         .trainerPose = 0,
     },
     {
-        .species = SPECIES_SHELLOS_WEST_SEA,
+        .species = SPECIES_SHELLOS_WEST,
         .trainerPose = 0,
     },
     {
-        .species = SPECIES_SHELLOS_EAST_SEA,
+        .species = SPECIES_SHELLOS_EAST,
         .trainerPose = 0,
     },
     {
-        .species = SPECIES_GASTRODON_WEST_SEA,
+        .species = SPECIES_GASTRODON_WEST,
         .trainerPose = 0,
     },
     {
-        .species = SPECIES_GASTRODON_EAST_SEA,
+        .species = SPECIES_GASTRODON_EAST,
         .trainerPose = 0,
     },
     {

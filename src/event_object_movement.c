@@ -778,10 +778,6 @@ static const u8 sMoveDirectionFasterAnimNums[] = {
     [DIR_NORTH] = ANIM_STD_GO_FASTER_NORTH,
     [DIR_WEST] = ANIM_STD_GO_FASTER_WEST,
     [DIR_EAST] = ANIM_STD_GO_FASTER_EAST,
-    [DIR_SOUTHWEST] = ANIM_STD_GO_FASTER_WEST,
-    [DIR_SOUTHEAST] = ANIM_STD_GO_FASTER_EAST,
-    [DIR_NORTHWEST] = ANIM_STD_GO_FASTER_WEST,
-    [DIR_NORTHEAST] = ANIM_STD_GO_FASTER_EAST,
     [DIR_SOUTHWEST] = ANIM_GET_ON_OFF_POKEMON_WEST,
     [DIR_SOUTHEAST] = ANIM_GET_ON_OFF_POKEMON_EAST,
     [DIR_NORTHWEST] = ANIM_GET_ON_OFF_POKEMON_WEST,
@@ -11095,3 +11091,7 @@ bool8 MovementAction_WalkFastDiagonal_Step1(struct ObjectEvent *objectEvent, str
     if (UpdateMovementNormal(objectEvent, sprite))
     {
         sprite->data[2] = 2;
+        return TRUE;
+    }
+    return FALSE;
+}

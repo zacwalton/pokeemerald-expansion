@@ -1501,20 +1501,6 @@ void Task_ItemUse_CloseMessageBoxAndReturnToField_VsSeeker(u8 taskId)
     Task_CloseCantUseKeyItemMessage(taskId);
 }
 
-void ItemUseOutOfBattle_EonFlute(u8 taskId)
-{
-	s16* data = gTasks[taskId].data;
-	
-	if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
-	{
-        sItemUseOnFieldCB = ItemUseOnFieldCB_EonFlute;
-		SetUpItemUseOnFieldCallback(taskId);
-	}
-	else {
-		DisplayDadsAdviceCannotUseItemMessage(taskId, data[3]);
-	}
-}
-
 static void Task_DisplayPokeFluteMessage(u8 taskId)
 {
     if (WaitFanfare(FALSE))
@@ -1574,4 +1560,17 @@ void ItemUseOutOfBattle_TownMap(u8 taskId)
     Task_FadeAndCloseBagMenu(taskId);
 }
 
+void ItemUseOutOfBattle_EonFlute(u8 taskId)
+{
+	s16* data = gTasks[taskId].data;
+	
+	if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+	{
+        sItemUseOnFieldCB = ItemUseOnFieldCB_EonFlute;
+		SetUpItemUseOnFieldCallback(taskId);
+	}
+	else {
+		DisplayDadsAdviceCannotUseItemMessage(taskId, data[3]);
+	}
+}
 #undef tUsingRegisteredKeyItem

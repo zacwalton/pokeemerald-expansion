@@ -597,7 +597,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Fly,
-		.fieldMoveFlags = IS_FIELD_MOVE_SOAR | IS_FIELD_EFFECT_WARP,
+		.fieldMoveFlags = IS_FIELD_MOVE_SOAR | IS_FIELD_MOVE_WARP,
     },
 
     [MOVE_BIND] =
@@ -20902,7 +20902,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
-        .battleAnimScript = Move_GIGA_DRAIN,
+        .battleAnimScript = gBattleAnimMove_GigaDrain,
     },
 
     // Z-Moves
