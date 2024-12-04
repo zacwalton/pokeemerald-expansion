@@ -18077,12 +18077,11 @@ PopulationBombContinue:
 gBattleAnimMove_RevivalBlessing::
 	goto gBattleAnimMove_LunarBlessing
 
-Move_FLASH_FREEZE::
+gBattleAnimMove_FlashFreeze::
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	loadspritegfx ANIM_TAG_ICE_SPIKES
 	monbg ANIM_DEF_PARTNER
 	call SetHighSpeedBg
-	monbg ANIM_ATK_PARTNER
 	setalpha 12, 8
 	playsewithpan SE_M_ICY_WIND, 0
 	waitbgfadein
@@ -18095,14 +18094,13 @@ Move_FLASH_FREEZE::
 	delay 55
 	call IceSpikesEffectLong
 	waitforvisualfinish
-	clearmonbg ANIM_DEF_PARTNER
 	call UnsetHighSpeedBg
 	clearmonbg ANIM_ATK_PARTNER
 	blendoff
 	delay 1
 	end
 
-Move_ICE_BLITZ::
+gBattleAnimMove_IceBlitz::
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	call SetHighSpeedBg
@@ -18131,7 +18129,7 @@ Move_ICE_BLITZ::
 	delay 1
 	end
 
-Move_APOTROPAISM::
+gBattleAnimMove_Apotropaism::
 	loadspritegfx ANIM_TAG_FLOWER
 	loadspritegfx ANIM_TAG_LEAF
 	monbg ANIM_DEF_PARTNER
@@ -18181,7 +18179,7 @@ Move_APOTROPAISM::
 	blendoff
 	end
 	
-	Move_SEA_STRIDE::
+gBattleAnimMove_SeaStride::
 	loadspritegfx ANIM_TAG_HORN_HIT_2
 	createvisualtask AnimTask_ShakeMon, 5, ANIM_ATTACKER, 2, 0, 15, 1
 	waitforvisualfinish

@@ -20804,7 +20804,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .magicCoatAffected = TRUE,
         .contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
-        .battleAnimScript = Move_FLASH_FREEZE,
+        .battleAnimScript = gBattleAnimMove_FlashFreeze,
     },
 
     [MOVE_ICE_BLITZ] =
@@ -20828,7 +20828,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_FOCUS_ENERGY, COMBO_STARTER_MIND_READER},
-        .battleAnimScript = Move_ICE_BLITZ,
+        .battleAnimScript = gBattleAnimMove_IceBlitz,
     },
 
     [MOVE_APOTROPAISM] =
@@ -20853,7 +20853,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestCategory = CONTEST_CATEGORY_CUTE,
         .contestComboStarterId = COMBO_STARTER_WATER_SPORT,
         .contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE},
-        .battleAnimScript = Move_APOTROPAISM,
+        .battleAnimScript = gBattleAnimMove_IceBlitz,
     },
 
     [MOVE_SEA_STRIDE] =
@@ -20879,7 +20879,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestCategory = CONTEST_CATEGORY_SMART,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
-        .battleAnimScript = Move_SEA_STRIDE,
+        .battleAnimScript = gBattleAnimMove_SeaStride,
 		.fieldMoveFlags = IS_FIELD_MOVE_SURF,
     },
 
