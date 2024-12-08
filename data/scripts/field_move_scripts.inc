@@ -263,7 +263,13 @@ EventScript_UseStrength::
 	lockall
 	dofieldeffect FLDEFF_USE_STRENGTH
 	waitstate
-	goto EventScript_ActivateStrength
+	goto EventScript_StrengthCommon
+	end
+
+EventScript_StrengthCommon::
+	setflag FLAG_SYS_USE_STRENGTH
+	msgbox Text_StrengthActivated, MSGBOX_DEFAULT
+	releaseall
 	end
 
 EventScript_ActivateStrength::
@@ -294,6 +300,10 @@ Text_WantToStrength:
 
 Text_MonUsedStrength:
 	.string "{STR_VAR_1} used {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}{STR_VAR_2}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}!\p"
+	.string "{STR_VAR_1} made it possible\n"
+	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}boulders around!$"
+
+Text_ActivateStrength:
 	.string "{STR_VAR_1} made it possible\n"
 	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}boulders around!$"
 
@@ -387,8 +397,9 @@ EventScript_CantSurface::
 EventScript_EndSurface::
 	releaseall
 	end
-
-EventScript_UseWhirlpool::
+	
+@ Interact with fast currents
+EventScript_Whirlpool::
 	lockall
 	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
 	checkmovefieldeffectflag 0x0400
@@ -404,11 +415,27 @@ EventScript_UseWhirlpool::
 	goto EventScript_ActivateWhirlpool
 	end
 	
+@ Use whirlpool from party menu
+EventScript_WhirlpoolCommon::
+	lockall
+	dofieldeffect FLDEFF_USE_WHIRLPOOL
+	setflag FLAG_SYS_USE_WHIRLPOOL
+	waitstate
+	msgbox Text_ActivateWhirlpool, MSGBOX_DEFAULT
+	releaseall
+	end
+	
 EventScript_ActivateWhirlpool::
 	setflag FLAG_SYS_USE_WHIRLPOOL
 	msgbox Text_PlayerUsedWhirlpool, MSGBOX_DEFAULT
 	releaseall
 	end
+	
+@ Use whirlpool from party menu
+EventScript_UseWhirlpool::
+	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
+	lockall
+	goto EventScript_WhirlpoolCommon
 	
 EventScript_CantWhirlpool::
 	lockall
@@ -424,6 +451,22 @@ EventScript_CheckActivatedWhirlpool::
 	msgbox Text_CantWhirlpool, MSGBOX_DEFAULT
 	releaseall
 	end
+
+Text_CantWhirlpool::
+	.string "The current is strong…\n$"
+
+Text_WantToUseWhirlpool::
+	.string "The current is strong…\n"
+	.string "Would you like to{COLOR DYNAMIC_COLOR5} Surf{COLOR DARK_GRAY} across?$"
+
+Text_PlayerUsedWhirlpool::
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!\p"
+	.string "{STR_VAR_1} made it possible\n"
+	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY} the currents!$"
+
+Text_ActivateWhirlpool::
+	.string "{STR_VAR_1} made it possible\n"
+	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY} the currents!$"
 
 @ Interact with a tree a Pokémon can use headbutt on
 EventScript_Headbutt::
@@ -522,17 +565,6 @@ Text_WantToSurface:
 	.string "Light is filtering down from above.\n"
 	.string "Would you like to dive?$"
 
-Text_CantWhirlpool::
-	.string "The current is strong…\n$"
-
-Text_WantToUseWhirlpool::
-	.string "The current is strong…\n"
-	.string "Would you like to{COLOR DYNAMIC_COLOR5} Surf{COLOR DARK_GRAY}?$"
-
-Text_PlayerUsedWhirlpool::
-	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!$"
-
-
 EventScript_FailSweetScent::
 	msgbox Text_FailSweetScent, MSGBOX_SIGN
 	end
@@ -582,3 +614,15 @@ Text_MonUsedRockClimb:
 Text_CantRockClimb:
     .string "The cliff is steep.\n"
     .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
+
+EventScript_UseDefog::
+	dofieldeffect FLDEFF_USE_DEFOG
+	waitstate
+	setweather WEATHER_SUNNY
+	doweather
+	msgbox Text_ActivateDefog, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Text_ActivateDefog::
+	.string "{STR_VAR_1} cleared the fog!$"

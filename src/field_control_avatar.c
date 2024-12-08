@@ -545,7 +545,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 		|| (MetatileBehavior_IsWestwardCurrent(metatileBehavior) == TRUE)
 		|| (MetatileBehavior_IsEastwardCurrent(metatileBehavior) == TRUE))
 		&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING))
-			return EventScript_UseWhirlpool;
+			return EventScript_Whirlpool;
     return NULL;
 }
 

@@ -82,7 +82,8 @@ gFieldEffectScriptPointers::
 	.4byte gFieldEffectScript_UseHeadbutt               @ FLDEFF_USE_HEADBUTT
 	.4byte gFieldEffectScript_UseRockClimb              @ FLDEFF_USE_ROCK_CLIMB
 	.4byte gFieldEffectScript_RockClimbDust             @ FLDEFF_ROCK_CLIMB_DUST
-	.4byte gFieldEffectScript_UseWhirlpool             @ FLDEFF_USE_WHIRLPOOL
+	.4byte gFieldEffectScript_UseWhirlpool             	@ FLDEFF_USE_WHIRLPOOL
+	.4byte gFieldEffectScript_UseDefog             		@ FLDEFF_USE_DEFOG
 
 gFieldEffectScript_ExclamationMarkIcon1::
 	field_eff_callnative FldEff_ExclamationMarkIcon
@@ -395,3 +396,7 @@ gFieldEffectScript_RockClimbDust:: @ 82DBB28
 	field_eff_loadfadedpal_callnative gSpritePalette_BigDust, FldEff_RockClimbDust
 	field_eff_end
 
+gFieldEffectScript_UseDefog:: @ 82DBC3F
+	field_eff_callnative FldEff_UseDefog
+	field_eff_end
+	

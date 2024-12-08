@@ -10,6 +10,7 @@
 #include "field_effect.h"
 #include "field_camera.h"
 #include "field_player_avatar.h"
+#include "field_weather.h"
 #include "fldeff.h"
 #include "fldeff_misc.h"
 #include "secret_base.h"
@@ -22,6 +23,7 @@
 #include "constants/metatile_behaviors.h"
 #include "constants/metatile_labels.h"
 #include "constants/songs.h"
+#include "constants/weather.h"
 #include "overworld.h"
 
 
@@ -79,6 +81,9 @@ static void FieldCallback_Headbutt(void);
 
 static void FieldMove_Whirlpool(void);
 static void FieldCallback_Whirlpool(void);
+
+static void FieldMove_Defog(void);
+static void FieldCallback_Defog(void);
 
 
 static const struct OamData sOam_SecretPower =
@@ -1377,7 +1382,7 @@ static void FieldCallback_Headbutt(void)
 // The important part is handled by EventScript_Headbutt, but I'm following Rock Smash's lead :P
 static void FieldMove_Whirlpool(void)
 {
-    PlaySE(SE_NOT_EFFECTIVE);
+    PlaySE(SE_M_SURF);
     FieldEffectActiveListRemove(FLDEFF_USE_WHIRLPOOL);
     ScriptContext_Enable();
 }
@@ -1391,8 +1396,8 @@ bool8 FldEff_UseWhirlpool(void)
     return FALSE;
 }
 
-// Called when Headbutt is used from the party menu
-// For interacting with a headbuttable tree in the field, see EventScript_Headbutt
+// Called when Whirlpool is used from the party menu
+// For interacting with a current in the field, see EventScript_Whirlpool
 bool8 SetUpFieldMove_Whirlpool(void)
 {
     GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
@@ -1416,5 +1421,42 @@ static void FieldCallback_Whirlpool(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_UseWhirlpool);
+}
+
+// Defog
+static void FieldMove_Defog(void)
+{
+    PlaySE(SE_M_WING_ATTACK);
+    FieldEffectActiveListRemove(FLDEFF_USE_DEFOG);
+    ScriptContext_Enable();
+}
+
+bool8 FldEff_UseDefog(void)
+{
+    u8 taskId = CreateFieldMoveTask();
+
+    gTasks[taskId].data[8] = (u32)FieldMove_Defog >> 16;
+    gTasks[taskId].data[9] = (u32)FieldMove_Defog;
+    return FALSE;
+}
+
+bool8 SetUpFieldMove_Defog(void)
+{
+    if (GetCurrentWeather() == WEATHER_FOG_HORIZONTAL)
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Defog;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+static void FieldCallback_Defog(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    ScriptContext_SetupScript(EventScript_UseDefog);
 }
 
