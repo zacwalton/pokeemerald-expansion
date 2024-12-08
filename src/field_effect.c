@@ -3122,6 +3122,8 @@ static void SurfFieldEffect_End(struct Task *task)
         UnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         FieldEffectActiveListRemove(FLDEFF_USE_SURF);
+        FieldEffectActiveListRemove(FLDEFF_USE_WHIRLPOOL);
+		FlagClear(FLAG_SYS_USE_WHIRLPOOL);
         DestroyTask(FindTaskIdByFunc(Task_SurfFieldEffect));
     }
 }

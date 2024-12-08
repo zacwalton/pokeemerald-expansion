@@ -78,6 +78,7 @@
 #define FLDEFF_USE_HEADBUTT              73
 #define FLDEFF_USE_ROCK_CLIMB            74
 #define FLDEFF_ROCK_CLIMB_DUST           75
+#define FLDEFF_USE_WHIRLPOOL			 76
 
 #define FLDEFFOBJ_SHADOW_S              0
 #define FLDEFFOBJ_SHADOW_M              1

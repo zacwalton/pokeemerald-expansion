@@ -82,6 +82,7 @@ gFieldEffectScriptPointers::
 	.4byte gFieldEffectScript_UseHeadbutt               @ FLDEFF_USE_HEADBUTT
 	.4byte gFieldEffectScript_UseRockClimb              @ FLDEFF_USE_ROCK_CLIMB
 	.4byte gFieldEffectScript_RockClimbDust             @ FLDEFF_ROCK_CLIMB_DUST
+	.4byte gFieldEffectScript_UseWhirlpool             @ FLDEFF_USE_WHIRLPOOL
 
 gFieldEffectScript_ExclamationMarkIcon1::
 	field_eff_callnative FldEff_ExclamationMarkIcon
@@ -264,6 +265,10 @@ gFieldEffectScript_UseDive::
 	field_eff_callnative FldEff_UseDive
 	field_eff_end
 
+gFieldEffectScript_UseWhirlpool::
+	field_eff_callnative FldEff_UseWhirlpool
+	field_eff_end
+	
 gFieldEffectScript_PokeballTrail::
 	field_eff_loadpal gSpritePalette_Pokeball
 	field_eff_callnative FldEff_PokeballTrail

@@ -2185,10 +2185,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Traps the foe in a ring of\n"
             "fire for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 50 : 15,
+        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 15,
         .type = TYPE_FIRE,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 70,
-        .pp = 20,
+        .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
@@ -3310,7 +3310,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_WATER,
-        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 75,
+        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 100 : 75,
         .pp = B_UPDATED_MOVE_DATA >= GEN_5 ? 20 : 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -6390,9 +6390,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Traps and hurts the foe in\n"
             "a whirlpool for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 50 : 15, // ZETA boosted from 35 to 50
+        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 15, // ZETA boosted from 35 to 50
         .type = TYPE_WATER,
-        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 100 : 70, // ZETA boosted from 85 to 95
+        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 70, // ZETA boosted from 85 to 95
         .pp = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -8348,10 +8348,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Traps and hurts the foe in\n"
             "quicksand for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 50 : 15,
+        .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 15,
         .type = TYPE_GROUND,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 70,
-        .pp = 20,
+        .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
@@ -15305,7 +15305,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_BUG,
-        .accuracy = 95,
+        .accuracy = 100,
         .pp = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,

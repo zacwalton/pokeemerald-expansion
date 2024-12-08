@@ -54,6 +54,8 @@ bool8 FldEff_UseRockSmash(void);
 // headbutt
 bool8 FldEff_UseHeadbutt(void);
 bool8 SetUpFieldMove_Headbutt(void);
+bool8 FldEff_UseWhirlpool(void);
+bool8 SetUpFieldMove_Whirlpool(void);
 
 
 

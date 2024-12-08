@@ -77,6 +77,8 @@ static const u8 sSandPillar2_Gfx[] = INCBIN_U8("graphics/field_effects/pics/sand
 static void FieldMove_Headbutt(void);
 static void FieldCallback_Headbutt(void);
 
+static void FieldMove_Whirlpool(void);
+static void FieldCallback_Whirlpool(void);
 
 
 static const struct OamData sOam_SecretPower =
@@ -1371,3 +1373,48 @@ static void FieldCallback_Headbutt(void)
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_UseHeadbutt);
 }
+
+// The important part is handled by EventScript_Headbutt, but I'm following Rock Smash's lead :P
+static void FieldMove_Whirlpool(void)
+{
+    PlaySE(SE_NOT_EFFECTIVE);
+    FieldEffectActiveListRemove(FLDEFF_USE_WHIRLPOOL);
+    ScriptContext_Enable();
+}
+
+bool8 FldEff_UseWhirlpool(void)
+{
+    u8 taskId = CreateFieldMoveTask();
+
+    gTasks[taskId].data[8] = (u32)FieldMove_Whirlpool >> 16;
+    gTasks[taskId].data[9] = (u32)FieldMove_Whirlpool;
+    return FALSE;
+}
+
+// Called when Headbutt is used from the party menu
+// For interacting with a headbuttable tree in the field, see EventScript_Headbutt
+bool8 SetUpFieldMove_Whirlpool(void)
+{
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+    if (((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_NORTHWARD_CURRENT)
+		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SOUTHWARD_CURRENT)
+		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_WESTWARD_CURRENT)
+		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_EASTWARD_CURRENT))
+		&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING))
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Whirlpool;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+static void FieldCallback_Whirlpool(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    ScriptContext_SetupScript(EventScript_UseWhirlpool);
+}
+

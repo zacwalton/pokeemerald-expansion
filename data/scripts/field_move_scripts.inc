@@ -388,6 +388,43 @@ EventScript_EndSurface::
 	releaseall
 	end
 
+EventScript_UseWhirlpool::
+	lockall
+	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
+	checkmovefieldeffectflag 0x0400
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWhirlpool
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8005
+	setfieldeffectargument 0, VAR_RESULT
+	msgbox Text_WantToUseWhirlpool, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelWhirlpool
+	closemessage
+	dofieldeffect FLDEFF_USE_WHIRLPOOL
+	waitstate
+	goto EventScript_ActivateWhirlpool
+	end
+	
+EventScript_ActivateWhirlpool::
+	setflag FLAG_SYS_USE_WHIRLPOOL
+	msgbox Text_PlayerUsedWhirlpool, MSGBOX_DEFAULT
+	releaseall
+	end
+	
+EventScript_CantWhirlpool::
+	lockall
+	msgbox Text_CantWhirlpool, MSGBOX_DEFAULT
+	goto EventScript_CancelWhirlpool
+	end
+	
+EventScript_CancelWhirlpool::
+	releaseall
+	end
+	
+EventScript_CheckActivatedWhirlpool::
+	msgbox Text_CantWhirlpool, MSGBOX_DEFAULT
+	releaseall
+	end
+
 @ Interact with a tree a Pokémon can use headbutt on
 EventScript_Headbutt::
 	lockall
@@ -485,6 +522,17 @@ Text_WantToSurface:
 	.string "Light is filtering down from above.\n"
 	.string "Would you like to dive?$"
 
+Text_CantWhirlpool::
+	.string "The current is strong…\n$"
+
+Text_WantToUseWhirlpool::
+	.string "The current is strong…\n"
+	.string "Would you like to{COLOR DYNAMIC_COLOR5} Surf{COLOR DARK_GRAY}?$"
+
+Text_PlayerUsedWhirlpool::
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+
+
 EventScript_FailSweetScent::
 	msgbox Text_FailSweetScent, MSGBOX_SIGN
 	end
@@ -534,4 +582,3 @@ Text_MonUsedRockClimb:
 Text_CantRockClimb:
     .string "The cliff is steep.\n"
     .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
-	

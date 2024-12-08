@@ -540,6 +540,12 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
         else
             return EventScript_CannotUseWaterfall;
     }
+	if (((MetatileBehavior_IsNorthwardCurrent(metatileBehavior) == TRUE)
+		|| (MetatileBehavior_IsSouthwardCurrent(metatileBehavior) == TRUE)
+		|| (MetatileBehavior_IsWestwardCurrent(metatileBehavior) == TRUE)
+		|| (MetatileBehavior_IsEastwardCurrent(metatileBehavior) == TRUE))
+		&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING))
+			return EventScript_UseWhirlpool;
     return NULL;
 }
 

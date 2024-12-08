@@ -535,24 +535,37 @@ static bool8 ForcedMovement_WalkEast(void)
     return DoForcedMovement(DIR_EAST, PlayerWalkNormal);
 }
 
+
 static bool8 ForcedMovement_PushedSouthByCurrent(void)
 {
-    return DoForcedMovement(DIR_SOUTH, PlayerRideWaterCurrent);
+	if ((FlagGet(FLAG_SYS_USE_WHIRLPOOL)) && (gMain.heldKeys & B_BUTTON))
+		return FALSE;
+	else 
+		return DoForcedMovement(DIR_SOUTH, PlayerRideWaterCurrent);
 }
 
 static bool8 ForcedMovement_PushedNorthByCurrent(void)
 {
-    return DoForcedMovement(DIR_NORTH, PlayerRideWaterCurrent);
+	if ((FlagGet(FLAG_SYS_USE_WHIRLPOOL)) && (gMain.heldKeys & B_BUTTON))
+		return FALSE;
+	else 
+		return DoForcedMovement(DIR_NORTH, PlayerRideWaterCurrent);
 }
 
 static bool8 ForcedMovement_PushedWestByCurrent(void)
 {
-    return DoForcedMovement(DIR_WEST, PlayerRideWaterCurrent);
+	if ((FlagGet(FLAG_SYS_USE_WHIRLPOOL)) && (gMain.heldKeys & B_BUTTON))
+		return FALSE;
+	else 
+		return DoForcedMovement(DIR_WEST, PlayerRideWaterCurrent);
 }
 
 static bool8 ForcedMovement_PushedEastByCurrent(void)
 {
-    return DoForcedMovement(DIR_EAST, PlayerRideWaterCurrent);
+	if ((FlagGet(FLAG_SYS_USE_WHIRLPOOL)) && (gMain.heldKeys & B_BUTTON))
+		return FALSE;
+	else 
+		return DoForcedMovement(DIR_EAST, PlayerRideWaterCurrent);
 }
 
 static bool8 ForcedMovement_Slide(u8 direction, void (*moveFunc)(u8))
@@ -668,8 +681,15 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
 
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
     {
+	if (((MetatileBehavior_IsNorthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+		|| (MetatileBehavior_IsSouthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+		|| (MetatileBehavior_IsWestwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+		|| (MetatileBehavior_IsEastwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)))
+		&& (FlagGet(FLAG_SYS_USE_WHIRLPOOL))
+		&& (heldKeys & B_BUTTON))
+			PlayerWalkSlow(direction);
         // same speed as running
-		if (heldKeys & B_BUTTON)
+		else if (heldKeys & B_BUTTON)
 			PlayerWalkFaster(direction);
 		else
 			PlayerWalkFast(direction);
