@@ -681,7 +681,11 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
 
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
     {
-	if (((MetatileBehavior_IsNorthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+	if (MetatileBehavior_IsLava(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+	{
+				PlayerWalkSlow(direction);
+	}
+	else if (((MetatileBehavior_IsNorthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
 		|| (MetatileBehavior_IsSouthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
 		|| (MetatileBehavior_IsWestwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
 		|| (MetatileBehavior_IsEastwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)))
@@ -1361,6 +1365,27 @@ bool8 PartyHasMonWithSurf(void)
     return FALSE;
 }
 
+bool8 PartyHasMonWithLavaSurf(void)
+{
+    u8 i;
+
+    if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+                break;
+		for (u8 j = 0; j < MAX_MON_MOVES; j++)
+			{
+				u16 moveId = GetMonData(&gPlayerParty[i], MON_DATA_MOVE1 + j, NULL);
+				if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_LAVA)
+                return TRUE;
+			}
+        }
+    }
+    return FALSE;
+}
+
 bool8 IsPlayerSurfingNorth(void)
 {
     if (GetPlayerMovementDirection() == DIR_NORTH && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
@@ -1379,6 +1404,21 @@ bool8 IsPlayerFacingSurfableFishableWater(void)
     if (GetCollisionAtCoords(playerObjEvent, x, y, playerObjEvent->facingDirection) == COLLISION_ELEVATION_MISMATCH
      && PlayerGetElevation() == 3
      && MetatileBehavior_IsSurfableFishableWater(MapGridGetMetatileBehaviorAt(x, y)))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 IsPlayerFacingLava(void)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    s16 x = playerObjEvent->currentCoords.x;
+    s16 y = playerObjEvent->currentCoords.y;
+
+    MoveCoords(playerObjEvent->facingDirection, &x, &y);
+    if (GetCollisionAtCoords(playerObjEvent, x, y, playerObjEvent->facingDirection) == COLLISION_ELEVATION_MISMATCH
+     && PlayerGetElevation() == 3
+     && MetatileBehavior_IsLava(MapGridGetMetatileBehaviorAt(x, y)))
         return TRUE;
     else
         return FALSE;
@@ -2289,6 +2329,8 @@ static bool32 CheckTileQualification(s16 tile[], s16 player[], u32 facingDirecti
     else if (IsMetatileBlocking(tile[AXIS_X], tile[AXIS_Y], collison))
         return TRUE;
     else if (MetatileBehavior_IsSurfableFishableWater(MapGridGetMetatileBehaviorAt(tile[AXIS_X], tile[AXIS_Y])))
+        return FALSE;
+    else if (MetatileBehavior_IsLava(MapGridGetMetatileBehaviorAt(tile[AXIS_X], tile[AXIS_Y])))
         return FALSE;
     else if (IsMetatileLand(tile[AXIS_X], tile[AXIS_Y], collison))
         isTileLand[direction] = TRUE;

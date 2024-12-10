@@ -85,6 +85,8 @@ static void FieldCallback_Whirlpool(void);
 static void FieldMove_Defog(void);
 static void FieldCallback_Defog(void);
 
+static void FieldMove_Lava(void);
+static void FieldCallback_Lava(void);
 
 static const struct OamData sOam_SecretPower =
 {
@@ -1458,5 +1460,35 @@ static void FieldCallback_Defog(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_UseDefog);
+}
+
+// Lava Plume
+static void FieldMove_Lava(void)
+{
+    PlaySE(SE_M_WING_ATTACK);
+    FieldEffectActiveListRemove(FLDEFF_USE_LAVA);
+    ScriptContext_Enable();
+}
+
+
+bool8 SetUpFieldMove_Lava(void)
+{
+	GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+	if (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_LAVA)
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Lava;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+static void FieldCallback_Lava(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    FieldEffectStart(FLDEFF_USE_LAVA);
 }
 

@@ -887,7 +887,7 @@ struct
     [FIELD_MOVE_BLUE_FLARE]        = {SetUpFieldMove_Flash,       PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_SACRED_FIRE]        = {SetUpFieldMove_Flash,       PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_TORCH_SONG]        = {SetUpFieldMove_Flash,       PARTY_MSG_CANT_USE_HERE},
-    [FIELD_MOVE_LAVA_PLUME]        = {SetUpFieldMove_Flash,       PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_LAVA_PLUME]        = {SetUpFieldMove_Lava,       PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_ROCK_SMASH]   = {SetUpFieldMove_RockSmash,   PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_BRICK_BREAK]   = {SetUpFieldMove_RockSmash,   PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_BULLDOZE]   = {SetUpFieldMove_RockSmash,   PARTY_MSG_CANT_USE_HERE},

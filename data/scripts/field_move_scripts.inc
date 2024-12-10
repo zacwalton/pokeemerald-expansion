@@ -626,3 +626,40 @@ EventScript_UseDefog::
 
 Text_ActivateDefog::
 	.string "{STR_VAR_1} cleared the fog!$"
+	
+EventScript_UseLava::
+	checkmovefieldeffectflag 0x1000
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_EndUseLavaSurf
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8005
+	setfieldeffectargument 0, VAR_RESULT
+	lockall
+	msgbox Text_WantToUseLavaSurf, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_ReleaseUseLavaSurf
+	msgbox Text_PlayerUsedLavaSurf, MSGBOX_DEFAULT
+	dofieldeffect FLDEFF_USE_LAVA
+EventScript_ReleaseUseLavaSurf::
+	releaseall
+	end
+EventScript_EndUseLavaSurf::
+	msgbox Text_CantLavaSurf, MSGBOX_YESNO
+	releaseall
+	end
+	
+EventScript_CantLavaSurf::
+	msgbox Text_CantLavaSurf, MSGBOX_DEFAULT
+	
+EventScript_CancelLavaSurf::
+	releaseall
+	end
+
+Text_CantLavaSurf:
+	.string "The lava is hot and bubbling.\n$"
+	
+Text_WantToUseLavaSurf:
+    .string "The lava is hot and bubbling.\n"
+    .string "Would you like to Surf it?$"
+
+Text_PlayerUsedLavaSurf:
+    .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
+	

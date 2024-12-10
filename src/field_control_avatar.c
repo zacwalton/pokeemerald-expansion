@@ -54,6 +54,7 @@ static const u8 *GetInteractedObjectEventScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedMetatileScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedWaterScript(struct MapPosition *, u8, u8);
+static const u8 *GetInteractedLavaScript(struct MapPosition *, u8, u8);
 static bool32 TrySetupDiveDownScript(void);
 static bool32 TrySetupDiveEmergeScript(void);
 static bool8 TryStartStepBasedScript(struct MapPosition *, u16, u16);
@@ -298,6 +299,10 @@ static const u8 *GetInteractionScript(struct MapPosition *position, u8 metatileB
         return script;
 
     script = GetInteractedWaterScript(position, metatileBehavior, direction);
+    if (script != NULL)
+        return script;
+
+    script = GetInteractedLavaScript(position, metatileBehavior, direction);
     if (script != NULL)
         return script;
 
@@ -546,6 +551,13 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 		|| (MetatileBehavior_IsEastwardCurrent(metatileBehavior) == TRUE))
 		&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING))
 			return EventScript_Whirlpool;
+    return NULL;
+}
+
+static const u8 *GetInteractedLavaScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
+{
+    if (PartyHasMonWithLavaSurf() == TRUE && IsPlayerFacingLava() == TRUE)
+        return EventScript_UseLava;
     return NULL;
 }
 

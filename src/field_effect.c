@@ -3123,6 +3123,7 @@ static void SurfFieldEffect_End(struct Task *task)
         UnlockPlayerFieldControls();
         FieldEffectActiveListRemove(FLDEFF_USE_SURF);
         FieldEffectActiveListRemove(FLDEFF_USE_WHIRLPOOL);
+        FieldEffectActiveListRemove(FLDEFF_USE_LAVA);
 		FlagClear(FLAG_SYS_USE_WHIRLPOOL);
         DestroyTask(FindTaskIdByFunc(Task_SurfFieldEffect));
     }
@@ -4293,3 +4294,14 @@ bool8 IsRockClimbActive(void)
     else
         return FALSE;
 }
+
+u8 FldEff_UseLava(void)
+{
+    u8 taskId = CreateTask(Task_SurfFieldEffect, 0xff);
+    gTasks[taskId].tMonId = gFieldEffectArguments[0];
+	VarSet(VAR_SURF_MON_SLOT, gFieldEffectArguments[0]);
+    Overworld_ClearSavedMusic();
+    Overworld_ChangeMusicTo(MUS_MT_PYRE);
+    return FALSE;
+}
+

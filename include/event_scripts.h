@@ -570,6 +570,7 @@ extern const u8 EventScript_Questionnaire[];
 extern const u8 EventScript_TrainerHillTimer[];
 extern const u8 EventScript_Headbutt[];
 extern const u8 EventScript_UseSurf[];
+extern const u8 EventScript_UseLava[];
 extern const u8 EventScript_UseWaterfall[];
 extern const u8 EventScript_CannotUseWaterfall[];
 extern const u8 EventScript_UseDive[];

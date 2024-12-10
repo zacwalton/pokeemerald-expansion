@@ -60,7 +60,9 @@ bool8 SetUpFieldMove_Whirlpool(void);
 // Defog
 bool8 FldEff_UseDefog(void);
 bool8 SetUpFieldMove_Defog(void);
-
+// Lava Plume
+bool8 FldEff_UseLava(void);
+bool8 SetUpFieldMove_Lava(void);
 
 
 #endif // GUARD_FLDEFF_H
