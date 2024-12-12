@@ -24,11 +24,6 @@
       "direction": "right"
     },
     {
-      "map": "MAP_ROUTE128",
-      "offset": 120,
-      "direction": "up"
-    },
-    {
       "map": "MAP_DONTO_ISLAND",
       "offset": -9,
       "direction": "up"
