@@ -1034,3 +1034,14 @@ const struct Tileset gTileset_Littleroot_Autumn =
     .metatileAttributes = gMetatileAttributes_Littleroot_Autumn,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Verdanturf_Summer =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Verdanturf_Summer,
+    .palettes = gTilesetPalettes_Verdanturf_Summer,
+    .metatiles = gMetatiles_Verdanturf_Summer,
+    .metatileAttributes = gMetatileAttributes_Verdanturf_Summer,
+    .callback = NULL,
+};

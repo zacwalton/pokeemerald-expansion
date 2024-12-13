@@ -264,3 +264,6 @@ const u16 gMetatileAttributes_Hoenn_Autumn[] = INCBIN_U16("data/tilesets/primary
 
 const u16 gMetatiles_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatiles.bin");
 const u16 gMetatileAttributes_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/secondary/littleroot_autumn/metatile_attributes.bin");
+
+const u16 gMetatiles_Verdanturf_Summer[] = INCBIN_U16("data/tilesets/secondary/verdanturf_summer/metatiles.bin");
+const u16 gMetatileAttributes_Verdanturf_Summer[] = INCBIN_U16("data/tilesets/secondary/verdanturf_summer/metatile_attributes.bin");
