@@ -608,7 +608,7 @@
     },
     {
       "x": 19,
-      "y": 28,
+      "y": 27,
       "elevation": 1,
       "dest_map": "MAP_SCORCHED_SLAB",
       "dest_warp_id": "0"

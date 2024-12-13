@@ -12,7 +12,7 @@
   "allow_running": false,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": 0,
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
@@ -59,29 +59,29 @@
       "x": 17,
       "y": 18,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE122",
+      "dest_map": "MAP_MT_PYRE_EXT",
       "dest_warp_id": "0"
     },
     {
       "x": 3,
       "y": 6,
       "elevation": 3,
-      "dest_map": "MAP_MT_PYRE_EXTERIOR",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_MT_PYRE_EXT",
+      "dest_warp_id": "1"
     },
     {
       "x": 18,
       "y": 18,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE122",
+      "dest_map": "MAP_MT_PYRE_EXT",
       "dest_warp_id": "0"
     },
     {
       "x": 4,
       "y": 6,
       "elevation": 3,
-      "dest_map": "MAP_MT_PYRE_EXTERIOR",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_MT_PYRE_EXT",
+      "dest_warp_id": "1"
     },
     {
       "x": 11,
@@ -98,6 +98,10 @@
       "dest_warp_id": "4"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }
