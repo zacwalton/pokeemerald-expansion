@@ -1384,10 +1384,10 @@
     {
       "id": "LAYOUT_PETALBURG_WOODS",
       "name": "PetalburgWoods_Layout",
-      "width": 48,
-      "height": 44,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Rustboro",
+      "width": 90,
+      "height": 45,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/PetalburgWoods/border.bin",
       "blockdata_filepath": "data/layouts/PetalburgWoods/map.bin"
     },
