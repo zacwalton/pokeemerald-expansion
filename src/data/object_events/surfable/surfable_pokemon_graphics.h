@@ -485,16 +485,16 @@ const u16 gSurfablePokemonPalette_Shellos_West_Sea[] = INCBIN_U16("graphics/poke
 const u16 gSurfablePokemonShinyPalette_Shellos_West_Sea[] = INCBIN_U16("graphics/pokemon/shellos/overworld_shiny.gbapal");
 
 const u32 gSurfablePokemonPic_Shellos_East_Sea[] = INCBIN_U32("graphics/object_events/pics/pokemon/surfable/shellos_east_sea.4bpp");
-const u16 gSurfablePokemonPalette_Shellos_East_Sea[] = INCBIN_U16("graphics/pokemon/shellos/east_sea/overworld_normal.gbapal");
-const u16 gSurfablePokemonShinyPalette_Shellos_East_Sea[] = INCBIN_U16("graphics/pokemon/shellos/east_sea/overworld_shiny.gbapal");
+const u16 gSurfablePokemonPalette_Shellos_East_Sea[] = INCBIN_U16("graphics/pokemon/shellos/east/overworld_normal.gbapal");
+const u16 gSurfablePokemonShinyPalette_Shellos_East_Sea[] = INCBIN_U16("graphics/pokemon/shellos/east/overworld_shiny.gbapal");
 
 const u32 gSurfablePokemonPic_Gastrodon_West_Sea[] = INCBIN_U32("graphics/object_events/pics/pokemon/surfable/gastrodon_west_sea.4bpp");
 const u16 gSurfablePokemonPalette_Gastrodon_West_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/overworld_normal.gbapal");
 const u16 gSurfablePokemonShinyPalette_Gastrodon_West_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/overworld_shiny.gbapal");
 
 const u32 gSurfablePokemonPic_Gastrodon_East_Sea[] = INCBIN_U32("graphics/object_events/pics/pokemon/surfable/gastrodon_east_sea.4bpp");
-const u16 gSurfablePokemonPalette_Gastrodon_East_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/east_sea/overworld_normal.gbapal");
-const u16 gSurfablePokemonShinyPalette_Gastrodon_East_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/east_sea/overworld_shiny.gbapal");
+const u16 gSurfablePokemonPalette_Gastrodon_East_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/east/overworld_normal.gbapal");
+const u16 gSurfablePokemonShinyPalette_Gastrodon_East_Sea[] = INCBIN_U16("graphics/pokemon/gastrodon/east/overworld_shiny.gbapal");
 
 const u32 gSurfablePokemonPic_Garchomp[] = INCBIN_U32("graphics/object_events/pics/pokemon/surfable/garchomp.4bpp");
 const u16 gSurfablePokemonPalette_Garchomp[] = INCBIN_U16("graphics/pokemon/garchomp/overworld_normal.gbapal");

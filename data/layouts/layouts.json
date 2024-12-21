@@ -235,7 +235,7 @@
       "id": "LAYOUT_ROUTE104",
       "name": "Route104_Layout",
       "width": 70,
-      "height": 86,
+      "height": 47,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/Route104/border.bin",
@@ -1385,7 +1385,7 @@
       "id": "LAYOUT_PETALBURG_WOODS",
       "name": "PetalburgWoods_Layout",
       "width": 90,
-      "height": 45,
+      "height": 58,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/PetalburgWoods/border.bin",
@@ -4547,7 +4547,7 @@
       "width": 100,
       "height": 50,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Mauville_Summer",
+      "secondary_tileset": "gTileset_Verdanturf_Summer",
       "border_filepath": "data/layouts/VerdaleFalls/border.bin",
       "blockdata_filepath": "data/layouts/VerdaleFalls/map.bin"
     },
@@ -4890,6 +4890,26 @@
       "secondary_tileset": "gTileset_Mossdeep_Summer",
       "border_filepath": "data/layouts/RuggedSea_BattleFrontier/border.bin",
       "blockdata_filepath": "data/layouts/RuggedSea_BattleFrontier/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE104_NORTH",
+      "name": "Route104_North_Layout",
+      "width": 70,
+      "height": 28,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
+      "border_filepath": "data/layouts/Route104_North/border.bin",
+      "blockdata_filepath": "data/layouts/Route104_North/map.bin"
+    },
+    {
+      "id": "LAYOUT_PETALBURG_WOODS_ENTRANCE",
+      "name": "PetalburgWoods_Entrance_Layout",
+      "width": 70,
+      "height": 29,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
+      "border_filepath": "data/layouts/PetalburgWoods_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/PetalburgWoods_Entrance/map.bin"
     }
   ]
 }

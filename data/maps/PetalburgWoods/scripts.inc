@@ -264,17 +264,8 @@ PetalburgWoods_EventScript_ExplainMiracleSeed::
 	release
 	end
 
-PetalburgWoods_EventScript_Sign1::
-	msgbox PetalburgWoods_Text_TrainerTipsExperience, MSGBOX_SIGN
-	end
-
 PetalburgWoods_EventScript_Sign2::
 	msgbox PetalburgWoods_Text_TrainerTipsPP, MSGBOX_SIGN
-	end
-
-PetalburgWoods_EventScript_Lyle::
-	trainerbattle_single TRAINER_LYLE, PetalburgWoods_Text_GoBugPokemonTeam, PetalburgWoods_Text_ICouldntWin
-	msgbox PetalburgWoods_Text_ImOutOfPokeBalls, MSGBOX_AUTOCLOSE
 	end
 
 PetalburgWoods_EventScript_James::
@@ -383,19 +374,6 @@ PetalburgWoods_Text_YoureLoadedWithItems:
 	.string "You're loaded with items.\n"
 	.string "I can't give you this GREAT BALL.$"
 
-PetalburgWoods_Text_GoBugPokemonTeam:
-	.string "I caught a whole bunch of POKéMON!\p"
-	.string "Go, go, go!\n"
-	.string "My BUG POKéMON team!$"
-
-PetalburgWoods_Text_ICouldntWin:
-	.string "I have all these POKéMON,\n"
-	.string "but I couldn't win…$"
-
-PetalburgWoods_Text_ImOutOfPokeBalls:
-	.string "I caught a bunch of POKéMON.\n"
-	.string "Now I'm out of POKé BALLS.$"
-
 PetalburgWoods_Text_InstantlyPopularWithBugPokemon:
 	.string "If you take BUG POKéMON to school,\n"
 	.string "you get to be instantly popular!$"
@@ -455,16 +433,6 @@ PetalburgWoods_Text_MiracleSeedExplanation:
 	.string "Besides MIRACLE SEED, I think there are\n"
 	.string "other convenient items for POKéMON\l"
 	.string "to hold.$"
-
-PetalburgWoods_Text_TrainerTipsExperience:
-	.string "TRAINER TIPS\p"
-	.string "Any POKéMON that appears even once\n"
-	.string "in a battle is awarded EXP Points.\p"
-	.string "To raise a weak POKéMON, put it at the\n"
-	.string "left of the team list.\p"
-	.string "As soon as a battle starts, switch it\n"
-	.string "out. It will earn EXP Points without\l"
-	.string "being exposed to any harm.$"
 
 PetalburgWoods_Text_TrainerTipsPP:
 	.string "TRAINER TIPS\p"

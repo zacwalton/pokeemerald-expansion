@@ -32,6 +32,11 @@
       "map": "MAP_ROUTE117",
       "offset": 30,
       "direction": "up"
+    },
+    {
+      "map": "MAP_PETALBURG_WOODS",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

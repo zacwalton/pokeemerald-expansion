@@ -1239,3 +1239,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/WildIsland_East/scripts.inc"
 
 	.include "data/maps/RuggedSea_BattleFrontier/scripts.inc"
+
+	.include "data/maps/Route104_North/scripts.inc"
+
+	.include "data/maps/PetalburgWoods_Entrance/scripts.inc"

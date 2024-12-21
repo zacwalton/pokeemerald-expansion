@@ -19,11 +19,6 @@
       "direction": "up"
     },
     {
-      "map": "MAP_ROUTE104",
-      "offset": -30,
-      "direction": "down"
-    },
-    {
       "map": "MAP_ROUTE116",
       "offset": 0,
       "direction": "right"
@@ -32,6 +27,11 @@
       "map": "MAP_RUSTBORO_PIER",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE104_NORTH",
+      "offset": -30,
+      "direction": "down"
     }
   ],
   "object_events": [

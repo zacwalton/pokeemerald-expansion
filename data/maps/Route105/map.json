@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE104",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
       "map": "MAP_ROUTE106",
       "offset": 0,
       "direction": "down"
@@ -32,6 +27,11 @@
       "map": "MAP_RUGGED_SEA_LITTLEROOT",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE104",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

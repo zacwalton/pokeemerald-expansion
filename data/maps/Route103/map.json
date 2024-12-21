@@ -32,6 +32,11 @@
       "map": "MAP_OLDALE_RUINS",
       "offset": 30,
       "direction": "down"
+    },
+    {
+      "map": "MAP_PETALBURG_WOODS",
+      "offset": -50,
+      "direction": "left"
     }
   ],
   "object_events": [
