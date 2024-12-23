@@ -14163,7 +14163,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_EON_FLUTE] =
     {
-        .name = _("EON FLUTE"),
+        .name = _("Eon Flute"),
         .price = 0,
         .description = COMPOUND_STRING(
             "A flute that can\n"
@@ -14173,5 +14173,189 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_FIELD,
         .fieldUseFunc = ItemUseOutOfBattle_EonFlute,
+        .iconPic = gItemIcon_PokeshiDoll,
+        .iconPalette = gItemIconPalette_PokeshiDoll,
+    },
+
+    [ITEM_WOOD] =
+    {
+        .name = _("Wood"),
+        .price = 10,
+        .description = COMPOUND_STRING(
+            "A chunk of wood."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Charcoal,
+        .iconPalette = gItemIconPalette_Charcoal,
+    },
+
+    [ITEM_STONE] =
+    {
+        .name = _("Stone"),
+        .price = 20,
+        .description = COMPOUND_STRING(
+            "A chunk of stone."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 50,
+        .iconPic = gItemIcon_HardStone,
+        .iconPalette = gItemIconPalette_HardStone,
+    },
+
+    [ITEM_PLANT_FIBRE] =
+    {
+        .name = _("Plant Fibre"),
+        .price = 10,
+        .description = COMPOUND_STRING(
+            "A bundle of plant fibre."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_GalaricaWreath,
+        .iconPalette = gItemIconPalette_GalaricaItem,
+    },
+
+    [ITEM_WHEAT] =
+    {
+        .name = _("Wheat"),
+        .price = 10,
+        .description = COMPOUND_STRING(
+            "A bundle of Wheat."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_GalaricaTwig,
+        .iconPalette = gItemIconPalette_GalaricaItem,
+    },
+
+    [ITEM_WOOL] =
+    {
+        .name = _("Wool"),
+        .price = 50,
+        .description = COMPOUND_STRING(
+            "A bundle of Wool."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_DestinyKnot,
+        .iconPalette = gItemIconPalette_DestinyKnot,
+    },
+
+    [ITEM_YARN] =
+    {
+        .name = _("Yarn"),
+        .price = 100,
+        .description = COMPOUND_STRING(
+            "A spool of yarn."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_DestinyKnot,
+        .iconPalette = gItemIconPalette_DestinyKnot,
+    },
+
+    [ITEM_IRON_CHUNK] =
+    {
+        .name = _("Iron Chunk"),
+        .price = 50,
+        .description = COMPOUND_STRING(
+            "A chunk of iron."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 70,
+        .iconPic = gItemIcon_MetalAlloy,
+        .iconPalette = gItemIconPalette_MetalAlloy,
+    },
+
+    [ITEM_GLASS_CHUNK] =
+    {
+        .name = _("Glass Chunk"),
+        .price = 50,
+        .description = COMPOUND_STRING(
+            "A chunk of glass."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 70,
+        .iconPic = gItemIcon_BlackAugurite,
+        .iconPalette = gItemIconPalette_BlackAugurite,
+    },
+
+    [ITEM_RED_ROOT] =
+    {
+        .name = _("Red Root"),
+        .price = 100,
+        .description = COMPOUND_STRING(
+            "A red root."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_BigRoot,
+        .iconPalette = gItemIconPalette_BigRoot,
+    },
+
+    [ITEM_LIMESTONE] =
+    {
+        .name = _("Limestone"),
+        .price = 50,
+        .description = COMPOUND_STRING(
+            "A chunk of limestone."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 50,
+        .iconPic = gItemIcon_BlackAugurite,
+        .iconPalette = gItemIconPalette_BlackAugurite,
+    },
+
+    [ITEM_MUD] =
+    {
+        .name = _("Mud"),
+        .price = 2,
+        .description = COMPOUND_STRING(
+            "A ball of mud."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_LightClay,
+        .iconPalette = gItemIconPalette_LightClay,
+    },
+
+    [ITEM_KINGS_LEAF] =
+    {
+        .name = _("King's Leaf"),
+        .price = 500,
+        .description = COMPOUND_STRING(
+            "A rare leaf."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_StarSweet,
+        .iconPalette = gItemIconPalette_StarSweet,
+    },
+
+    [ITEM_VIVICHOKE] =
+    {
+        .name = _("Vivichoke"),
+        .price = 50,
+        .description = COMPOUND_STRING(
+            "A nutritious plant."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_BigBambooShoot,
+        .iconPalette = gItemIconPalette_BigBambooShoot,
     },
 };

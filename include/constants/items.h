@@ -998,11 +998,24 @@
 #define ITEM_POKESHI_DOLL 832
 #define ITEM_STRANGE_BALL 833
 #define ITEM_EON_FLUTE 834
+#define ITEM_WOOD 835
+#define ITEM_STONE 836
+#define ITEM_PLANT_FIBRE 837
+#define ITEM_WHEAT 838
+#define ITEM_WOOL 839
+#define ITEM_YARN 840
+#define ITEM_IRON_CHUNK 841
+#define ITEM_GLASS_CHUNK 842
+#define ITEM_RED_ROOT 843
+#define ITEM_LIMESTONE 844
+#define ITEM_MUD 845
+#define ITEM_KINGS_LEAF 846
+#define ITEM_VIVICHOKE 847
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 834
+#define ITEMS_COUNT 848
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

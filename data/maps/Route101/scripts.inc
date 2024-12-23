@@ -2,12 +2,84 @@
 .set LOCALID_ZIGZAGOON, 4
 
 Route101_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Route101_OnLoad
+	map_script MAP_SCRIPT_ON_RESUME, Route101_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, Route101_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route101_OnFrame
 	.byte 0
 
+Route101_OnLoad:
+	end
+	
+Route101_OnResume:
+	call_if_Set FLAG_UNUSED_0x935, Route101_Resource_leek1
+	call_if_Set FLAG_UNUSED_0x936, Route101_Resource_leek2
+	call_if_Set FLAG_UNUSED_0x937, Route101_Resource_leek3
+	call_if_Set FLAG_UNUSED_0x938, Route101_Resource_leek4
+	call_if_Set FLAG_UNUSED_0x939, Route101_Resource_Mushroom1
+	call_if_Set FLAG_UNUSED_0x93A, Route101_Resource_Mushroom2
+	call_if_Set FLAG_UNUSED_0x93B, Route101_Resource_Balm1
+	call_if_Set FLAG_UNUSED_0x93C, Route101_Resource_Stone1
+	call_if_Set FLAG_UNUSED_0x93D, Route101_Resource_Stone2
+	call_if_Set FLAG_UNUSED_0x93E, Route101_Resource_Wood1
+	call_if_Set FLAG_UNUSED_0x93F, Route101_Resource_Wood2
+	call_if_Set FLAG_UNUSED_0x940, Route101_Resource_Vivichoke1
+	call_if_Set FLAG_UNUSED_0x941, Route101_Resource_KingsLeaf1
+	end
+
+Route101_Resource_leek1::
+	setmetatile 18, 16, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_leek2::
+	setmetatile 23, 18, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_leek3::
+	setmetatile 29, 23, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_leek4::
+	setmetatile 18, 4, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Mushroom1::
+	setmetatile 36, 23, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Mushroom2::
+	setmetatile 11, 12, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Balm1::
+	setmetatile 37, 21, METATILE_General_Grass, FALSE
+	return
+	
+Route101_Resource_Stone1::
+	setmetatile 8, 7, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Stone2::
+	setmetatile 7, 17, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Wood1::
+	setmetatile 5, 12, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Wood2::
+	setmetatile 19, 21, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_Vivichoke1::
+	setmetatile 29, 17, METATILE_General_Grass, FALSE
+	return
+
+Route101_Resource_KingsLeaf1::
+	setmetatile 23, 21, METATILE_General_Grass, FALSE
+	return
+
 Route101_OnTransition:
-	call ProfBirch_EventScript_UpdateLocation
 	end
 
 Route101_OnFrame:
@@ -17,6 +89,187 @@ Route101_OnFrame:
 Route101_EventScript_HideMapNamePopup::
 	setflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_ROUTE101_STATE, 1
+	end
+
+Route101_Resource_leek1Harvest::
+	goto_if_set FLAG_UNUSED_0x935, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x935
+	setmetatile 18, 16, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge Route101_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+Route101_Resource_leek2Harvest::
+	goto_if_set FLAG_UNUSED_0x936, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x936
+	setmetatile 23, 18, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge Route101_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+Route101_Resource_leek3Harvest::
+	goto_if_set FLAG_UNUSED_0x937, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x937
+	setmetatile 29, 23, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge Route101_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+Route101_Resource_leek4Harvest::
+	goto_if_set FLAG_UNUSED_0x938, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x938
+	setmetatile 18, 4, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge Route101_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+Route101_Resource_Mushroom1Harvest::
+	goto_if_set FLAG_UNUSED_0x939, Route101_Resource_Collected
+    giveitem ITEM_TINY_MUSHROOM, 2
+	setflag FLAG_UNUSED_0x939
+	setmetatile 36, 23, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	releaseall
+	end
+
+Route101_Resource_Mushroom2Harvest::
+	goto_if_set FLAG_UNUSED_0x93A, Route101_Resource_Collected
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	setflag FLAG_UNUSED_0x93A
+	setmetatile 11, 12, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	releaseall
+	end
+
+Route101_Resource_Balm1Harvest::
+	goto_if_set FLAG_UNUSED_0x93B, Route101_Resource_Collected
+	giveitem ITEM_BALM_MUSHROOM
+	setflag FLAG_UNUSED_0x93B
+	setmetatile 37, 21, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	releaseall
+	end
+
+Route101_Resource_Stone1Harvest::
+	goto_if_set FLAG_UNUSED_0x93C, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x93C
+	setmetatile 8, 7, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, Route101_Resource_Give_Stone2
+	case 1, Route101_Resource_Give_Stone3
+	case 2, Route101_Resource_Give_Mud2
+	case 3, Route101_Resource_Give_Mud3
+	releaseall
+	end
+
+Route101_Resource_Stone2Harvest::
+	goto_if_set FLAG_UNUSED_0x93D, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x93D
+	setmetatile 7, 17, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, Route101_Resource_Give_Stone2
+	case 1, Route101_Resource_Give_Stone3
+	case 2, Route101_Resource_Give_Mud2
+	case 3, Route101_Resource_Give_Mud3
+	releaseall
+	end
+
+Route101_Resource_Wood1Harvest::
+	goto_if_set FLAG_UNUSED_0x93E, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x93E
+	setmetatile 5, 12, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+Route101_Resource_Wood2Harvest::
+	goto_if_set FLAG_UNUSED_0x93F, Route101_Resource_Collected
+	setflag FLAG_UNUSED_0x93F
+	setmetatile 19, 21, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+Route101_Resource_Vivichoke1Harvest::
+	goto_if_set FLAG_UNUSED_0x940, Route101_Resource_Collected
+	giveitem ITEM_VIVICHOKE
+	setflag FLAG_UNUSED_0x940
+	setmetatile 29, 17, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	releaseall
+	end
+
+Route101_Resource_KingsLeaf1Harvest::
+	goto_if_set FLAG_UNUSED_0x941, Route101_Resource_Collected
+	giveitem ITEM_KINGS_LEAF
+	setflag FLAG_UNUSED_0x941
+	setmetatile 23, 21, METATILE_General_Grass, FALSE
+	special DrawWholeMapView
+	releaseall
+	end
+
+Route101_Resource_Collected::
+	releaseall
+	end
+
+Route101_Resource_Give_Stone2::
+	giveitem ITEM_STONE, 2
+	releaseall
+	end
+	
+Route101_Resource_Give_Stone3::
+	giveitem ITEM_STONE, 3
+	releaseall
+	end
+	
+Route101_Resource_Give_Mud2::
+	giveitem ITEM_STONE, 2
+	giveitem ITEM_MUD
+	releaseall
+	end
+	
+Route101_Resource_Give_Mud3::
+	giveitem ITEM_STONE
+	giveitem ITEM_MUD, 2
+	releaseall
+	end
+
+Route101_Resource_Give_Leek::
+	giveitem ITEM_LEEK
+	releaseall
+	end
+	
+Route101_Resource_Give_Herb::
+	giveitem ITEM_REVIVAL_HERB
+	releaseall
 	end
 
 Route101_EventScript_StartBirchRescue::
