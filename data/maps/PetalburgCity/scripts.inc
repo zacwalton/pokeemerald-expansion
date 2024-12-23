@@ -5,9 +5,91 @@
 .set LOCALID_SCOTT, 9
 
 PetalburgCity_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, PetalburgCity_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, PetalburgCity_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, PetalburgCity_OnFrame
 	.byte 0
+	
+PetalburgCity_OnResume:
+	call_if_Set FLAG_PETALBURGCITY_LEEK1, PetalburgCity_Resource_leek1
+	call_if_Set FLAG_PETALBURGCITY_LEEK2, PetalburgCity_Resource_leek2
+	call_if_Set FLAG_PETALBURGCITY_WOOD1, PetalburgCity_Resource_Wood1
+	call_if_Set FLAG_PETALBURGCITY_VIVICHOKE1, PetalburgCity_Resource_Vivichoke1
+	end
+
+PetalburgCity_Resource_leek1::
+	setmetatile 19, 17, METATILE_General_Grass, FALSE
+	return
+
+PetalburgCity_Resource_leek2::
+	setmetatile 2, 37, METATILE_General_Grass, FALSE
+	return
+
+PetalburgCity_Resource_Wood1::
+	setmetatile 31, 39, METATILE_General_Grass, FALSE
+	return
+
+PetalburgCity_Resource_Vivichoke1::
+	setmetatile 22, 22, METATILE_General_Grass, FALSE
+	return
+
+PetalburgCity_Resource_leek1Harvest::
+	goto_if_set FLAG_PETALBURGCITY_LEEK1, PetalburgCity_Resource_Collected
+	setflag FLAG_PETALBURGCITY_LEEK1
+	call PetalburgCity_Resource_leek1
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge PetalburgCity_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+PetalburgCity_Resource_leek2Harvest::
+	goto_if_set FLAG_PETALBURGCITY_LEEK2, PetalburgCity_Resource_Collected
+	setflag FLAG_PETALBURGCITY_LEEK2
+	call PetalburgCity_Resource_leek2
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge PetalburgCity_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+PetalburgCity_Resource_Wood1Harvest::
+	goto_if_set FLAG_PETALBURGCITY_WOOD1, PetalburgCity_Resource_Collected
+	setflag FLAG_PETALBURGCITY_WOOD1
+	call PetalburgCity_Resource_Wood1
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgCity_Resource_Vivichoke1Harvest::
+	goto_if_set FLAG_PETALBURGCITY_VIVICHOKE1, PetalburgCity_Resource_Collected
+	giveitem ITEM_VIVICHOKE
+	setflag FLAG_PETALBURGCITY_VIVICHOKE1
+	call PetalburgCity_Resource_Vivichoke1
+	special DrawWholeMapView
+	releaseall
+	end
+
+PetalburgCity_Resource_Collected::
+	releaseall
+	end
+
+PetalburgCity_Resource_Give_Leek::
+	giveitem ITEM_LEEK
+	releaseall
+	end
+	
+PetalburgCity_Resource_Give_Herb::
+	giveitem ITEM_REVIVAL_HERB
+	releaseall
+	end
 
 PetalburgCity_OnTransition:
 	setflag FLAG_VISITED_PETALBURG_CITY

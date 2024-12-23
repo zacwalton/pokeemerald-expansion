@@ -25,6 +25,9 @@ EventScript_CutTreeDown:: @ fallthrough
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
+		random 3
+    addvar VAR_RESULT, 3
+    giveitem ITEM_WOOD, VAR_RESULT
 	releaseall
 	end
 
@@ -185,8 +188,112 @@ EventScript_FollowerJumpWest:
 	return
 
 EventScript_EndSmash::
+	random 3
+    addvar VAR_RESULT, 3
+    giveitem ITEM_STONE, VAR_RESULT
+	random 2
+	goto_if_eq VAR_RESULT, 1, EventScript_SmashRockItem
 	releaseall
 	end
+	
+EventScript_SmashRockItem::
+random 20
+	switch VAR_RESULT
+	case 0, EventScript_SmashRockItem_HardStone
+	case 1, EventScript_SmashRockItem_HardStone
+	case 2, EventScript_SmashRockItem_Revive
+	case 3, EventScript_SmashRockItem_Revive
+	case 4, EventScript_SmashRockItem_SoftSand
+	case 5, EventScript_SmashRockItem_SoftSand
+	case 6, EventScript_SmashRockItem_Ether
+	case 7, EventScript_SmashRockItem_Ether
+	case 8, EventScript_SmashRockItem_MetalAlloy
+	case 9, EventScript_SmashRockItem_MetalAlloy
+	case 10, EventScript_SmashRockItem_MetalAlloy
+	case 11, EventScript_SmashRockItem_Nugget
+	case 12, EventScript_SmashRockItem_RedShard
+	case 13, EventScript_SmashRockItem_BlueShard
+	case 14, EventScript_SmashRockItem_YellowShard
+	case 15, EventScript_SmashRockItem_GreenShard
+	case 16, EventScript_SmashRockItem_MaxRevive
+	case 17, EventScript_SmashRockItem_StarPiece
+	case 18, EventScript_SmashRockItem_MaxEther
+	case 19, EventScript_SmashRockItem_RareBone
+	releaseall
+	end
+	
+EventScript_SmashRockItem_HardStone::
+    giveitem ITEM_HARD_STONE
+	releaseall
+	end
+
+EventScript_SmashRockItem_Revive::
+    giveitem ITEM_REVIVE
+	releaseall
+	end
+
+EventScript_SmashRockItem_SoftSand::
+    giveitem ITEM_SOFT_SAND
+	releaseall
+	end
+
+EventScript_SmashRockItem_MetalAlloy::
+	random 3
+    addvar VAR_RESULT, 1
+    giveitem ITEM_METAL_ALLOY, VAR_RESULT
+	releaseall
+	end
+
+EventScript_SmashRockItem_Ether::
+    giveitem ITEM_ETHER
+	releaseall
+	end
+
+EventScript_SmashRockItem_Nugget::
+    giveitem ITEM_NUGGET
+	releaseall
+	end
+
+EventScript_SmashRockItem_RedShard::
+    giveitem ITEM_RED_SHARD
+	releaseall
+	end
+
+EventScript_SmashRockItem_BlueShard::
+    giveitem ITEM_BLUE_SHARD
+	releaseall
+	end
+
+EventScript_SmashRockItem_YellowShard::
+    giveitem ITEM_YELLOW_SHARD
+	releaseall
+	end
+
+EventScript_SmashRockItem_GreenShard::
+    giveitem ITEM_GREEN_SHARD
+	releaseall
+	end
+
+EventScript_SmashRockItem_MaxRevive::
+    giveitem ITEM_MAX_REVIVE
+	releaseall
+	end
+
+EventScript_SmashRockItem_StarPiece::
+    giveitem ITEM_STAR_PIECE
+	releaseall
+	end
+
+EventScript_SmashRockItem_MaxEther::
+    giveitem ITEM_MAX_ETHER
+	releaseall
+	end
+
+EventScript_SmashRockItem_RareBone::
+    giveitem ITEM_RARE_BONE
+	releaseall
+	end
+
 
 Movement_WalkUp:
 	walk_up

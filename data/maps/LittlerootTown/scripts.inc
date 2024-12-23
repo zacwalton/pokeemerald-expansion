@@ -5,6 +5,7 @@
 
 LittlerootTown_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_OnLoad
+	map_script MAP_SCRIPT_ON_RESUME, LittlerootTown_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_OnWarp
@@ -52,8 +53,59 @@ LittlerootTown_OnLoad:
 	compare VAR_RESULT, 0
 	goto_if_eq LittlerootTown_EventScript_Spring
 
-
+LittlerootTown_OnResume:
+	call_if_Set FLAG_LITTLEROOTTOWN_LEEK1, LittlerootTown_Resource_leek1
+	call_if_Set FLAG_LITTLEROOTTOWN_LEEK2, LittlerootTown_Resource_leek2
+	call_if_Set FLAG_LITTLEROOTTOWN_MUSHROOM1, LittlerootTown_Resource_Mushroom1
+	call_if_Set FLAG_LITTLEROOTTOWN_MUSHROOM2, LittlerootTown_Resource_Mushroom2
+	call_if_Set FLAG_LITTLEROOTTOWN_MUSHROOM3, LittlerootTown_Resource_Mushroom3
+	call_if_Set FLAG_LITTLEROOTTOWN_BALM1, LittlerootTown_Resource_Balm1
+	call_if_Set FLAG_LITTLEROOTTOWN_STONE1, LittlerootTown_Resource_Stone1
+	call_if_Set FLAG_LITTLEROOTTOWN_STONE2, LittlerootTown_Resource_Stone2
+	call_if_Set FLAG_LITTLEROOTTOWN_VIVICHOKE1, LittlerootTown_Resource_Vivichoke1
+	call_if_Set FLAG_LITTLEROOTTOWN_KINGSLEAF1, LittlerootTown_Resource_KingsLeaf1
+	end
 	
+LittlerootTown_Resource_leek1::
+	setmetatile 34, 9, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_leek2::
+	setmetatile 39, 21, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Mushroom1::
+	setmetatile 37, 26, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Mushroom2::
+	setmetatile 12, 27, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Mushroom3::
+	setmetatile 40, 29, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Balm1::
+	setmetatile 36, 5, METATILE_General_Grass, FALSE
+	return
+	
+LittlerootTown_Resource_Stone1::
+	setmetatile 22, 33, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Stone2::
+	setmetatile 19, 41, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_Vivichoke1::
+	setmetatile 34, 20, METATILE_General_Grass, FALSE
+	return
+
+LittlerootTown_Resource_KingsLeaf1::
+	setmetatile 23, 21, METATILE_General_Grass, FALSE
+	return
+
 LittlerootTown_OnTransition:
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
@@ -83,6 +135,157 @@ LittlerootTown_EventScript_Winter::
 LittlerootTown_EventScript_Spring::
 	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SUMMER
 	end	
+
+
+
+LittlerootTown_Resource_leek1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_LEEK1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_LEEK1
+	call LittlerootTown_Resource_leek1
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge LittlerootTown_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+LittlerootTown_Resource_leek2Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_LEEK2, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_LEEK2
+	call LittlerootTown_Resource_leek2
+	special DrawWholeMapView
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge LittlerootTown_Resource_Give_Herb
+	giveitem ITEM_STICK
+	releaseall
+	end
+
+LittlerootTown_Resource_Mushroom1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_MUSHROOM1
+	call LittlerootTown_Resource_Mushroom1
+	special DrawWholeMapView
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+LittlerootTown_Resource_Mushroom2Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM2, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_MUSHROOM2
+	call LittlerootTown_Resource_Mushroom2
+	special DrawWholeMapView
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+LittlerootTown_Resource_Mushroom3Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM3, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_MUSHROOM3
+	call LittlerootTown_Resource_Mushroom3
+	special DrawWholeMapView
+	giveitem ITEM_BIG_MUSHROOM
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+LittlerootTown_Resource_Balm1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_BALM1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_BALM1
+	call LittlerootTown_Resource_Balm1
+	special DrawWholeMapView
+	giveitem ITEM_BALM_MUSHROOM
+	releaseall
+	end
+
+LittlerootTown_Resource_Stone1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_STONE1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_STONE1
+	call LittlerootTown_Resource_Stone1
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, LittlerootTown_Resource_Give_Stone2
+	case 1, LittlerootTown_Resource_Give_Stone3
+	case 2, LittlerootTown_Resource_Give_Mud2
+	case 3, LittlerootTown_Resource_Give_Mud3
+	releaseall
+	end
+
+LittlerootTown_Resource_Stone2Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_STONE2, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_STONE2
+	call LittlerootTown_Resource_Stone2
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, LittlerootTown_Resource_Give_Stone2
+	case 1, LittlerootTown_Resource_Give_Stone3
+	case 2, LittlerootTown_Resource_Give_Mud2
+	case 3, LittlerootTown_Resource_Give_Mud3
+	releaseall
+	end
+
+LittlerootTown_Resource_Vivichoke1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_VIVICHOKE1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_VIVICHOKE1
+	call LittlerootTown_Resource_Vivichoke1
+	special DrawWholeMapView
+	giveitem ITEM_VIVICHOKE
+	releaseall
+	end
+
+LittlerootTown_Resource_KingsLeaf1Harvest::
+	goto_if_set FLAG_LITTLEROOTTOWN_KINGSLEAF1, LittlerootTown_Resource_Collected
+	setflag FLAG_LITTLEROOTTOWN_KINGSLEAF1
+	call LittlerootTown_Resource_KingsLeaf1
+	special DrawWholeMapView
+	giveitem ITEM_KINGS_LEAF
+	releaseall
+	end
+
+LittlerootTown_Resource_Collected::
+	releaseall
+	end
+
+LittlerootTown_Resource_Give_Stone2::
+	giveitem ITEM_STONE, 2
+	releaseall
+	end
+	
+LittlerootTown_Resource_Give_Stone3::
+	giveitem ITEM_STONE, 3
+	releaseall
+	end
+	
+LittlerootTown_Resource_Give_Mud2::
+	giveitem ITEM_STONE, 2
+	giveitem ITEM_MUD
+	releaseall
+	end
+	
+LittlerootTown_Resource_Give_Mud3::
+	giveitem ITEM_STONE
+	giveitem ITEM_MUD, 2
+	releaseall
+	end
+
+LittlerootTown_Resource_Give_Leek::
+	giveitem ITEM_LEEK
+	releaseall
+	end
+	
+LittlerootTown_Resource_Give_Herb::
+	giveitem ITEM_REVIVAL_HERB
+	releaseall
+	end
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
