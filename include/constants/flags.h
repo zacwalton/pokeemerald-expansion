@@ -1639,7 +1639,13 @@
 #define FLAG_PETALBURGCITY_LEEK2                    (DAILY_FLAGS_START + 0x41) // Unused Flag
 #define FLAG_PETALBURGCITY_WOOD1                    (DAILY_FLAGS_START + 0x42) // Unused Flag
 #define FLAG_PETALBURGCITY_VIVICHOKE1               (DAILY_FLAGS_START + 0x43) // Unused Flag
-#define DAILY_FLAGS_END                             (FLAG_PETALBURGCITY_VIVICHOKE1 + (7 - FLAG_PETALBURGCITY_VIVICHOKE1 % 8))
+#define FLAG_ROUTE104_STONE1                        (DAILY_FLAGS_START + 0x44) // Unused Flag
+#define FLAG_ROUTE104_STONE2                        (DAILY_FLAGS_START + 0x45) // Unused Flag
+#define FLAG_ROUTE104_STONE3                        (DAILY_FLAGS_START + 0x47) // Unused Flag
+#define FLAG_ROUTE104_WOOD1                         (DAILY_FLAGS_START + 0x48) // Unused Flag
+#define FLAG_ROUTE104_ROCK1                         (DAILY_FLAGS_START + 0x49) // Unused Flag
+#define FLAG_ROUTE104_ROCK2                         (DAILY_FLAGS_START + 0x4A) // Unused Flag
+#define DAILY_FLAGS_END                             (FLAG_ROUTE104_ROCK2 + (7 - FLAG_ROUTE104_ROCK2 % 8))
 #define NUM_DAILY_FLAGS                             (DAILY_FLAGS_END - DAILY_FLAGS_START + 1)
 
 #define FLAGS_COUNT (DAILY_FLAGS_END + 1)

@@ -3,9 +3,33 @@
 .set LOCALID_RIVAL, 34
 
 Route104_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, Route104_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route104_OnFrame
 	map_script MAP_SCRIPT_ON_TRANSITION, Route104_OnTransition
 	.byte 0
+
+Route104_OnResume:
+	call_if_Set FLAG_PETALBURGCITY_LEEK1, PetalburgCity_Resource_leek1
+	call_if_Set FLAG_PETALBURGCITY_LEEK2, PetalburgCity_Resource_leek2
+	call_if_Set FLAG_PETALBURGCITY_WOOD1, PetalburgCity_Resource_Wood1
+	call_if_Set FLAG_PETALBURGCITY_VIVICHOKE1, PetalburgCity_Resource_Vivichoke1
+	end
+
+Route104_Resource_Wood1::
+	setmetatile 57, 10, METATILE_General_Grass, FALSE
+	return
+
+Route104_Resource_Stone1::
+	setmetatile 62, 7, METATILE_General_Grass, FALSE
+	return
+
+Route104_Resource_Stone2::
+	setmetatile 49, 24, METATILE_General_Sand, FALSE
+	return
+
+Route104_Resource_Stone3::
+	setmetatile 52, 30, METATILE_General_Sand, FALSE
+	return
 
 Route104_OnFrame:
 	map_script_2 VAR_BOARD_BRINEY_BOAT_STATE, 1, Route104_EventScript_StartSailToDewford
@@ -19,6 +43,85 @@ Route104_EventScript_StartSailToDewford::
 Route104_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Route104_EventScript_TrySetRivalPos
+	end
+
+Route104_Resource_Wood1Harvest::
+	goto_if_set FLAG_ROUTE104_WOOD1, Route104_Resource_Collected
+	setflag FLAG_ROUTE104_WOOD1
+	call Route104_Resource_Wood1
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	endend
+
+Route104_Resource_Stone1Harvest::
+	goto_if_set FLAG_ROUTE104_STONE1, Route104_Resource_Collected
+	setflag FLAG_ROUTE104_STONE1
+	call Route104_Resource_Stone1
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, Route104_Resource_Give_Stone2
+	case 1, Route104_Resource_Give_Stone3
+	case 2, Route104_Resource_Give_Mud2
+	case 3, Route104_Resource_Give_Mud3
+	releaseall
+	end
+
+Route104_Resource_Stone2Harvest::
+	goto_if_set FLAG_ROUTE104_STONE2, Route104_Resource_Collected
+	setflag FLAG_ROUTE104_STONE2
+	call Route104_Resource_Stone2
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, Route104_Resource_Give_Stone2
+	case 1, Route104_Resource_Give_Stone3
+	case 2, Route104_Resource_Give_Mud2
+	case 3, Route104_Resource_Give_Mud3
+	releaseall
+	end
+
+Route104_Resource_Stone3Harvest::
+	goto_if_set FLAG_ROUTE104_STONE3, Route104_Resource_Collected
+	setflag FLAG_ROUTE104_STONE3
+	call Route104_Resource_Stone3
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, Route104_Resource_Give_Stone2
+	case 1, Route104_Resource_Give_Stone3
+	case 2, Route104_Resource_Give_Mud2
+	case 3, Route104_Resource_Give_Mud3
+	releaseall
+	
+
+Route104_Resource_Collected::
+	releaseall
+	end
+
+Route104_Resource_Give_Stone2::
+	giveitem ITEM_STONE, 2
+	releaseall
+	end
+	
+Route104_Resource_Give_Stone3::
+	giveitem ITEM_STONE, 3
+	releaseall
+	end
+	
+Route104_Resource_Give_Mud2::
+	giveitem ITEM_STONE, 2
+	giveitem ITEM_MUD
+	releaseall
+	end
+	
+Route104_Resource_Give_Mud3::
+	giveitem ITEM_STONE
+	giveitem ITEM_MUD, 2
+	releaseall
 	end
 
 Route104_EventScript_TrySetRivalPos::
