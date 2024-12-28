@@ -226,24 +226,32 @@ Route101_Resource_Collected::
 	end
 
 Route101_Resource_Give_Stone2::
-	giveitem ITEM_STONE, 2
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
 	releaseall
 	end
 	
 Route101_Resource_Give_Stone3::
-	giveitem ITEM_STONE, 3
-	releaseall
-	end
-	
-Route101_Resource_Give_Mud2::
-	giveitem ITEM_STONE, 2
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
 	giveitem ITEM_MUD
 	releaseall
 	end
 	
+Route101_Resource_Give_Mud2::
+    giveitem ITEM_STONE
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
+	releaseall
+	end
+	
 Route101_Resource_Give_Mud3::
-	giveitem ITEM_STONE
-	giveitem ITEM_MUD, 2
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
 	releaseall
 	end
 

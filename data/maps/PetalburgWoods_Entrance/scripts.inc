@@ -1,5 +1,29 @@
 PetalburgWoods_Entrance_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, PetalburgWoods_Entrance_OnResume
 	.byte 0
+
+PetalburgWoods_Entrance_OnResume:
+	call_if_Set FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1, PetalburgWoods_Entrance_Resource_Mushroom1
+	end
+
+PetalburgWoods_Entrance_Resource_Mushroom1::
+	setmetatile 30, 12, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Entrance_Resource_Mushroom1Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1, PetalburgWoods_Entrance_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1
+	call PetalburgWoods_Entrance_Resource_Mushroom1
+	special DrawWholeMapView
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Entrance_Resource_Collected::
+	releaseall
+	end
 
 PetalburgWoods_EventScript_Sign1::
 	msgbox PetalburgWoods_Text_TrainerTipsExperience, MSGBOX_SIGN

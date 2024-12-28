@@ -9,10 +9,10 @@ Route104_MapScripts::
 	.byte 0
 
 Route104_OnResume:
-	call_if_Set FLAG_PETALBURGCITY_LEEK1, PetalburgCity_Resource_leek1
-	call_if_Set FLAG_PETALBURGCITY_LEEK2, PetalburgCity_Resource_leek2
-	call_if_Set FLAG_PETALBURGCITY_WOOD1, PetalburgCity_Resource_Wood1
-	call_if_Set FLAG_PETALBURGCITY_VIVICHOKE1, PetalburgCity_Resource_Vivichoke1
+	call_if_Set FLAG_ROUTE104_WOOD1, Route104_Resource_Wood1
+	call_if_Set FLAG_ROUTE104_STONE1, Route104_Resource_Stone1
+	call_if_Set FLAG_ROUTE104_STONE2, Route104_Resource_Stone2
+	call_if_Set FLAG_ROUTE104_STONE3, Route104_Resource_Stone3
 	end
 
 Route104_Resource_Wood1::
@@ -24,11 +24,11 @@ Route104_Resource_Stone1::
 	return
 
 Route104_Resource_Stone2::
-	setmetatile 49, 24, METATILE_General_Sand, FALSE
+	setmetatile 49, 24, METATILE_General_SandPit_Center, FALSE
 	return
 
 Route104_Resource_Stone3::
-	setmetatile 52, 30, METATILE_General_Sand, FALSE
+	setmetatile 52, 30, METATILE_General_SandPit_Center, FALSE
 	return
 
 Route104_OnFrame:
@@ -54,7 +54,7 @@ Route104_Resource_Wood1Harvest::
     addvar VAR_RESULT, 1
     giveitem ITEM_WOOD, VAR_RESULT
 	releaseall
-	endend
+	end
 
 Route104_Resource_Stone1Harvest::
 	goto_if_set FLAG_ROUTE104_STONE1, Route104_Resource_Collected
@@ -96,6 +96,7 @@ Route104_Resource_Stone3Harvest::
 	case 2, Route104_Resource_Give_Mud2
 	case 3, Route104_Resource_Give_Mud3
 	releaseall
+	end
 	
 
 Route104_Resource_Collected::
@@ -103,24 +104,32 @@ Route104_Resource_Collected::
 	end
 
 Route104_Resource_Give_Stone2::
-	giveitem ITEM_STONE, 2
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
 	releaseall
 	end
 	
 Route104_Resource_Give_Stone3::
-	giveitem ITEM_STONE, 3
-	releaseall
-	end
-	
-Route104_Resource_Give_Mud2::
-	giveitem ITEM_STONE, 2
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
 	giveitem ITEM_MUD
 	releaseall
 	end
 	
+Route104_Resource_Give_Mud2::
+    giveitem ITEM_STONE
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
+	releaseall
+	end
+	
 Route104_Resource_Give_Mud3::
-	giveitem ITEM_STONE
-	giveitem ITEM_MUD, 2
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
 	releaseall
 	end
 

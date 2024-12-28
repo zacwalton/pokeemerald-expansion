@@ -1645,7 +1645,66 @@
 #define FLAG_ROUTE104_WOOD1                         (DAILY_FLAGS_START + 0x48) // Unused Flag
 #define FLAG_ROUTE104_ROCK1                         (DAILY_FLAGS_START + 0x49) // Unused Flag
 #define FLAG_ROUTE104_ROCK2                         (DAILY_FLAGS_START + 0x4A) // Unused Flag
-#define DAILY_FLAGS_END                             (FLAG_ROUTE104_ROCK2 + (7 - FLAG_ROUTE104_ROCK2 % 8))
+#define FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1      (DAILY_FLAGS_START + 0x4B) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD1                   (DAILY_FLAGS_START + 0x4C) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD2                   (DAILY_FLAGS_START + 0x4D) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD3                   (DAILY_FLAGS_START + 0x4E) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD4                   (DAILY_FLAGS_START + 0x4F) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD5                   (DAILY_FLAGS_START + 0x50) // Unused Flag
+#define FLAG_PETALBURGWOODS_WOOD6                   (DAILY_FLAGS_START + 0x51) // Unused Flag
+#define FLAG_PETALBURGWOODS_STONE1                  (DAILY_FLAGS_START + 0x52) // Unused Flag
+#define FLAG_PETALBURGWOODS_MUSHROOM1               (DAILY_FLAGS_START + 0x53) // Unused Flag
+#define FLAG_PETALBURGWOODS_MUSHROOM2               (DAILY_FLAGS_START + 0x54) // Unused Flag
+#define FLAG_PETALBURGWOODS_KINGSLEAF1              (DAILY_FLAGS_START + 0x55) // Unused Flag
+#define FLAG_PETALBURGWOODS_BALM1	                (DAILY_FLAGS_START + 0x56) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE1                (DAILY_FLAGS_START + 0x57) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE2                (DAILY_FLAGS_START + 0x58) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE3                (DAILY_FLAGS_START + 0x59) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE4                (DAILY_FLAGS_START + 0x5A) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE5                (DAILY_FLAGS_START + 0x5B) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE6                (DAILY_FLAGS_START + 0x5C) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE7                (DAILY_FLAGS_START + 0x5D) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE8                (DAILY_FLAGS_START + 0x5E) // Unused Flag
+#define FLAG_PETALBURGWOODS_CUTTREE9                (DAILY_FLAGS_START + 0x5F) // Unused Flag
+#define FLAG_ROUTE104_LEEK1                         (DAILY_FLAGS_START + 0x60) // Unused Flag
+#define FLAG_ROUTE104_LEEK2                         (DAILY_FLAGS_START + 0x61) // Unused Flag
+#define FLAG_ROUTE104_LEEK3                         (DAILY_FLAGS_START + 0x62) // Unused Flag
+#define FLAG_ROUTE104_MUSHROOM1                     (DAILY_FLAGS_START + 0x63) // Unused Flag
+#define FLAG_ROUTE104_VIVICHOKE1                    (DAILY_FLAGS_START + 0x64) // Unused Flag
+#define FLAG_ROUTE104_VIVICHOKE2                    (DAILY_FLAGS_START + 0x65) // Unused Flag
+#define FLAG_ROUTE104_CUTTREE1              	    (DAILY_FLAGS_START + 0x66) // Unused Flag
+#define FLAG_ROUTE104_CUTTREE2              	    (DAILY_FLAGS_START + 0x67) // Unused Flag
+#define FLAG_RUSTBOROCITY_WOOD1                     (DAILY_FLAGS_START + 0x68) // Unused Flag
+#define FLAG_RUSTBOROCITY_WOOD2                     (DAILY_FLAGS_START + 0x69) // Unused Flag
+#define FLAG_RUSTBOROCITY_WOOD3                     (DAILY_FLAGS_START + 0x6A) // Unused Flag
+#define FLAG_RUSTBOROCITY_CUTTREE1              	(DAILY_FLAGS_START + 0x6B) // Unused Flag
+#define FLAG_RUSTBOROCITY_CUTTREE2              	(DAILY_FLAGS_START + 0x6C) // Unused Flag
+#define FLAG_ROUTE116_WOOD1              	        (DAILY_FLAGS_START + 0x6D) // Unused Flag
+#define FLAG_ROUTE116_WOOD2              	        (DAILY_FLAGS_START + 0x6E) // Unused Flag
+#define FLAG_ROUTE116_WOOD3              	        (DAILY_FLAGS_START + 0x6F) // Unused Flag
+#define FLAG_ROUTE116_WOOD4              	        (DAILY_FLAGS_START + 0x70) // Unused Flag
+#define FLAG_ROUTE116_WOOD5              	        (DAILY_FLAGS_START + 0x71) // Unused Flag
+#define FLAG_ROUTE116_WOOD6              	        (DAILY_FLAGS_START + 0x72) // Unused Flag
+#define FLAG_ROUTE116_WOOD7              	        (DAILY_FLAGS_START + 0x73) // Unused Flag
+#define FLAG_ROUTE116_STONE1              	        (DAILY_FLAGS_START + 0x74) // Unused Flag
+#define FLAG_ROUTE116_STONE2              	        (DAILY_FLAGS_START + 0x75) // Unused Flag
+#define FLAG_ROUTE116_STONE3              	        (DAILY_FLAGS_START + 0x76) // Unused Flag
+#define FLAG_ROUTE116_STONE4              	        (DAILY_FLAGS_START + 0x77) // Unused Flag
+#define FLAG_ROUTE116_STONE5              	        (DAILY_FLAGS_START + 0x78) // Unused Flag
+#define FLAG_ROUTE116_STONE6              	        (DAILY_FLAGS_START + 0x79) // Unused Flag
+#define FLAG_ROUTE116_STONE7              	        (DAILY_FLAGS_START + 0x7A) // Unused Flag
+#define FLAG_ROUTE116_STONE8              	        (DAILY_FLAGS_START + 0x7B) // Unused Flag
+#define FLAG_ROUTE116_MUSHROOM1              	    (DAILY_FLAGS_START + 0x7C) // Unused Flag
+#define FLAG_ROUTE116_KINGSLEAF1              	    (DAILY_FLAGS_START + 0x7D) // Unused Flag
+#define FLAG_ROUTE116_CUTTREE1              	    (DAILY_FLAGS_START + 0x7E) // Unused Flag
+#define FLAG_ROUTE116_CUTTREE2              	    (DAILY_FLAGS_START + 0x7F) // Unused Flag
+#define FLAG_ROUTE116_CUTTREE3              	    (DAILY_FLAGS_START + 0x80) // Unused Flag
+#define FLAG_ROUTE116_CUTTREE4              	    (DAILY_FLAGS_START + 0x81) // Unused Flag
+#define FLAG_ROUTE116_CUTTREE5              	    (DAILY_FLAGS_START + 0x82) // Unused Flag
+#define FLAG_ROUTE116_ROCK1              	        (DAILY_FLAGS_START + 0x83) // Unused Flag
+#define FLAG_ROUTE116_ROCK2              	        (DAILY_FLAGS_START + 0x84) // Unused Flag
+#define FLAG_ROUTE116_ROCK3              	        (DAILY_FLAGS_START + 0x85) // Unused Flag
+#define DAILY_FLAGS_END                             (FLAG_ROUTE116_ROCK3 + (7 - FLAG_ROUTE116_ROCK3 % 8))
 #define NUM_DAILY_FLAGS                             (DAILY_FLAGS_END - DAILY_FLAGS_START + 1)
 
 #define FLAGS_COUNT (DAILY_FLAGS_END + 1)

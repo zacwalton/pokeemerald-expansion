@@ -2,7 +2,220 @@
 .set LOCALID_DEVON_EMPLOYEE, 4
 
 PetalburgWoods_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, PetalburgWoods_OnResume
 	.byte 0
+	
+PetalburgWoods_OnResume:
+	call_if_Set FLAG_PETALBURGWOODS_WOOD1, PetalburgWoods_Resource_Wood1
+	call_if_Set FLAG_PETALBURGWOODS_WOOD2, PetalburgWoods_Resource_Wood2
+	call_if_Set FLAG_PETALBURGWOODS_WOOD3, PetalburgWoods_Resource_Wood3
+	call_if_Set FLAG_PETALBURGWOODS_WOOD4, PetalburgWoods_Resource_Wood4
+	call_if_Set FLAG_PETALBURGWOODS_WOOD5, PetalburgWoods_Resource_Wood5
+	call_if_Set FLAG_PETALBURGWOODS_WOOD6, PetalburgWoods_Resource_Wood6
+	call_if_Set FLAG_PETALBURGWOODS_STONE1, PetalburgWoods_Resource_Stone1
+	call_if_Set FLAG_PETALBURGWOODS_MUSHROOM1, PetalburgWoods_Resource_Mushroom1
+	call_if_Set FLAG_PETALBURGWOODS_MUSHROOM2, PetalburgWoods_Resource_Mushroom2
+	call_if_Set FLAG_PETALBURGWOODS_KINGSLEAF1, PetalburgWoods_Resource_KingsLeaf1
+	call_if_Set FLAG_PETALBURGWOODS_BALM1, PetalburgWoods_Resource_Balm1
+	end
+
+PetalburgWoods_Resource_Wood1::
+	setmetatile 23, 29, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood2::
+	setmetatile 40, 20, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood3::
+	setmetatile 50, 17, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood4::
+	setmetatile 53, 35, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood5::
+	setmetatile 71, 21, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood6::
+	setmetatile 69, 44, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Stone1::
+	setmetatile 73, 24, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Mushroom1::
+	setmetatile 31, 33, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Mushroom2::
+	setmetatile 50, 47, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_KingsLeaf1::
+	setmetatile 78, 18, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Balm1::
+	setmetatile 83, 25, METATILE_General_Grass, FALSE
+	return
+
+PetalburgWoods_Resource_Wood1Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD1, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD1
+	call PetalburgWoods_Resource_Wood1
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Wood2Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD2, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD2
+	call PetalburgWoods_Resource_Wood2
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Wood3Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD3, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD3
+	call PetalburgWoods_Resource_Wood3
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Wood4Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD4, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD4
+	call PetalburgWoods_Resource_Wood4
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Wood5Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD5, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD5
+	call PetalburgWoods_Resource_Wood5
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Wood6Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_WOOD6, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_WOOD6
+	call PetalburgWoods_Resource_Wood6
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Stone1Harvest::
+	goto_if_set FLAG_ROUTE104_STONE1, PetalburgWoods_Resource_Collected
+	setflag FLAG_ROUTE104_STONE1
+	call PetalburgWoods_Resource_Stone1
+	special DrawWholeMapView
+	random 4
+	switch VAR_RESULT
+	case 0, PetalburgWoods_Resource_Give_Stone2
+	case 1, PetalburgWoods_Resource_Give_Stone3
+	case 2, PetalburgWoods_Resource_Give_Mud2
+	case 3, PetalburgWoods_Resource_Give_Mud3
+	releaseall
+	end
+
+PetalburgWoods_Resource_Mushroom1Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_MUSHROOM1, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_MUSHROOM1
+	call PetalburgWoods_Resource_Mushroom1
+	special DrawWholeMapView
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Mushroom2Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_MUSHROOM2, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_MUSHROOM2
+	call PetalburgWoods_Resource_Mushroom2
+	special DrawWholeMapView
+    random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	releaseall
+	end
+
+PetalburgWoods_Resource_Balm1Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_BALM1, PetalburgWoods_Resource_Collected
+	setflag FLAG_PETALBURGWOODS_BALM1
+	call PetalburgWoods_Resource_Balm1
+	special DrawWholeMapView
+	giveitem ITEM_BALM_MUSHROOM
+	releaseall
+	end
+
+PetalburgWoods_Resource_KingsLeaf1Harvest::
+	goto_if_set FLAG_PETALBURGWOODS_KINGSLEAF1, PetalburgWoods_Resource_Collected
+	giveitem ITEM_KINGS_LEAF
+	setflag FLAG_PETALBURGWOODS_KINGSLEAF1
+	call PetalburgWoods_Resource_KingsLeaf1
+	special DrawWholeMapView
+	releaseall
+	end
+
+PetalburgWoods_Resource_Collected::
+	releaseall
+	end
+
+PetalburgWoods_Resource_Give_Stone2::
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
+	releaseall
+	end
+	
+PetalburgWoods_Resource_Give_Stone3::
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_STONE, VAR_RESULT
+	giveitem ITEM_MUD
+	releaseall
+	end
+	
+PetalburgWoods_Resource_Give_Mud2::
+    giveitem ITEM_STONE
+	random 1
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
+	releaseall
+	end
+	
+PetalburgWoods_Resource_Give_Mud3::
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_MUD, VAR_RESULT
+	releaseall
+	end
 
 PetalburgWoods_EventScript_DevonResearcherLeft::
 	lockall

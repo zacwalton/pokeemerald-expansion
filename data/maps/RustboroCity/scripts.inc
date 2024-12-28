@@ -6,9 +6,65 @@
 .set LOCALID_SCIENTIST, 15
 
 RustboroCity_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, RustboroCity_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_OnFrame
 	.byte 0
+
+RustboroCity_OnResume:
+	call_if_Set FLAG_RUSTBOROCITY_WOOD1, RustboroCity_Resource_Wood1
+	call_if_Set FLAG_RUSTBOROCITY_WOOD1, RustboroCity_Resource_Wood2
+	call_if_Set FLAG_RUSTBOROCITY_WOOD1, RustboroCity_Resource_Wood3
+	end
+
+RustboroCity_Resource_Wood1::
+	setmetatile 14, 8, METATILE_General_Grass, FALSE
+	return
+
+RustboroCity_Resource_Wood2::
+	setmetatile 28, 10, METATILE_General_Grass, FALSE
+	return
+
+RustboroCity_Resource_Wood3::
+	setmetatile 27, 2, METATILE_General_Grass, FALSE
+	return
+
+RustboroCity_Resource_Wood1Harvest::
+	goto_if_set FLAG_RUSTBOROCITY_WOOD1, RustboroCity_Resource_Collected
+	setflag FLAG_RUSTBOROCITY_WOOD1
+	call RustboroCity_Resource_Wood1
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+RustboroCity_Resource_Wood2Harvest::
+	goto_if_set FLAG_RUSTBOROCITY_WOOD2, RustboroCity_Resource_Collected
+	setflag FLAG_RUSTBOROCITY_WOOD2
+	call RustboroCity_Resource_Wood2
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+RustboroCity_Resource_Wood3Harvest::
+	goto_if_set FLAG_RUSTBOROCITY_WOOD3, RustboroCity_Resource_Collected
+	setflag FLAG_RUSTBOROCITY_WOOD3
+	call RustboroCity_Resource_Wood3
+	special DrawWholeMapView
+	random 2
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+RustboroCity_Resource_Collected::
+	releaseall
+	end
 
 RustboroCity_OnTransition:
 	setflag FLAG_VISITED_RUSTBORO_CITY
