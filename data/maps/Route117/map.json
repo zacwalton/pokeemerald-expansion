@@ -15,12 +15,12 @@
   "connections": [
     {
       "map": "MAP_VERDANTURF_TOWN",
-      "offset": 0,
+      "offset": -10,
       "direction": "left"
     },
     {
       "map": "MAP_MAUVILLE_CITY",
-      "offset": 10,
+      "offset": 0,
       "direction": "right"
     },
     {

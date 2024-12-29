@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_WILD_ISLAND_NORTH",
-      "offset": -10,
+      "offset": -20,
       "direction": "left"
     },
     {
