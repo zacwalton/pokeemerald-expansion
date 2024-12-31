@@ -137,7 +137,9 @@
     "RuggedSea_Route130",
     "WildIsland_East",
     "RuggedSea_BattleFrontier",
-    "Route104_North"
+    "Route104_North",
+    "Route116_West",
+    "ValleyOfSteel_East"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
@@ -252,7 +254,8 @@
     "RustboroCity_Flat2_1F",
     "RustboroCity_Flat2_2F",
     "RustboroCity_Flat2_3F",
-    "RustboroCity_House3"
+    "RustboroCity_House3",
+    "RustboroCity_Flat3_1F"
   ],
   "gMapGroup_IndoorFortree": [
     "FortreeCity_House1",

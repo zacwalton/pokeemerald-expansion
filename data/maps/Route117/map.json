@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_VERDANTURF_TOWN",
-      "offset": -10,
+      "offset": 10,
       "direction": "left"
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "map": "MAP_VALLEY_OF_STEEL",
-      "offset": -46,
+      "offset": 0,
       "direction": "up"
     },
     {
@@ -298,7 +298,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
       "x": 48,
-      "y": 30,
+      "y": 29,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -398,7 +398,7 @@
     {
       "type": "sign",
       "x": 49,
-      "y": 32,
+      "y": 31,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route117_EventScript_RouteSignMauville"

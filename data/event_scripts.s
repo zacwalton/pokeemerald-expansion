@@ -1243,3 +1243,10 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/Route104_North/scripts.inc"
 
 	.include "data/maps/PetalburgWoods_Entrance/scripts.inc"
+
+	.include "data/maps/Route116_West/scripts.inc"
+
+	.include "data/maps/ValleyOfSteel_East/scripts.inc"
+
+
+	.include "data/maps/RustboroCity_Flat3_1F/scripts.inc"

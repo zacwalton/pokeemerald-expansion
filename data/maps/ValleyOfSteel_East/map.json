@@ -1,11 +1,11 @@
 {
-  "id": "MAP_SAFARI_ZONE_SW",
-  "name": "SafariZoneSW",
-  "layout": "LAYOUT_SAFARI_ZONE_SW",
-  "music": "MUS_DUMMY",
-  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "id": "MAP_VALLEY_OF_STEEL_EAST",
+  "name": "ValleyOfSteel_East",
+  "layout": "LAYOUT_VALLEY_OF_STEEL_EAST",
+  "music": "MUS_VERDANTURF",
+  "region_map_section": "MAPSEC_ROUTE_116",
   "requires_flash": false,
-  "weather": "WEATHER_SANDSTORM",
+  "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_ROUTE",
   "allow_cycling": true,
   "allow_escaping": false,
@@ -14,22 +14,22 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE111_NORTH",
-      "offset": -42,
-      "direction": "left"
-    },
-    {
-      "map": "MAP_ROUTE111_DESERT",
+      "map": "MAP_ROUTE116_WEST",
       "offset": 0,
       "direction": "down"
     },
     {
-      "map": "MAP_SAFARI_ZONE_SE",
+      "map": "MAP_FORINA",
+      "offset": -24,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_VALLEY_OF_STEEL",
       "offset": 0,
       "direction": "right"
     },
     {
-      "map": "MAP_SAFARI_ZONE_NW",
+      "map": "MAP_LAVARIDGE_TOWN",
       "offset": 0,
       "direction": "up"
     }

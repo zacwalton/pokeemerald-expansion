@@ -14,24 +14,24 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_VERDANTURF_TOWN",
-      "offset": 80,
-      "direction": "down"
-    },
-    {
       "map": "MAP_RUSTBORO_CITY",
       "offset": 0,
       "direction": "left"
     },
     {
       "map": "MAP_VERDANTURF_TOWN",
-      "offset": 10,
+      "offset": 30,
       "direction": "right"
     },
     {
       "map": "MAP_FORINA",
       "offset": -2,
       "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE116_WEST",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

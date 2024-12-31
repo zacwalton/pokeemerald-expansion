@@ -185,7 +185,7 @@
       "id": "LAYOUT_VERDANTURF_TOWN",
       "name": "VerdanturfTown_Layout",
       "width": 40,
-      "height": 60,
+      "height": 40,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Verdanturf_Summer",
       "border_filepath": "data/layouts/VerdanturfTown/border.bin",
@@ -347,7 +347,7 @@
       "width": 68,
       "height": 100,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Rustboro_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/Route115/border.bin",
       "blockdata_filepath": "data/layouts/Route115/map.bin"
     },
@@ -357,7 +357,7 @@
       "width": 80,
       "height": 40,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Rustboro_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/Route116/border.bin",
       "blockdata_filepath": "data/layouts/Route116/map.bin"
     },
@@ -4594,7 +4594,7 @@
     {
       "id": "LAYOUT_VALLEY_OF_STEEL",
       "name": "ValleyOfSteel_Layout",
-      "width": 106,
+      "width": 60,
       "height": 54,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Lavaridge_Summer",
@@ -4910,6 +4910,36 @@
       "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/PetalburgWoods_Entrance/border.bin",
       "blockdata_filepath": "data/layouts/PetalburgWoods_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE116_WEST",
+      "name": "Route116_West_Layout",
+      "width": 40,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Verdanturf_Summer",
+      "border_filepath": "data/layouts/Route116_West/border.bin",
+      "blockdata_filepath": "data/layouts/Route116_West/map.bin"
+    },
+    {
+      "id": "LAYOUT_VALLEY_OF_STEEL_EAST",
+      "name": "ValleyOfSteel_East_Layout",
+      "width": 46,
+      "height": 34,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "border_filepath": "data/layouts/ValleyOfSteel_East/border.bin",
+      "blockdata_filepath": "data/layouts/ValleyOfSteel_East/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_FLAT3_1F",
+      "name": "RustboroCity_Flat3_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_Flat3_1F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Flat3_1F/map.bin"
     }
   ]
 }

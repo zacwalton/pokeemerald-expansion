@@ -182,8 +182,8 @@
     },
     {
       "type": "hidden_item",
-      "x": 6,
-      "y": 24,
+      "x": 21,
+      "y": 12,
       "elevation": 3,
       "item": "ITEM_NUGGET",
       "flag": "FLAG_HIDDEN_ITEM_FALLARBOR_TOWN_NUGGET"

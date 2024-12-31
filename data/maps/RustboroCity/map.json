@@ -272,8 +272,8 @@
   ],
   "warp_events": [
     {
-      "x": 20,
-      "y": 31,
+      "x": 22,
+      "y": 40,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_GYM",
       "dest_warp_id": "0"
@@ -335,8 +335,8 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 22,
-      "y": 40,
+      "x": 3,
+      "y": 51,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE2",
       "dest_warp_id": "0"
@@ -353,6 +353,13 @@
       "y": 59,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE3",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 27,
+      "y": 59,
+      "elevation": 0,
+      "dest_map": "MAP_RUSTBORO_CITY_FLAT3_1F",
       "dest_warp_id": "0"
     }
   ],
