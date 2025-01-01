@@ -2451,4 +2451,19 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .breakable = TRUE,
     },
 
+    [ABILITY_DAUNTING_WINGS] =
+    {
+        .name = _("Daunting Wings"),
+        .description = COMPOUND_STRING("Lowers the foe's Attack."),
+        .aiRating = 7,
+    },
+
+    [ABILITY_WIND_CHIME] =
+    {
+        .name = _("Wind Chime"),
+        .description = COMPOUND_STRING("Ups Sp.Atk if hit by wind."),
+        .aiRating = 5,
+        .breakable = TRUE,
+    },
+
 };

@@ -4282,6 +4282,7 @@ u32 CanAbilityAbsorbMove(u32 battlerAtk, u32 battlerDef, u32 abilityDef, u32 mov
         if (moveType == TYPE_WATER)
             effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
         break;
+	case ABILITY_WIND_CHIME:
     case ABILITY_WIND_RIDER:
         if (gMovesInfo[move].windMove && !(GetBattlerMoveTargetType(battlerAtk, move) & MOVE_TARGET_USER))
             effect = MOVE_ABSORBED_BY_STAT_INCREASE_ABILITY;
@@ -4902,6 +4903,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+		case ABILITY_DAUNTING_WINGS:
         case ABILITY_INTIMIDATE:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
             {
@@ -4990,6 +4992,19 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlerAttacker = battler;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
+                effect++;
+            }
+            break;
+        case ABILITY_WIND_CHIME:
+            if (!gSpecialStatuses[battler].switchInAbilityDone
+             && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+             && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
+            {
+                gBattleScripting.savedBattler = gBattlerAttacker;
+                gBattlerAttacker = battler;
+                gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                SET_STATCHANGER(STAT_SPATK, 1, FALSE);
                 BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                 effect++;
             }
@@ -5459,6 +5474,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     break;
                 case ABILITY_LIGHTNING_ROD:
                 case ABILITY_STORM_DRAIN:
+                case ABILITY_WIND_CHIME:
                     statId = STAT_SPATK;
                     break;
                 case ABILITY_SAP_SIPPER:
@@ -8756,6 +8772,10 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, bool32 considerInverse)
         return FALSE;
     if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_LEVITATE)
         return FALSE;
+    if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_DAUNTING_WINGS)
+        return FALSE;
+    if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_WIND_CHIME)
+        return FALSE;
     if (GetBattlerAbility(battler) == ABILITY_DESERT_SPIRIT)
         return FALSE;
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && (!considerInverse || !FlagGet(B_FLAG_INVERSE_BATTLE)))
@@ -10654,6 +10674,22 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(u32 move, u32 mov
             gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(battlerDef, ABILITY_DESERT_SPIRIT);
         }
+		else if (recordAbilities && defAbility == ABILITY_DAUNTING_WINGS)
+        {
+            gLastUsedAbility = ABILITY_DAUNTING_WINGS;
+            gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastLandedMoves[battlerDef] = 0;
+            gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(battlerDef, ABILITY_DAUNTING_WINGS);
+        }
+		else if (recordAbilities && defAbility == ABILITY_WIND_CHIME)
+        {
+            gLastUsedAbility = ABILITY_WIND_CHIME;
+            gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastLandedMoves[battlerDef] = 0;
+            gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(battlerDef, ABILITY_WIND_CHIME);
+        }
     }
     else if (B_SHEER_COLD_IMMUNITY >= GEN_7 && move == MOVE_SHEER_COLD && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE))
     {
@@ -10720,6 +10756,10 @@ uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 a
             modifier = UQ_4_12(0.0);
 		else if (moveType == TYPE_GROUND && abilityDef == ABILITY_DESERT_SPIRIT && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
             modifier = UQ_4_12(0.0);
+		else if (moveType == TYPE_GROUND && abilityDef == ABILITY_DAUNTING_WINGS && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
+            modifier = UQ_4_12(0.0);
+		else if (moveType == TYPE_GROUND && abilityDef == ABILITY_WIND_CHIME && !(gFieldStatuses & STATUS_FIELD_GRAVITY))
+            modifier = UQ_4_12(0.0);
         if (abilityDef == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0) && gMovesInfo[move].power)
             modifier = UQ_4_12(0.0);
     }
@@ -10762,7 +10802,9 @@ uq4_12_t GetTypeEffectiveness(struct Pokemon *mon, u8 moveType)
          || (moveType == TYPE_GRASS    &&  abilityDef == ABILITY_SAP_SIPPER)
          || (moveType == TYPE_GROUND   && (abilityDef == ABILITY_LEVITATE
                                        ||  abilityDef == ABILITY_EARTH_EATER
-                                       ||  abilityDef == ABILITY_DESERT_SPIRIT))
+                                       ||  abilityDef == ABILITY_DESERT_SPIRIT
+                                       ||  abilityDef == ABILITY_DAUNTING_WINGS
+                                       ||  abilityDef == ABILITY_WIND_CHIME))
          || (moveType == TYPE_WATER    && (abilityDef == ABILITY_WATER_ABSORB
                                        || abilityDef == ABILITY_DRY_SKIN
                                        || abilityDef == ABILITY_STORM_DRAIN
@@ -11901,7 +11943,7 @@ bool8 CanMonParticipateInSkyBattle(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u16 monAbilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
 
-    bool8 hasLevitateAbility = gSpeciesInfo[species].abilities[monAbilityNum] == (ABILITY_LEVITATE || ABILITY_DESERT_SPIRIT);
+    bool8 hasLevitateAbility = gSpeciesInfo[species].abilities[monAbilityNum] == (ABILITY_LEVITATE || ABILITY_DESERT_SPIRIT || ABILITY_DAUNTING_WINGS || ABILITY_WIND_CHIME);
     bool8 isFlyingType = gSpeciesInfo[species].types[0] == TYPE_FLYING || gSpeciesInfo[species].types[1] == TYPE_FLYING;
     bool8 monIsValidAndNotEgg = GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES) && !GetMonData(mon, MON_DATA_IS_EGG);
 
