@@ -1250,3 +1250,19 @@ EventScript_VsSeekerChargingDone::
 
 
 	.include "data/maps/RustboroCity_Flat3_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat3_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat3_3F/scripts.inc"
+
+	.include "data/maps/RustboroCity_House4/scripts.inc"
+
+	.include "data/maps/RustboroCity_House5/scripts.inc"
+
+	.include "data/maps/RustboroCity_House6/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat4_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat4_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Museum_1F/scripts.inc"
