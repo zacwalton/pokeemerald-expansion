@@ -1045,14 +1045,3 @@ const struct Tileset gTileset_Verdanturf_Summer =
     .metatileAttributes = gMetatileAttributes_Verdanturf_Summer,
     .callback = NULL,
 };
-
-const struct Tileset gTileset_RustboroCity_Museum =
-{
-    .isCompressed = TRUE,
-    .isSecondary = TRUE,
-    .tiles = gTilesetTiles_RustboroCity_Museum,
-    .palettes = gTilesetPalettes_RustboroCity_Museum,
-    .metatiles = gMetatiles_RustboroCity_Museum,
-    .metatileAttributes = gMetatileAttributes_RustboroCity_Museum,
-    .callback = NULL,
-};

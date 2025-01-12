@@ -18,19 +18,19 @@ PetalburgCity_OnResume:
 	end
 
 PetalburgCity_Resource_leek1::
-	setmetatile 19, 19, METATILE_General_Grass, FALSE
+	setmetatile 19, 17, METATILE_General_Grass, FALSE
 	return
 
 PetalburgCity_Resource_leek2::
-	setmetatile 2, 39, METATILE_General_Grass, FALSE
+	setmetatile 2, 37, METATILE_General_Grass, FALSE
 	return
 
 PetalburgCity_Resource_Wood1::
-	setmetatile 31, 41, METATILE_General_Grass, FALSE
+	setmetatile 31, 39, METATILE_General_Grass, FALSE
 	return
 
 PetalburgCity_Resource_Vivichoke1::
-	setmetatile 22, 24, METATILE_General_Grass, FALSE
+	setmetatile 22, 22, METATILE_General_Grass, FALSE
 	return
 
 PetalburgCity_Resource_leek1Harvest::

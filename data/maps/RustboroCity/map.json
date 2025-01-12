@@ -32,11 +32,6 @@
       "map": "MAP_ROUTE104_NORTH",
       "offset": -30,
       "direction": "down"
-    },
-    {
-      "map": "MAP_PETALBURG_WOODS",
-      "offset": 70,
-      "direction": "right"
     }
   ],
   "object_events": [
@@ -172,7 +167,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_DEVON_EMPLOYEE",
-      "x": 5,
+      "x": 7,
       "y": 45,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -237,8 +232,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
-      "x": 29,
-      "y": 43,
+      "x": 28,
+      "y": 45,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -273,31 +268,18 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "EventScript_CutTree",
       "flag": "FLAG_RUSTBOROCITY_CUTTREE2"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_POKE_BALL",
-      "x": 24,
-      "y": 30,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
     }
   ],
   "warp_events": [
     {
       "x": 22,
-      "y": 39,
+      "y": 40,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_GYM",
       "dest_warp_id": "0"
     },
     {
-      "x": 6,
+      "x": 8,
       "y": 44,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_FLAT1_1F",
@@ -319,7 +301,7 @@
     },
     {
       "x": 21,
-      "y": 49,
+      "y": 48,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_POKEMON_SCHOOL",
       "dest_warp_id": "0"
@@ -367,7 +349,7 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 19,
+      "x": 20,
       "y": 59,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_HOUSE3",
@@ -378,55 +360,6 @@
       "y": 59,
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_FLAT3_1F",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 35,
-      "y": 31,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_HOUSE4",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 12,
-      "y": 16,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_HOUSE5",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 20,
-      "y": 7,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_HOUSE6",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 25,
-      "y": 16,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_FLAT4_1F",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 20,
-      "y": 30,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_MUSEUM_1F",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 22,
-      "y": 41,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY_POKEMON_SCHOOL",
-      "dest_warp_id": "2"
-    },
-    {
-      "x": 10,
-      "y": 17,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY",
       "dest_warp_id": "0"
     }
   ],
@@ -625,7 +558,7 @@
     {
       "type": "sign",
       "x": 25,
-      "y": 39,
+      "y": 40,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_EventScript_GymSign"
@@ -725,14 +658,6 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Resource_Wood3Harvest"
-    },
-    {
-      "type": "sign",
-      "x": 17,
-      "y": 31,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_EventScript_DevonMuseumSign"
     }
   ]
 }

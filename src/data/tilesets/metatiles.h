@@ -267,6 +267,3 @@ const u16 gMetatileAttributes_Littleroot_Autumn[] = INCBIN_U16("data/tilesets/se
 
 const u16 gMetatiles_Verdanturf_Summer[] = INCBIN_U16("data/tilesets/secondary/verdanturf_summer/metatiles.bin");
 const u16 gMetatileAttributes_Verdanturf_Summer[] = INCBIN_U16("data/tilesets/secondary/verdanturf_summer/metatile_attributes.bin");
-
-const u16 gMetatiles_RustboroCity_Museum[] = INCBIN_U16("data/tilesets/secondary/rustboro_city_museum/metatiles.bin");
-const u16 gMetatileAttributes_RustboroCity_Museum[] = INCBIN_U16("data/tilesets/secondary/rustboro_city_museum/metatile_attributes.bin");

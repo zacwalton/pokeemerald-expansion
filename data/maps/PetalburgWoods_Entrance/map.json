@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_PETALBURG_WOODS",
-      "offset": -38,
+      "offset": -30,
       "direction": "right"
     },
     {
