@@ -259,6 +259,10 @@ RustboroCity_EventScript_DevonCorpSign::
 	msgbox RustboroCity_Text_DevonCorpSign, MSGBOX_SIGN
 	end
 
+RustboroCity_EventScript_DevonMuseumSign::
+	msgbox RustboroCity_Text_DevonMuseumSign, MSGBOX_SIGN
+	end
+
 RustboroCity_EventScript_GymSign::
 	msgbox RustboroCity_Text_GymSign, MSGBOX_SIGN
 	end
@@ -1292,12 +1296,17 @@ RustboroCity_Text_TunnelNearingCompletion:
 	.string "across it in red paint…$"
 
 RustboroCity_Text_DevonCorpSign:
-	.string "DEVON CORPORATION\p"
+	.string "Devon Corporation\p"
 	.string "“For all your living needs, we make\n"
 	.string "it all.”$"
+	
+RustboroCity_Text_DevonMuseumSign:
+	.string "Devon Geology Museum\p"
+	.string "“Where science and geology\n"
+	.string "come to life.”$"
 
 RustboroCity_Text_GymSign:
-	.string "RUSTBORO CITY POKéMON GYM\n"
+	.string "Rustboro City Pokémon Gym\n"
 	.string "LEADER: ROXANNE\p"
 	.string "“The ROCK-loving honors student!”$"
 
@@ -1312,7 +1321,7 @@ RustboroCity_Text_CitySign:
 	.string "nature and science.”$"
 
 RustboroCity_Text_TrainersSchoolSign:
-	.string "POKéMON TRAINER'S SCHOOL\p"
+	.string "Devon Pokémon Trainer School\p"
 	.string "“We'll teach you anything about\n"
 	.string "POKéMON!”$"
 

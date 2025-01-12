@@ -984,8 +984,8 @@
     {
       "id": "LAYOUT_RUSTBORO_CITY_POKEMON_SCHOOL",
       "name": "RustboroCity_PokemonSchool_Layout",
-      "width": 12,
-      "height": 11,
+      "width": 48,
+      "height": 28,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_PokemonSchool",
       "border_filepath": "data/layouts/RustboroCity_PokemonSchool/border.bin",
@@ -4940,6 +4940,86 @@
       "secondary_tileset": "gTileset_GenericBuilding",
       "border_filepath": "data/layouts/RustboroCity_Flat3_1F/border.bin",
       "blockdata_filepath": "data/layouts/RustboroCity_Flat3_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_FLAT3_2F",
+      "name": "RustboroCity_Flat3_2F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_Flat3_2F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Flat3_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_FLAT3_3F",
+      "name": "RustboroCity_Flat3_3F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_Flat3_3F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Flat3_3F/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_HOUSE4",
+      "name": "RustboroCity_House4_Layout",
+      "width": 13,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_House4/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_House4/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_HOUSE5",
+      "name": "RustboroCity_House5_Layout",
+      "width": 10,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_House5/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_House5/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_HOUSE6",
+      "name": "RustboroCity_House6_Layout",
+      "width": 13,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_House6/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_House6/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_FLAT4_1F",
+      "name": "RustboroCity_Flat4_1F_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_Flat4_1F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Flat4_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_FLAT4_2F",
+      "name": "RustboroCity_Flat4_2F_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/RustboroCity_Flat4_2F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Flat4_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_MUSEUM_1F",
+      "name": "RustboroCity_Museum_1F_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_RustboroCity_Museum",
+      "border_filepath": "data/layouts/RustboroCity_Museum_1F/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Museum_1F/map.bin"
     }
   ]
 }

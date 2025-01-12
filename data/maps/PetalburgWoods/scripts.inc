@@ -20,47 +20,47 @@ PetalburgWoods_OnResume:
 	end
 
 PetalburgWoods_Resource_Wood1::
-	setmetatile 23, 29, METATILE_General_Grass, FALSE
+	setmetatile 23, 39, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood2::
-	setmetatile 40, 20, METATILE_General_Grass, FALSE
+	setmetatile 40, 30, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood3::
-	setmetatile 50, 17, METATILE_General_Grass, FALSE
+	setmetatile 50, 27, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood4::
-	setmetatile 53, 35, METATILE_General_Grass, FALSE
+	setmetatile 53, 45, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood5::
-	setmetatile 71, 21, METATILE_General_Grass, FALSE
+	setmetatile 71, 31, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood6::
-	setmetatile 69, 44, METATILE_General_Grass, FALSE
+	setmetatile 69, 54, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Stone1::
-	setmetatile 73, 24, METATILE_General_Grass, FALSE
+	setmetatile 73, 34, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Mushroom1::
-	setmetatile 31, 33, METATILE_General_Grass, FALSE
+	setmetatile 31, 43, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Mushroom2::
-	setmetatile 50, 47, METATILE_General_Grass, FALSE
+	setmetatile 50, 57, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_KingsLeaf1::
-	setmetatile 78, 18, METATILE_General_Grass, FALSE
+	setmetatile 78, 28, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Balm1::
-	setmetatile 83, 25, METATILE_General_Grass, FALSE
+	setmetatile 83, 35, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood1Harvest::
