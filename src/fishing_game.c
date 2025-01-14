@@ -8,6 +8,7 @@
 #include "main.h"
 #include "menu.h"
 #include "palette.h"
+#include "pokemon_icon.h"
 #include "scanline_effect.h"
 #include "sound.h"
 #include "sprite.h"
@@ -23,11 +24,15 @@
 #define BAR_DIR_LEFT    0
 #define BAR_DIR_RIGHT   1
 
+#define MON_ICON_START_X        36
+#define FISHING_BAR_Y           93
+#define FISHING_BAR_START_X     51
 #define FISHING_BAR_WIDTH       36
-#define FISHING_AREA_WIDTH      156
-#define FISHING_BAR_MAX         (FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * 10
-#define FISHING_BAR_MAX_SPEED   200
-#define SPEED_MODIFIER          FISHING_BAR_MAX_SPEED / 20
+#define FISHING_AREA_WIDTH      202
+#define FISHING_BAR_MAX_SPEED   50
+#define FISHING_BAR_BOUNCINESS  1.3
+#define FISHING_BAR_MAX         ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * 10)
+#define SPEED_MODIFIER          (FISHING_BAR_MAX_SPEED / 25)
 
 #define TAG_FISHING_BAR 0x1000
 
@@ -39,6 +44,7 @@ static void Task_AskWantToQuit(u8 taskId);
 static void Task_HandleConfirmQuitInput(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite);
+static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
 
 const u16 gFishingGameBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_tiles.gbapal");
 const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
@@ -111,12 +117,12 @@ static const struct OamData sOam_FishingBar =
     .paletteNum = 0,
     .affineParam = 0,
 };
-
+//int = 0x0400;
 static const struct CompressedSpriteSheet sSpriteSheet_FishingBar[] =
 {
     {
         .data = gFishingBar_Gfx,
-        .size = 1024,
+        .size = 0x0400,
         .tag = TAG_FISHING_BAR
     },
     {}
@@ -150,16 +156,17 @@ static void VblankCB_FishingGame(void)
 }
 
 // Data for Tasks
-#define tBarSpriteId data[5]
-#define tPaused data[15]
+#define tBarSpriteId        data[2]
+#define tMonIconSpriteId    data[3]
+#define tPaused             data[15]
 
 // Data for all sprites
-#define sTaskId data[0]
+#define sTaskId             data[0]
 
 // Data for Fishing Bar sprite
-#define sBarPosition data[6]
-#define sBarSpeed data[7]
-#define sBarDirection data[8]
+#define sBarPosition        data[2]
+#define sBarSpeed           data[3]
+#define sBarDirection       data[4]
 
 void CB2_InitFishingGame(void)
 {
@@ -210,6 +217,7 @@ void CB2_InitFishingGame(void)
     //LoadCompressedSpriteSheetUsingHeap(&gBattleAnimPicTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_GRAY_SMOKE)]);
     //LoadCompressedSpritePaletteUsingHeap(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(ANIM_TAG_GRAY_SMOKE)]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
+    LoadMonIconPalettes();
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
@@ -229,16 +237,18 @@ void CB2_InitFishingGame(void)
     ShowBg(2);
     
     taskId = CreateTask(Task_FishingGame, 0);
-
     gTasks[taskId].tPaused = TRUE;
 
     // Create fishing bar sprite
-    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, 36, 90, 2);
+    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sBarDirection = BAR_DIR_RIGHT;
     gTasks[taskId].tBarSpriteId = spriteId;
 
-    //sStarterLabelWindowId = WINDOW_NONE;
+    // Create mon icon
+    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, MON_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+    gSprites[spriteId].sTaskId = taskId;
+    gTasks[taskId].tMonIconSpriteId = spriteId;
 }
 
 static void CB2_FishingGame(void)
@@ -270,10 +280,6 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 
 static void Task_HandleFishingGameInput(u8 taskId)
 {
-    if (JOY_NEW(A_BUTTON) || JOY_HELD(A_BUTTON))
-    {
-        
-    }
     if (JOY_NEW(B_BUTTON))
     {
         gTasks[taskId].tPaused = TRUE;
@@ -302,6 +308,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
     case 1:  // NO
     case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL);
         gTasks[taskId].tPaused = FALSE;
         gTasks[taskId].func = Task_HandleFishingGameInput;
@@ -321,92 +328,69 @@ static void Task_QuitFishing(u8 taskId)
 
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
 {
-        DebugPrintf("sBarDirection = %u", sprite->sBarDirection);
-        DebugPrintf("sBarSpeed = %u", sprite->sBarSpeed);
-        DebugPrintf("sBarPosition = %u", sprite->sBarPosition);
-    if (gTasks[sprite->sTaskId].tPaused == FALSE)
+        //DebugPrintf("sBarDirection = %u", sprite->sBarDirection);
+        //DebugPrintf("sBarSpeed = %u", sprite->sBarSpeed);
+        //DebugPrintf("sBarPosition = %u", sprite->sBarPosition);
+    if (gTasks[sprite->sTaskId].tPaused == TRUE)
+        goto PAUSED;
+
+    if (JOY_NEW(A_BUTTON) || JOY_HELD(A_BUTTON))
     {
-        if (JOY_NEW(A_BUTTON) || JOY_HELD(A_BUTTON))
+        if (sprite->sBarDirection == BAR_DIR_LEFT)
         {
-            if (sprite->sBarDirection == BAR_DIR_LEFT)
-            {
-                u8 increment;
+            u8 increment;
 
-                if (sprite->sBarSpeed == 0) 
-                {
-                    sprite->sBarDirection = BAR_DIR_RIGHT;
-                }
-                else
-                {
-                    sprite->sBarSpeed--;
-                }
+            if (sprite->sBarSpeed == 0) 
+                sprite->sBarDirection = BAR_DIR_RIGHT;
+            else
+                sprite->sBarSpeed--;
 
-                increment = (sprite->sBarSpeed / SPEED_MODIFIER);
+            increment = (sprite->sBarSpeed / SPEED_MODIFIER);
 
-                if (sprite->sBarPosition > 0 && sprite->sBarPosition > increment)
-                {
-                    sprite->sBarPosition -= increment;
-                }
-                else if (sprite->sBarPosition < increment)
-                {
-                    sprite->sBarPosition = 0;
-                }
-            }
-            else if (sprite->sBarDirection == BAR_DIR_RIGHT)
-            {
-                if (sprite->sBarSpeed < FISHING_BAR_MAX_SPEED)
-                {
-                    sprite->sBarSpeed++;
-                }
-
-                if (sprite->sBarPosition < FISHING_BAR_MAX)
-                {
-                    sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
-                }
-            }
+            if (sprite->sBarPosition > 0 && sprite->sBarPosition > increment)
+                sprite->sBarPosition -= increment;
+            else if (sprite->sBarPosition < increment)
+                sprite->sBarPosition = 0;
         }
-        else
+        else if (sprite->sBarDirection == BAR_DIR_RIGHT)
         {
-            if (sprite->sBarDirection == BAR_DIR_RIGHT)
-            {
-                if (sprite->sBarSpeed == 0 && sprite->sBarPosition != 0) 
-                {
-                    sprite->sBarDirection = BAR_DIR_LEFT;
-                }
-                else if (sprite->sBarSpeed > 0)
-                {
-                    sprite->sBarSpeed--;
-                }
+            if (sprite->sBarSpeed < FISHING_BAR_MAX_SPEED)
+                    sprite->sBarSpeed++;
 
-                if (sprite->sBarPosition < FISHING_BAR_MAX)
-                {
-                    sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
-                }
-            }
-            else if (sprite->sBarDirection == BAR_DIR_LEFT)
-            {
-                u8 increment;
+            if (sprite->sBarPosition < FISHING_BAR_MAX)
+                sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
+        }
+    }
+    else
+    {
+        if (sprite->sBarDirection == BAR_DIR_RIGHT)
+        {
+            if (sprite->sBarSpeed == 0 && sprite->sBarPosition != 0)
+                sprite->sBarDirection = BAR_DIR_LEFT;
+            else if (sprite->sBarSpeed > 0)
+                sprite->sBarSpeed--;
+
+            if (sprite->sBarPosition < FISHING_BAR_MAX)
+                sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
+        }
+        else if (sprite->sBarDirection == BAR_DIR_LEFT)
+        {
+            u8 increment;
                 
                 if (sprite->sBarSpeed <= FISHING_BAR_MAX_SPEED && sprite->sBarPosition > 0)
-                {
-                    sprite->sBarSpeed++;
-                }
+                sprite->sBarSpeed++;
 
-                increment = (sprite->sBarSpeed / SPEED_MODIFIER);
+            increment = (sprite->sBarSpeed / SPEED_MODIFIER);
 
-                if (sprite->sBarPosition > 0)
-                {
-                    if (increment > sprite->sBarPosition)
-                    {
+            if (sprite->sBarPosition > 0)
+            {
+                if (increment > sprite->sBarPosition)
                         sprite->sBarPosition = 0;
-                    }
                     else
-                    {
-                        sprite->sBarPosition -= increment;
-                    }
-                }
+                    sprite->sBarPosition -= increment;
             }
         }
+    }
 
         if (sprite->sBarPosition > FISHING_BAR_MAX)
         {
@@ -429,12 +413,18 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
         if (sprite->sBarPosition == 0 && sprite->sBarDirection == BAR_DIR_LEFT && sprite->sBarSpeed > 0)
         {
             sprite->sBarDirection = BAR_DIR_RIGHT;
+            sprite->sBarSpeed /= FISHING_BAR_BOUNCINESS;
         }
         if (sprite->sBarPosition == FISHING_BAR_MAX && sprite->sBarDirection == BAR_DIR_RIGHT && sprite->sBarSpeed > 0)
         {
             sprite->sBarSpeed = 0;
         }
 
-        sprite->x = ((sprite->sBarPosition / 10) + 36);
-    }
+        sprite->x = ((sprite->sBarPosition / 10) + FISHING_BAR_START_X);
+        PAUSED:
+}
+
+static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
+{
+    UpdateMonIconFrame(sprite);
 }
