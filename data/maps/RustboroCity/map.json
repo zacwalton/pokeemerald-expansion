@@ -69,7 +69,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
       "x": 23,
-      "y": 53,
+      "y": 51,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -421,13 +421,6 @@
       "elevation": 0,
       "dest_map": "MAP_RUSTBORO_CITY_POKEMON_SCHOOL",
       "dest_warp_id": "2"
-    },
-    {
-      "x": 10,
-      "y": 17,
-      "elevation": 0,
-      "dest_map": "MAP_RUSTBORO_CITY",
-      "dest_warp_id": "0"
     }
   ],
   "coord_events": [
