@@ -229,7 +229,9 @@ PetalburgCity_EventScript_GymSign::
 	end
 
 PetalburgCity_EventScript_CitySign::
-	msgbox PetalburgCity_Text_CitySign, MSGBOX_SIGN
+	lock
+	fadescreen FADE_TO_BLACK
+	special ChooseStarter
 	end
 
 PetalburgCity_EventScript_Gentleman::
