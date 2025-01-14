@@ -49,7 +49,9 @@ InsideOfTruck_EventScript_SetIntroFlagsFemale::
 	setdynamicwarp MAP_PETALBURG_CITY, 10, 20
 	setflag FLAG_SYS_POKEMON_GET
 	givemon SPECIES_PIKACHU, 100
+	giveitem ITEM_OLD_ROD
 	giveitem ITEM_GOOD_ROD
+	giveitem ITEM_SUPER_ROD
 	releaseall
 	end
 

@@ -9,6 +9,7 @@
 #include "menu.h"
 #include "palette.h"
 #include "pokemon_icon.h"
+#include "random.h"
 #include "scanline_effect.h"
 #include "sound.h"
 #include "sprite.h"
@@ -20,19 +21,6 @@
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
-
-#define BAR_DIR_LEFT    0
-#define BAR_DIR_RIGHT   1
-
-#define MON_ICON_START_X        36
-#define FISHING_BAR_Y           93
-#define FISHING_BAR_START_X     51
-#define FISHING_BAR_WIDTH       36
-#define FISHING_AREA_WIDTH      202
-#define FISHING_BAR_MAX_SPEED   50
-#define FISHING_BAR_BOUNCINESS  1.3
-#define FISHING_BAR_MAX         ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * 10)
-#define SPEED_MODIFIER          (FISHING_BAR_MAX_SPEED / 25)
 
 #define TAG_FISHING_BAR 0x1000
 
@@ -51,6 +39,25 @@ const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_b
 const u32 gFishingGameBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
 const u32 gFishingBar_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar.4bpp.lz");
 static const u16 sFishingBar_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bar.gbapal");
+
+/*static const struct MapPreviewScreen sMapPreviewScreenData[MPS_COUNT] = {
+    [MPS_VIRIDIAN_FOREST] = {
+        .mapsec = MAPSEC_VIRIDIAN_FOREST,
+        .type = MPS_TYPE_FADE_IN,
+        .flagId = MPS_FLAG_NULL,
+        .image = IMG_VIRIDIAN_FOREST
+    }
+}*/
+
+static const u8 sFishBehavior[][4] =
+{
+    [SPECIES_MAGIKARP] = {
+        0, // Speed
+        0, // Frequency
+        0, // Distance
+        0  // Variability
+    }
+};
 
 static const struct WindowTemplate sWindowTemplates[] =
 {
@@ -125,7 +132,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_FishingBar[] =
         .size = 0x0400,
         .tag = TAG_FISHING_BAR
     },
-    {}
+    {NULL}
 };
 
 static const struct SpritePalette sSpritePalettes_FishingGame[] =
@@ -134,7 +141,7 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
         .data = sFishingBar_Pal,
         .tag = TAG_FISHING_BAR
     },
-    {},
+    {NULL},
 };
 
 static const struct SpriteTemplate sSpriteTemplate_FishingBar =
@@ -167,6 +174,13 @@ static void VblankCB_FishingGame(void)
 #define sBarPosition        data[2]
 #define sBarSpeed           data[3]
 #define sBarDirection       data[4]
+
+// Data for Mon Icon sprite
+#define sMonSpecies         data[2]
+#define sFrameCounter       data[3]
+#define sFishIsMoving       data[4]
+#define sFishDestination    data[5]
+#define sFishPosition       data[6]
 
 void CB2_InitFishingGame(void)
 {
@@ -246,8 +260,10 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tBarSpriteId = spriteId;
 
     // Create mon icon
-    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, MON_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+    spriteId = CreateMonIcon(SPECIES_GYARADOS, SpriteCB_FishingMonIcon, MON_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
     gSprites[spriteId].sTaskId = taskId;
+    gSprites[spriteId].sFishPosition = (MON_ICON_START_X - MON_ICON_MIN_X) * POSITION_ADJUSTMENT;
+    gSprites[spriteId].sMonSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     gTasks[taskId].tMonIconSpriteId = spriteId;
 }
 
@@ -328,9 +344,6 @@ static void Task_QuitFishing(u8 taskId)
 
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
 {
-        //DebugPrintf("sBarDirection = %u", sprite->sBarDirection);
-        //DebugPrintf("sBarSpeed = %u", sprite->sBarSpeed);
-        //DebugPrintf("sBarPosition = %u", sprite->sBarPosition);
     if (gTasks[sprite->sTaskId].tPaused == TRUE)
         goto PAUSED;
 
@@ -345,7 +358,7 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
             else
                 sprite->sBarSpeed--;
 
-            increment = (sprite->sBarSpeed / SPEED_MODIFIER);
+            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
 
             if (sprite->sBarPosition > 0 && sprite->sBarPosition > increment)
                 sprite->sBarPosition -= increment;
@@ -358,7 +371,7 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
                     sprite->sBarSpeed++;
 
             if (sprite->sBarPosition < FISHING_BAR_MAX)
-                sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
+                sprite->sBarPosition += (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
         }
     }
     else
@@ -371,7 +384,7 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
                 sprite->sBarSpeed--;
 
             if (sprite->sBarPosition < FISHING_BAR_MAX)
-                sprite->sBarPosition += (sprite->sBarSpeed / SPEED_MODIFIER);
+                sprite->sBarPosition += (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
         }
         else if (sprite->sBarDirection == BAR_DIR_LEFT)
         {
@@ -380,7 +393,7 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
                 if (sprite->sBarSpeed <= FISHING_BAR_MAX_SPEED && sprite->sBarPosition > 0)
                 sprite->sBarSpeed++;
 
-            increment = (sprite->sBarSpeed / SPEED_MODIFIER);
+            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
 
             if (sprite->sBarPosition > 0)
             {
@@ -392,39 +405,60 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
         }
     }
 
-        if (sprite->sBarPosition > FISHING_BAR_MAX)
-        {
-            sprite->sBarPosition = FISHING_BAR_MAX;
-        }
-        if (sprite->sBarPosition < 0)
-        {
-            sprite->sBarPosition = 0;
-        }
+    if (sprite->sBarPosition > FISHING_BAR_MAX)
+        sprite->sBarPosition = FISHING_BAR_MAX;
 
-        if (sprite->sBarSpeed > FISHING_BAR_MAX_SPEED)
-        {
-            sprite->sBarSpeed = FISHING_BAR_MAX_SPEED;
-        }
-        if (sprite->sBarSpeed < 0)
-        {
-            sprite->sBarSpeed = 0;
-        }
+    if (sprite->sBarSpeed > FISHING_BAR_MAX_SPEED)
+        sprite->sBarSpeed = FISHING_BAR_MAX_SPEED;
 
-        if (sprite->sBarPosition == 0 && sprite->sBarDirection == BAR_DIR_LEFT && sprite->sBarSpeed > 0)
-        {
-            sprite->sBarDirection = BAR_DIR_RIGHT;
-            sprite->sBarSpeed /= FISHING_BAR_BOUNCINESS;
-        }
-        if (sprite->sBarPosition == FISHING_BAR_MAX && sprite->sBarDirection == BAR_DIR_RIGHT && sprite->sBarSpeed > 0)
-        {
-            sprite->sBarSpeed = 0;
-        }
+    if (sprite->sBarPosition == 0 && sprite->sBarDirection == BAR_DIR_LEFT && sprite->sBarSpeed > 0)
+    {
+        sprite->sBarDirection = BAR_DIR_RIGHT;
+        sprite->sBarSpeed /= FISHING_BAR_BOUNCINESS;
+    }
+    if (sprite->sBarPosition == FISHING_BAR_MAX && sprite->sBarDirection == BAR_DIR_RIGHT && sprite->sBarSpeed > 0)
+        sprite->sBarSpeed = 0;
 
-        sprite->x = ((sprite->sBarPosition / 10) + FISHING_BAR_START_X);
-        PAUSED:
+    sprite->x = ((sprite->sBarPosition / POSITION_ADJUSTMENT) + FISHING_BAR_START_X);
+    PAUSED:
 }
 
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
+    if (gTasks[sprite->sTaskId].tPaused == TRUE)
+        goto PAUSED;
+
     UpdateMonIconFrame(sprite);
+
+    if (sprite->sFishIsMoving)
+    {
+
+    }
+    else
+    {
+        u8 rand = (Random() % 20);
+
+        sprite->sFrameCounter++;
+
+        if (rand < 8)
+        {
+            rand = 25;
+            if ((sprite->sFishPosition + rand) > MON_ICON_MAX_X)
+                sprite->sFishPosition = MON_ICON_MAX_X;
+            else
+                sprite->sFishPosition += rand;
+        }
+        else if (rand < 16)
+        {
+            rand = (Random() % 5);
+            if ((sprite->sFishPosition - rand) < MON_ICON_MIN_X)
+                sprite->sFishPosition = MON_ICON_MIN_X;
+            else
+                sprite->sFishPosition -= rand;
+        }
+    }
+
+    sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + MON_ICON_MIN_X);
+
+    PAUSED:
 }
