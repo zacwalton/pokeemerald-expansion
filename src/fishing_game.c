@@ -1,4 +1,5 @@
 #include "global.h"
+#include "battle_setup.h"
 #include "bg.h"
 #include "decompress.h"
 #include "event_data.h"
@@ -7,6 +8,7 @@
 #include "international_string_util.h"
 #include "main.h"
 #include "menu.h"
+#include "overworld.h"
 #include "palette.h"
 #include "pokemon_icon.h"
 #include "random.h"
@@ -30,6 +32,8 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId);
 static void Task_HandleFishingGameInput(u8 taskId);
 static void Task_AskWantToQuit(u8 taskId);
 static void Task_HandleConfirmQuitInput(u8 taskId);
+static void Task_ReeledInFish(u8 taskId);
+static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
@@ -52,28 +56,28 @@ static const u16 sFishingBar_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_b
 static const u16 sFishBehavior[][6] =
 {
     [SPECIES_MAGIKARP] = {
-        2,  // Speed
+        2,   // Speed
         0,   // Speed Variability
         240, // Movement Delay
         60,  // Delay Variability
-        10, // Distance
-        5  // Distance Variability
+        10,  // Distance
+        5    // Distance Variability
     },
     [SPECIES_GOLDEEN] = {
-        7,  // Speed
+        7,   // Speed
         3,   // Speed Variability
         480, // Movement Delay
         60,  // Delay Variability
-        70, // Distance
-        10  // Distance Variability
+        70,  // Distance
+        10   // Distance Variability
     },
     [SPECIES_CORPHISH] = {
         10,  // Speed
         3,   // Speed Variability
-        50, // Movement Delay
+        50,  // Movement Delay
         20,  // Delay Variability
-        5, // Distance
-        5  // Distance Variability
+        5,   // Distance
+        5   // Distance Variability
     }
 };
 
@@ -182,11 +186,14 @@ static void VblankCB_FishingGame(void)
 
 // Data for Tasks
 #define tFrameCounter       data[0]
-#define tMonSpecies         data[1]
-#define tMonIconSpriteId    data[2]
+#define tFishSpecies        data[1]
+#define tFishIconSpriteId   data[2]
 #define tBarSpriteId        data[3]
-#define tMonSpeedCounter    data[4]
-#define tInitialMonSpeed    data[5]
+#define tFishSpeedCounter   data[4]
+#define tInitialFishSpeed   data[5]
+#define tBarRightEdgePos    data[6]
+#define tFishCenter         data[7]
+#define tScore              data[8]
 #define tPaused             data[15]
 
 // Data for all sprites
@@ -276,6 +283,7 @@ void CB2_InitFishingGame(void)
     
     taskId = CreateTask(Task_FishingGame, 0);
     gTasks[taskId].tPaused = TRUE;
+    gTasks[taskId].tScore = 200;
 
     // Create fishing bar sprite
     spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 2);
@@ -284,11 +292,12 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tBarSpriteId = spriteId;
 
     // Create mon icon
-    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, MON_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
     gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sFishPosition = (MON_ICON_START_X - MON_ICON_MIN_X) * POSITION_ADJUSTMENT;
-    gTasks[taskId].tMonSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
-    gTasks[taskId].tMonIconSpriteId = spriteId;
+    gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
+    gSprites[spriteId].sTimeToNextMove = 60;
+    gTasks[taskId].tFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
+    gTasks[taskId].tFishIconSpriteId = spriteId;
 }
 
 static void CB2_FishingGame(void)
@@ -320,13 +329,38 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 
 static void Task_HandleFishingGameInput(u8 taskId)
 {
+    DebugPrintf ("tBarRightEdgePos = %d", gTasks[taskId].tBarRightEdgePos);
+    DebugPrintf ("tFishCenter = %d", gTasks[taskId].tFishCenter);
+    DebugPrintf ("tScore = %d", gTasks[taskId].tScore);
+    gTasks[taskId].tBarRightEdgePos = (gSprites[gTasks[taskId].tBarSpriteId].sBarPosition + (FISHING_BAR_WIDTH * 10));
+    gTasks[taskId].tFishCenter = (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 2) * 10));
+
+    if (gTasks[taskId].tFishCenter <= gTasks[taskId].tBarRightEdgePos && gTasks[taskId].tFishCenter >= gSprites[gTasks[taskId].tBarSpriteId].sBarPosition)
+        gTasks[taskId].tScore++;
+    else
+        gTasks[taskId].tScore -= 2;
+
+    if (gTasks[taskId].tScore >= SCORE_MAX)
+    {
+        gTasks[taskId].tPaused = TRUE;
+        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].func = Task_ReeledInFish;
+    }
+
+    if (gTasks[taskId].tScore <= 0)
+    {
+        gTasks[taskId].tPaused = TRUE;
+        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].func = Task_FishGotAway;
+    }
+
     if (JOY_NEW(B_BUTTON))
     {
         gTasks[taskId].tPaused = TRUE;
         gTasks[taskId].func = Task_AskWantToQuit;
     }
 
-    if (!gSprites[gTasks[taskId].tMonIconSpriteId].sFishIsMoving)
+    if (!gSprites[gTasks[taskId].tFishIconSpriteId].sFishIsMoving && gTasks[taskId].tPaused == FALSE)
         gTasks[taskId].tFrameCounter++;
 }
 
@@ -359,6 +393,106 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
     }
 }
 
+/*static bool8 Fishing_StartEncounter(struct Task *task)
+{
+    if (task->tFrameCounter == 0)
+        AlignFishingAnimationFrames();
+
+    RunTextPrinters();
+
+    if (task->tFrameCounter == 0)
+    {
+        if (!IsTextPrinterActive(0))
+        {
+            struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+            ObjectEventSetGraphicsId(playerObjEvent, task->tPlayerGfxId);
+            ObjectEventTurn(playerObjEvent, playerObjEvent->movementDirection);
+            if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+                SetSurfBlob_PlayerOffset(gObjectEvents[gPlayerAvatar.objectEventId].fieldEffectSpriteId, FALSE, 0);
+            gSprites[gPlayerAvatar.spriteId].x2 = 0;
+            gSprites[gPlayerAvatar.spriteId].y2 = 0;
+            ClearDialogWindowAndFrame(0, TRUE);
+            task->tFrameCounter++;
+            return FALSE;
+        }
+    }
+
+    if (task->tFrameCounter != 0)
+    {
+        gPlayerAvatar.preventStep = FALSE;
+        UnlockPlayerFieldControls();
+        FishingWildEncounter(task->tFishingRod);
+        RecordFishingAttemptForTV(TRUE);
+        DestroyTask(FindTaskIdByFunc(Task_Fishing));
+    }
+    return FALSE;
+}*/
+
+static void Task_ReeledInFish(u8 taskId)
+{
+        RunTextPrinters();
+
+    if (gTasks[taskId].tFrameCounter == 0)
+    {
+        PlaySE(SE_PIN);
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        //AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL);
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+        gTasks[taskId].tFrameCounter++;
+        goto END;
+    }
+
+    if (gTasks[taskId].tFrameCounter != 0)
+    {
+        if (!IsTextPrinterActive(0))
+        {
+        IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
+        BattleSetup_StartWildBattle();
+        ResetAllPicSprites();
+        DestroyTask(taskId);
+        }
+    }
+
+    END:
+}
+
+static void Task_FishGotAway(u8 taskId)
+{
+    RunTextPrinters();
+
+    if (gTasks[taskId].tFrameCounter == 0)
+    {
+        PlaySE(SE_FAILURE);
+        DebugPrintf ("FAILURE");
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        //AddTextPrinterParameterized(0, FONT_NORMAL, gText_PokemonGotAway, 0, 1, 0, NULL);
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+        gTasks[taskId].tFrameCounter++;
+        goto END;
+    }
+
+    if (gTasks[taskId].tFrameCounter == 1)
+    {
+        if (!IsTextPrinterActive(0))
+        {
+            gTasks[taskId].tFrameCounter++;
+            goto END;
+        }
+    }
+
+    if (gTasks[taskId].tFrameCounter == 2)
+    {
+        if (!IsTextPrinterActive(0))
+        {
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            gTasks[taskId].func = Task_QuitFishing;
+        }
+    }
+
+    END:
+}
+
 static void Task_QuitFishing(u8 taskId)
 {
     if (!gPaletteFade.active)
@@ -371,6 +505,7 @@ static void Task_QuitFishing(u8 taskId)
 
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
 {
+    DebugPrintf ("sBarPosition = %d", sprite->sBarPosition);
     if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything if paused.
         goto END;
 
@@ -467,7 +602,7 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
     END:
 }
 
-#define sBehavior               sFishBehavior[gTasks[sprite->sTaskId].tMonSpecies]
+#define sBehavior               sFishBehavior[gTasks[sprite->sTaskId].tFishSpecies]
 #define s60PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 40))
 #define s70PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 30))
 #define s80PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 20))
@@ -479,15 +614,15 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
 
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
-    /*DebugPrintf ("sFishIsMoving = %d", sprite->sFishIsMoving);
+    //DebugPrintf ("sFishIsMoving = %d", sprite->sFishIsMoving);
     DebugPrintf ("sFishPosition = %d", sprite->sFishPosition);
-    DebugPrintf ("sFishSpeed = %d", sprite->sFishSpeed);
-    DebugPrintf ("sTimeToNextMove = %d", sprite->sTimeToNextMove);
-    DebugPrintf ("sFishDestination = %d", sprite->sFishDestination);
-    DebugPrintf ("sFishDestInterval = %d", sprite->sFishDestInterval);
-    DebugPrintf ("sFishDirection = %d", sprite->sFishDirection);
-    DebugPrintf ("tInitialMonSpeed = %d", gTasks[sprite->sTaskId].tInitialMonSpeed);
-    DebugPrintf ("tFrameCounter = %d", gTasks[sprite->sTaskId].tFrameCounter);*/
+    //DebugPrintf ("sFishSpeed = %d", sprite->sFishSpeed);
+    //DebugPrintf ("sTimeToNextMove = %d", sprite->sTimeToNextMove);
+    //DebugPrintf ("sFishDestination = %d", sprite->sFishDestination);
+    //DebugPrintf ("sFishDestInterval = %d", sprite->sFishDestInterval);
+    //DebugPrintf ("sFishDirection = %d", sprite->sFishDirection);
+    //DebugPrintf ("tInitialFishSpeed = %d", gTasks[sprite->sTaskId].tInitialFishSpeed);
+    //DebugPrintf ("tFrameCounter = %d", gTasks[sprite->sTaskId].tFrameCounter);
 
     if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything if paused.
         goto END;
@@ -498,73 +633,67 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
     {
         u8 increment;
                 
-        if (sprite->sFishDirection == FISH_DIR_RIGHT)
+        if (sprite->sFishDirection == FISH_DIR_RIGHT) // If the mon is moving to the right.
         {
-            if (sprite->sFishPosition >= s60PercentMovedRight && gTasks[sprite->sTaskId].tMonSpeedCounter == 0)
+            if (sprite->sFishPosition >= s60PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition >= s70PercentMovedRight && gTasks[sprite->sTaskId].tMonSpeedCounter == 1)
+            else if (sprite->sFishPosition >= s70PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition >= s80PercentMovedRight && gTasks[sprite->sTaskId].tMonSpeedCounter == 2)
+            else if (sprite->sFishPosition >= s80PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition >= s90PercentMovedRight && gTasks[sprite->sTaskId].tMonSpeedCounter == 3 && sprite->sFishSpeed > 2)
-            {
-                sprite->sFishSpeed *= 0.5;
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
-            }
+            else if (sprite->sFishPosition >= s90PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 3 && sprite->sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
+                sprite->sFishSpeed *= 0.5; // Reduce the current fish speed by half.
 
-            if ((sprite->sFishPosition + sprite->sFishSpeed) <= MON_ICON_MAX_X)
-                sprite->sFishPosition += sprite->sFishSpeed;
+            if ((sprite->sFishPosition + sprite->sFishSpeed) <= FISH_ICON_MAX_X) // If the fish position wouldn't exceed the right edge.
+                sprite->sFishPosition += sprite->sFishSpeed; // Move the fish to the right.
             else
-                sprite->sFishPosition = MON_ICON_MAX_X;
+                sprite->sFishPosition = FISH_ICON_MAX_X; // Cap the position at the right edge.
 
             if (sprite->sFishPosition >= sprite->sFishDestination)
-                sprite->sFishIsMoving = FALSE;
+                sprite->sFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
         }
-        else if (sprite->sFishDirection == FISH_DIR_LEFT)
+        else if (sprite->sFishDirection == FISH_DIR_LEFT) // If the mon is moving to the left.
         {
-            if (sprite->sFishPosition <= s60PercentMovedLeft && gTasks[sprite->sTaskId].tMonSpeedCounter == 0)
+            if (sprite->sFishPosition <= s60PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition <= s70PercentMovedLeft && gTasks[sprite->sTaskId].tMonSpeedCounter == 1)
+            else if (sprite->sFishPosition <= s70PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition <= s80PercentMovedLeft && gTasks[sprite->sTaskId].tMonSpeedCounter == 2)
+            else if (sprite->sFishPosition <= s80PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
             {
                 if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialMonSpeed / 4);
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
+                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[sprite->sTaskId].tFishSpeedCounter++;
             }
-            else if (sprite->sFishPosition <= s90PercentMovedLeft && gTasks[sprite->sTaskId].tMonSpeedCounter == 3 && sprite->sFishSpeed > 2)
-            {
-                sprite->sFishSpeed *= 0.5;
-                gTasks[sprite->sTaskId].tMonSpeedCounter++;
-            }
+            else if (sprite->sFishPosition <= s90PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 3 && sprite->sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
+                sprite->sFishSpeed *= 0.5; // Reduce the current fish speed by half.
 
-            if ((sprite->sFishPosition - sprite->sFishSpeed) >= MON_ICON_MIN_X)
-                sprite->sFishPosition -= sprite->sFishSpeed;
+            if ((sprite->sFishPosition - sprite->sFishSpeed) >= FISH_ICON_MIN_X) // If the fish position wouldn't exceed the left edge.
+                sprite->sFishPosition -= sprite->sFishSpeed; // Move the fish to the left.
             else
-                sprite->sFishPosition = MON_ICON_MIN_X;
+                sprite->sFishPosition = FISH_ICON_MIN_X; // Cap the position at the left edge.
 
             if (sprite->sFishPosition <= sprite->sFishDestination)
-                sprite->sFishIsMoving = FALSE;
+                sprite->sFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
         }
     }
     else // Fish is idle.
@@ -580,12 +709,12 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 
             sprite->sFishIsMoving = TRUE;
             gTasks[sprite->sTaskId].tFrameCounter = 0;
-            gTasks[sprite->sTaskId].tMonSpeedCounter = 0;
+            gTasks[sprite->sTaskId].tFishSpeedCounter = 0;
 
             // Set fish movement speed.
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISHING_MON_SPEED_VARIABILITY]);
-            sprite->sFishSpeed = sBehavior[FISHING_MON_SPEED];
+            variablility = (Random() % sBehavior[FISH_SPEED_VARIABILITY]);
+            sprite->sFishSpeed = sBehavior[FISH_SPEED];
             for (i = 0; i < variablility; i++)
             {
                 if (rand < 10)
@@ -595,12 +724,12 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
             }
             if (sprite->sFishSpeed < 1)
                 sprite->sFishSpeed = 1;
-            gTasks[sprite->sTaskId].tInitialMonSpeed = sprite->sFishSpeed;
+            gTasks[sprite->sTaskId].tInitialFishSpeed = sprite->sFishSpeed;
 
             // Set time until next movement.
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISHING_MON_DELAY_VARIABILITY]);
-            sprite->sTimeToNextMove = sBehavior[FISHING_MON_MOVE_DELAY];
+            variablility = (Random() % sBehavior[FISH_DELAY_VARIABILITY]);
+            sprite->sTimeToNextMove = sBehavior[FISH_MOVE_DELAY];
             for (i = 0; i < variablility; i++)
             {
                 if (rand < 10)
@@ -610,17 +739,17 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
             }
 
             // Set movement direction. MON_ICON_AREA_MIDDLE
-            leftProbability = (sprite->sFishPosition / (MON_ICON_MAX_X / 100));
+            leftProbability = (sprite->sFishPosition / (FISH_ICON_MAX_X / 100));
             rand = (Random() % 100);
             if (rand < leftProbability)
-                sprite->sFishDirection = FISH_DIR_LEFT;
+                sprite->sFishDirection = FISH_DIR_RIGHT;
             else
                 sprite->sFishDirection = FISH_DIR_RIGHT;
 
             // Set fish destination and interval.
-            distance = sBehavior[FISHING_MON_DISTANCE];
+            distance = sBehavior[FISH_DISTANCE];
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISHING_MON_DIST_VARIABILITY]);
+            variablility = (Random() % sBehavior[FISH_DIST_VARIABILITY]);
             for (i = 0; i < variablility; i++)
             {
                 distance++;
@@ -629,15 +758,15 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
             if (sprite->sFishDirection == FISH_DIR_LEFT)
             {
                 sprite->sFishDestination = (sprite->sFishPosition - distance);
-                if (sprite->sFishDestination < MON_ICON_MIN_X)
-                    sprite->sFishDestination = MON_ICON_MIN_X;
+                if (sprite->sFishDestination < FISH_ICON_MIN_X)
+                    sprite->sFishDestination = FISH_ICON_MIN_X;
                 sprite->sFishDestInterval = (sprite->sFishPosition - sprite->sFishDestination);
             }
             else
             {
                 sprite->sFishDestination = (sprite->sFishPosition + distance);
-                if (sprite->sFishDestination > MON_ICON_MAX_X)
-                    sprite->sFishDestination = MON_ICON_MAX_X;
+                if (sprite->sFishDestination > FISH_ICON_MAX_X)
+                    sprite->sFishDestination = FISH_ICON_MAX_X;
                 sprite->sFishDestInterval = (sprite->sFishDestination - sprite->sFishPosition);
             }
         }
@@ -647,23 +776,23 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
         if (rand < 7) // Nudge to right.
         {
             rand = (Random() % 4);
-            if ((sprite->sFishPosition + rand) > MON_ICON_MAX_X)
-                sprite->sFishPosition = MON_ICON_MAX_X;
+            if ((sprite->sFishPosition + rand) > FISH_ICON_MAX_X)
+                sprite->sFishPosition = FISH_ICON_MAX_X;
             else
                 sprite->sFishPosition += rand;
         }
-        else if (rand < 14) // Nudge to left.
+        /*else if (rand < 14) // Nudge to left.
         {
             rand = (Random() % 4);
-            if ((sprite->sFishPosition - rand) < MON_ICON_MIN_X)
-                sprite->sFishPosition = MON_ICON_MIN_X;
+            if ((sprite->sFishPosition - rand) < FISH_ICON_MIN_X)
+                sprite->sFishPosition = FISH_ICON_MIN_X;
             else
                 sprite->sFishPosition -= rand;
-        }
+        }*/
     }
 
     // Set the fish sprite position.
-    sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + MON_ICON_MIN_X);
+    sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X);
 
     END:
 }

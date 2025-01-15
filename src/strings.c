@@ -201,6 +201,8 @@ const u8 gText_PlayedPokeFlute[] = _("Played the POKé FLUTE.");
 const u8 gText_PokeFluteAwakenedMon[] = _("The POKé FLUTE awakened sleeping\nPOKéMON.{PAUSE_UNTIL_PRESS}");
 const u8 gText_ReelItIn[] = _("Reel it in with A!\nKeep the tension just right!");
 const u8 gText_FishingWantToQuit[] = _("Do you want to let this one go?");
+const u8 gText_ReeledInAPokemon[] = _("You reeled in a POKéMON!{PAUSE_UNTIL_PRESS}");
+const u8 gText_PokemonGotAway[] = _("Oh, no!\nThe POKéMON got away…{PAUSE_UNTIL_PRESS}");
 
 const u8 *const gBagMenu_ReturnToStrings[] =
 {
