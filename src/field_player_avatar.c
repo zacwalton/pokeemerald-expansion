@@ -2087,6 +2087,7 @@ static bool8 Fishing_StartMinigame(struct Task *task)
 
         if (task->tFrameCounter != 0)
         {
+            PlayBGM(MUS_TRICK_HOUSE);
             SetMainCallback2(CB2_InitFishingGame);
             gMain.savedCallback = CB2_ReturnToField;
             DestroyTask(FindTaskIdByFunc(Task_Fishing));
