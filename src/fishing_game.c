@@ -1,8 +1,11 @@
 #include "global.h"
+#include "battle_main.h"
 #include "battle_setup.h"
+#include "battle_transition.h"
 #include "bg.h"
 #include "decompress.h"
 #include "event_data.h"
+#include "field_control_avatar.h"
 #include "fishing_game.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
@@ -20,6 +23,8 @@
 #include "text.h"
 #include "text_window.h"
 #include "trainer_pokemon_sprites.h"
+#include "tv.h"
+#include "util.h"
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
@@ -36,6 +41,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId);
 static void Task_ReeledInFish(u8 taskId);
 static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
+static u8 CalculateScoreMeterPalette(struct Sprite *sprite);
 static void HandleScore(u8 taskId);
 static void SetFishingBarPosition(u8 taskId);
 static void SetMonIconPosition(u8 taskId);
@@ -44,7 +50,8 @@ static void SpriteCB_FishingBarRight(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterRight(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterMiddleAndLeft(struct Sprite *sprite);
-//static void SpriteCB_ScoreMeterLeft(struct Sprite *sprite);
+static void CB2_FishingBattleTransition(void);
+static void CB2_FishingBattleStart(void);
 
 const u16 gFishingGameBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_tiles.gbapal");
 const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
@@ -276,6 +283,7 @@ static void VblankCB_FishingGame(void)
 #define sScoreSection       data[1]
 #define sScorePosition      data[2]
 #define sScoreWinCheck      data[3]
+#define sCurrColorInterval  data[4]
 
 void CB2_InitFishingGame(void)
 {
@@ -376,6 +384,7 @@ void CB2_InitFishingGame(void)
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sScoreSection = SCORE_RIGHT;
     gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
+    //gSprites[spriteId].sCurrColorInterval = 1;
     gTasks[taskId].tSMRightSpriteId = spriteId;
     
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - SCORE_SECTION_WIDTH), SCORE_SECTION_INIT_Y, 2);
@@ -488,10 +497,11 @@ static void Task_ReeledInFish(u8 taskId)
         if (!IsTextPrinterActive(0))
         {
         IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
-        PlayBGM (GetCurrLocationDefaultMusic());
-        BattleSetup_StartWildBattle();
-        ResetAllPicSprites();
-        DestroyTask(taskId);
+        //PlayBGM (GetCurrLocationDefaultMusic());
+        //BattleSetup_StartWildBattle();
+        //ResetAllPicSprites();
+        //DestroyTask(taskId);
+        SetMainCallback2(CB2_FishingBattleTransition);
         }
     }
 }
@@ -523,10 +533,31 @@ static void Task_QuitFishing(u8 taskId)
     if (!gPaletteFade.active)
     {
         ResetAllPicSprites();
-        PlayBGM (GetCurrLocationDefaultMusic());
+        PlayBGM(GetCurrLocationDefaultMusic());
         SetMainCallback2(gMain.savedCallback);
         DestroyTask(taskId);
     }
+}
+
+static u8 CalculateScoreMeterPalette(struct Sprite *sprite)
+{
+    u8 r = 31;
+    u8 g = 0;
+
+    if (sprite->sCurrColorInterval > 63)
+        sprite->sCurrColorInterval = 63;
+
+    if (sprite->sCurrColorInterval < 32)
+    {
+        g = (sprite->sCurrColorInterval);
+    }
+    else
+    {
+        g = 31;
+        r -= (sprite->sCurrColorInterval - 32);
+    }
+
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
 }
 
 static void HandleScore(u8 taskId)
@@ -901,6 +932,18 @@ static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
         sprite->x2--;
     }
 
+    if (sprite->sScorePosition > ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1))
+    {
+        sprite->sCurrColorInterval++;
+        CalculateScoreMeterPalette(sprite);
+    }
+    else if (sprite->sScorePosition < ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL))
+    {
+        sprite->sCurrColorInterval--;
+        CalculateScoreMeterPalette(sprite);
+    }
+    DebugPrintf("Color Interval: %u", sprite->sCurrColorInterval);
+
     END:
 }
 
@@ -915,5 +958,33 @@ static void SpriteCB_ScoreMeterMiddleAndLeft(struct Sprite *sprite)
     if (gTasks[sprite->sTaskId].tPaused == FALSE && sprite->sBattleStart == FALSE) // Don't do anything if paused.
     {
         sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2);
+    }
+}
+
+static void CB2_FishingBattleTransition(void)
+{
+    ResetTasks();
+    PlayBattleBGM();
+    SetMainCallback2(CB2_FishingBattleStart);
+    BattleTransition_Start(B_TRANSITION_WAVE); // The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
+}
+
+static void CB2_FishingBattleStart(void)
+{
+    UpdatePaletteFade();
+    RunTasks();
+
+    if (IsBattleTransitionDone() == TRUE)
+    {
+        gMain.savedCallback = CB2_ReturnToField;
+        FreeAllWindowBuffers();
+        SetMainCallback2(CB2_InitBattle);
+        RestartWildEncounterImmunitySteps();
+        ClearPoisonStepCounter();
+        IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
+        IncrementGameStat(GAME_STAT_WILD_BATTLES);
+        IncrementDailyWildBattles();
+        if (GetGameStat(GAME_STAT_WILD_BATTLES) % 60 == 0)
+            UpdateGymLeaderRematch();
     }
 }
