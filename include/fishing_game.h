@@ -18,7 +18,7 @@
 #define BAR_SPEED_MODIFIER          (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / 2.0)) // The greater the number value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.)
 #define FISHING_BAR_MAX             ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * 10)
 
-#define STARTING_SCORE              10  // Must be divisible by SCORE_INTERVAL.
+#define STARTING_SCORE              300  // Must be divisible by SCORE_INTERVAL.
 #define SCORE_MAX                   1920 // Must be divisible by SCORE_AREA_WIDTH.
 #define SCORE_AREA_WIDTH            192
 #define SCORE_AREA_OFFSET           8

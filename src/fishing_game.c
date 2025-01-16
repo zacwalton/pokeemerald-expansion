@@ -910,10 +910,10 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tScore >= SCORE_MAX && sprite->sScorePosition < SCORE_AREA_WIDTH)
+    if (gTasks[sprite->sTaskId].tScore <= 0 && sprite->sScorePosition > 0)
     {
-        sprite->sScorePosition = SCORE_AREA_WIDTH;
-        sprite->x2++;
+        sprite->sScorePosition = 0;
+        sprite->x2--;
     }
 
     if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
@@ -926,7 +926,7 @@ static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
         sprite->sScorePosition++;
         sprite->x2++;
     }
-    else if (gTasks[sprite->sTaskId].tScore < (sprite->sScorePosition * SCORE_INTERVAL))
+    else if (gTasks[sprite->sTaskId].tScore < ((sprite->sScorePosition - 1) * SCORE_INTERVAL))
     {
         sprite->sScorePosition--;
         sprite->x2--;
@@ -949,12 +949,6 @@ static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeterMiddleAndLeft(struct Sprite *sprite)
 {
-    if (/*gTasks[sprite->sTaskId].tScore >= SCORE_MAX*/sprite->sBattleStart == TRUE && sprite->sScoreWinCheck == FALSE)
-    {
-        sprite->x2++;
-        sprite->sScoreWinCheck = TRUE;
-    }
-    
     if (gTasks[sprite->sTaskId].tPaused == FALSE && sprite->sBattleStart == FALSE) // Don't do anything if paused.
     {
         sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2);
