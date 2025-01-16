@@ -287,6 +287,10 @@ static void VblankCB_FishingGame(void)
 
 void CB2_InitFishingGame(void)
 {
+    u8 i;
+    u8 startColorInterval = 0;
+    u8 r = 31;
+    u8 g = 0;
     u8 taskId;
     u8 spriteId;
 
@@ -328,6 +332,23 @@ void CB2_InitFishingGame(void)
     FreeAllSpritePalettes();
     ResetAllPicSprites();
 
+    for (i = 0; i <= (STARTING_SCORE / SCORE_INTERVAL); i += SCORE_COLOR_INTERVAL)
+    {
+        startColorInterval++;
+        DebugPrintf("i = %d", i);
+        DebugPrintf("startColorInterval = %d", startColorInterval);
+    }
+
+    if (startColorInterval < 32)
+    {
+        g = (startColorInterval);
+    }
+    else
+    {
+        g = 31;
+        r -= (startColorInterval - 32);
+    }
+
     LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
@@ -335,6 +356,7 @@ void CB2_InitFishingGame(void)
     LoadCompressedSpriteSheet(&sSpriteSheet_ScoreMeter[0]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     LoadMonIconPalettes();
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
@@ -384,7 +406,7 @@ void CB2_InitFishingGame(void)
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sScoreSection = SCORE_RIGHT;
     gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
-    //gSprites[spriteId].sCurrColorInterval = 1;
+    gSprites[spriteId].sCurrColorInterval = startColorInterval;
     gTasks[taskId].tSMRightSpriteId = spriteId;
     
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - SCORE_SECTION_WIDTH), SCORE_SECTION_INIT_Y, 2);
@@ -544,17 +566,17 @@ static u8 CalculateScoreMeterPalette(struct Sprite *sprite)
     u8 r = 31;
     u8 g = 0;
 
-    if (sprite->sCurrColorInterval > 63)
-        sprite->sCurrColorInterval = 63;
+    if (sprite->sCurrColorInterval > 64)
+        sprite->sCurrColorInterval = 64;
 
-    if (sprite->sCurrColorInterval < 32)
+    if (sprite->sCurrColorInterval <= 32)
     {
-        g = (sprite->sCurrColorInterval);
+        g = (sprite->sCurrColorInterval - 1);
     }
     else
     {
         g = 31;
-        r -= (sprite->sCurrColorInterval - 32);
+        r -= ((sprite->sCurrColorInterval - 1) - 32);
     }
 
     FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
@@ -943,6 +965,9 @@ static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
         CalculateScoreMeterPalette(sprite);
     }
     DebugPrintf("Color Interval: %u", sprite->sCurrColorInterval);
+    DebugPrintf("Score Position: %u", sprite->sScorePosition);
+    DebugPrintf("Interval Bottom: %u", ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL));
+    DebugPrintf("Interval Top: %u", ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1));
 
     END:
 }
