@@ -36,6 +36,9 @@ static void Task_HandleConfirmQuitInput(u8 taskId);
 static void Task_ReeledInFish(u8 taskId);
 static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
+static void HandleScore(u8 taskId);
+static void SetFishingBarPosition(u8 taskId);
+static void SetMonIconPosition(u8 taskId);
 static void SpriteCB_Fishing_Bar(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterRight(struct Sprite *sprite);
@@ -184,7 +187,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_FishingBar[] =
 {
     {
         .data = gFishingBar_Gfx,
-        .size = 1024,
+        .size = 0x0400,
         .tag = TAG_FISHING_BAR
     },
     {NULL}
@@ -194,7 +197,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_ScoreMeter[] =
 {
     {
         .data = gScoreMeter_Gfx,
-        .size = 1024,
+        .size = 0x0400,
         .tag = TAG_SCORE_METER
     },
     {NULL}
@@ -372,6 +375,7 @@ void CB2_InitFishingGame(void)
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, SCORE_SECTION_INIT_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sScoreSection = SCORE_RIGHT;
+    gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
     gTasks[taskId].tSMRightSpriteId = spriteId;
     
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, SCORE_SECTION_INIT_Y, 2);
@@ -390,7 +394,7 @@ void CB2_InitFishingGame(void)
 static void CB2_FishingGame(void)
 {
     RunTasks();
-    //RunTextPrinters();
+    RunTextPrinters();
     AnimateSprites();
     BuildOamBuffer();
     DoScheduledBgTilemapCopiesToVram();
@@ -420,32 +424,9 @@ static void Task_HandleFishingGameInput(u8 taskId)
     //DebugPrintf ("tBarRightEdgePos = %d", gTasks[taskId].tBarRightEdgePos);
     //DebugPrintf ("tFishCenter = %d", gTasks[taskId].tFishCenter);
     //DebugPrintf ("tScore = %d", gTasks[taskId].tScore);
-    gTasks[taskId].tBarRightEdgePos = (gSprites[gTasks[taskId].tBarSpriteId].sBarPosition + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT));
-    gTasks[taskId].tFishCenter = (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 2) * POSITION_ADJUSTMENT));
-
-    if (gTasks[taskId].tFishCenter <= gTasks[taskId].tBarRightEdgePos && gTasks[taskId].tFishCenter >= gSprites[gTasks[taskId].tBarSpriteId].sBarPosition)
-        gTasks[taskId].tScore++;
-    else
-    {
-        gTasks[taskId].tScore -= 2;
-        gTasks[taskId].tPerfectCatch = FALSE;
-    }
-
-    if (gTasks[taskId].tScore >= SCORE_MAX)
-    {
-        gTasks[taskId].tPaused = TRUE;
-        gSprites[gTasks[taskId].tBarSpriteId].sBattleStart = TRUE;
-        gSprites[gTasks[taskId].tFishIconSpriteId].sBattleStart = TRUE;
-        gTasks[taskId].tFrameCounter = 0;
-        gTasks[taskId].func = Task_ReeledInFish;
-    }
-
-    if (gTasks[taskId].tScore <= 0)
-    {
-        gTasks[taskId].tPaused = TRUE;
-        gTasks[taskId].tFrameCounter = 0;
-        gTasks[taskId].func = Task_FishGotAway;
-    }
+    HandleScore(taskId);
+    SetFishingBarPosition(taskId);
+    SetMonIconPosition(taskId);
 
     if (JOY_NEW(B_BUTTON))
     {
@@ -488,7 +469,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
 
 static void Task_ReeledInFish(u8 taskId)
 {
-        RunTextPrinters();
+        //RunTextPrinters();
 
     if (gTasks[taskId].tFrameCounter == 0)
     {
@@ -517,12 +498,11 @@ static void Task_ReeledInFish(u8 taskId)
 
 static void Task_FishGotAway(u8 taskId)
 {
-    RunTextPrinters();
+    //RunTextPrinters();
 
     if (gTasks[taskId].tFrameCounter == 0)
     {
         PlaySE(SE_FLEE);
-        //DebugPrintf ("FAILURE");
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
         gTasks[taskId].tFrameCounter++;
@@ -549,43 +529,77 @@ static void Task_QuitFishing(u8 taskId)
     }
 }
 
-static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
+static void HandleScore(u8 taskId)
 {
-    //DebugPrintf ("sBarPosition = %d", sprite->sBarPosition);
-    if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
-        goto END;
+    gTasks[taskId].tBarRightEdgePos = (gSprites[gTasks[taskId].tBarSpriteId].sBarPosition + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT));
+    gTasks[taskId].tFishCenter = (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 2) * POSITION_ADJUSTMENT));
 
+    if (gTasks[taskId].tFishCenter <= gTasks[taskId].tBarRightEdgePos && gTasks[taskId].tFishCenter >= gSprites[gTasks[taskId].tBarSpriteId].sBarPosition)
+        gTasks[taskId].tScore += 2;
+    else
+    {
+        gTasks[taskId].tScore -= 3;
+        gTasks[taskId].tPerfectCatch = FALSE;
+    }
+
+    if (gTasks[taskId].tScore >= SCORE_MAX)
+    {
+        gTasks[taskId].tPaused = TRUE;
+        gSprites[gTasks[taskId].tSMRightSpriteId].x2++;
+        gSprites[gTasks[taskId].tSMMiddleSpriteId].x2++;
+        gSprites[gTasks[taskId].tSMLeftSpriteId].x2++;
+        gSprites[gTasks[taskId].tSMRightSpriteId].sBattleStart = TRUE;
+        gSprites[gTasks[taskId].tSMMiddleSpriteId].sBattleStart = TRUE;
+        gSprites[gTasks[taskId].tSMLeftSpriteId].sBattleStart = TRUE;
+        gSprites[gTasks[taskId].tBarSpriteId].sBattleStart = TRUE;
+        gSprites[gTasks[taskId].tFishIconSpriteId].sBattleStart = TRUE;
+        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].func = Task_ReeledInFish;
+    }
+
+    if (gTasks[taskId].tScore <= 0)
+    {
+        gTasks[taskId].tPaused = TRUE;
+        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].func = Task_FishGotAway;
+    }
+}
+
+#define fishingBarData      gSprites[gTasks[taskId].tBarSpriteId]
+
+static void SetFishingBarPosition(u8 taskId)
+{
     if (JOY_NEW(A_BUTTON) || JOY_HELD(A_BUTTON)) // If the A Button is pressed.
     {
         u8 increment;
 
-        if (sprite->sBarDirection == FISH_DIR_LEFT) // If the bar is traveling to left.
+        if (fishingBarData.sBarDirection == FISH_DIR_LEFT) // If the bar is traveling to left.
         {
-            if (sprite->sBarSpeed == 0) // If the bar is not moving, switch directions.
-                sprite->sBarDirection = FISH_DIR_RIGHT;
+            if (fishingBarData.sBarSpeed == 0) // If the bar is not moving, switch directions.
+                fishingBarData.sBarDirection = FISH_DIR_RIGHT;
             else
-                sprite->sBarSpeed--; // Decrease the bar speed.
+                fishingBarData.sBarSpeed--; // Decrease the bar speed.
 
-            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
+            increment = (fishingBarData.sBarSpeed / BAR_SPEED_MODIFIER);
 
-            if (sprite->sBarPosition > 0 && sprite->sBarPosition > increment) // If the bar won't exceed the left edge.
-                sprite->sBarPosition -= increment; // Move the bar to the left.
-            else if (sprite->sBarPosition < increment)
-                sprite->sBarPosition = 0; // Does not exceed left edge.
+            if (fishingBarData.sBarPosition > 0 && fishingBarData.sBarPosition > increment) // If the bar won't exceed the left edge.
+                fishingBarData.sBarPosition -= increment; // Move the bar to the left.
+            else if (fishingBarData.sBarPosition < increment)
+                fishingBarData.sBarPosition = 0; // Does not exceed left edge.
         }
-        else if (sprite->sBarDirection == FISH_DIR_RIGHT) // If the bar is traveling to right.
+        else if (fishingBarData.sBarDirection == FISH_DIR_RIGHT) // If the bar is traveling to right.
         {
-            if (sprite->sBarSpeed < FISHING_BAR_MAX_SPEED) // If the bar speed isn't at max.
-                    sprite->sBarSpeed++; // Increase the bar speed.
+            if (fishingBarData.sBarSpeed < FISHING_BAR_MAX_SPEED) // If the bar speed isn't at max.
+                    fishingBarData.sBarSpeed++; // Increase the bar speed.
 
-            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
+            increment = (fishingBarData.sBarSpeed / BAR_SPEED_MODIFIER);
 
-            if (sprite->sBarPosition < FISHING_BAR_MAX) // If the bar isn't against the right edge.
+            if (fishingBarData.sBarPosition < FISHING_BAR_MAX) // If the bar isn't against the right edge.
             {
-                if ((sprite->sBarPosition + increment) > FISHING_BAR_MAX) // If the bar movement would exceed the right edge.
-                    sprite->sBarPosition = FISHING_BAR_MAX; // Set the bar along the right edge.
+                if ((fishingBarData.sBarPosition + increment) > FISHING_BAR_MAX) // If the bar movement would exceed the right edge.
+                    fishingBarData.sBarPosition = FISHING_BAR_MAX; // Set the bar along the right edge.
                 else
-                    sprite->sBarPosition += increment; // Move the bar to the right.
+                    fishingBarData.sBarPosition += increment; // Move the bar to the right.
             }
         }
     }
@@ -593,36 +607,229 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
     {
         u8 increment;
                 
-        if (sprite->sBarDirection == FISH_DIR_RIGHT) // If the bar is traveling to right.
+        if (fishingBarData.sBarDirection == FISH_DIR_RIGHT) // If the bar is traveling to right.
         {
-            if (sprite->sBarSpeed == 0 && sprite->sBarPosition != 0) // If the bar isn't moving and isn't against the left edge, switch directions.
-                sprite->sBarDirection = FISH_DIR_LEFT;
-            else if (sprite->sBarSpeed > 0) // If the bar is moving.
-                sprite->sBarSpeed--; // Decrease the bar speed.
+            if (fishingBarData.sBarSpeed == 0 && fishingBarData.sBarPosition != 0) // If the bar isn't moving and isn't against the left edge, switch directions.
+                fishingBarData.sBarDirection = FISH_DIR_LEFT;
+            else if (fishingBarData.sBarSpeed > 0) // If the bar is moving.
+                fishingBarData.sBarSpeed--; // Decrease the bar speed.
                 
-            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
+            increment = (fishingBarData.sBarSpeed / BAR_SPEED_MODIFIER);
 
-            if ((sprite->sBarPosition + increment) <= FISHING_BAR_MAX) // If the bar won't exceed the right edge.
-                sprite->sBarPosition += increment; // Move the bar to the right.
+            if ((fishingBarData.sBarPosition + increment) <= FISHING_BAR_MAX) // If the bar won't exceed the right edge.
+                fishingBarData.sBarPosition += increment; // Move the bar to the right.
             else
-                sprite->sBarPosition = FISHING_BAR_MAX; // Set the bar along the right edge.
+                fishingBarData.sBarPosition = FISHING_BAR_MAX; // Set the bar along the right edge.
         }
-        else if (sprite->sBarDirection == FISH_DIR_LEFT) // If the bar is traveling to left.
+        else if (fishingBarData.sBarDirection == FISH_DIR_LEFT) // If the bar is traveling to left.
         {
-            if (sprite->sBarSpeed < FISHING_BAR_MAX_SPEED && sprite->sBarPosition > 0) // If the bar speed isn't at max and the bar isn't against the left edge.
-                sprite->sBarSpeed++; // Increase the bar speed.
+            if (fishingBarData.sBarSpeed < FISHING_BAR_MAX_SPEED && fishingBarData.sBarPosition > 0) // If the bar speed isn't at max and the bar isn't against the left edge.
+                fishingBarData.sBarSpeed++; // Increase the bar speed.
 
-            increment = (sprite->sBarSpeed / BAR_SPEED_MODIFIER);
+            increment = (fishingBarData.sBarSpeed / BAR_SPEED_MODIFIER);
 
-            if (sprite->sBarPosition > 0) // If the bar isn't against the left edge.
+            if (fishingBarData.sBarPosition > 0) // If the bar isn't against the left edge.
             {
-                if ((sprite->sBarPosition - increment) < 0) // If the bar movement would exceed the left edge.
-                    sprite->sBarPosition = 0; // Set the bar along the left edge.
+                if ((fishingBarData.sBarPosition - increment) < 0) // If the bar movement would exceed the left edge.
+                    fishingBarData.sBarPosition = 0; // Set the bar along the left edge.
                 else
-                    sprite->sBarPosition -= increment; // Move the bar to the left.
+                    fishingBarData.sBarPosition -= increment; // Move the bar to the left.
             }
         }
     }
+}
+
+#undef fishingBarData
+
+#define fishIconData            gSprites[gTasks[taskId].tFishIconSpriteId]
+#define sBehavior               sFishBehavior[gTasks[taskId].tFishSpecies]
+#define s60PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 40))
+#define s70PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 30))
+#define s80PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 20))
+#define s90PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 10))
+#define s60PercentMovedLeft     (fishIconData.sFishDestination + ((fishIconData.sFishDestInterval / 100) * 40))
+#define s70PercentMovedLeft     (fishIconData.sFishDestination + ((fishIconData.sFishDestInterval / 100) * 30))
+#define s80PercentMovedLeft     (fishIconData.sFishDestination + ((fishIconData.sFishDestInterval / 100) * 20))
+#define s90PercentMovedLeft     (fishIconData.sFishDestination + ((fishIconData.sFishDestInterval / 100) * 10))
+
+static void SetMonIconPosition(u8 taskId)
+{
+    if (gTasks[taskId].tFishIsMoving) // Fish is moving.
+    {
+        u8 increment;
+                
+        if (fishIconData.sFishDirection == FISH_DIR_RIGHT) // If the mon is moving to the right.
+        {
+            if (fishIconData.sFishPosition >= s60PercentMovedRight && gTasks[taskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition >= s70PercentMovedRight && gTasks[taskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition >= s80PercentMovedRight && gTasks[taskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition >= s90PercentMovedRight && gTasks[taskId].tFishSpeedCounter == 3 && fishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
+                fishIconData.sFishSpeed *= 0.5; // Reduce the current fish speed by half.
+
+            if ((fishIconData.sFishPosition + fishIconData.sFishSpeed) <= FISH_ICON_MAX_X) // If the fish position wouldn't exceed the right edge.
+                fishIconData.sFishPosition += fishIconData.sFishSpeed; // Move the fish to the right.
+            else
+                fishIconData.sFishPosition = FISH_ICON_MAX_X; // Cap the position at the right edge.
+
+            if (fishIconData.sFishPosition >= fishIconData.sFishDestination)
+                gTasks[taskId].tFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
+        }
+        else if (fishIconData.sFishDirection == FISH_DIR_LEFT) // If the mon is moving to the left.
+        {
+            if (fishIconData.sFishPosition <= s60PercentMovedLeft && gTasks[taskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition <= s70PercentMovedLeft && gTasks[taskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition <= s80PercentMovedLeft && gTasks[taskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
+            {
+                if (fishIconData.sFishSpeed > 2)
+                    fishIconData.sFishSpeed -= (gTasks[taskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
+                gTasks[taskId].tFishSpeedCounter++;
+            }
+            else if (fishIconData.sFishPosition <= s90PercentMovedLeft && gTasks[taskId].tFishSpeedCounter == 3 && fishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
+                fishIconData.sFishSpeed *= 0.5; // Reduce the current fish speed by half.
+
+            if ((fishIconData.sFishPosition - fishIconData.sFishSpeed) >= FISH_ICON_MIN_X) // If the fish position wouldn't exceed the left edge.
+                fishIconData.sFishPosition -= fishIconData.sFishSpeed; // Move the fish to the left.
+            else
+                fishIconData.sFishPosition = FISH_ICON_MIN_X; // Cap the position at the left edge.
+
+            if (fishIconData.sFishPosition <= fishIconData.sFishDestination) // If movement has completed.
+                gTasks[taskId].tFishIsMoving = FALSE; // Return to idle behavior.
+        }
+    }
+    else // Fish is idle.
+    {
+        u8 rand;
+        u16 leftProbability;
+        u16 distance;
+
+        if (gTasks[taskId].tFrameCounter == fishIconData.sTimeToNextMove) // Begin new movement.
+        {
+            u8 i;
+            u16 variablility;
+
+            gTasks[taskId].tFishIsMoving = TRUE;
+            gTasks[taskId].tFrameCounter = 0;
+            gTasks[taskId].tFishSpeedCounter = 0;
+
+            // Set fish movement speed.
+            rand = (Random() % 20);
+            variablility = (Random() % sBehavior[FISH_SPEED_VARIABILITY]);
+            fishIconData.sFishSpeed = sBehavior[FISH_SPEED];
+            if (rand < 10)
+                fishIconData.sFishSpeed -= variablility;
+            else
+                fishIconData.sFishSpeed += variablility;
+            if (fishIconData.sFishSpeed < 1)
+                fishIconData.sFishSpeed = 1;
+            gTasks[taskId].tInitialFishSpeed = fishIconData.sFishSpeed;
+
+            // Set time until next movement.
+            rand = (Random() % 20);
+            variablility = (Random() % sBehavior[FISH_DELAY_VARIABILITY]);
+            fishIconData.sTimeToNextMove = sBehavior[FISH_MOVE_DELAY];
+            for (i = 0; i < variablility; i++)
+            {
+                if (rand < 10)
+                    fishIconData.sTimeToNextMove--;
+                else
+                    fishIconData.sTimeToNextMove++;
+            }
+
+            // Set movement direction. MON_ICON_AREA_MIDDLE
+            leftProbability = (fishIconData.sFishPosition / (FISH_ICON_MAX_X / 100));
+            rand = (Random() % 100);
+            if (rand < leftProbability)
+                fishIconData.sFishDirection = FISH_DIR_LEFT;
+            else
+                fishIconData.sFishDirection = FISH_DIR_RIGHT;
+
+            // Set fish destination and interval.
+            distance = sBehavior[FISH_DISTANCE];
+            rand = (Random() % 20);
+            variablility = (Random() % sBehavior[FISH_DIST_VARIABILITY]);
+            for (i = 0; i < variablility; i++)
+            {
+                distance++;
+            }
+            distance *= POSITION_ADJUSTMENT;
+            if (fishIconData.sFishDirection == FISH_DIR_LEFT)
+            {
+                fishIconData.sFishDestination = (fishIconData.sFishPosition - distance);
+                if (fishIconData.sFishDestination < FISH_ICON_MIN_X)
+                    fishIconData.sFishDestination = FISH_ICON_MIN_X;
+                fishIconData.sFishDestInterval = (fishIconData.sFishPosition - fishIconData.sFishDestination);
+            }
+            else
+            {
+                fishIconData.sFishDestination = (fishIconData.sFishPosition + distance);
+                if (fishIconData.sFishDestination > FISH_ICON_MAX_X)
+                    fishIconData.sFishDestination = FISH_ICON_MAX_X;
+                fishIconData.sFishDestInterval = (fishIconData.sFishDestination - fishIconData.sFishPosition);
+            }
+        }
+
+        // Fish idle movement.
+        rand = (Random() % 20);
+        if (rand < 7) // Nudge to right.
+        {
+            rand = (Random() % 4);
+            if ((fishIconData.sFishPosition + rand) > FISH_ICON_MAX_X)
+                fishIconData.sFishPosition = FISH_ICON_MAX_X;
+            else
+                fishIconData.sFishPosition += rand;
+        }
+        else if (rand < 14) // Nudge to left.
+        {
+            rand = (Random() % 4);
+            if ((fishIconData.sFishPosition - rand) < FISH_ICON_MIN_X)
+                fishIconData.sFishPosition = FISH_ICON_MIN_X;
+            else
+                fishIconData.sFishPosition -= rand;
+        }
+    }
+}
+
+#undef fishIconData
+#undef sBehavior
+#undef s60PercentMovedRight
+#undef s70PercentMovedRight
+#undef s80PercentMovedRight
+#undef s90PercentMovedRight
+#undef s60PercentMovedLeft
+#undef s70PercentMovedLeft
+#undef s80PercentMovedLeft
+#undef s90PercentMovedLeft
+
+static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
+{
+    //DebugPrintf ("sBarPosition = %d", sprite->sBarPosition);
+    if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
+        goto END;
 
     // Does not exceed max speed.
     if (sprite->sBarSpeed > FISHING_BAR_MAX_SPEED)
@@ -645,16 +852,6 @@ static void SpriteCB_Fishing_Bar(struct Sprite *sprite)
     END:
 }
 
-#define sBehavior               sFishBehavior[gTasks[sprite->sTaskId].tFishSpecies]
-#define s60PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 40))
-#define s70PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 30))
-#define s80PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 20))
-#define s90PercentMovedRight    (sprite->sFishDestination - ((sprite->sFishDestInterval / 100) * 10))
-#define s60PercentMovedLeft     (sprite->sFishDestination + ((sprite->sFishDestInterval / 100) * 40))
-#define s70PercentMovedLeft     (sprite->sFishDestination + ((sprite->sFishDestInterval / 100) * 30))
-#define s80PercentMovedLeft     (sprite->sFishDestination + ((sprite->sFishDestInterval / 100) * 20))
-#define s90PercentMovedLeft     (sprite->sFishDestination + ((sprite->sFishDestInterval / 100) * 10))
-
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
     //DebugPrintf ("sFishIsMoving = %d", sprite->sFishIsMoving);
@@ -672,189 +869,29 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 
     UpdateMonIconFrame(sprite); // Animates the mon icon.
 
-    if (gTasks[sprite->sTaskId].tFishIsMoving) // Fish is moving.
-    {
-        u8 increment;
-                
-        if (sprite->sFishDirection == FISH_DIR_RIGHT) // If the mon is moving to the right.
-        {
-            if (sprite->sFishPosition >= s60PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition >= s70PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition >= s80PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition >= s90PercentMovedRight && gTasks[sprite->sTaskId].tFishSpeedCounter == 3 && sprite->sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
-                sprite->sFishSpeed *= 0.5; // Reduce the current fish speed by half.
-
-            if ((sprite->sFishPosition + sprite->sFishSpeed) <= FISH_ICON_MAX_X) // If the fish position wouldn't exceed the right edge.
-                sprite->sFishPosition += sprite->sFishSpeed; // Move the fish to the right.
-            else
-                sprite->sFishPosition = FISH_ICON_MAX_X; // Cap the position at the right edge.
-
-            if (sprite->sFishPosition >= sprite->sFishDestination)
-                gTasks[sprite->sTaskId].tFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
-        }
-        else if (sprite->sFishDirection == FISH_DIR_LEFT) // If the mon is moving to the left.
-        {
-            if (sprite->sFishPosition <= s60PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition <= s70PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition <= s80PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
-            {
-                if (sprite->sFishSpeed > 2)
-                    sprite->sFishSpeed -= (gTasks[sprite->sTaskId].tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
-                gTasks[sprite->sTaskId].tFishSpeedCounter++;
-            }
-            else if (sprite->sFishPosition <= s90PercentMovedLeft && gTasks[sprite->sTaskId].tFishSpeedCounter == 3 && sprite->sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
-                sprite->sFishSpeed *= 0.5; // Reduce the current fish speed by half.
-
-            if ((sprite->sFishPosition - sprite->sFishSpeed) >= FISH_ICON_MIN_X) // If the fish position wouldn't exceed the left edge.
-                sprite->sFishPosition -= sprite->sFishSpeed; // Move the fish to the left.
-            else
-                sprite->sFishPosition = FISH_ICON_MIN_X; // Cap the position at the left edge.
-
-            if (sprite->sFishPosition <= sprite->sFishDestination) // If movement has completed.
-                gTasks[sprite->sTaskId].tFishIsMoving = FALSE; // Return to idle behavior.
-        }
-    }
-    else // Fish is idle.
-    {
-        u8 rand;
-        u16 leftProbability;
-        u16 distance;
-
-        if (gTasks[sprite->sTaskId].tFrameCounter == sprite->sTimeToNextMove) // Begin new movement.
-        {
-            u8 i;
-            u16 variablility;
-
-            gTasks[sprite->sTaskId].tFishIsMoving = TRUE;
-            gTasks[sprite->sTaskId].tFrameCounter = 0;
-            gTasks[sprite->sTaskId].tFishSpeedCounter = 0;
-
-            // Set fish movement speed.
-            rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_SPEED_VARIABILITY]);
-            sprite->sFishSpeed = sBehavior[FISH_SPEED];
-            if (rand < 10)
-                sprite->sFishSpeed -= variablility;
-            else
-                sprite->sFishSpeed += variablility;
-            if (sprite->sFishSpeed < 1)
-                sprite->sFishSpeed = 1;
-            gTasks[sprite->sTaskId].tInitialFishSpeed = sprite->sFishSpeed;
-
-            // Set time until next movement.
-            rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_DELAY_VARIABILITY]);
-            sprite->sTimeToNextMove = sBehavior[FISH_MOVE_DELAY];
-            for (i = 0; i < variablility; i++)
-            {
-                if (rand < 10)
-                    sprite->sTimeToNextMove--;
-                else
-                    sprite->sTimeToNextMove++;
-            }
-
-            // Set movement direction. MON_ICON_AREA_MIDDLE
-            leftProbability = (sprite->sFishPosition / (FISH_ICON_MAX_X / 100));
-            rand = (Random() % 100);
-            if (rand < leftProbability)
-                sprite->sFishDirection = FISH_DIR_LEFT;
-            else
-                sprite->sFishDirection = FISH_DIR_RIGHT;
-
-            // Set fish destination and interval.
-            distance = sBehavior[FISH_DISTANCE];
-            rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_DIST_VARIABILITY]);
-            for (i = 0; i < variablility; i++)
-            {
-                distance++;
-            }
-            distance *= POSITION_ADJUSTMENT;
-            if (sprite->sFishDirection == FISH_DIR_LEFT)
-            {
-                sprite->sFishDestination = (sprite->sFishPosition - distance);
-                if (sprite->sFishDestination < FISH_ICON_MIN_X)
-                    sprite->sFishDestination = FISH_ICON_MIN_X;
-                sprite->sFishDestInterval = (sprite->sFishPosition - sprite->sFishDestination);
-            }
-            else
-            {
-                sprite->sFishDestination = (sprite->sFishPosition + distance);
-                if (sprite->sFishDestination > FISH_ICON_MAX_X)
-                    sprite->sFishDestination = FISH_ICON_MAX_X;
-                sprite->sFishDestInterval = (sprite->sFishDestination - sprite->sFishPosition);
-            }
-        }
-
-        // Fish idle movement.
-        rand = (Random() % 20);
-        if (rand < 7) // Nudge to right.
-        {
-            rand = (Random() % 4);
-            if ((sprite->sFishPosition + rand) > FISH_ICON_MAX_X)
-                sprite->sFishPosition = FISH_ICON_MAX_X;
-            else
-                sprite->sFishPosition += rand;
-        }
-        else if (rand < 14) // Nudge to left.
-        {
-            rand = (Random() % 4);
-            if ((sprite->sFishPosition - rand) < FISH_ICON_MIN_X)
-                sprite->sFishPosition = FISH_ICON_MIN_X;
-            else
-                sprite->sFishPosition -= rand;
-        }
-    }
-
     // Set the fish sprite position.
     sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X);
 
     END:
 }
 
-#define scorePercent    (gTasks[sprite->sTaskId].tScore / SCORE_MAX)
-
 static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
 {
-    u16 percent;
-    percent++;
-    DebugPrintf ("percent = %d", percent);
-
     if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
     {
         goto END;
     }
 
-    sprite->sScorePosition = (SCORE_AREA_WIDTH * scorePercent);
-
-    sprite->x = (sprite->sScorePosition - SCORE_SECTION_WIDTH);
-    DebugPrintf ("sScorePosition = %d", sprite->sScorePosition);
-    DebugPrintf ("Sprite X = %d", sprite->x);
+    if (gTasks[sprite->sTaskId].tScore > (sprite->sScorePosition * SCORE_INTERVAL))
+    {
+        sprite->sScorePosition++;
+        sprite->x2++;
+    }
+    else if (gTasks[sprite->sTaskId].tScore < (sprite->sScorePosition * SCORE_INTERVAL))
+    {
+        sprite->sScorePosition--;
+        sprite->x2--;
+    }
 
     END:
 }
@@ -862,7 +899,11 @@ static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
 static void SpriteCB_ScoreMeterMiddle(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
+    {
         goto END;
+    }
+
+    sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2 - SCORE_SECTION_WIDTH);
 
     END:
 }
@@ -870,7 +911,11 @@ static void SpriteCB_ScoreMeterMiddle(struct Sprite *sprite)
 static void SpriteCB_ScoreMeterLeft(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
+    {
         goto END;
+    }
+
+    sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2 - (SCORE_SECTION_WIDTH * 2));
 
     END:
 }
