@@ -41,15 +41,16 @@ static void Task_HandleConfirmQuitInput(u8 taskId);
 static void Task_ReeledInFish(u8 taskId);
 static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
-static u8 CalculateScoreMeterPalette(struct Sprite *sprite);
+static u8 CalculateInitialScoreMeterInterval(void);
+static void CalculateScoreMeterPalette(struct Sprite *sprite);
 static void HandleScore(u8 taskId);
 static void SetFishingBarPosition(u8 taskId);
 static void SetMonIconPosition(u8 taskId);
 static void SpriteCB_FishingBar(struct Sprite *sprite);
 static void SpriteCB_FishingBarRight(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
-static void SpriteCB_ScoreMeterRight(struct Sprite *sprite);
-static void SpriteCB_ScoreMeterMiddleAndLeft(struct Sprite *sprite);
+static void SpriteCB_ScoreMeter(struct Sprite *sprite);
+static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
 static void CB2_FishingBattleTransition(void);
 static void CB2_FishingBattleStart(void);
 
@@ -234,7 +235,7 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeter =
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCB_ScoreMeterRight
+    .callback = SpriteCB_ScoreMeter
 };
 
 static void VblankCB_FishingGame(void)
@@ -251,20 +252,15 @@ static void VblankCB_FishingGame(void)
 #define tBarLeftSpriteId    data[3]
 #define tBarRightSpriteId   data[4]
 #define tSMRightSpriteId    data[5]
-#define tSMMiddleSpriteId   data[6]
-#define tSMLeftSpriteId     data[7]
-#define tFishSpeedCounter   data[8]
-#define tInitialFishSpeed   data[9]
-#define tBarRightEdgePos    data[10]
-#define tFishCenter         data[11]
-#define tScore              data[12]
-#define tFishIsMoving       data[13]
-#define tPerfectCatch       data[14]
+#define tFishSpeedCounter   data[6]
+#define tInitialFishSpeed   data[7]
+#define tScore              data[8]
+#define tFishIsMoving       data[9]
+#define tPerfectCatch       data[10]
 #define tPaused             data[15]
 
 // Data for all sprites
 #define sTaskId             data[0]
-#define sBattleStart        data[5]
 
 // Data for Fishing Bar sprite
 #define sBarPosition        data[2]
@@ -280,32 +276,24 @@ static void VblankCB_FishingGame(void)
 #define sFishDirection      data[7]
 
 // Data for Score Meter sprites
-#define sScoreSection       data[1]
-#define sScorePosition      data[2]
-#define sScoreWinCheck      data[3]
-#define sCurrColorInterval  data[4]
+#define sScorePosition      data[1]
+#define sScoreWinCheck      data[2]
+#define sCurrColorInterval  data[3]
 
 void CB2_InitFishingGame(void)
 {
-    u8 i;
-    u8 startColorInterval = 0;
-    u8 r = 31;
-    u8 g = 0;
     u8 taskId;
     u8 spriteId;
 
     SetVBlankCallback(NULL);
 
-    SetGpuReg(REG_OFFSET_DISPCNT, 0);
-    SetGpuReg(REG_OFFSET_BG3CNT, 0);
-    SetGpuReg(REG_OFFSET_BG2CNT, 0);
-    SetGpuReg(REG_OFFSET_BG1CNT, 0);
-    SetGpuReg(REG_OFFSET_BG0CNT, 0);
+    //SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    //SetGpuReg(REG_OFFSET_BG3CNT, 0);
+    //SetGpuReg(REG_OFFSET_BG2CNT, 0);
+    //SetGpuReg(REG_OFFSET_BG0CNT, 0);
 
     ChangeBgX(0, 0, BG_COORD_SET);
     ChangeBgY(0, 0, BG_COORD_SET);
-    ChangeBgX(1, 0, BG_COORD_SET);
-    ChangeBgY(1, 0, BG_COORD_SET);
     ChangeBgX(2, 0, BG_COORD_SET);
     ChangeBgY(2, 0, BG_COORD_SET);
     ChangeBgX(3, 0, BG_COORD_SET);
@@ -332,23 +320,6 @@ void CB2_InitFishingGame(void)
     FreeAllSpritePalettes();
     ResetAllPicSprites();
 
-    for (i = 0; i <= (STARTING_SCORE / SCORE_INTERVAL); i += SCORE_COLOR_INTERVAL)
-    {
-        startColorInterval++;
-        DebugPrintf("i = %d", i);
-        DebugPrintf("startColorInterval = %d", startColorInterval);
-    }
-
-    if (startColorInterval < 32)
-    {
-        g = (startColorInterval);
-    }
-    else
-    {
-        g = 31;
-        r -= (startColorInterval - 32);
-    }
-
     LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
@@ -356,20 +327,19 @@ void CB2_InitFishingGame(void)
     LoadCompressedSpriteSheet(&sSpriteSheet_ScoreMeter[0]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     LoadMonIconPalettes();
-    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
     SetVBlankCallback(VblankCB_FishingGame);
     SetMainCallback2(CB2_FishingGame);
 
-    SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);
-    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ);
-    SetGpuReg(REG_OFFSET_WIN0H, 0);
-    SetGpuReg(REG_OFFSET_WIN0V, 0);
-    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD | BLDCNT_EFFECT_DARKEN);
-    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-    SetGpuReg(REG_OFFSET_BLDY, 7);
+    //SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);
+    //SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ);
+    //SetGpuReg(REG_OFFSET_WIN0H, 0);
+    //SetGpuReg(REG_OFFSET_WIN0V, 0);
+    //SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD | BLDCNT_EFFECT_DARKEN);
+    //SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+    //SetGpuReg(REG_OFFSET_BLDY, 7);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
 
     ShowBg(0);
@@ -377,11 +347,11 @@ void CB2_InitFishingGame(void)
     ShowBg(3);
     
     taskId = CreateTask(Task_FishingGame, 0);
-    gTasks[taskId].tPaused = TRUE;
-    gTasks[taskId].tPerfectCatch = TRUE;
-    gTasks[taskId].tScore = STARTING_SCORE;
+    gTasks[taskId].tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
+    gTasks[taskId].tPerfectCatch = TRUE; // Allow a perfect catch.
+    gTasks[taskId].tScore = STARTING_SCORE; // Set the starting score.
 
-    // Create fishing bar sprites
+    // Create fishing bar sprites.
     spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sBarDirection = FISH_DIR_RIGHT;
@@ -393,33 +363,37 @@ void CB2_InitFishingGame(void)
     gSprites[spriteId].sTaskId = taskId;
     gTasks[taskId].tBarRightSpriteId = spriteId;
 
-    // Create mon icon sprite
+    // Create mon icon sprite.
     spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
-    gSprites[spriteId].sTimeToNextMove = 60;
+    gSprites[spriteId].sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
     gTasks[taskId].tFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     gTasks[taskId].tFishIconSpriteId = spriteId;
 
-    // Create score meter sprites
+    // Create score meter sprite.
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, SCORE_SECTION_INIT_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sScoreSection = SCORE_RIGHT;
     gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
-    gSprites[spriteId].sCurrColorInterval = startColorInterval;
+    gSprites[spriteId].sCurrColorInterval = CalculateInitialScoreMeterInterval();
     gTasks[taskId].tSMRightSpriteId = spriteId;
-    
-    spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - SCORE_SECTION_WIDTH), SCORE_SECTION_INIT_Y, 2);
-    gSprites[spriteId].callback = SpriteCB_ScoreMeterMiddleAndLeft;
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sScoreSection = SCORE_MIDDLE;
-    gTasks[taskId].tSMMiddleSpriteId = spriteId;
-    
-    spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - (SCORE_SECTION_WIDTH * 2)), SCORE_SECTION_INIT_Y, 2);
-    gSprites[spriteId].callback = SpriteCB_ScoreMeterMiddleAndLeft;
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sScoreSection = SCORE_LEFT;
-    gTasks[taskId].tSMLeftSpriteId = spriteId;
+
+    // Create enough score meter sprites to fill the whole score area.
+    if (SCORE_AREA_WIDTH > SCORE_SECTION_WIDTH)
+    {
+        u8 i;
+        u8 sections = NUM_SCORE_SECTIONS;
+
+        if (((SCORE_AREA_WIDTH * 100) % SCORE_SECTION_WIDTH) > 0)
+            sections++;
+
+        for (i = 1; i <= (sections - 1); i++)
+        {
+            spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - (SCORE_SECTION_WIDTH * i)), SCORE_SECTION_INIT_Y, 2);
+            gSprites[spriteId].callback = SpriteCB_ScoreMeterAdditional;
+            gSprites[spriteId].sTaskId = taskId;
+        }
+    }
 }
 
 static void CB2_FishingGame(void)
@@ -435,7 +409,7 @@ static void CB2_FishingGame(void)
 static void Task_FishingGame(u8 taskId)
 {
     DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the fishing game instructions.
     PutWindowTilemap(0);
     ScheduleBgCopyTilemapToVram(0);
     gTasks[taskId].func = Task_FishingPauseUntilFadeIn;
@@ -443,7 +417,7 @@ static void Task_FishingGame(u8 taskId)
 
 static void Task_FishingPauseUntilFadeIn(u8 taskId)
 {
-    if (!gPaletteFade.active)
+    if (!gPaletteFade.active) // Keep the game paused until the screen has fully faded in.
     {
         gTasks[taskId].tPaused = FALSE;
         gTasks[taskId].func = Task_HandleFishingGameInput;
@@ -452,27 +426,24 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 
 static void Task_HandleFishingGameInput(u8 taskId)
 {
-    //DebugPrintf ("tBarRightEdgePos = %d", gTasks[taskId].tBarRightEdgePos);
-    //DebugPrintf ("tFishCenter = %d", gTasks[taskId].tFishCenter);
-    //DebugPrintf ("tScore = %d", gTasks[taskId].tScore);
     HandleScore(taskId);
     SetFishingBarPosition(taskId);
     SetMonIconPosition(taskId);
 
-    if (JOY_NEW(B_BUTTON))
+    if (JOY_NEW(B_BUTTON)) // If the B Button is pressed.
     {
-        gTasks[taskId].tPaused = TRUE;
+        gTasks[taskId].tPaused = TRUE; // Pause the game.
         gTasks[taskId].func = Task_AskWantToQuit;
     }
 
-    if (!gTasks[taskId].tFishIsMoving && gTasks[taskId].tPaused == FALSE)
-        gTasks[taskId].tFrameCounter++;
+    if (!gTasks[taskId].tFishIsMoving && gTasks[taskId].tPaused == FALSE) // If the fish is not doing a movement and the game isn't paused.
+        gTasks[taskId].tFrameCounter++; // The time until the next fish movement is decreased.
 }
 
 static void Task_AskWantToQuit(u8 taskId)
 {
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 0, NULL); // Ask to quit the game.
     ScheduleBgCopyTilemapToVram(0);
     CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 0xD, 0);
     gTasks[taskId].func = Task_HandleConfirmQuitInput;
@@ -484,15 +455,15 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
     {
     case 0:  // YES
         PlaySE(SE_FLEE);
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
         gTasks[taskId].func = Task_QuitFishing;
         break;
     case 1:  // NO
     case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL);
-        gTasks[taskId].tPaused = FALSE;
+        AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the instructions again.
+        gTasks[taskId].tPaused = FALSE; // Unpause the game.
         gTasks[taskId].func = Task_HandleFishingGameInput;
         break;
     }
@@ -500,43 +471,15 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
 
 static void Task_ReeledInFish(u8 taskId)
 {
-    //RunTextPrinters();
-
     if (gTasks[taskId].tFrameCounter == 0)
     {
-        if (gTasks[taskId].tPerfectCatch == TRUE)
+        if (gTasks[taskId].tPerfectCatch == TRUE) // If it was a perfect catch.
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
-        else
+        else // If it wasn't a perfect catch.
             PlaySE(SE_PIN);
 
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-        gTasks[taskId].tFrameCounter++;
-    }
-
-    if (gTasks[taskId].tFrameCounter != 0)
-    {
-        if (!IsTextPrinterActive(0))
-        {
-        IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
-        //PlayBGM (GetCurrLocationDefaultMusic());
-        //BattleSetup_StartWildBattle();
-        //ResetAllPicSprites();
-        //DestroyTask(taskId);
-        SetMainCallback2(CB2_FishingBattleTransition);
-        }
-    }
-}
-
-static void Task_FishGotAway(u8 taskId)
-{
-    //RunTextPrinters();
-
-    if (gTasks[taskId].tFrameCounter == 0)
-    {
-        PlaySE(SE_FLEE);
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
         gTasks[taskId].tFrameCounter++;
     }
 
@@ -544,7 +487,28 @@ static void Task_FishGotAway(u8 taskId)
     {
         if (!IsTextPrinterActive(0))
         {
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
+            SetMainCallback2(CB2_FishingBattleTransition);
+            gTasks[taskId].tFrameCounter++;
+        }
+    }
+}
+
+static void Task_FishGotAway(u8 taskId)
+{
+    if (gTasks[taskId].tFrameCounter == 0)
+    {
+        PlaySE(SE_FLEE);
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Failure text.
+        gTasks[taskId].tFrameCounter++;
+    }
+
+    if (gTasks[taskId].tFrameCounter == 1)
+    {
+        if (!IsTextPrinterActive(0)) // If a button was pressed.
+        {
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
             gTasks[taskId].func = Task_QuitFishing;
         }
     }
@@ -552,65 +516,89 @@ static void Task_FishGotAway(u8 taskId)
 
 static void Task_QuitFishing(u8 taskId)
 {
-    if (!gPaletteFade.active)
+    if (!gPaletteFade.active) // If the screen has fully faded to black.
     {
         ResetAllPicSprites();
-        PlayBGM(GetCurrLocationDefaultMusic());
+        PlayBGM(GetCurrLocationDefaultMusic()); // Play the map's default music.
         SetMainCallback2(gMain.savedCallback);
-        DestroyTask(taskId);
+        DestroyTask(taskId); // Stop the fishing game task.
     }
 }
 
-static u8 CalculateScoreMeterPalette(struct Sprite *sprite)
+static u8 CalculateInitialScoreMeterInterval(void)
+{
+    u8 i;
+    u8 startColorInterval = 0;
+    u8 r = 31; // Max out the red level.
+    u8 g = 0;
+
+    for (i = 0; i <= (STARTING_SCORE / SCORE_INTERVAL); i += SCORE_COLOR_INTERVAL) // Set the starting color interval based on the starting score.
+    {
+        startColorInterval++;
+    }
+
+    if (startColorInterval < (NUM_COLOR_INTERVALS / 2)) // If the starting score interval is less than half of the total number of intervals.
+    {
+        g = (startColorInterval); // Set the green level to match the interval.
+    }
+    else
+    {
+        g = 31; // Max out the green level.
+        r -= (startColorInterval - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
+    }
+
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
+
+    return startColorInterval;
+}
+
+static void CalculateScoreMeterPalette(struct Sprite *sprite)
 {
     u8 r = 31;
     u8 g = 0;
 
-    if (sprite->sCurrColorInterval > 64)
-        sprite->sCurrColorInterval = 64;
+    if (sprite->sCurrColorInterval > NUM_COLOR_INTERVALS) // Cannot exceed the maximum color interval.
+        sprite->sCurrColorInterval = NUM_COLOR_INTERVALS;
 
-    if (sprite->sCurrColorInterval <= 32)
+    if (sprite->sCurrColorInterval <= (NUM_COLOR_INTERVALS / 2)) // If the score meter is less than half full.
     {
-        g = (sprite->sCurrColorInterval - 1);
+        g = (sprite->sCurrColorInterval - 1); // Set the green level to match the interval.
     }
     else
     {
-        g = 31;
-        r -= ((sprite->sCurrColorInterval - 1) - 32);
+        g = 31; // Max out the green level.
+        r -= ((sprite->sCurrColorInterval - 1) - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 }
+#define fishCenter      (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define barLeftEdge     gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition
+#define barRightEdge    (gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT))
+#define fishHBLeftEdge  (fishCenter - ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
+#define fishHBRightEdge (fishCenter + ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
 static void HandleScore(u8 taskId)
 {
-    gTasks[taskId].tBarRightEdgePos = (gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT));
-    gTasks[taskId].tFishCenter = (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 2) * POSITION_ADJUSTMENT));
-
-    if (gTasks[taskId].tFishCenter <= gTasks[taskId].tBarRightEdgePos && gTasks[taskId].tFishCenter >= gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition)
-        gTasks[taskId].tScore += 2;
-    else
+    if (fishHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge) // If the fish hitbox is within the fishing bar.
+        gTasks[taskId].tScore += SCORE_INCREASE; // Increase the score.
+    else // If the fish hitbox is outside the fishing bar.
     {
-        gTasks[taskId].tScore -= 3;
-        gTasks[taskId].tPerfectCatch = FALSE;
+        gTasks[taskId].tScore -= SCORE_DECREASE; // Decrease the score.
+        gTasks[taskId].tPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
     }
 
-    if (gTasks[taskId].tScore >= SCORE_MAX)
+    if (gTasks[taskId].tScore >= SCORE_MAX) // If the score goal has been achieved.
     {
-        gTasks[taskId].tPaused = TRUE;
-        gSprites[gTasks[taskId].tSMRightSpriteId].sBattleStart = TRUE;
-        gSprites[gTasks[taskId].tSMMiddleSpriteId].sBattleStart = TRUE;
-        gSprites[gTasks[taskId].tSMLeftSpriteId].sBattleStart = TRUE;
-        gSprites[gTasks[taskId].tBarLeftSpriteId].sBattleStart = TRUE;
-        gSprites[gTasks[taskId].tFishIconSpriteId].sBattleStart = TRUE;
-        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].tPaused = TRUE; // Freeze all sprite animations/movements.
+        gTasks[taskId].tFrameCounter = 0; // Reset the frame counter.
         gTasks[taskId].func = Task_ReeledInFish;
     }
 
-    if (gTasks[taskId].tScore <= 0)
+    if (gTasks[taskId].tScore <= 0) // If the score has hit 0.
     {
-        gTasks[taskId].tPaused = TRUE;
-        gTasks[taskId].tFrameCounter = 0;
+        gTasks[taskId].tPaused = TRUE; // Freeze all sprite animations/movements.
+        gTasks[taskId].tFrameCounter = 0; // Reset the frame counter.
         gTasks[taskId].func = Task_FishGotAway;
     }
 }
@@ -810,9 +798,11 @@ static void SetMonIconPosition(u8 taskId)
                     fishIconData.sTimeToNextMove++;
             }
 
-            // Set movement direction. MON_ICON_AREA_MIDDLE
+            // Set movement direction.
             leftProbability = (fishIconData.sFishPosition / (FISH_ICON_MAX_X / 100));
             rand = (Random() % 100);
+            DebugPrintf("leftProbability = %u", leftProbability);
+            DebugPrintf("rand = %u", rand);
             if (rand < leftProbability)
                 fishIconData.sFishDirection = FISH_DIR_LEFT;
             else
@@ -877,8 +867,7 @@ static void SetMonIconPosition(u8 taskId)
 
 static void SpriteCB_FishingBar(struct Sprite *sprite)
 {
-    //DebugPrintf ("sBarPosition = %d", sprite->sBarPosition);
-    if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
+    if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything if paused.
         goto END;
 
     // Does not exceed max speed.
@@ -896,7 +885,7 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
     if (sprite->sBarPosition == FISHING_BAR_MAX && sprite->sBarDirection == FISH_DIR_RIGHT && sprite->sBarSpeed > 0)
         sprite->sBarSpeed = 0;
 
-    // Set the bar sprite position.
+    // Set the bar sprite location.
     sprite->x2 = ((sprite->sBarPosition / POSITION_ADJUSTMENT));
 
     END:
@@ -904,88 +893,71 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
 
 static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 {
-    sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tBarLeftSpriteId].x2);
+    sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tBarLeftSpriteId].x2); // Set the location of the bar's right edge.
 }
 
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
-    //DebugPrintf ("sFishIsMoving = %d", sprite->sFishIsMoving);
-    //DebugPrintf ("sFishPosition = %d", sprite->sFishPosition);
-    //DebugPrintf ("sFishSpeed = %d", sprite->sFishSpeed);
-    //DebugPrintf ("sTimeToNextMove = %d", sprite->sTimeToNextMove);
-    //DebugPrintf ("sFishDestination = %d", sprite->sFishDestination);
-    //DebugPrintf ("sFishDestInterval = %d", sprite->sFishDestInterval);
-    //DebugPrintf ("sFishDirection = %d", sprite->sFishDirection);
-    //DebugPrintf ("tInitialFishSpeed = %d", gTasks[sprite->sTaskId].tInitialFishSpeed);
-    //DebugPrintf ("tFrameCounter = %d", gTasks[sprite->sTaskId].tFrameCounter);
+    if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
+    {
+        UpdateMonIconFrame(sprite); // Animate the mon icon.
 
-    if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
-        goto END;
-
-    UpdateMonIconFrame(sprite); // Animates the mon icon.
-
-    // Set the fish sprite position.
-    sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X);
-
-    END:
+        sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X); // Set the fish sprite location.
+    }
 }
 
-static void SpriteCB_ScoreMeterRight(struct Sprite *sprite)
+static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tScore <= 0 && sprite->sScorePosition > 0)
+    if (gTasks[sprite->sTaskId].tScore <= 0 && sprite->sScorePosition > 0) // If the current score is 0.
     {
         sprite->sScorePosition = 0;
-        sprite->x2--;
+        sprite->x2--; // Move the score meter out of the score area.
     }
 
-    if (gTasks[sprite->sTaskId].tPaused == TRUE || sprite->sBattleStart == TRUE) // Don't do anything if paused.
+    if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything else if paused.
     {
         goto END;
     }
 
-    if (gTasks[sprite->sTaskId].tScore > (sprite->sScorePosition * SCORE_INTERVAL))
+    if (gTasks[sprite->sTaskId].tScore > (sprite->sScorePosition * SCORE_INTERVAL)) // If the current score has increased to a greater score interval.
     {
         sprite->sScorePosition++;
-        sprite->x2++;
+        sprite->x2++; // Increase the score meter's location by one pixel.
     }
-    else if (gTasks[sprite->sTaskId].tScore < ((sprite->sScorePosition - 1) * SCORE_INTERVAL))
+    else if (gTasks[sprite->sTaskId].tScore < ((sprite->sScorePosition - 1) * SCORE_INTERVAL)) // If the current score has decreased to a lower score interval.
     {
         sprite->sScorePosition--;
-        sprite->x2--;
+        sprite->x2--; // Decrease the score meter's location by one pixel.
     }
 
-    if (sprite->sScorePosition > ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1))
+    if (sprite->sScorePosition > ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
     {
-        sprite->sCurrColorInterval++;
-        CalculateScoreMeterPalette(sprite);
+        sprite->sCurrColorInterval++; // Increase the color interval by 1.
+        CalculateScoreMeterPalette(sprite); // Change the score meter palette to reflect the change in color interval.
     }
-    else if (sprite->sScorePosition < ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL))
+    else if (sprite->sScorePosition < ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL)) // If the score meter has gone below the current color interval.
     {
-        sprite->sCurrColorInterval--;
-        CalculateScoreMeterPalette(sprite);
+        sprite->sCurrColorInterval--; // Decrease the color interval by 1.
+        CalculateScoreMeterPalette(sprite); // Change the score meter palette to reflect the change in color interval.
     }
-    DebugPrintf("Color Interval: %u", sprite->sCurrColorInterval);
-    DebugPrintf("Score Position: %u", sprite->sScorePosition);
-    DebugPrintf("Interval Bottom: %u", ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL));
-    DebugPrintf("Interval Top: %u", ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1));
 
     END:
 }
 
-static void SpriteCB_ScoreMeterMiddleAndLeft(struct Sprite *sprite)
+static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == FALSE && sprite->sBattleStart == FALSE) // Don't do anything if paused.
+    if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
     {
-        sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2);
+        sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2); // Set the locations of the additional score meter sprites.
     }
 }
 
 static void CB2_FishingBattleTransition(void)
 {
     ResetTasks();
-    PlayBattleBGM();
+    PlayBattleBGM(); // Play the battle music.
     SetMainCallback2(CB2_FishingBattleStart);
-    BattleTransition_Start(B_TRANSITION_WAVE); // The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
+    BattleTransition_Start(B_TRANSITION_WAVE); // Start the battle transition. The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
 }
 
 static void CB2_FishingBattleStart(void)
@@ -993,11 +965,11 @@ static void CB2_FishingBattleStart(void)
     UpdatePaletteFade();
     RunTasks();
 
-    if (IsBattleTransitionDone() == TRUE)
+    if (IsBattleTransitionDone() == TRUE) // If the battle transition has fully completed.
     {
         gMain.savedCallback = CB2_ReturnToField;
         FreeAllWindowBuffers();
-        SetMainCallback2(CB2_InitBattle);
+        SetMainCallback2(CB2_InitBattle); // Start the battle.
         RestartWildEncounterImmunitySteps();
         ClearPoisonStepCounter();
         IncrementGameStat(GAME_STAT_TOTAL_BATTLES);

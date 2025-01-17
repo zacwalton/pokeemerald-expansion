@@ -1,40 +1,46 @@
 #ifndef GUARD_FISHING_GAME_H
 #define GUARD_FISHING_GAME_H
 
-#define FISH_ICON_WIDTH             12
-#define FISH_ICON_START_X           36
-#define FISH_ICON_MIN_X             26
-#define FISH_ICON_MAX_X             ((FISHING_AREA_WIDTH - (FISH_ICON_WIDTH + 4)) * 10)
-//#define FISH_ICON_AREA_MIDDLE      (((FISH_ICON_MAX_X - FISH_ICON_MIN_X) / 2) + FISH_ICON_MIN_X)
+// Fishing Bar
+#define FISHING_BAR_WIDTH           40   // The width of the fishing bar in number of pixels. Cannot be below 33 or above 64.
+#define FISHING_BAR_MAX_SPEED       50   // The greater the number, the faster the bar is allowed to go.
+#define FISHING_BAR_BOUNCINESS      1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
+#define BAR_SPEED_MODIFIER          (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / 2.0)) // The greater the number value (the 2.0), the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.)
 
+#define FISHING_AREA_WIDTH          202  // The width of the total fishing bar area in number of pixels.
 #define FISHING_BAR_Y               93
 #define FISHING_BAR_START_X         51
-#define FISHING_BAR_WIDTH           64 // Cannot be below 33 or above 64.
-#define FISHING_BAR_WIDTH_ADJUST    (64 - FISHING_BAR_WIDTH)
-#define FISHING_AREA_WIDTH          202
-#define FISHING_BAR_BOUNCINESS      1.3 // The greater the number, the less the bar will bounce when it hits the left side.
-#define POSITION_ADJUSTMENT         10
-#define FISHING_BAR_MAX_SPEED       50  // The greater the number, the faster the bar is allowed to go.
-#define BAR_SPEED_MODIFIER          (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / 2.0)) // The greater the number value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.)
-#define FISHING_BAR_MAX             ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * 10)
+#define FISHING_BAR_MAX_SIZE        64
+#define FISHING_BAR_WIDTH_ADJUST    (FISHING_BAR_MAX_SIZE - FISHING_BAR_WIDTH) // Adjustment for the fishing bar width.
+#define POSITION_ADJUSTMENT         10   // Multiplier to make values larger so decimal places are retained.
+#define FISHING_BAR_MAX             ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * POSITION_ADJUSTMENT)
 
-#define STARTING_SCORE              300  // Must be divisible by SCORE_INTERVAL.
-#define SCORE_MAX                   1920 // Must be divisible by SCORE_AREA_WIDTH.
-#define SCORE_AREA_WIDTH            192
-#define SCORE_AREA_OFFSET           8
+// Score Meter
+#define STARTING_SCORE              300  // The number of points you already have when the game starts.
+#define SCORE_INCREASE              3    // The score increases by this many point every frame while the fish is within the bar.
+#define SCORE_DECREASE              5    // The score decreases by this many point every frame while the fish is outside the bar.
+#define SCORE_MAX                   1920 // The number of points required to win. Must be divisible by SCORE_AREA_WIDTH.
+
+#define SCORE_AREA_WIDTH            192  // The width of the total score meter area in number of pixels.
+#define SCORE_AREA_OFFSET           24   // Position of the left edge of the score area.
+#define SCORE_BAR_OFFSET            ((SCORE_SECTION_WIDTH / 2) - SCORE_AREA_OFFSET) // Sets the score position in relation to SCORE_AREA_OFFSET.
 #define SCORE_INTERVAL              (SCORE_MAX / SCORE_AREA_WIDTH)
-#define SCORE_SECTION_INIT_X        ((STARTING_SCORE / SCORE_INTERVAL) - SCORE_AREA_OFFSET)
+#define SCORE_SECTION_INIT_X        ((STARTING_SCORE / SCORE_INTERVAL) - SCORE_BAR_OFFSET)
 #define SCORE_SECTION_INIT_Y        80
-#define SCORE_SECTION_WIDTH         64
+#define SCORE_SECTION_WIDTH         64   // The width of one score meter section sprite in number of pixels.
+#define NUM_SCORE_SECTIONS          (SCORE_AREA_WIDTH / SCORE_SECTION_WIDTH)
 #define NUM_COLOR_INTERVALS         64
 #define SCORE_COLOR_INTERVAL        (SCORE_AREA_WIDTH / NUM_COLOR_INTERVALS)
 
-#define FISH_DIR_LEFT               0
-#define FISH_DIR_RIGHT              1
+// Pokemon Icon
+#define FISH_FIRST_MOVE_DELAY       0.8 // Number of seconds before the fish will make its first movement.
+#define FISH_ICON_HITBOX_WIDTH      12
 
-#define SCORE_RIGHT                 0
-#define SCORE_MIDDLE                1
-#define SCORE_LEFT                  2
+#define FISH_ICON_WIDTH             32
+#define FISH_ICON_START_X           36
+#define FISH_ICON_MIN_X             26
+#define FISH_ICON_MAX_X             ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) * POSITION_ADJUSTMENT)
+
 
 enum {
     FISH_SPEED,
@@ -44,6 +50,13 @@ enum {
     FISH_DISTANCE,
     FISH_DIST_VARIABILITY
 };
+
+#define FISH_DIR_LEFT               0
+#define FISH_DIR_RIGHT              1
+
+#define SCORE_RIGHT                 0
+#define SCORE_MIDDLE                1
+#define SCORE_LEFT                  2
 
 void CB2_InitFishingGame(void);
 
