@@ -265,12 +265,24 @@ RustboroCity_Museum_1F_Text_FossilShell:
 	.string "a super ancient pokémon.$"
 
 RustboroCity_Museum_1F_EventScript_FossilSkulls::
+	checkleadspecies SPECIES_ARON
+	bufferpartymonnick STR_VAR_1, 0
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Museum_1F_EventScript_FossilSkullsAron
 	msgbox RustboroCity_Museum_1F_Text_FossilSkulls, MSGBOX_SIGN
+	end
+
+RustboroCity_Museum_1F_EventScript_FossilSkullsAron::
+	msgbox RustboroCity_Museum_1F_Text_FossilSkullsAron, MSGBOX_SIGN
 	end
 
 RustboroCity_Museum_1F_Text_FossilSkulls:
 	.string "It's a collection of skulls.\n"
-	.string "They look a bit like shields.$"
+	.string "They almost look like shields.$"
+	end
+
+RustboroCity_Museum_1F_Text_FossilSkullsAron:
+	.string "It's a collection of skulls.\p"
+	.string "Huh... They look a bit like {STR_VAR_1}.$"
 
 RustboroCity_Museum_1F_EventScript_FossilSkullBig::
 	msgbox RustboroCity_Museum_1F_Text_FossilSkullBig, MSGBOX_SIGN
@@ -425,4 +437,45 @@ RustboroCity_Museum_1F_EventScript_Security2::
 
 RustboroCity_Museum_1F_Text_Security2:
 	.string "Please do not touch the displays.$"
+
+RustboroCity_Museum_1F_EventScript_Hiker::
+	goto_if_set FLAG_RUSTBORO_MUSEUM_HIKER, RustboroCity_Museum_1F_EventScript_HikerHappy
+	msgbox RustboroCity_Museum_1F_Text_HikerGeneric, MSGBOX_NPC
+	checkleadspecies SPECIES_RAMPARDOS
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Museum_1F_EventScript_HikerRampardos
+	release
+	end
+
+	RustboroCity_Museum_1F_EventScript_HikerRampardos::
+	closemessage
+	playse SE_PIN
+	applymovement 8, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement 8, Common_Movement_Delay48
+	waitmovement 0
+	msgbox RustboroCity_Museum_1F_Text_HikerRampardos, MSGBOX_NPC
+	giveitem ITEM_BLACK_AUGURITE 
+	setflag FLAG_RUSTBORO_MUSEUM_HIKER
+	release
+	end
+
+RustboroCity_Museum_1F_EventScript_HikerHappy::
+	msgbox RustboroCity_Museum_1F_Text_HikerHappy, MSGBOX_NPC
+	release
+	end
+
+RustboroCity_Museum_1F_Text_HikerGeneric:
+	.string "What I'd give to see these things in life.$"
 	
+RustboroCity_Museum_1F_Text_HikerHappy:
+	.string "I can't believe I got to see these things\n"
+	.string "in in the flesh. Thank you. Truly.$"
+
+RustboroCity_Museum_1F_Text_HikerRampardos:
+	.string "Wait... Is that a...? \p"
+	.string "You have a Rampardos?!\p"
+	.string "You just made my whole year!\n"
+	.string "Please, take this. I insist.\p"
+	.string "It's a lucky token from my home region.\p"
+	.string "My grandpa found it in the underground\n"
+	.string "when I was a wee lad.$"

@@ -82,7 +82,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 10,
-      "y": 13,
+      "y": 14,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -115,7 +115,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "RustboroCity_Museum_1F_EventScript_Hiker",
       "flag": "0"
     },
     {
@@ -146,8 +146,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
-      "x": 26,
-      "y": 14,
+      "x": 25,
+      "y": 17,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 0,
@@ -162,7 +162,7 @@
       "x": 16,
       "y": 29,
       "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_type": "MOVEMENT_TYPE_ROTATE_CLOCKWISE",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -212,7 +212,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FOSSIL",
       "x": 2,
-      "y": 12,
+      "y": 14,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -225,7 +225,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FOSSIL",
       "x": 3,
-      "y": 12,
+      "y": 14,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -419,7 +419,7 @@
     {
       "type": "sign",
       "x": 25,
-      "y": 11,
+      "y": 13,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilSkulls"
@@ -427,23 +427,23 @@
     {
       "type": "sign",
       "x": 26,
-      "y": 11,
+      "y": 13,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilSkulls"
     },
     {
       "type": "sign",
-      "x": 31,
-      "y": 11,
+      "x": 25,
+      "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilSkullBig"
     },
     {
       "type": "sign",
-      "x": 32,
-      "y": 11,
+      "x": 26,
+      "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilSkullBig"
@@ -451,7 +451,7 @@
     {
       "type": "sign",
       "x": 10,
-      "y": 11,
+      "y": 13,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilShell"
@@ -459,7 +459,7 @@
     {
       "type": "sign",
       "x": 9,
-      "y": 11,
+      "y": 13,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "RustboroCity_Museum_1F_EventScript_FossilShell"

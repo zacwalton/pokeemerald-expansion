@@ -4333,3 +4333,14 @@ void UseBlankMessageToCancelPokemonPic(void)
     AddTextPrinterParameterized(0, FONT_NORMAL, &t, 0, 1, 0, NULL);
     ScriptMenu_HidePokemonPic();
 }
+
+bool32 CheckLeadMonSpecies(u32 givenSpecies)
+{
+
+        if (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) == givenSpecies)
+		{
+            return TRUE;
+		}
+
+    return FALSE;
+}

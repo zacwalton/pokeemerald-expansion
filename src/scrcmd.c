@@ -2584,3 +2584,11 @@ bool8 Scrcmd_getobjectfacingdirection(struct ScriptContext *ctx)
 
     return FALSE;
 }
+
+bool8 Scrcmd_checkleadspecies(struct ScriptContext *ctx)
+{
+    u32 givenSpecies = VarGet(ScriptReadHalfword(ctx));
+    gSpecialVar_Result = CheckLeadMonSpecies(givenSpecies);
+
+    return FALSE;
+}

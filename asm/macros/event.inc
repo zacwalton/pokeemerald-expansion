@@ -2442,3 +2442,9 @@
 	.2byte \dest
 	.endm
 
+	@ Check lead mon species.
+	.macro checkleadspecies speciesId:req
+	callnative Scrcmd_checkleadspecies
+	.2byte \speciesId
+	.endm
+
