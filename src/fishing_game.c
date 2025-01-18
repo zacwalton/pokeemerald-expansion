@@ -29,9 +29,10 @@
 #include "constants/songs.h"
 #include "constants/rgb.h"
 
-#define TAG_FISHING_BAR 0x1000
-#define TAG_FISHING_BAR_RIGHT 0x1001
-#define TAG_SCORE_METER 0x1002
+#define TAG_FISHING_BAR         0x1000
+#define TAG_FISHING_BAR_RIGHT   0x1001
+#define TAG_SCORE_METER         0x1002
+#define TAG_PERFECT             0x1003
 
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -54,6 +55,7 @@ static void SpriteCB_FishingBarRight(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
 static void SpriteCB_ScoreMeter(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
+static void SpriteCB_Perfect(struct Sprite *sprite);
 static void CB2_FishingBattleTransition(void);
 static void CB2_FishingBattleStart(void);
 
@@ -64,8 +66,11 @@ const u32 gFishingGameBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ti
 const u32 gFishingBar_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar.4bpp.lz");
 const u32 gFishingBarRight_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar_right.4bpp.lz");
 static const u16 sFishingBar_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bar.gbapal");
+static const u16 sFishingBarOff_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bar_off.gbapal");
 const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter.4bpp.lz");
 static const u16 sScoreMeter_Pal[] = INCBIN_U16("graphics/fishing_game/score_meter.gbapal");
+const u32 gPerfect_Gfx[] = INCBIN_U32("graphics/fishing_game/perfect.4bpp.lz");
+static const u16 sPerfect_Pal[] = INCBIN_U16("graphics/fishing_game/perfect.gbapal");
 
 static const u16 sFishBehavior[][6] =
 {
@@ -197,27 +202,44 @@ static const struct OamData sOam_ScoreMeter =
     .affineParam = 0,
 };
 
-static const struct CompressedSpriteSheet sSpriteSheet_FishingBar[] =
+static const struct OamData sOam_Perfect =
 {
-    {
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x8),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x8),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
+{
+    [SCORE_METER] = {
+        .data = gScoreMeter_Gfx,
+        .size = 1024,
+        .tag = TAG_SCORE_METER
+    },
+    [FISHING_BAR] = {
         .data = gFishingBar_Gfx,
         .size = 256,
         .tag = TAG_FISHING_BAR
     },
-    {
+    [FISHING_BAR_RIGHT] = {
         .data = gFishingBarRight_Gfx,
         .size = 256,
         .tag = TAG_FISHING_BAR_RIGHT
     },
-    {NULL}
-};
-
-static const struct CompressedSpriteSheet sSpriteSheet_ScoreMeter[] =
-{
-    {
-        .data = gScoreMeter_Gfx,
-        .size = 1024,
-        .tag = TAG_SCORE_METER
+    [PERFECT] = {
+        .data = gPerfect_Gfx,
+        .size = 128,
+        .tag = TAG_PERFECT
     },
     {NULL}
 };
@@ -231,6 +253,10 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
     {
         .data = sScoreMeter_Pal,
         .tag = TAG_SCORE_METER
+    },
+    {
+        .data = sPerfect_Pal,
+        .tag = TAG_PERFECT
     },
     {NULL},
 };
@@ -266,6 +292,17 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeter =
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_ScoreMeter
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Perfect =
+{
+    .tileTag = TAG_PERFECT,
+    .paletteTag = TAG_PERFECT,
+    .oam = &sOam_Perfect,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_Perfect
 };
 
 static void VblankCB_FishingGame(void)
@@ -313,6 +350,10 @@ static void VblankCB_FishingGame(void)
 #define sScoreThird         data[4]
 #define sTextCooldown       data[5]
 
+// Data for Perfect sprite
+#define sPerfectFrameCount       data[1]
+#define sPerfectMoveFrames data[2]
+
 void CB2_InitFishingGame(void)
 {
     u8 taskId;
@@ -348,12 +389,13 @@ void CB2_InitFishingGame(void)
     FreeAllSpritePalettes();
     ResetAllPicSprites();
 
-    LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
+    LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(0), 3 * PLTT_SIZE_4BPP);
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
-    LoadCompressedSpriteSheet(&sSpriteSheet_FishingBar[0]);
-    LoadCompressedSpriteSheet(&sSpriteSheet_FishingBar[1]);
-    LoadCompressedSpriteSheet(&sSpriteSheet_ScoreMeter[0]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     LoadMonIconPalettes();
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
@@ -497,7 +539,13 @@ static void Task_ReeledInFish(u8 taskId)
     if (gTasks[taskId].tFrameCounter == 0)
     {
         if (gTasks[taskId].tPerfectCatch == TRUE) // If it was a perfect catch.
+        {
+            u8 spriteId;
+
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
+            spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 1);
+            gSprites[spriteId].sTaskId = taskId;
+        }
         else // If it wasn't a perfect catch.
             PlaySE(SE_PIN);
 
@@ -628,6 +676,7 @@ static void HandleScore(u8 taskId)
 
         if (gTasks[taskId].tScoreDirection == FISH_DIR_LEFT) // Only on the frame when the fish enters the fishing bar area.
         {
+            LoadPalette(sFishingBar_Pal, OBJ_PLTT_ID(0), PLTT_SIZE_4BPP);
             gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT; // Change the direction the score meter is moving.
 
             if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
@@ -643,6 +692,7 @@ static void HandleScore(u8 taskId)
 
         if (gTasks[taskId].tScoreDirection == FISH_DIR_RIGHT) // Only on the frame when the fish exits the fishing bar area.
         {
+            LoadPalette(sFishingBarOff_Pal, OBJ_PLTT_ID(0), PLTT_SIZE_4BPP);
             gTasks[taskId].tScoreDirection = FISH_DIR_LEFT; // Change the direction the score meter is moving.
 
             if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
@@ -1035,6 +1085,21 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
     {
         sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].x2); // Set the locations of the additional score meter sprites.
     }
+}
+
+static void SpriteCB_Perfect(struct Sprite *sprite)
+{
+    if (sprite->sPerfectMoveFrames > 2)
+    {
+        sprite->y2--;
+        sprite->sPerfectMoveFrames = 0;
+        sprite->sPerfectFrameCount++;
+    }
+
+    if (sprite->sPerfectFrameCount == 25)
+        DestroySprite(sprite);
+
+    sprite->sPerfectMoveFrames++;
 }
 
 static void CB2_FishingBattleTransition(void)
