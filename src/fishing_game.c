@@ -436,7 +436,7 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active) // Keep the game paused until the screen has fully faded in.
     {
-        gTasks[taskId].tPaused = FALSE;
+        gTasks[taskId].tPaused = FALSE; // Unpause.
         gTasks[taskId].func = Task_HandleFishingGameInput;
     }
 }
@@ -459,10 +459,10 @@ static void Task_HandleFishingGameInput(u8 taskId)
 
 static void Task_AskWantToQuit(u8 taskId)
 {
-    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 0, NULL); // Ask to quit the game.
     ScheduleBgCopyTilemapToVram(0);
-    CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 0xD, 0);
+    CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 0xD, 0); // Display the YES/NO option box.
     gTasks[taskId].func = Task_HandleConfirmQuitInput;
 }
 
@@ -478,7 +478,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
     case 1:  // NO
     case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
         AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the instructions again.
         gTasks[taskId].tPaused = FALSE; // Unpause the game.
         gTasks[taskId].func = Task_HandleFishingGameInput;
@@ -495,7 +495,7 @@ static void Task_ReeledInFish(u8 taskId)
         else // If it wasn't a perfect catch.
             PlaySE(SE_PIN);
 
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
         gTasks[taskId].tFrameCounter++;
     }
@@ -516,7 +516,7 @@ static void Task_FishGotAway(u8 taskId)
     if (gTasks[taskId].tFrameCounter == 0)
     {
         PlaySE(SE_FLEE);
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Failure text.
         gTasks[taskId].tFrameCounter++;
     }
@@ -594,16 +594,16 @@ static void CalculateScoreMeterPalette(struct Sprite *sprite)
 
 static void UpdateHelpfulTextHigher(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL);
-        scoreMeterData.sThirdCounter = 60;
+        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
+        scoreMeterData.sThirdCounter = 60; // Reset the third counter.
 }
 
 static void UpdateHelpfulTextLower(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL);
-        scoreMeterData.sThirdCounter = 60;
+        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
+        scoreMeterData.sThirdCounter = 60; // Reset the third counter.
 }
 
 #define barData         gSprites[gTasks[taskId].tBarLeftSpriteId]
@@ -620,13 +620,13 @@ static void HandleScore(u8 taskId)
     {
         gTasks[taskId].tScore += SCORE_INCREASE; // Increase the score.
 
-        if (gTasks[taskId].tScoreDirection == FISH_DIR_LEFT)
+        if (gTasks[taskId].tScoreDirection == FISH_DIR_LEFT) // Only on the frame when the fish enters the fishing bar area.
         {
-            gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT;
+            gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT; // Change the direction the score meter is moving.
 
-            if (scoreMeterData.sThirdCounter < 30)
+            if (scoreMeterData.sThirdCounter < 30) // If there is less than half a second left on the third counter.
             {
-                UpdateHelpfulTextHigher(taskId);
+                UpdateHelpfulTextHigher(taskId); // Display the appropriate helpful text.
             }
         }
     }
@@ -635,13 +635,13 @@ static void HandleScore(u8 taskId)
         gTasks[taskId].tScore -= SCORE_DECREASE; // Decrease the score.
         gTasks[taskId].tPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
 
-        if (gTasks[taskId].tScoreDirection == FISH_DIR_RIGHT)
+        if (gTasks[taskId].tScoreDirection == FISH_DIR_RIGHT) // Only on the frame when the fish exits the fishing bar area.
         {
-            gTasks[taskId].tScoreDirection = FISH_DIR_LEFT;
+            gTasks[taskId].tScoreDirection = FISH_DIR_LEFT; // Change the direction the score meter is moving.
 
-            if (scoreMeterData.sThirdCounter < 30)
+            if (scoreMeterData.sThirdCounter < 30) // If there is less than half a second left on the third counter.
             {
-                UpdateHelpfulTextLower(taskId);
+                UpdateHelpfulTextLower(taskId); // Display the appropriate helpful text.
             }
         }
     }
