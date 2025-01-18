@@ -311,7 +311,7 @@ static void VblankCB_FishingGame(void)
 #define sScoreWinCheck      data[2]
 #define sCurrColorInterval  data[3]
 #define sScoreThird         data[4]
-#define sThirdCounter       data[5]
+#define sTextCooldown       data[5]
 
 void CB2_InitFishingGame(void)
 {
@@ -602,14 +602,14 @@ static void UpdateHelpfulTextHigher(u8 taskId)
 {
         FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
         AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
-        scoreMeterData.sThirdCounter = 60; // Reset the third counter.
+        scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
 static void UpdateHelpfulTextLower(u8 taskId)
 {
         FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
         AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
-        scoreMeterData.sThirdCounter = 60; // Reset the third counter.
+        scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
 #define barData         gSprites[gTasks[taskId].tBarLeftSpriteId]
@@ -630,7 +630,7 @@ static void HandleScore(u8 taskId)
         {
             gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT; // Change the direction the score meter is moving.
 
-            if (scoreMeterData.sThirdCounter < 30) // If there is less than half a second left on the third counter.
+            if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
             {
                 UpdateHelpfulTextHigher(taskId); // Display the appropriate helpful text.
             }
@@ -645,7 +645,7 @@ static void HandleScore(u8 taskId)
         {
             gTasks[taskId].tScoreDirection = FISH_DIR_LEFT; // Change the direction the score meter is moving.
 
-            if (scoreMeterData.sThirdCounter < 30) // If there is less than half a second left on the third counter.
+            if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
             {
                 UpdateHelpfulTextLower(taskId); // Display the appropriate helpful text.
             }
@@ -1009,7 +1009,7 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
         {
             sprite->sScoreThird++; // Increase the score third by one.
 
-            if (sprite->sThirdCounter == 0) // If the third counter is at 0.
+            if (sprite->sTextCooldown == 0) // If the text cooldown counter is at 0.
                 UpdateHelpfulTextHigher(sprite->sTaskId); // Show the relevant helpful text.
         }
     }
@@ -1019,12 +1019,12 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
         {
             sprite->sScoreThird--; // Decrease the score third by one.
 
-            if (sprite->sThirdCounter == 0) // If the counter is at 0.
+            if (sprite->sTextCooldown == 0) // If the counter is at 0.
                 UpdateHelpfulTextLower(sprite->sTaskId); // Show the relevant helpful text.
         }
     }
-    if (sprite->sThirdCounter != 0)
-        sprite->sThirdCounter--;
+    if (sprite->sTextCooldown != 0) // If the text cooldown counter is active.
+        sprite->sTextCooldown--; // Decrease the text cooldown counter by 1.
 
     END:
 }
