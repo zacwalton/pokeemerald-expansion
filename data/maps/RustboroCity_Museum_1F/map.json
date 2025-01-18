@@ -24,7 +24,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "RustboroCity_Museum_1F_EventScript_FossilScientist",
       "flag": "0"
     },
     {
@@ -37,7 +37,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "RustboroCity_Museum_1F_EventScript_Security1",
       "flag": "0"
     },
     {
@@ -50,7 +50,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "RustboroCity_Museum_1F_EventScript_Security2",
       "flag": "0"
     },
     {
@@ -262,7 +262,7 @@
       "y": 29,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_KabutoFossil"
     },
     {
       "type": "sign",
@@ -270,7 +270,7 @@
       "y": 29,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_KabutoFossil"
     },
     {
       "type": "sign",
@@ -278,7 +278,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -286,7 +286,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_TyrantrumFossil"
     },
     {
       "type": "sign",
@@ -294,7 +294,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -302,7 +302,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -310,7 +310,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_AurorusFossil"
     },
     {
       "type": "sign",
@@ -318,7 +318,7 @@
       "y": 28,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -326,7 +326,7 @@
       "y": 30,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_PoseFossil"
     },
     {
       "type": "sign",
@@ -334,7 +334,7 @@
       "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_ArmaldoFossil"
     },
     {
       "type": "sign",
@@ -342,7 +342,7 @@
       "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -350,7 +350,7 @@
       "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -358,7 +358,7 @@
       "y": 14,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_CradilyFossil"
     },
     {
       "type": "sign",
@@ -366,7 +366,7 @@
       "y": 14,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -374,7 +374,7 @@
       "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_OmanyteFossil"
     },
     {
       "type": "sign",
@@ -382,7 +382,7 @@
       "y": 17,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_OmanyteFossil"
     },
     {
       "type": "sign",
@@ -390,7 +390,7 @@
       "y": 16,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -398,7 +398,7 @@
       "y": 16,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_RampardosFossil"
     },
     {
       "type": "sign",
@@ -406,7 +406,7 @@
       "y": 15,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -414,7 +414,7 @@
       "y": 15,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilMount"
     },
     {
       "type": "sign",
@@ -422,7 +422,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilSkulls"
     },
     {
       "type": "sign",
@@ -430,7 +430,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilSkulls"
     },
     {
       "type": "sign",
@@ -438,7 +438,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilSkullBig"
     },
     {
       "type": "sign",
@@ -446,7 +446,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilSkullBig"
     },
     {
       "type": "sign",
@@ -454,7 +454,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilShell"
     },
     {
       "type": "sign",
@@ -462,7 +462,7 @@
       "y": 11,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_FossilShell"
     },
     {
       "type": "sign",
@@ -542,7 +542,7 @@
       "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_RelicanthFossil"
     },
     {
       "type": "sign",
@@ -550,7 +550,7 @@
       "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Museum_1F_EventScript_Fossil"
+      "script": "RustboroCity_Museum_1F_EventScript_RelicanthFossil"
     }
   ]
 }
