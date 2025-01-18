@@ -30,7 +30,8 @@
 #include "constants/rgb.h"
 
 #define TAG_FISHING_BAR 0x1000
-#define TAG_SCORE_METER 0x1001
+#define TAG_FISHING_BAR_RIGHT 0x1001
+#define TAG_SCORE_METER 0x1002
 
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -61,6 +62,7 @@ const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_b
 const u32 gScoreBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/score_bg_tilemap.bin.lz");
 const u32 gFishingGameBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
 const u32 gFishingBar_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar.4bpp.lz");
+const u32 gFishingBarRight_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar_right.4bpp.lz");
 static const u16 sFishingBar_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bar.gbapal");
 const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter.4bpp.lz");
 static const u16 sScoreMeter_Pal[] = INCBIN_U16("graphics/fishing_game/score_meter.gbapal");
@@ -159,7 +161,7 @@ static const struct BgTemplate sBgTemplates[3] =
     },
 };
 
-static const u8 sTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY};
+//static const u8 sTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY};
 
 static const struct OamData sOam_FishingBar =
 {
@@ -168,10 +170,10 @@ static const struct OamData sOam_FishingBar =
     .objMode = ST_OAM_OBJ_NORMAL,
     .mosaic = FALSE,
     .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(64x32),
+    .shape = SPRITE_SHAPE(32x16),
     .x = 0,
     .matrixNum = 0,
-    .size = SPRITE_SIZE(64x32),
+    .size = SPRITE_SIZE(32x16),
     .tileNum = 0,
     .priority = 1,
     .paletteNum = 0,
@@ -199,8 +201,13 @@ static const struct CompressedSpriteSheet sSpriteSheet_FishingBar[] =
 {
     {
         .data = gFishingBar_Gfx,
-        .size = 0x0400,
+        .size = 256,
         .tag = TAG_FISHING_BAR
+    },
+    {
+        .data = gFishingBarRight_Gfx,
+        .size = 256,
+        .tag = TAG_FISHING_BAR_RIGHT
     },
     {NULL}
 };
@@ -209,7 +216,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_ScoreMeter[] =
 {
     {
         .data = gScoreMeter_Gfx,
-        .size = 0x0400,
+        .size = 1024,
         .tag = TAG_SCORE_METER
     },
     {NULL}
@@ -237,6 +244,17 @@ static const struct SpriteTemplate sSpriteTemplate_FishingBar =
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_FishingBar
+};
+
+static const struct SpriteTemplate sSpriteTemplate_FishingBarRight =
+{
+    .tileTag = TAG_FISHING_BAR_RIGHT,
+    .paletteTag = TAG_FISHING_BAR,
+    .oam = &sOam_FishingBar,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_FishingBarRight
 };
 
 static const struct SpriteTemplate sSpriteTemplate_ScoreMeter =
@@ -302,11 +320,6 @@ void CB2_InitFishingGame(void)
 
     SetVBlankCallback(NULL);
 
-    //SetGpuReg(REG_OFFSET_DISPCNT, 0);
-    //SetGpuReg(REG_OFFSET_BG3CNT, 0);
-    //SetGpuReg(REG_OFFSET_BG2CNT, 0);
-    //SetGpuReg(REG_OFFSET_BG0CNT, 0);
-
     ChangeBgX(0, 0, BG_COORD_SET);
     ChangeBgY(0, 0, BG_COORD_SET);
     ChangeBgX(2, 0, BG_COORD_SET);
@@ -339,6 +352,7 @@ void CB2_InitFishingGame(void)
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
     LoadCompressedSpriteSheet(&sSpriteSheet_FishingBar[0]);
+    LoadCompressedSpriteSheet(&sSpriteSheet_FishingBar[1]);
     LoadCompressedSpriteSheet(&sSpriteSheet_ScoreMeter[0]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     LoadMonIconPalettes();
@@ -348,13 +362,6 @@ void CB2_InitFishingGame(void)
     SetVBlankCallback(VblankCB_FishingGame);
     SetMainCallback2(CB2_FishingGame);
 
-    //SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);
-    //SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ);
-    //SetGpuReg(REG_OFFSET_WIN0H, 0);
-    //SetGpuReg(REG_OFFSET_WIN0V, 0);
-    //SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD | BLDCNT_EFFECT_DARKEN);
-    //SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-    //SetGpuReg(REG_OFFSET_BLDY, 7);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
 
     ShowBg(0);
@@ -368,20 +375,19 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT;
 
     // Create fishing bar sprites.
-    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 2);
+    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 1);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sBarDirection = FISH_DIR_RIGHT;
     gTasks[taskId].tBarLeftSpriteId = spriteId;
     
-    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, (FISHING_BAR_START_X - FISHING_BAR_WIDTH_ADJUST), FISHING_BAR_Y, 2);
-    gSprites[spriteId].callback = SpriteCB_FishingBarRight;
-    gSprites[spriteId].oam.matrixNum = ST_OAM_HFLIP;
+    spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + FISHING_BAR_WIDTH_ADJUST), FISHING_BAR_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
     gTasks[taskId].tBarRightSpriteId = spriteId;
 
     // Create mon icon sprite.
-    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, (FISHING_BAR_Y + 5), 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, FISH_ICON_Y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
     gSprites[spriteId].sTaskId = taskId;
+    gSprites[spriteId].oam.priority = 0;
     gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
     gSprites[spriteId].sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
     gTasks[taskId].tFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
@@ -564,7 +570,7 @@ static u8 CalculateInitialScoreMeterInterval(void)
         r -= (startColorInterval - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
+    FillPalette(RGB(r, g, 0), TAG_SCORE_METER, PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 
     return startColorInterval;
 }
