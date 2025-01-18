@@ -31,6 +31,7 @@
 #define NUM_SCORE_SECTIONS          (SCORE_AREA_WIDTH / SCORE_SECTION_WIDTH)
 #define NUM_COLOR_INTERVALS         64
 #define SCORE_COLOR_INTERVAL        (SCORE_AREA_WIDTH / NUM_COLOR_INTERVALS)
+#define SCORE_THIRD_SIZE            (SCORE_AREA_WIDTH / 3)
 
 // Pokemon Icon
 #define FISH_FIRST_MOVE_DELAY       0.8 // Number of seconds before the fish will make its first movement.

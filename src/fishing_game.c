@@ -43,6 +43,8 @@ static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
 static u8 CalculateInitialScoreMeterInterval(void);
 static void CalculateScoreMeterPalette(struct Sprite *sprite);
+static void UpdateHelpfulTextHigher(u8 taskId);
+static void UpdateHelpfulTextLower(u8 taskId);
 static void HandleScore(u8 taskId);
 static void SetFishingBarPosition(u8 taskId);
 static void SetMonIconPosition(u8 taskId);
@@ -89,6 +91,16 @@ static const u16 sFishBehavior[][6] =
         5,   // Distance
         5   // Distance Variability
     }
+};
+
+const u8 * const sHelpfulTextTable[6] =
+{
+    gText_HelpfulTextHigher0,
+    gText_HelpfulTextHigher1,
+    gText_HelpfulTextHigher2,
+    gText_HelpfulTextLower0,
+    gText_HelpfulTextLower1,
+    gText_HelpfulTextLower2
 };
 
 static const struct WindowTemplate sWindowTemplates[] =
@@ -251,12 +263,13 @@ static void VblankCB_FishingGame(void)
 #define tFishIconSpriteId   data[2]
 #define tBarLeftSpriteId    data[3]
 #define tBarRightSpriteId   data[4]
-#define tSMRightSpriteId    data[5]
+#define tScoreMeterSpriteId data[5]
 #define tFishSpeedCounter   data[6]
 #define tInitialFishSpeed   data[7]
 #define tScore              data[8]
-#define tFishIsMoving       data[9]
-#define tPerfectCatch       data[10]
+#define tScoreDirection     data[9]
+#define tFishIsMoving       data[10]
+#define tPerfectCatch       data[11]
 #define tPaused             data[15]
 
 // Data for all sprites
@@ -272,13 +285,15 @@ static void VblankCB_FishingGame(void)
 #define sFishSpeed          data[2]
 #define sTimeToNextMove     data[3]
 #define sFishDestination    data[4]
-#define sFishDestInterval   data[6]
-#define sFishDirection      data[7]
+#define sFishDestInterval   data[5]
+#define sFishDirection      data[6]
 
 // Data for Score Meter sprites
 #define sScorePosition      data[1]
 #define sScoreWinCheck      data[2]
 #define sCurrColorInterval  data[3]
+#define sScoreThird         data[4]
+#define sThirdCounter       data[5]
 
 void CB2_InitFishingGame(void)
 {
@@ -350,6 +365,7 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
     gTasks[taskId].tPerfectCatch = TRUE; // Allow a perfect catch.
     gTasks[taskId].tScore = STARTING_SCORE; // Set the starting score.
+    gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT;
 
     // Create fishing bar sprites.
     spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, FISHING_BAR_Y, 2);
@@ -375,8 +391,9 @@ void CB2_InitFishingGame(void)
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, SCORE_SECTION_INIT_Y, 2);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
+    gSprites[spriteId].sScoreThird = (gSprites[spriteId].sScorePosition / SCORE_THIRD_SIZE);
     gSprites[spriteId].sCurrColorInterval = CalculateInitialScoreMeterInterval();
-    gTasks[taskId].tSMRightSpriteId = spriteId;
+    gTasks[taskId].tScoreMeterSpriteId = spriteId;
 
     // Create enough score meter sprites to fill the whole score area.
     if (SCORE_AREA_WIDTH > SCORE_SECTION_WIDTH)
@@ -572,20 +589,61 @@ static void CalculateScoreMeterPalette(struct Sprite *sprite)
 
     FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 }
-#define fishCenter      (gSprites[gTasks[taskId].tFishIconSpriteId].sFishPosition + ((FISH_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
-#define barLeftEdge     gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition
-#define barRightEdge    (gSprites[gTasks[taskId].tBarLeftSpriteId].sBarPosition + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT))
+
+#define scoreMeterData  gSprites[gTasks[taskId].tScoreMeterSpriteId]
+
+static void UpdateHelpfulTextHigher(u8 taskId)
+{
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL);
+        scoreMeterData.sThirdCounter = 60;
+}
+
+static void UpdateHelpfulTextLower(u8 taskId)
+{
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL);
+        scoreMeterData.sThirdCounter = 60;
+}
+
+#define barData         gSprites[gTasks[taskId].tBarLeftSpriteId]
+#define fishData        gSprites[gTasks[taskId].tFishIconSpriteId]
+#define fishCenter      (fishData.sFishPosition + ((FISH_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define barLeftEdge     barData.sBarPosition
+#define barRightEdge    (barLeftEdge + (FISHING_BAR_WIDTH * POSITION_ADJUSTMENT))
 #define fishHBLeftEdge  (fishCenter - ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define fishHBRightEdge (fishCenter + ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
 static void HandleScore(u8 taskId)
 {
     if (fishHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge) // If the fish hitbox is within the fishing bar.
+    {
         gTasks[taskId].tScore += SCORE_INCREASE; // Increase the score.
+
+        if (gTasks[taskId].tScoreDirection == FISH_DIR_LEFT)
+        {
+            gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT;
+
+            if (scoreMeterData.sThirdCounter < 30)
+            {
+                UpdateHelpfulTextHigher(taskId);
+            }
+        }
+    }
     else // If the fish hitbox is outside the fishing bar.
     {
         gTasks[taskId].tScore -= SCORE_DECREASE; // Decrease the score.
         gTasks[taskId].tPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
+
+        if (gTasks[taskId].tScoreDirection == FISH_DIR_RIGHT)
+        {
+            gTasks[taskId].tScoreDirection = FISH_DIR_LEFT;
+
+            if (scoreMeterData.sThirdCounter < 30)
+            {
+                UpdateHelpfulTextLower(taskId);
+            }
+        }
     }
 
     if (gTasks[taskId].tScore >= SCORE_MAX) // If the score goal has been achieved.
@@ -801,8 +859,6 @@ static void SetMonIconPosition(u8 taskId)
             // Set movement direction.
             leftProbability = (fishIconData.sFishPosition / (FISH_ICON_MAX_X / 100));
             rand = (Random() % 100);
-            DebugPrintf("leftProbability = %u", leftProbability);
-            DebugPrintf("rand = %u", rand);
             if (rand < leftProbability)
                 fishIconData.sFishDirection = FISH_DIR_LEFT;
             else
@@ -941,6 +997,29 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
         CalculateScoreMeterPalette(sprite); // Change the score meter palette to reflect the change in color interval.
     }
 
+    if (sprite->sScorePosition >= ((sprite->sScoreThird + 1) * SCORE_THIRD_SIZE)) // If the score position has gone above the current score third.
+    {
+        if (sprite->sScoreThird < 2) // If the score third isn't already at the maximum.
+        {
+            sprite->sScoreThird++; // Increase the score third by one.
+
+            if (sprite->sThirdCounter == 0) // If the third counter is at 0.
+                UpdateHelpfulTextHigher(sprite->sTaskId); // Show the relevant helpful text.
+        }
+    }
+    else if (sprite->sScorePosition < (((sprite->sScoreThird + 1) * SCORE_THIRD_SIZE) - SCORE_THIRD_SIZE)) // If the score position has gone below the current score third.
+    {
+        if (sprite->sScoreThird > 0) // If the score third isn't already at the minimum.
+        {
+            sprite->sScoreThird--; // Decrease the score third by one.
+
+            if (sprite->sThirdCounter == 0) // If the counter is at 0.
+                UpdateHelpfulTextLower(sprite->sTaskId); // Show the relevant helpful text.
+        }
+    }
+    if (sprite->sThirdCounter != 0)
+        sprite->sThirdCounter--;
+
     END:
 }
 
@@ -948,7 +1027,7 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
     {
-        sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tSMRightSpriteId].x2); // Set the locations of the additional score meter sprites.
+        sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].x2); // Set the locations of the additional score meter sprites.
     }
 }
 
