@@ -150,18 +150,18 @@ static bool32 Fishing_PutRodAway(struct Task *);
 static bool32 Fishing_EndNoMon(struct Task *);
 static void AlignFishingAnimationFrames(void);
 static bool32 DoesFishingMinigameAllowCancel(void);
-static bool32 Fishing_DoesFirstMonInPartyHaveSuctionCupsOrStickyHold(void);
-static bool32 Fishing_RollForBite(u32, bool32);
-static u32 CalculateFishingBiteOdds(u32, bool32);
-static u32 CalculateFishingFollowerBoost(void);
-static u32 CalculateFishingProximityBoost(u32 odds);
-static void GetCoordinatesAroundBobber(s16[], s16[][AXIS_COUNT], u32);
-static u32 CountQualifyingTiles(s16[][AXIS_COUNT], s16 player[], u8 facingDirection, struct ObjectEvent *objectEvent, bool32 isTileLand[]);
-static bool32 CheckTileQualification(s16 tile[], s16 player[], u32 facingDirection, struct ObjectEvent* objectEvent, bool32 isTileLand[], u32 direction);
-static u32 CountLandTiles(bool32 isTileLand[]);
-static bool32 IsPlayerHere(s16, s16, s16, s16);
-static bool32 IsMetatileBlocking(s16, s16, u32);
-static bool32 IsMetatileLand(s16, s16, u32);
+//static bool32 Fishing_DoesFirstMonInPartyHaveSuctionCupsOrStickyHold(void);
+//static bool32 Fishing_RollForBite(u32, bool32);
+//static u32 CalculateFishingBiteOdds(u32, bool32);
+//static u32 CalculateFishingFollowerBoost(void);
+//static u32 CalculateFishingProximityBoost(u32 odds);
+//static void GetCoordinatesAroundBobber(s16[], s16[][AXIS_COUNT], u32);
+//static u32 CountQualifyingTiles(s16[][AXIS_COUNT], s16 player[], u8 facingDirection, struct ObjectEvent *objectEvent, bool32 isTileLand[]);
+//static bool32 CheckTileQualification(s16 tile[], s16 player[], u32 facingDirection, struct ObjectEvent* objectEvent, bool32 isTileLand[], u32 direction);
+//static u32 CountLandTiles(bool32 isTileLand[]);
+//static bool32 IsPlayerHere(s16, s16, s16, s16);
+//static bool32 IsMetatileBlocking(s16, s16, u32);
+//static bool32 IsMetatileLand(s16, s16, u32);
 
 static u8 TrySpinPlayerForWarp(struct ObjectEvent *, s16 *);
 
@@ -1855,6 +1855,12 @@ static bool32 Fishing_InitDots(struct Task *task)
     u32 randVal;
 
     LoadMessageBoxAndFrameGfx(0, TRUE);
+    if (DO_DOTS_GAME_BEFORE_MAIN_GAME == FALSE)
+    {
+        StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
+        task->tStep = FISHING_MON_ON_HOOK;
+        return TRUE;
+    }
     task->tStep = FISHING_SHOW_DOTS;
     task->tFrameCounter = 0;
     task->tNumDots = 0;
@@ -1874,7 +1880,7 @@ static bool32 Fishing_ShowDots(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (JOY_NEW(A_BUTTON))
+    if (JOY_NEW(B_BUTTON))
     {
         if (!DoesFishingMinigameAllowCancel())
             return FALSE;
@@ -1958,7 +1964,7 @@ static bool32 Fishing_WaitForA(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
+    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod] && ALLOW_FAILURE_IN_DOTS_GAME == TRUE)
         task->tStep = FISHING_GOT_AWAY;
     else if (JOY_NEW(A_BUTTON))
         task->tStep = FISHING_MON_ON_HOOK;
@@ -2140,6 +2146,7 @@ static bool32 DoesFishingMinigameAllowCancel(void)
     }
 }
 
+/*
 static bool32 Fishing_DoesFirstMonInPartyHaveSuctionCupsOrStickyHold(void)
 {
     u32 ability;
@@ -2324,6 +2331,7 @@ static bool32 IsMetatileLand(s16 x, s16 y, u32 collison)
             return FALSE;
     }
 }
+*/
 
 #undef tStep
 #undef tFrameCounter
