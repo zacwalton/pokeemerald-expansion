@@ -96,7 +96,31 @@ static const u16 sFishBehavior[][6] =
         50,  // Movement Delay
         20,  // Delay Variability
         5,   // Distance
-        5   // Distance Variability
+        5    // Distance Variability
+    },
+    [SPECIES_GYARADOS] = {
+        12,  // Speed
+        4,   // Speed Variability
+        25,  // Movement Delay
+        10,  // Delay Variability
+        40,  // Distance
+        30   // Distance Variability
+    },
+    [SPECIES_TENTACOOL] = {
+        4,   // Speed
+        1,   // Speed Variability
+        5,   // Movement Delay
+        4,   // Delay Variability
+        30,  // Distance
+        25   // Distance Variability
+    },
+    [SPECIES_WAILMER] = {
+        7,   // Speed
+        1,   // Speed Variability
+        5,   // Movement Delay
+        10,  // Delay Variability
+        80,  // Distance
+        60   // Distance Variability
     }
 };
 
@@ -909,6 +933,9 @@ static void SetMonIconPosition(u8 taskId)
                     fishIconData.sTimeToNextMove--;
                 else
                     fishIconData.sTimeToNextMove++;
+
+                if (fishIconData.sTimeToNextMove < 1)
+                    fishIconData.sTimeToNextMove = 1;
             }
 
             // Set movement direction.
