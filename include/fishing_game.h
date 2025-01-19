@@ -2,21 +2,24 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
-#define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly.
+#define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
+#define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
+#define VAGUE_FISH_FOR_OBSCURED         FALSE   // If TRUE, uses a vague fish shape instead of a blacked out Pokemon icon when obscured.
+#define OBSCURE_ALL_FISH                FALSE   // If TRUE, the Pokemon icon will always be obscured.
 
 #define FISHING_BAR_WIDTH               40   // The width of the fishing bar in number of pixels. Cannot be below 33 or above 64.
 #define FISHING_BAR_MAX_SPEED           50   // The greater the number, the faster the bar is allowed to go.
 #define FISHING_BAR_BOUNCINESS          1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
-#define BAR_SPEED_VALUE                 2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.)
+#define BAR_SPEED_VALUE                 2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
 
 #define STARTING_SCORE                  300  // The number of points you already have when the game starts.
 #define SCORE_INCREASE                  3    // The score increases by this many point every frame while the fish is within the bar.
 #define SCORE_DECREASE                  5    // The score decreases by this many point every frame while the fish is outside the bar.
 #define SCORE_MAX                       1920 // The number of points required to win. Must be divisible by SCORE_AREA_WIDTH.
 
-#define FISH_FIRST_MOVE_DELAY           0.8 // Number of seconds before the fish will make its first movement.
-#define FISH_ICON_HITBOX_WIDTH          12  // Width of the fish's hitbox in number of pixels.
+#define FISH_FIRST_MOVE_DELAY           0.8  // Number of seconds before the fish will make its first movement.
+#define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
 
 
 // Fishing Bar Constants
@@ -68,7 +71,9 @@ enum {
     SCORE_METER,
     FISHING_BAR,
     FISHING_BAR_RIGHT,
-    PERFECT
+    PERFECT,
+    QUESTION_MARK,
+    VAGUE_FISH
 };
 
 #define FISH_DIR_LEFT   0

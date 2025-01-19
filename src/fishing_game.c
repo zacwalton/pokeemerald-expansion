@@ -13,6 +13,7 @@
 #include "menu.h"
 #include "overworld.h"
 #include "palette.h"
+#include "pokedex.h"
 #include "pokemon_icon.h"
 #include "random.h"
 #include "scanline_effect.h"
@@ -33,6 +34,8 @@
 #define TAG_FISHING_BAR_RIGHT   0x1001
 #define TAG_SCORE_METER         0x1002
 #define TAG_PERFECT             0x1003
+#define TAG_QUESTION_MARK       0x1004
+#define TAG_UNKNOWN_FISH        0x1005
 
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -53,6 +56,7 @@ static void SetMonIconPosition(u8 taskId);
 static void SpriteCB_FishingBar(struct Sprite *sprite);
 static void SpriteCB_FishingBarRight(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
+static void SpriteCB_QuestionMark(struct Sprite *sprite);
 static void SpriteCB_ScoreMeter(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
 static void SpriteCB_Perfect(struct Sprite *sprite);
@@ -71,6 +75,9 @@ const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter.4bpp
 static const u16 sScoreMeter_Pal[] = INCBIN_U16("graphics/fishing_game/score_meter.gbapal");
 const u32 gPerfect_Gfx[] = INCBIN_U32("graphics/fishing_game/perfect.4bpp.lz");
 static const u16 sPerfect_Pal[] = INCBIN_U16("graphics/fishing_game/perfect.gbapal");
+const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
+static const u16 sQuestionMark_Pal[] = INCBIN_U16("graphics/fishing_game/question_mark.gbapal");
+const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
 
 static const u16 sFishBehavior[][6] =
 {
@@ -243,6 +250,23 @@ static const struct OamData sOam_Perfect =
     .affineParam = 0,
 };
 
+static const struct OamData sOam_UnknownFish =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x32),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
 static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
 {
     [SCORE_METER] = {
@@ -264,6 +288,16 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
         .data = gPerfect_Gfx,
         .size = 128,
         .tag = TAG_PERFECT
+    },
+    [QUESTION_MARK] = {
+        .data = gQuestionMark_Gfx,
+        .size = 512,
+        .tag = TAG_QUESTION_MARK
+    },
+    [VAGUE_FISH] = {
+        .data = gVagueFish_Gfx,
+        .size = 512,
+        .tag = TAG_UNKNOWN_FISH
     }
 };
 
@@ -280,6 +314,10 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
     {
         .data = sPerfect_Pal,
         .tag = TAG_PERFECT
+    },
+    {
+        .data = sQuestionMark_Pal,
+        .tag = TAG_UNKNOWN_FISH
     },
     {NULL},
 };
@@ -328,6 +366,28 @@ static const struct SpriteTemplate sSpriteTemplate_Perfect =
     .callback = SpriteCB_Perfect
 };
 
+static const struct SpriteTemplate sSpriteTemplate_QuestionMark =
+{
+    .tileTag = TAG_QUESTION_MARK,
+    .paletteTag = TAG_UNKNOWN_FISH,
+    .oam = &sOam_UnknownFish,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_QuestionMark
+};
+
+static const struct SpriteTemplate sSpriteTemplate_VagueFish =
+{
+    .tileTag = TAG_UNKNOWN_FISH,
+    .paletteTag = TAG_UNKNOWN_FISH,
+    .oam = &sOam_UnknownFish,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_FishingMonIcon
+};
+
 static void VblankCB_FishingGame(void)
 {
     LoadOam();
@@ -348,6 +408,7 @@ static void VblankCB_FishingGame(void)
 #define tScoreDirection     data[9]
 #define tFishIsMoving       data[10]
 #define tPerfectCatch       data[11]
+#define tVagueFish          data[12]
 #define tPaused             data[15]
 
 // Data for all sprites
@@ -419,6 +480,8 @@ void CB2_InitFishingGame(void)
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     LoadMonIconPalettes();
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
@@ -450,9 +513,30 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tBarRightSpriteId = spriteId;
 
     // Create mon icon sprite.
-    spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, FISH_ICON_Y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
+    if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)), FLAG_GET_SEEN))
+        || OBSCURE_ALL_FISH == TRUE)
+    {
+        if (VAGUE_FISH_FOR_OBSCURED == TRUE)
+        {
+            spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, FISH_ICON_Y, 1);
+            gTasks[taskId].tVagueFish = TRUE;
+        }
+        else
+        {
+            FillPalette(RGB_BLACK, OBJ_PLTT_ID(4), 3 * PLTT_SIZE_4BPP);
+            spriteId = CreateSprite(&sSpriteTemplate_QuestionMark, FISH_ICON_START_X, FISH_ICON_Y, 0);
+            spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, FISH_ICON_Y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
+
+        }
+    }
+    else
+    {
+        spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, FISH_ICON_Y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
+
+    }
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].oam.priority = 0;
+    gSprites[spriteId].subpriority = 1;
     gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
     gSprites[spriteId].sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
     gTasks[taskId].tFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
@@ -1034,10 +1118,16 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
     {
-        UpdateMonIconFrame(sprite); // Animate the mon icon.
+        if (gTasks[sprite->sTaskId].tVagueFish == FALSE)
+            UpdateMonIconFrame(sprite); // Animate the mon icon.
 
         sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X); // Set the fish sprite location.
     }
+}
+
+static void SpriteCB_QuestionMark(struct Sprite *sprite)
+{
+    sprite->x = gSprites[gTasks[sprite->sTaskId].tFishIconSpriteId].x;
 }
 
 static void SpriteCB_ScoreMeter(struct Sprite *sprite)
