@@ -658,8 +658,8 @@
 
 #define FLAG_BOULDER_GRANITE_CAVE_B1F  0x264 // Example flag for the example boulder of Granite Cave
 #define FLAG_BOULDER_GRANITE_CAVE_B2F  0x265 // Example flag for the example boulder of Granite Cave
-#define FLAG_UNUSED_0x266  0x266 // Unused Flag
-#define FLAG_UNUSED_0x267  0x267 // Unused Flag
+#define FLAG_LITTLEROOTTOWN_SECRETTREE1  0x266 // Unused Flag
+#define FLAG_LITTLEROOTTOWN_SECRETTREE2  0x267 // Unused Flag
 #define FLAG_UNUSED_0x268  0x268 // Unused Flag
 #define FLAG_UNUSED_0x269  0x269 // Unused Flag
 #define FLAG_UNUSED_0x26A  0x26A // Unused Flag

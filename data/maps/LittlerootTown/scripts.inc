@@ -64,7 +64,27 @@ LittlerootTown_OnResume:
 	call_if_Set FLAG_LITTLEROOTTOWN_STONE2, LittlerootTown_Resource_Stone2
 	call_if_Set FLAG_LITTLEROOTTOWN_VIVICHOKE1, LittlerootTown_Resource_Vivichoke1
 	call_if_Set FLAG_LITTLEROOTTOWN_KINGSLEAF1, LittlerootTown_Resource_KingsLeaf1
+	call_if_Set FLAG_LITTLEROOTTOWN_SECRETTREE1, LittlerootTown_EventScript_SecretTree1Set
+	call_if_Set FLAG_LITTLEROOTTOWN_SECRETTREE2, LittlerootTown_EventScript_SecretTree2Set
 	end
+	
+LittlerootTown_EventScript_SecretTree1Set::
+	setmetatile 10, 20, METATILE_General_Grass, FALSE
+	setmetatile 11, 20, METATILE_General_Grass, FALSE
+	setmetatile 10, 21, METATILE_General_Grass, FALSE
+	setmetatile 11, 21, METATILE_General_Grass, FALSE
+	setmetatile 10, 22, METATILE_General_Grass, FALSE
+	setmetatile 11, 22, METATILE_General_Grass, FALSE
+	return	
+	
+LittlerootTown_EventScript_SecretTree2Set::
+	setmetatile 10, 23, METATILE_General_Grass, FALSE
+	setmetatile 11, 23, METATILE_General_Grass, FALSE
+	setmetatile 10, 24, METATILE_General_Grass, FALSE
+	setmetatile 11, 24, METATILE_General_Grass, FALSE
+	setmetatile 10, 25, METATILE_General_Grass, FALSE
+	setmetatile 11, 25, METATILE_General_Grass, FALSE
+	return	
 	
 LittlerootTown_Resource_leek1::
 	setmetatile 34, 9, METATILE_General_Grass, FALSE
@@ -1284,3 +1304,4 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+
