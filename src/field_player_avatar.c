@@ -1961,11 +1961,18 @@ static bool32 Fishing_WaitForA(struct Task *task)
     if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
         task->tStep = FISHING_GOT_AWAY;
     else if (JOY_NEW(A_BUTTON))
-        task->tStep = FISHING_ON_HOOK;
+        task->tStep = FISHING_MON_ON_HOOK;
     return FALSE;
 }
 
-/*
+static bool32 Fishing_APressNoMinigame(struct Task *task)
+{
+    AlignFishingAnimationFrames();
+    if (JOY_NEW(A_BUTTON))
+        task->tStep = FISHING_MON_ON_HOOK;
+    return FALSE;
+}
+
 // Determine if we're going to play the dot game again
 static bool32 Fishing_CheckMoreDots(struct Task *task)
 {
@@ -1992,7 +1999,6 @@ static bool32 Fishing_CheckMoreDots(struct Task *task)
     }
     return FALSE;
 }
-*/
 
 static bool32 Fishing_MonOnHook(struct Task *task)
 {
@@ -2031,7 +2037,7 @@ static bool32 Fishing_StartEncounter(struct Task *task)
     return FALSE;
 }
 
-static bool8 Fishing_StartMinigame(struct Task *task)
+static bool32 Fishing_StartMinigame(struct Task *task)
 {
     if (!gPaletteFade.active)
     {
