@@ -240,8 +240,7 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
         .data = gPerfect_Gfx,
         .size = 128,
         .tag = TAG_PERFECT
-    },
-    {NULL}
+    }
 };
 
 static const struct SpritePalette sSpritePalettes_FishingGame[] =
@@ -618,7 +617,7 @@ static u8 CalculateInitialScoreMeterInterval(void)
         r -= (startColorInterval - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), TAG_SCORE_METER, PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 
     return startColorInterval;
 }
