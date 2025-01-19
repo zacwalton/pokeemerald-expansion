@@ -1004,7 +1004,7 @@ static void SetMonIconPosition(u8 taskId)
 static void SpriteCB_FishingBar(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything if paused.
-        goto END;
+        return;
 
     // Does not exceed max speed.
     if (sprite->sBarSpeed > FISHING_BAR_MAX_SPEED)
@@ -1023,8 +1023,6 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
 
     // Set the bar sprite location.
     sprite->x2 = ((sprite->sBarPosition / POSITION_ADJUSTMENT));
-
-    END:
 }
 
 static void SpriteCB_FishingBarRight(struct Sprite *sprite)
@@ -1051,9 +1049,7 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
     }
 
     if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything else if paused.
-    {
-        goto END;
-    }
+        return;
 
     if (gTasks[sprite->sTaskId].tScore > (sprite->sScorePosition * SCORE_INTERVAL)) // If the current score has increased to a greater score interval.
     {
@@ -1099,8 +1095,6 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
     }
     if (sprite->sTextCooldown != 0) // If the text cooldown counter is active.
         sprite->sTextCooldown--; // Decrease the text cooldown counter by 1.
-
-    END:
 }
 
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
