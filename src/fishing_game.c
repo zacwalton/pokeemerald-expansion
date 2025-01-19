@@ -831,8 +831,6 @@ static void SetMonIconPosition(u8 taskId)
 {
     if (gTasks[taskId].tFishIsMoving) // Fish is moving.
     {
-        u8 increment;
-                
         if (fishIconData.sFishDirection == FISH_DIR_RIGHT) // If the mon is moving to the right.
         {
             if (fishIconData.sFishPosition >= s60PercentMovedRight && gTasks[taskId].tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
