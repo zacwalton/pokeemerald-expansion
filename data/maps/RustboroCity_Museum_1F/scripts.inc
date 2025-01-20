@@ -218,7 +218,7 @@ RustboroCity_Museum_1F_EventScript_Fossil::
 
 RustboroCity_Museum_1F_Text_Fossil:
 	.string "It's a fossil.\p"
-	.string "“I wonder how old it is?”$"
+	.string "I wonder how old it is?$"
 
 RustboroCity_Museum_1F_EventScript_RelicanthFossil::
 	msgbox RustboroCity_Museum_1F_Text_RelicanthFossil, MSGBOX_SIGN
@@ -350,13 +350,14 @@ RustboroCity_Museum_1F_EventScript_PoseFossil::
 	end
 
 RustboroCity_Museum_1F_Text_PoseFossil:
-	.string "“Many bipedal pokémon use their tails\n"
-	.string "as a counter-balance. Thick tendons\p"
-	.string "run from the skull to the tail end\n"
-	.string "to keep the pokémon upright. When the\p"
-	.string "pokémon dies, these tendons dry out\n"
-	.string "and shrink, causing this iconic pose”$"
-
+	.string "“Many bipedal pokémon use their heavy\n"
+	.string "tails as a counter-balance. \p"
+	.string "Thick tendons running from head to\n"
+	.string "the tail  keep the pokémon upright.\p"
+	.string "When the pokémon dies, these tendons\n"
+	.string "dry out, shrinking in the process.\p"
+	.string "This pulls the head and tail together,\n"
+	.string "leading to this iconic pose.”$"
 
 
 RustboroCity_Museum_1F_Text_DevelopDeviceToResurrectFossils:
@@ -438,6 +439,86 @@ RustboroCity_Museum_1F_EventScript_Security2::
 RustboroCity_Museum_1F_Text_Security2:
 	.string "Please do not touch the displays.$"
 
+RustboroCity_Museum_1F_EventScript_Picknicker::
+	msgbox RustboroCity_Museum_1F_Text_Picknicker, MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Picknicker:
+	.string "We came all the way from\n"
+	.string "the Sinnoh region.\p"
+	.string "our home town has a museum just\n"
+	.string "like this one.$"
+
+RustboroCity_Museum_1F_EventScript_Man1::
+	msgbox RustboroCity_Museum_1F_Text_Man1, MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Man1:
+	.string "The age of these species blows my mind.\p"
+	.string "For something to last that long is\n"
+	.string "nothing short of a miracle.$"
+
+RustboroCity_Museum_1F_EventScript_Man2::
+	msgbox RustboroCity_Museum_1F_Text_Man2, MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Man2:
+	.string "I heard all life started in the ocean.\p"
+	.string "...Something about thermal vents...$"
+
+RustboroCity_Museum_1F_EventScript_Man3::
+	msgbox RustboroCity_Museum_1F_Text_Man3, MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Man3:
+	.string "Can you imagine walking around\n"
+	.string "100 million years ago?\p"
+	.string "I sure can't.$"
+
+RustboroCity_Museum_1F_EventScript_Mom::
+	msgbox RustboroCity_Museum_1F_Text_Mom MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Mom:
+	.string "I take my son here whenever I'm in town.\n"
+	.string "He just loves the displays.$"
+
+RustboroCity_Museum_1F_EventScript_Child::
+	checkleadspecies SPECIES_TYRANTRUM
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Museum_1F_EventScript_ChildSeeFossilMon
+	checkleadspecies SPECIES_AURORUS
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Museum_1F_EventScript_ChildSeeFossilMon
+	msgbox RustboroCity_Museum_1F_Text_Child MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, RustboroCity_Museum_1F_EventScript_ChildHappy
+	msgbox RustboroCity_Museum_1F_Text_ChildSad MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_EventScript_ChildHappy::
+	msgbox RustboroCity_Museum_1F_Text_ChildHappy MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_EventScript_ChildSeeFossilMon::
+	playse SE_PIN
+	applymovement 12, Common_Movement_ExclamationMark
+	msgbox RustboroCity_Museum_1F_Text_ChildSeeFossilMon MSGBOX_NPC
+	end
+
+RustboroCity_Museum_1F_Text_Child:
+	.string "Were they really this big?$"
+
+RustboroCity_Museum_1F_Text_ChildHappy:
+	.string "Wowwy!$"
+
+RustboroCity_Museum_1F_Text_ChildSad:
+	.string "Aw... \p"
+	.string "Disappointing.$"
+
+RustboroCity_Museum_1F_Text_ChildSeeFossilMon:
+	.string "Wow! They're so big!\p"
+	.string "But yours is small compared \n"
+	.string "to the statue.\p"
+	.string "Awh.$"
+
 RustboroCity_Museum_1F_EventScript_Hiker::
 	goto_if_set FLAG_RUSTBORO_MUSEUM_HIKER, RustboroCity_Museum_1F_EventScript_HikerHappy
 	msgbox RustboroCity_Museum_1F_Text_HikerGeneric, MSGBOX_NPC
@@ -476,6 +557,4 @@ RustboroCity_Museum_1F_Text_HikerRampardos:
 	.string "You have a Rampardos?!\p"
 	.string "You just made my whole year!\n"
 	.string "Please, take this. I insist.\p"
-	.string "It's a lucky token from my home region.\p"
-	.string "My grandpa found it in the underground\n"
-	.string "when I was a wee lad.$"
+	.string "It's a lucky token from my home region.$"
