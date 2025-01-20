@@ -487,7 +487,7 @@ void CB2_InitFishingGame(void)
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalIndex = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
+    iconPalIndex = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);

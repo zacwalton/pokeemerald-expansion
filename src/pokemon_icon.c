@@ -256,10 +256,18 @@ void LoadMonIconPalettePersonality(u16 species, u32 personality)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }
 
-u8 LoadMonIconPaletteGetIndex(u16 species)
+u8 LoadMonIconPaletteGetIndex(u16 species, u32 personality)
 {
-    u8 palIndex = gMonIconPaletteIndices[species];
+    u8 palIndex;
     u8 slotIndex;
+
+    species = SanitizeSpeciesId(species);
+#if P_GENDER_DIFFERENCES
+    if (gSpeciesInfo[species].iconSpriteFemale != NULL && IsPersonalityFemale(species, personality))
+        palIndex = gSpeciesInfo[species].iconPalIndexFemale;
+    else
+#endif
+        palIndex = gSpeciesInfo[species].iconPalIndex;
     if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
     {
         slotIndex = LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
