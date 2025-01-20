@@ -78,8 +78,9 @@ static const u16 sPerfect_Pal[] = INCBIN_U16("graphics/fishing_game/perfect.gbap
 const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
 static const u16 sQuestionMark_Pal[] = INCBIN_U16("graphics/fishing_game/question_mark.gbapal");
 const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
-const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
-const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
+//const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
+//const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_tiles.gbapal");
+//const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
 
 static const u16 sFishBehavior[][6] =
 {
@@ -199,7 +200,7 @@ static const struct BgTemplate sBgTemplates[3] =
     },
 };
 
-static const struct BgTemplate sOWBgTemplates[1] =
+/*static const struct BgTemplate sOWBgTemplates[1] =
 {
     {
         .bg = 0,
@@ -207,6 +208,10 @@ static const struct BgTemplate sOWBgTemplates[1] =
         .mapBaseIndex = 7,
         .screenSize = 0,
         .paletteMode = 0,
+        .priority = 1,
+        .baseTile = 0
+    },
+};*/
 
 static const struct OamData sOam_FishingBar =
 {
@@ -569,7 +574,7 @@ void CB2_InitFishingGame(void)
     }
 }
 
-void Task_InitOWMinigame(u8 taskId)
+/*void Task_InitOWMinigame(u8 taskId)
 {
     LZ77UnCompVram(gFishingGameOWBG_Gfx, (void *)VRAM);
     LZ77UnCompVram(gFishingGameBG_Tilemap, (void *)(BG_SCREEN_ADDR(7)));
@@ -577,6 +582,16 @@ void Task_InitOWMinigame(u8 taskId)
     LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
+    gTasks[taskId].tMonIconPalNum = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
+}*/
+
+static void LoadFishingSpritesheets(void)
+{
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
 }
 

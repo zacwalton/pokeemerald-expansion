@@ -1731,6 +1731,7 @@ static void Task_WaitStopSurfing(u8 taskId)
 
 #define FISHING_PROXIMITY_BOOST 4
 #define FISHING_STICKY_BOOST    36
+#define FISHING_OW_MINIGAME 50
 
 #if I_FISHING_BITE_ODDS >= GEN_4
     #define FISHING_OLD_ROD_ODDS 75
@@ -1802,6 +1803,12 @@ void StartFishing(u8 rod)
 
 static void Task_Fishing(u8 taskId)
 {
+    /*if (gTasks[taskId].tStep == FISHING_OW_MINIGAME)
+    {
+        memset(gTasks[taskId].data, 0, sizeof(gTasks[taskId].data));
+        gTasks[taskId].func = Task_InitOWMinigame;
+        return;
+    }*/
     while (sFishingStateFuncs[gTasks[taskId].tStep](&gTasks[taskId]))
         ;
 }
@@ -2036,7 +2043,8 @@ static bool32 Fishing_StartEncounter(struct Task *task)
     if (task->tFrameCounter != 0)
     {
         FishingWildEncounter(task->tFishingRod);
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        if (MINIGAME_SEPARATE_SCREEN == TRUE)
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         task->tStep++;
         task->tFrameCounter = 0;
     }
@@ -2045,7 +2053,7 @@ static bool32 Fishing_StartEncounter(struct Task *task)
 
 static bool32 Fishing_StartMinigame(struct Task *task)
 {
-    if (!gPaletteFade.active)
+    if (MINIGAME_SEPARATE_SCREEN == TRUE && !gPaletteFade.active)
     {
         if (task->tFrameCounter == 0)
         {
@@ -2067,6 +2075,10 @@ static bool32 Fishing_StartMinigame(struct Task *task)
             gMain.savedCallback = CB2_ReturnToField;
             DestroyTask(FindTaskIdByFunc(Task_Fishing));
         }
+    }
+    else if (MINIGAME_SEPARATE_SCREEN == FALSE)
+    {
+        task->tStep = FISHING_OW_MINIGAME;
     }
     return FALSE;
 }
