@@ -2,6 +2,7 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
+#define MINIGAME_SEPARATE_SCREEN        TRUE    // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
 #define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
@@ -68,9 +69,9 @@ enum {
 };
 
 enum {
-    SCORE_METER,
     FISHING_BAR,
     FISHING_BAR_RIGHT,
+    SCORE_METER,
     PERFECT,
     QUESTION_MARK,
     VAGUE_FISH
@@ -84,5 +85,6 @@ enum {
 #define SCORE_LEFT      2
 
 void CB2_InitFishingGame(void);
+void Task_InitOWMinigame(u8 taskId);
 
 #endif // GUARD_FISHING_GAME_H

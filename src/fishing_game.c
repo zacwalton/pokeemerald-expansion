@@ -37,6 +37,7 @@
 #define TAG_QUESTION_MARK       0x1004
 #define TAG_UNKNOWN_FISH        0x1005
 
+static void LoadFishingSpritesheets(void);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
 static void Task_FishingPauseUntilFadeIn(u8 taskId);
@@ -56,7 +57,6 @@ static void SetMonIconPosition(u8 taskId);
 static void SpriteCB_FishingBar(struct Sprite *sprite);
 static void SpriteCB_FishingBarRight(struct Sprite *sprite);
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
-static void SpriteCB_QuestionMark(struct Sprite *sprite);
 static void SpriteCB_ScoreMeter(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
 static void SpriteCB_Perfect(struct Sprite *sprite);
@@ -78,6 +78,8 @@ static const u16 sPerfect_Pal[] = INCBIN_U16("graphics/fishing_game/perfect.gbap
 const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
 static const u16 sQuestionMark_Pal[] = INCBIN_U16("graphics/fishing_game/question_mark.gbapal");
 const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
+const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
+const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
 
 static const u16 sFishBehavior[][6] =
 {
@@ -197,7 +199,14 @@ static const struct BgTemplate sBgTemplates[3] =
     },
 };
 
-//static const u8 sTextColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY};
+static const struct BgTemplate sOWBgTemplates[1] =
+{
+    {
+        .bg = 0,
+        .charBaseIndex = 0,
+        .mapBaseIndex = 7,
+        .screenSize = 0,
+        .paletteMode = 0,
 
 static const struct OamData sOam_FishingBar =
 {
@@ -269,11 +278,6 @@ static const struct OamData sOam_UnknownFish =
 
 static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
 {
-    [SCORE_METER] = {
-        .data = gScoreMeter_Gfx,
-        .size = 1024,
-        .tag = TAG_SCORE_METER
-    },
     [FISHING_BAR] = {
         .data = gFishingBar_Gfx,
         .size = 256,
@@ -283,6 +287,11 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
         .data = gFishingBarRight_Gfx,
         .size = 256,
         .tag = TAG_FISHING_BAR_RIGHT
+    },
+    [SCORE_METER] = {
+        .data = gScoreMeter_Gfx,
+        .size = 1024,
+        .tag = TAG_SCORE_METER
     },
     [PERFECT] = {
         .data = gPerfect_Gfx,
@@ -310,14 +319,6 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
     {
         .data = sScoreMeter_Pal,
         .tag = TAG_SCORE_METER
-    },
-    {
-        .data = sPerfect_Pal,
-        .tag = TAG_PERFECT
-    },
-    {
-        .data = sQuestionMark_Pal,
-        .tag = TAG_UNKNOWN_FISH
     },
     {NULL},
 };
@@ -358,7 +359,7 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeter =
 static const struct SpriteTemplate sSpriteTemplate_Perfect =
 {
     .tileTag = TAG_PERFECT,
-    .paletteTag = TAG_PERFECT,
+    .paletteTag = TAG_FISHING_BAR,
     .oam = &sOam_Perfect,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -369,18 +370,18 @@ static const struct SpriteTemplate sSpriteTemplate_Perfect =
 static const struct SpriteTemplate sSpriteTemplate_QuestionMark =
 {
     .tileTag = TAG_QUESTION_MARK,
-    .paletteTag = TAG_UNKNOWN_FISH,
+    .paletteTag = TAG_FISHING_BAR,
     .oam = &sOam_UnknownFish,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCB_QuestionMark
+    .callback = SpriteCallbackDummy
 };
 
 static const struct SpriteTemplate sSpriteTemplate_VagueFish =
 {
     .tileTag = TAG_UNKNOWN_FISH,
-    .paletteTag = TAG_UNKNOWN_FISH,
+    .paletteTag = TAG_FISHING_BAR,
     .oam = &sOam_UnknownFish,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -397,19 +398,19 @@ static void VblankCB_FishingGame(void)
 
 // Data for Tasks
 #define tFrameCounter       data[0]
-#define tFishSpecies        data[1]
 #define tFishIconSpriteId   data[2]
 #define tBarLeftSpriteId    data[3]
 #define tBarRightSpriteId   data[4]
 #define tScoreMeterSpriteId data[5]
-#define tFishSpeedCounter   data[6]
-#define tInitialFishSpeed   data[7]
-#define tScore              data[8]
-#define tScoreDirection     data[9]
-#define tFishIsMoving       data[10]
-#define tPerfectCatch       data[11]
+#define tQMarkSpriteId      data[6]
+#define tFishSpeedCounter   data[7]
+#define tInitialFishSpeed   data[8]
+#define tScore              data[9]
+#define tScoreDirection     data[10]
+#define tFishIsMoving       data[11]
 #define tVagueFish          data[12]
-#define tPaused             data[15]
+#define tMonIconPalNum      data[13]
+#define tPaused             data[14]
 
 // Data for all sprites
 #define sTaskId             data[0]
@@ -426,6 +427,7 @@ static void VblankCB_FishingGame(void)
 #define sFishDestination    data[4]
 #define sFishDestInterval   data[5]
 #define sFishDirection      data[6]
+#define sFishSpecies        data[7]
 
 // Data for Score Meter sprites
 #define sScorePosition      data[1]
@@ -433,15 +435,17 @@ static void VblankCB_FishingGame(void)
 #define sCurrColorInterval  data[3]
 #define sScoreThird         data[4]
 #define sTextCooldown       data[5]
+#define sPerfectCatch       data[6]
 
 // Data for Perfect sprite
-#define sPerfectFrameCount       data[1]
-#define sPerfectMoveFrames data[2]
+#define sPerfectFrameCount  data[1]
+#define sPerfectMoveFrames  data[2]
 
 void CB2_InitFishingGame(void)
 {
     u8 taskId;
     u8 spriteId;
+    u8 iconPalIndex;
 
     SetVBlankCallback(NULL);
 
@@ -476,14 +480,9 @@ void CB2_InitFishingGame(void)
     LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(0), 3 * PLTT_SIZE_4BPP);
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
+    LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    LoadMonIconPalettes();
+    iconPalIndex = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
@@ -498,7 +497,6 @@ void CB2_InitFishingGame(void)
     
     taskId = CreateTask(Task_FishingGame, 0);
     gTasks[taskId].tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
-    gTasks[taskId].tPerfectCatch = TRUE; // Allow a perfect catch.
     gTasks[taskId].tScore = STARTING_SCORE; // Set the starting score.
     gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT;
 
@@ -513,8 +511,9 @@ void CB2_InitFishingGame(void)
     gTasks[taskId].tBarRightSpriteId = spriteId;
 
     // Create mon icon sprite.
+    gTasks[taskId].tQMarkSpriteId = 200;
     if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)), FLAG_GET_SEEN))
-        || OBSCURE_ALL_FISH == TRUE)
+        || OBSCURE_ALL_FISH == TRUE || iconPalIndex == 255)
     {
         if (VAGUE_FISH_FOR_OBSCURED == TRUE)
         {
@@ -523,8 +522,9 @@ void CB2_InitFishingGame(void)
         }
         else
         {
-            FillPalette(RGB_BLACK, OBJ_PLTT_ID(4), 3 * PLTT_SIZE_4BPP);
+            FillPalette(RGB_BLACK, OBJ_PLTT_ID(iconPalIndex), PLTT_SIZE_4BPP);
             spriteId = CreateSprite(&sSpriteTemplate_QuestionMark, FISH_ICON_START_X, FISH_ICON_Y, 0);
+            gTasks[taskId].tQMarkSpriteId = spriteId;
             spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, FISH_ICON_Y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
         }
@@ -539,7 +539,7 @@ void CB2_InitFishingGame(void)
     gSprites[spriteId].subpriority = 1;
     gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
     gSprites[spriteId].sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
-    gTasks[taskId].tFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
+    gSprites[spriteId].sFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     gTasks[taskId].tFishIconSpriteId = spriteId;
 
     // Create score meter sprite.
@@ -548,6 +548,7 @@ void CB2_InitFishingGame(void)
     gSprites[spriteId].sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
     gSprites[spriteId].sScoreThird = (gSprites[spriteId].sScorePosition / SCORE_THIRD_SIZE);
     gSprites[spriteId].sCurrColorInterval = CalculateInitialScoreMeterInterval();
+    gSprites[spriteId].sPerfectCatch = TRUE; // Allow a perfect catch.
     gTasks[taskId].tScoreMeterSpriteId = spriteId;
 
     // Create enough score meter sprites to fill the whole score area.
@@ -566,6 +567,17 @@ void CB2_InitFishingGame(void)
             gSprites[spriteId].sTaskId = taskId;
         }
     }
+}
+
+void Task_InitOWMinigame(u8 taskId)
+{
+    LZ77UnCompVram(gFishingGameOWBG_Gfx, (void *)VRAM);
+    LZ77UnCompVram(gFishingGameBG_Tilemap, (void *)(BG_SCREEN_ADDR(7)));
+    InitBgsFromTemplates(0, sOWBgTemplates, ARRAY_COUNT(sOWBgTemplates));
+    LoadPalette(gFishingGameBG_Pal, BG_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
+    LoadFishingSpritesheets();
+    LoadSpritePalettes(sSpritePalettes_FishingGame);
+    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
 }
 
 static void CB2_FishingGame(void)
@@ -645,7 +657,7 @@ static void Task_ReeledInFish(u8 taskId)
 {
     if (gTasks[taskId].tFrameCounter == 0)
     {
-        if (gTasks[taskId].tPerfectCatch == TRUE) // If it was a perfect catch.
+        if (gSprites[gTasks[taskId].tScoreMeterSpriteId].sPerfectCatch == TRUE) // If it was a perfect catch.
         {
             u8 spriteId;
 
@@ -725,7 +737,7 @@ static u8 CalculateInitialScoreMeterInterval(void)
         r -= (startColorInterval - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(IndexOfSpritePaletteTag(TAG_SCORE_METER)), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 
     return startColorInterval;
 }
@@ -748,7 +760,7 @@ static void CalculateScoreMeterPalette(struct Sprite *sprite)
         r -= ((sprite->sCurrColorInterval - 1) - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(1), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
+    FillPalette(RGB(r, g, 0), OBJ_PLTT_ID(IndexOfSpritePaletteTag(TAG_SCORE_METER)), PLTT_SIZE_4BPP); // Set the score meter palette to the new color value.
 }
 
 #define scoreMeterData  gSprites[gTasks[taskId].tScoreMeterSpriteId]
@@ -783,7 +795,7 @@ static void HandleScore(u8 taskId)
 
         if (gTasks[taskId].tScoreDirection == FISH_DIR_LEFT) // Only on the frame when the fish enters the fishing bar area.
         {
-            LoadPalette(sFishingBar_Pal, OBJ_PLTT_ID(0), PLTT_SIZE_4BPP);
+            LoadPalette(sFishingBar_Pal, OBJ_PLTT_ID(IndexOfSpritePaletteTag(TAG_FISHING_BAR)), PLTT_SIZE_4BPP);
             gTasks[taskId].tScoreDirection = FISH_DIR_RIGHT; // Change the direction the score meter is moving.
 
             if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
@@ -795,11 +807,11 @@ static void HandleScore(u8 taskId)
     else // If the fish hitbox is outside the fishing bar.
     {
         gTasks[taskId].tScore -= SCORE_DECREASE; // Decrease the score.
-        gTasks[taskId].tPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
+        gSprites[gTasks[taskId].tScoreMeterSpriteId].sPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
 
         if (gTasks[taskId].tScoreDirection == FISH_DIR_RIGHT) // Only on the frame when the fish exits the fishing bar area.
         {
-            LoadPalette(sFishingBarOff_Pal, OBJ_PLTT_ID(0), PLTT_SIZE_4BPP);
+            LoadPalette(sFishingBarOff_Pal, OBJ_PLTT_ID(IndexOfSpritePaletteTag(TAG_FISHING_BAR)), PLTT_SIZE_4BPP);
             gTasks[taskId].tScoreDirection = FISH_DIR_LEFT; // Change the direction the score meter is moving.
 
             if (scoreMeterData.sTextCooldown < 30) // If there is less than half a second left on the text cooldown counter.
@@ -901,7 +913,7 @@ static void SetFishingBarPosition(u8 taskId)
 #undef fishingBarData
 
 #define fishIconData            gSprites[gTasks[taskId].tFishIconSpriteId]
-#define sBehavior               sFishBehavior[gTasks[taskId].tFishSpecies]
+#define sBehavior               sFishBehavior[fishIconData.sFishSpecies]
 #define s60PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 40))
 #define s70PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 30))
 #define s80PercentMovedRight    (fishIconData.sFishDestination - ((fishIconData.sFishDestInterval / 100) * 20))
@@ -1122,12 +1134,10 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
             UpdateMonIconFrame(sprite); // Animate the mon icon.
 
         sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X); // Set the fish sprite location.
+        
+        if (gTasks[sprite->sTaskId].tQMarkSpriteId != 200) // If the Question Mark sprite exists.
+            gSprites[gTasks[sprite->sTaskId].tQMarkSpriteId].x = sprite->x; // Move the Question Mark with the fish sprite. This occurs in the fish sprite CB to prevent desync between the sprites.
     }
-}
-
-static void SpriteCB_QuestionMark(struct Sprite *sprite)
-{
-    sprite->x = gSprites[gTasks[sprite->sTaskId].tFishIconSpriteId].x;
 }
 
 static void SpriteCB_ScoreMeter(struct Sprite *sprite)
