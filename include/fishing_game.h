@@ -2,7 +2,7 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
-#define MINIGAME_ON_SEPARATE_SCREEN        TRUE    // Play the minigame on its own dedicated screen instead of in the overworld.
+#define MINIGAME_ON_SEPARATE_SCREEN     TRUE    // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
 #define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
@@ -45,6 +45,7 @@
 #define NUM_COLOR_INTERVALS             64
 #define SCORE_COLOR_INTERVAL            (SCORE_AREA_WIDTH / NUM_COLOR_INTERVALS)
 #define SCORE_THIRD_SIZE                (SCORE_AREA_WIDTH / 3)
+#define SCORE_COLOR_NUM                 12 // The color position in the palette that the score meter uses.
 
 // Pokemon Icon Constants
 #define FISH_ICON_WIDTH                 32
@@ -57,6 +58,12 @@
 #define PERFECT_SPRITE_WIDTH            32
 #define PERFECT_X                       ((FISHING_BAR_START_X + FISHING_AREA_WIDTH) - PERFECT_SPRITE_WIDTH)
 #define PERFECT_Y                       SCORE_SECTION_INIT_Y
+
+// OW Constants
+#define OW_FISHING_BAR_Y                102
+#define OW_SCORE_SECTION_INIT_Y         80
+#define OW_FISH_ICON_Y                  99
+#define OW_PERFECT_Y                    OW_SCORE_SECTION_INIT_Y
 
 
 enum {
@@ -75,6 +82,15 @@ enum {
     PERFECT,
     QUESTION_MARK,
     VAGUE_FISH
+};
+
+enum {
+    INSIDE_1,
+    INSIDE_2,
+    INSIDE_3,
+    OUTSIDE_1,
+    OUTSIDE_2,
+    OUTSIDE_3
 };
 
 #define FISH_DIR_LEFT   0
