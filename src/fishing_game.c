@@ -520,7 +520,7 @@ void CB2_InitFishingGame(void)
     if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)), FLAG_GET_SEEN))
         || OBSCURE_ALL_FISH == TRUE || iconPalIndex == 255)
     {
-        if (VAGUE_FISH_FOR_OBSCURED == TRUE)
+        if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalIndex == 255)
         {
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, FISH_ICON_Y, 1);
             gTasks[taskId].tVagueFish = TRUE;

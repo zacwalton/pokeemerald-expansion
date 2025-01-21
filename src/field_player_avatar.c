@@ -2043,7 +2043,7 @@ static bool32 Fishing_StartEncounter(struct Task *task)
     if (task->tFrameCounter != 0)
     {
         FishingWildEncounter(task->tFishingRod);
-        if (MINIGAME_SEPARATE_SCREEN == TRUE)
+        if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         task->tStep++;
         task->tFrameCounter = 0;
@@ -2053,7 +2053,7 @@ static bool32 Fishing_StartEncounter(struct Task *task)
 
 static bool32 Fishing_StartMinigame(struct Task *task)
 {
-    if (MINIGAME_SEPARATE_SCREEN == TRUE && !gPaletteFade.active)
+    if (MINIGAME_ON_SEPARATE_SCREEN == TRUE && !gPaletteFade.active)
     {
         if (task->tFrameCounter == 0)
         {
@@ -2076,7 +2076,7 @@ static bool32 Fishing_StartMinigame(struct Task *task)
             DestroyTask(FindTaskIdByFunc(Task_Fishing));
         }
     }
-    else if (MINIGAME_SEPARATE_SCREEN == FALSE)
+    else if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
     {
         task->tStep = FISHING_OW_MINIGAME;
     }
