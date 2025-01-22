@@ -39,7 +39,7 @@
 #define SCORE_BAR_OFFSET                ((SCORE_SECTION_WIDTH / 2) - SCORE_AREA_OFFSET) // Sets the score position in relation to SCORE_AREA_OFFSET.
 #define SCORE_INTERVAL                  (SCORE_MAX / SCORE_AREA_WIDTH)
 #define SCORE_SECTION_INIT_X            ((STARTING_SCORE / SCORE_INTERVAL) - SCORE_BAR_OFFSET)
-#define SCORE_SECTION_INIT_Y            80
+#define SCORE_SECTION_Y                 80
 #define SCORE_SECTION_WIDTH             64   // The width of one score meter section sprite in number of pixels.
 #define NUM_SCORE_SECTIONS              (SCORE_AREA_WIDTH / SCORE_SECTION_WIDTH)
 #define NUM_COLOR_INTERVALS             64
@@ -57,13 +57,13 @@
 // Perfect Icon Constants
 #define PERFECT_SPRITE_WIDTH            32
 #define PERFECT_X                       ((FISHING_BAR_START_X + FISHING_AREA_WIDTH) - PERFECT_SPRITE_WIDTH)
-#define PERFECT_Y                       SCORE_SECTION_INIT_Y
+#define PERFECT_Y                       SCORE_SECTION_Y
 
 // OW Constants
-#define OW_FISHING_BAR_Y                102
-#define OW_SCORE_SECTION_INIT_Y         80
-#define OW_FISH_ICON_Y                  99
-#define OW_PERFECT_Y                    OW_SCORE_SECTION_INIT_Y
+#define OW_FISHING_BAR_Y                27
+#define OW_SCORE_SECTION_Y              5
+#define OW_FISH_ICON_Y                  24
+#define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 24)
 
 
 enum {
@@ -81,7 +81,8 @@ enum {
     SCORE_METER,
     PERFECT,
     QUESTION_MARK,
-    VAGUE_FISH
+    VAGUE_FISH,
+    SCORE_METER_BACKING
 };
 
 enum {
