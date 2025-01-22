@@ -2,7 +2,7 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
-#define MINIGAME_ON_SEPARATE_SCREEN     TRUE    // Play the minigame on its own dedicated screen instead of in the overworld.
+#define MINIGAME_ON_SEPARATE_SCREEN     FALSE    // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
 #define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
@@ -60,10 +60,10 @@
 #define PERFECT_Y                       SCORE_SECTION_Y
 
 // OW Constants
-#define OW_FISHING_BAR_Y                27
-#define OW_SCORE_SECTION_Y              5
-#define OW_FISH_ICON_Y                  24
-#define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 24)
+#define OW_FISHING_BAR_Y                22
+#define OW_SCORE_SECTION_Y              0
+#define OW_FISH_ICON_Y                  19
+#define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 38)
 
 
 enum {

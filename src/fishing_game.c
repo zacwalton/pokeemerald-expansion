@@ -182,7 +182,7 @@ static const struct WindowTemplate sWindowTemplate_AskQuit =
     .tilemapTop = 9,
     .width = 5,
     .height = 4,
-    .paletteNum = 14,
+    .paletteNum = 15,
     .baseBlock = 0x0260
 };
 
@@ -276,7 +276,7 @@ static const struct OamData sOam_Perfect =
     .matrixNum = 0,
     .size = SPRITE_SIZE(32x8),
     .tileNum = 0,
-    .priority = 1,
+    .priority = 0,
     .paletteNum = 0,
     .affineParam = 0,
 };
@@ -712,7 +712,9 @@ static void CB2_FishingGameOW(void)
 static void Task_FishingGame(u8 taskId)
 {
     if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
-        DrawStdFrameWithCustomTileAndPalette(0, TRUE, 1240, 0xD);
+        DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
+    else
+        LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(14));
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the fishing game instructions.
     //if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
     //    PutWindowTilemap(0);
@@ -752,7 +754,10 @@ static void Task_AskWantToQuit(u8 taskId)
     FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 0, NULL); // Ask to quit the game.
     ScheduleBgCopyTilemapToVram(0);
-    CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 0xD, 0); // Display the YES/NO option box.
+    if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
+        CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 13, 0); // Display the YES/NO option box.
+    else
+        CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 14, 0); // Display the YES/NO option box.
     gTasks[taskId].func = Task_HandleConfirmQuitInput;
 }
 
@@ -792,7 +797,7 @@ static void Task_ReeledInFish(u8 taskId)
             if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
                 y = OW_PERFECT_Y;
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
-            spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, y, 1);
+            spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, y, 0);
             gSprites[spriteId].sTaskId = taskId;
         }
         else // If it wasn't a perfect catch.
@@ -1402,7 +1407,6 @@ static void SpriteCB_Other(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DebugPrintf("DESTROY OTHER");
         DestroySprite(sprite);
         return;
     }
@@ -1411,8 +1415,8 @@ static void SpriteCB_Other(struct Sprite *sprite)
 static void CB2_FishingBattleTransition(void)
 {
     PlayBattleBGM(); // Play the battle music.
-    SetMainCallback2(CB2_FishingBattleStart);
     BattleTransition_Start(B_TRANSITION_WAVE); // Start the battle transition. The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
+    SetMainCallback2(CB2_FishingBattleStart);
 }
 
 static void CB2_FishingBattleStart(void)
@@ -1423,7 +1427,8 @@ static void CB2_FishingBattleStart(void)
     if (IsBattleTransitionDone() == TRUE) // If the battle transition has fully completed.
     {
         gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPaused = 3;
-        ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
+        if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
+            ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
         gMain.savedCallback = CB2_ReturnToField;
         FreeAllWindowBuffers();
         ResetTasks();

@@ -1803,26 +1803,6 @@ void StartFishing(u8 rod)
 
 void Task_Fishing(u8 taskId)
 {
-    if (gTasks[taskId].tStep == FISHING_OW_MINIGAME)
-    {
-        gTasks[taskId].data[0] = 0;
-        gTasks[taskId].data[1] = 0;
-        gTasks[taskId].data[2] = 0;
-        gTasks[taskId].data[3] = 0;
-        gTasks[taskId].data[4] = 0;
-        gTasks[taskId].data[5] = 0;
-        gTasks[taskId].data[6] = 0;
-        gTasks[taskId].data[7] = 0;
-        gTasks[taskId].data[8] = 0;
-        gTasks[taskId].data[9] = 0;
-        gTasks[taskId].data[10] = 0;
-        gTasks[taskId].data[11] = 0;
-        gTasks[taskId].data[12] = 0;
-        gTasks[taskId].data[13] = 0;
-        gTasks[taskId].data[15] = 0;
-        gTasks[taskId].func = Task_InitOWMinigame;
-        return;
-    }
     while (sFishingStateFuncs[gTasks[taskId].tStep](&gTasks[taskId]))
         ;
 }
@@ -2086,7 +2066,22 @@ static bool32 Fishing_StartMinigame(struct Task *task)
     }
     else if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
     {
-        task->tStep = FISHING_OW_MINIGAME;
+        task->data[0] = 0;
+        task->data[1] = 0;
+        task->data[2] = 0;
+        task->data[3] = 0;
+        task->data[4] = 0;
+        task->data[5] = 0;
+        task->data[6] = 0;
+        task->data[7] = 0;
+        task->data[8] = 0;
+        task->data[9] = 0;
+        task->data[10] = 0;
+        task->data[11] = 0;
+        task->data[12] = 0;
+        task->data[13] = 0;
+        task->data[15] = 0;
+        task->func = Task_InitOWMinigame;
     }
     return FALSE;
 }
