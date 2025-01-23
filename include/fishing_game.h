@@ -64,6 +64,7 @@
 #define OW_SCORE_SECTION_Y              0
 #define OW_FISH_ICON_Y                  19
 #define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 38)
+#define OW_PAUSE_BEFORE_START           20 // Number of frames before the minigame starts.
 
 
 enum {

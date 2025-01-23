@@ -16,6 +16,7 @@
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
+#include "pokemon_icon.h"
 #include "random.h"
 #include "rotating_gate.h"
 #include "script.h"
@@ -1723,7 +1724,7 @@ static void Task_WaitStopSurfing(u8 taskId)
 #define tFrameCounter      data[1]
 #define tNumDots           data[2]
 #define tDotsRequired      data[3]
-#define tNoNibble          data[4]
+#define tQuitMinigame      data[8]
 #define tRoundsPlayed      data[12]
 #define tMinRoundsRequired data[13]
 #define tPlayerGfxId       data[14]
@@ -2113,7 +2114,6 @@ u8 ResetPlayerAvatar(u8 gfxId)
 static bool32 Fishing_NotEvenNibble(struct Task *task)
 {
     gChainFishingDexNavStreak = 0;
-    task->tNoNibble = TRUE;
     AlignFishingAnimationFrames();
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
@@ -2124,17 +2124,22 @@ static bool32 Fishing_NotEvenNibble(struct Task *task)
 
 static bool32 Fishing_GotAway(struct Task *task)
 {
+    RunTextPrinters();
     gChainFishingDexNavStreak = 0;
     AlignFishingAnimationFrames();
+    if (task->tQuitMinigame == FALSE)
+    {
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ItGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+    }
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
-    FillWindowPixelBuffer(0, PIXEL_FILL(1));
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ItGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
     task->tStep = FISHING_NO_MON;
     return TRUE;
 }
 
 static bool32 Fishing_NoMon(struct Task *task)
 {
+    RunTextPrinters();
     AlignFishingAnimationFrames();
     task->tStep = FISHING_PUT_ROD_AWAY;
     return FALSE;
@@ -2142,6 +2147,7 @@ static bool32 Fishing_NoMon(struct Task *task)
 
 static bool32 Fishing_PutRodAway(struct Task *task)
 {
+    RunTextPrinters();
     AlignFishingAnimationFrames();
     if (gSprites[gPlayerAvatar.spriteId].animEnded)
     {
@@ -2166,24 +2172,17 @@ static bool32 Fishing_EndNoMon(struct Task *task)
     {
         if (task->tFrameCounter == 0)
         {
-            if (task->tNoNibble != TRUE)
-            {
-                PlaySE(SE_FLEE);
-                BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            }
             task->tFrameCounter++;
         }
         if (!gPaletteFade.active) // If the screen has fully faded to black.
         {
-            task->data[15] = 3;
             gPlayerAvatar.preventStep = FALSE;
             UnlockPlayerFieldControls();
             UnfreezeObjectEvents();
             ClearDialogWindowAndFrame(0, TRUE);
             RecordFishingAttemptForTV(FALSE);
             gObjectEvents[gPlayerAvatar.objectEventId].trackedByCamera = TRUE;
-            if (task->tNoNibble != TRUE)
-                SetMainCallback2(CB2_ReturnToField);
+            FreeMonIconPalettes();
             DestroyTask(FindTaskIdByFunc(Task_Fishing));
         }
     }

@@ -85,6 +85,7 @@ const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.l
 const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.4bpp.lz");
 const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_ow_tiles.gbapal");
 const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.lz");
+const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
 static const u16 sFishBehavior[][6] =
@@ -425,6 +426,7 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeterBacking =
 
 static void VblankCB_FishingGame(void)
 {
+    RunTextPrinters();
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
@@ -549,8 +551,6 @@ void Task_InitOWMinigame(u8 taskId)
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
     iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
-    SetVBlankCallback(VblankCB_FishingGame);
-    SetMainCallback2(CB2_FishingGameOW);
 
     CreateMinigameSprites(taskId, iconPalSlot);
 
@@ -562,9 +562,6 @@ static void LoadFishingSpritesheets(void)
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
-    LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
     if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER_BACKING]);
 }
@@ -611,6 +608,7 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     {
         if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
         {
+            LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, y, 0);
             gTasks[taskId].tVagueFish = TRUE;
             if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
@@ -619,6 +617,7 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
         }
         else
         {
+            LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
             FillPalette(RGB_BLACK, OBJ_PLTT_ID(iconPalSlot), PLTT_SIZE_4BPP);
             spriteId = CreateSprite(&sSpriteTemplate_QuestionMark, FISH_ICON_START_X, y, 0);
             gTasks[taskId].tQMarkSpriteId = spriteId;
@@ -695,20 +694,6 @@ static void CB2_FishingGame(void)
     UpdatePaletteFade();
 }
 
-static void CB2_FishingGameOW(void)
-{
-    //ScriptContext_RunScript();
-    RunTasks();
-    RunTextPrinters();
-    AnimateSprites();
-    CameraUpdate();
-    UpdateCameraPanning();
-    BuildOamBuffer();
-    UpdatePaletteFade();
-    UpdateTilesetAnimations();
-    DoScheduledBgTilemapCopiesToVram();
-}
-
 static void Task_FishingGame(u8 taskId)
 {
     if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
@@ -716,23 +701,32 @@ static void Task_FishingGame(u8 taskId)
     else
         LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(14));
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the fishing game instructions.
-    //if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
-    //    PutWindowTilemap(0);
     ScheduleBgCopyTilemapToVram(0);
     gTasks[taskId].func = Task_FishingPauseUntilFadeIn;
 }
 
 static void Task_FishingPauseUntilFadeIn(u8 taskId)
 {
-    if (!gPaletteFade.active) // Keep the game paused until the screen has fully faded in.
+    RunTextPrinters();
+
+    if (!gPaletteFade.active && MINIGAME_ON_SEPARATE_SCREEN == TRUE) // Keep the game paused until the screen has fully faded in.
     {
         gTasks[taskId].tPaused = FALSE; // Unpause.
         gTasks[taskId].func = Task_HandleFishingGameInput;
+        gTasks[taskId].tFrameCounter = 0;
     }
+    else if (gTasks[taskId].tFrameCounter == OW_PAUSE_BEFORE_START && MINIGAME_ON_SEPARATE_SCREEN == FALSE)
+    {
+        gTasks[taskId].tPaused = FALSE; // Unpause.
+        gTasks[taskId].func = Task_HandleFishingGameInput;
+        gTasks[taskId].tFrameCounter = 0;
+    }
+    gTasks[taskId].tFrameCounter++;
 }
 
 static void Task_HandleFishingGameInput(u8 taskId)
 {
+    RunTextPrinters();
     HandleScore(taskId);
     SetFishingBarPosition(taskId);
     SetMonIconPosition(taskId);
@@ -751,9 +745,10 @@ static void Task_AskWantToQuit(u8 taskId)
 {
     if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         AlignFishingAnimationFrames();
-    FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 0, NULL); // Ask to quit the game.
+    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 1, NULL); // Ask to quit the game.
     ScheduleBgCopyTilemapToVram(0);
+    RunTextPrinters();
     if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
         CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 13, 0); // Display the YES/NO option box.
     else
@@ -763,21 +758,22 @@ static void Task_AskWantToQuit(u8 taskId)
 
 static void Task_HandleConfirmQuitInput(u8 taskId)
 {
+    RunTextPrinters();
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:  // YES
         if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
-        {
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
-            PlaySE(SE_FLEE);
-        }
-        gTasks[taskId].tFrameCounter = 0;
+        else
+            ClearDialogWindowAndFrame(0, TRUE);
+        PlaySE(SE_FLEE);
+        gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_PutRodAway.
         gTasks[taskId].func = Task_QuitFishing;
         break;
     case 1:  // NO
     case MENU_B_PRESSED:
         PlaySE(SE_SELECT);
-        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the instructions again.
         gTasks[taskId].tPaused = FALSE; // Unpause the game.
         gTasks[taskId].func = Task_HandleFishingGameInput;
@@ -787,23 +783,27 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
 
 static void Task_ReeledInFish(u8 taskId)
 {
+    RunTextPrinters();
     if (gTasks[taskId].tFrameCounter == 0)
     {
         if (gSprites[gTasks[taskId].tScoreMeterSpriteId].sPerfectCatch == TRUE) // If it was a perfect catch.
         {
             u8 spriteId;
-            u8 y = PERFECT_Y;
 
-            if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
-                y = OW_PERFECT_Y;
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
-            spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, y, 0);
+            LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
+            if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
+                spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, OW_PERFECT_Y, 0);
+            else
+                spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 0);
             gSprites[spriteId].sTaskId = taskId;
         }
         else // If it wasn't a perfect catch.
+        {
             PlaySE(SE_PIN);
+        }
 
-        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
         gTasks[taskId].tFrameCounter++;
     }
@@ -823,14 +823,13 @@ static void Task_FishGotAway(u8 taskId)
 {
     if (gTasks[taskId].tFrameCounter == 0)
     {
-        if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
-        {
-            PlaySE(SE_FLEE);
-            FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
-            AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Failure text.
-        }
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Failure text.
+        PlaySE(SE_FLEE);
         gTasks[taskId].tFrameCounter++;
     }
+
+    RunTextPrinters();
 
     if (gTasks[taskId].tFrameCounter == 1)
     {
@@ -838,6 +837,9 @@ static void Task_FishGotAway(u8 taskId)
         {
             if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
                 BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
+            else
+                ClearDialogWindowAndFrame(0, TRUE);
+            gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
             gTasks[taskId].func = Task_QuitFishing;
         }
     }
@@ -845,12 +847,16 @@ static void Task_FishGotAway(u8 taskId)
 
 static void Task_QuitFishing(u8 taskId)
 {
+    RunTextPrinters();
     if (!gPaletteFade.active) // If the screen has fully faded to black.
     {
         if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         {
-                gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
-                gTasks[taskId].func = Task_Fishing;
+            gTasks[taskId].data[8] = TRUE; // Don't show any more text boxes.
+            CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
+            CopyBgTilemapBufferToVram(0);
+            gTasks[taskId].tPaused = 3;
+            gTasks[taskId].func = Task_Fishing;
         }
         else
         {
@@ -916,14 +922,14 @@ static void CalculateScoreMeterPalette(struct Sprite *sprite)
 
 static void UpdateHelpfulTextHigher(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
         scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
 static void UpdateHelpfulTextLower(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1)); // Make the text box blank.
+        FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
         scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
@@ -1254,7 +1260,7 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
     else if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything if paused.
@@ -1283,7 +1289,7 @@ static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
     sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tBarLeftSpriteId].x2); // Set the location of the bar's right edge.
@@ -1293,7 +1299,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        FreeAndDestroyMonIconSprite(sprite);
         return;
     }
     else if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
@@ -1312,7 +1318,7 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
     if (gTasks[sprite->sTaskId].tScore <= 0 && sprite->sScorePosition > 0) // If the current score is 0.
@@ -1374,7 +1380,7 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
     if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
@@ -1387,7 +1393,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
     if (sprite->sPerfectMoveFrames > 2)
@@ -1398,7 +1404,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     }
 
     if (sprite->sPerfectFrameCount == 25)
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
 
     sprite->sPerfectMoveFrames++;
 }
@@ -1407,13 +1413,14 @@ static void SpriteCB_Other(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        DestroySprite(sprite);
+        DestroySpriteAndFreeResources(sprite);
         return;
     }
 }
 
 static void CB2_FishingBattleTransition(void)
 {
+    FreeMonIconPalettes();
     PlayBattleBGM(); // Play the battle music.
     BattleTransition_Start(B_TRANSITION_WAVE); // Start the battle transition. The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
     SetMainCallback2(CB2_FishingBattleStart);
