@@ -45,7 +45,6 @@
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot);
 static void CB2_FishingGame(void);
-static void CB2_FishingGameOW(void);
 static void Task_FishingGame(u8 taskId);
 static void Task_FishingPauseUntilFadeIn(u8 taskId);
 static void Task_HandleFishingGameInput(u8 taskId);
