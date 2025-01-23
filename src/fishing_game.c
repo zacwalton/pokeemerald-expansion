@@ -766,7 +766,6 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
         else
             ClearDialogWindowAndFrame(0, TRUE);
         PlaySE(SE_FLEE);
-        gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_PutRodAway.
         gTasks[taskId].func = Task_QuitFishing;
         break;
     case 1:  // NO
@@ -838,7 +837,6 @@ static void Task_FishGotAway(u8 taskId)
                 BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
             else
                 ClearDialogWindowAndFrame(0, TRUE);
-            gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
             gTasks[taskId].func = Task_QuitFishing;
         }
     }
@@ -852,6 +850,7 @@ static void Task_QuitFishing(u8 taskId)
         if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         {
             gTasks[taskId].data[8] = TRUE; // Don't show any more text boxes.
+            gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
             CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
             CopyBgTilemapBufferToVram(0);
             gTasks[taskId].tPaused = 3;
