@@ -129,7 +129,6 @@ static void CreateStopSurfingTask(u8);
 static void Task_StopSurfingInit(u8);
 static void Task_WaitStopSurfing(u8);
 
-static void Task_Fishing(u8);
 static bool32 Fishing_Init(struct Task *);
 static bool32 Fishing_GetRodOut(struct Task *);
 static bool32 Fishing_WaitBeforeDots(struct Task *);
@@ -2085,18 +2084,6 @@ static bool32 Fishing_StartMinigame(struct Task *task)
         task->func = Task_InitOWMinigame;
     }
     return FALSE;
-}
-
-u8 ResetPlayerAvatar(u8 gfxId)
-{
-    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-
-    ObjectEventSetGraphicsId(playerObjEvent, gfxId);
-    ObjectEventTurn(playerObjEvent, playerObjEvent->movementDirection);
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
-        SetSurfBlob_PlayerOffset(gObjectEvents[gPlayerAvatar.objectEventId].fieldEffectSpriteId, FALSE, 0);
-    gSprites[gPlayerAvatar.spriteId].x2 = 0;
-    gSprites[gPlayerAvatar.spriteId].y2 = 0;
 }
 
 u8 ResetPlayerAvatar(u8 gfxId)
