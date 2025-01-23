@@ -549,7 +549,7 @@ void Task_InitOWMinigame(u8 taskId)
     LoadMessageBoxAndFrameGfx(0, TRUE);
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
+    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
     CreateMinigameSprites(taskId, iconPalSlot);
 
@@ -623,7 +623,7 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
             if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
                 gSprites[spriteId].oam.priority--;
             gSprites[spriteId].sTaskId = taskId;
-            spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+            spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
         }
     }
     else
@@ -850,7 +850,7 @@ static void Task_QuitFishing(u8 taskId)
         if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         {
             gTasks[taskId].data[8] = TRUE; // Don't show any more text boxes.
-            gTasks[taskId].data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
+            gTasks[taskId].data[0] = 15; // Set Task_Fishing to run Fishing_GotAway.
             CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
             CopyBgTilemapBufferToVram(0);
             gTasks[taskId].tPaused = 3;
