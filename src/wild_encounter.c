@@ -51,7 +51,6 @@ enum {
 
 static u16 FeebasRandom(void);
 static void FeebasSeedRng(u16 seed);
-static void UpdateChainFishingStreak();
 static bool8 IsWildLevelAllowedByRepel(u8 level);
 static void ApplyFluteEncounterRateMod(u32 *encRate);
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
@@ -873,7 +872,7 @@ u32 CalculateChainFishingShinyRolls(void)
     return (2 * min(gChainFishingDexNavStreak, FISHING_CHAIN_SHINY_STREAK_MAX));
 }
 
-static void UpdateChainFishingStreak()
+void UpdateChainFishingStreak()
 {
     if (!I_FISHING_CHAIN)
         return;

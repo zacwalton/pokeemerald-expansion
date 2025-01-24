@@ -2,12 +2,13 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
-#define MINIGAME_ON_SEPARATE_SCREEN     FALSE    // Play the minigame on its own dedicated screen instead of in the overworld.
+#define MINIGAME_ON_SEPARATE_SCREEN     FALSE   // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
 #define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
 #define VAGUE_FISH_FOR_OBSCURED         FALSE   // If TRUE, uses a vague fish shape instead of a blacked out Pokemon icon when obscured.
 #define OBSCURE_ALL_FISH                FALSE   // If TRUE, the Pokemon icon will always be obscured.
+#define PERFECT_CHAIN_INCREASE          FALSE   // If TRUE, getting a "Perfect" in the minigame increases the chain fishing streak by an additional point.
 
 #define FISHING_BAR_WIDTH               40   // The width of the fishing bar in number of pixels. Cannot be below 33 or above 64.
 #define FISHING_BAR_MAX_SPEED           50   // The greater the number, the faster the bar is allowed to go.

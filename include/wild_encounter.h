@@ -43,5 +43,6 @@ bool8 UpdateRepelCounter(void);
 bool8 TryDoDoubleWildBattle(void);
 bool8 StandardWildEncounter_Debug(void);
 u32 CalculateChainFishingShinyRolls(void);
+void UpdateChainFishingStreak();
 
 #endif // GUARD_WILD_ENCOUNTER_H

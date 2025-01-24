@@ -30,6 +30,7 @@
 #include "trainer_pokemon_sprites.h"
 #include "tv.h"
 #include "util.h"
+#include "wild_encounter.h"
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
@@ -794,6 +795,8 @@ static void Task_ReeledInFish(u8 taskId)
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, OW_PERFECT_Y, 0);
             else
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 0);
+            if (PERFECT_CHAIN_INCREASE == TRUE)
+                UpdateChainFishingStreak();
             gSprites[spriteId].sTaskId = taskId;
         }
         else // If it wasn't a perfect catch.
