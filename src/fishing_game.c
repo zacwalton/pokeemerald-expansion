@@ -93,7 +93,7 @@ static const u16 sFishBehavior[][6] =
     [SPECIES_MAGIKARP] = {
         2,   // Speed
         0,   // Speed Variability
-        240, // Movement Delay
+        200, // Movement Delay
         60,  // Delay Variability
         10,  // Distance
         5    // Distance Variability
@@ -101,8 +101,8 @@ static const u16 sFishBehavior[][6] =
     [SPECIES_GOLDEEN] = {
         7,   // Speed
         3,   // Speed Variability
-        480, // Movement Delay
-        60,  // Delay Variability
+        180, // Movement Delay
+        10,  // Delay Variability
         70,  // Distance
         10   // Distance Variability
     },
