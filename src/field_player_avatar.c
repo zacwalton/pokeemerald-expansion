@@ -2080,7 +2080,6 @@ static bool32 Fishing_StartMinigame(struct Task *task)
         task->data[11] = 0;
         task->data[12] = 0;
         task->data[13] = 0;
-        task->data[15] = 0;
         task->func = Task_InitOWMinigame;
     }
     return FALSE;

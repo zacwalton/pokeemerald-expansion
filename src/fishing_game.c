@@ -45,6 +45,7 @@
 
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot);
+static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
 static void Task_FishingPauseUntilFadeIn(u8 taskId);
@@ -88,9 +89,10 @@ const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing
 const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
-static const u16 sFishBehavior[][7] =
+static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
 {
-    [SPECIES_MAGIKARP] = {
+    [FISH_OLD_ROD_DEFAULT] = {
+        0,   // Species constant
         2,   // Speed
         0,   // Speed Variability
         100, // Movement Delay
@@ -99,25 +101,18 @@ static const u16 sFishBehavior[][7] =
         5,   // Distance Variability
         6    // Idle Movement
     },
-    [SPECIES_GOLDEEN] = {
-        7,   // Speed
-        3,   // Speed Variability
-        180, // Movement Delay
-        10,  // Delay Variability
-        70,  // Distance
-        10,  // Distance Variability
-        4    // Idle Movement
-    },
-    [SPECIES_CORPHISH] = {
-        10,  // Speed
-        3,   // Speed Variability
-        50,  // Movement Delay
+    [FISH_GOOD_ROD_DEFAULT] = {
+        0,   // Species constant
+        4,   // Speed
+        1,   // Speed Variability
+        100, // Movement Delay
         20,  // Delay Variability
-        5,   // Distance
-        5,   // Distance Variability
-        8    // Idle Movement
+        30,  // Distance
+        25,  // Distance Variability
+        6    // Idle Movement
     },
-    [SPECIES_GYARADOS] = {
+    [FISH_SUPER_ROD_DEFAULT] = {
+        0,   // Species constant
         12,  // Speed
         4,   // Speed Variability
         25,  // Movement Delay
@@ -126,16 +121,48 @@ static const u16 sFishBehavior[][7] =
         30,  // Distance Variability
         12   // Idle Movement
     },
-    [SPECIES_TENTACOOL] = {
+    [FISH_SPECIES_TENTACOOL] = {
+        SPECIES_TENTACOOL, // Species constant
         4,   // Speed
         1,   // Speed Variability
-        100,   // Movement Delay
-        20,   // Delay Variability
+        100, // Movement Delay
+        20,  // Delay Variability
         30,  // Distance
         25,  // Distance Variability
         6    // Idle Movement
     },
-    [SPECIES_WAILMER] = {
+    [FISH_SPECIES_GOLDEEN] = {
+        SPECIES_GOLDEEN, // Species constant
+        7,   // Speed
+        3,   // Speed Variability
+        180, // Movement Delay
+        10,  // Delay Variability
+        70,  // Distance
+        10,  // Distance Variability
+        4    // Idle Movement
+    },
+    [FISH_SPECIES_MAGIKARP] = {
+        SPECIES_MAGIKARP, // Species constant
+        2,   // Speed
+        0,   // Speed Variability
+        100, // Movement Delay
+        60,  // Delay Variability
+        10,  // Distance
+        5,   // Distance Variability
+        6    // Idle Movement
+    },
+    [FISH_SPECIES_GYARADOS] = {
+        SPECIES_GYARADOS, // Species constant
+        12,  // Speed
+        4,   // Speed Variability
+        25,  // Movement Delay
+        10,  // Delay Variability
+        40,  // Distance
+        30,  // Distance Variability
+        12   // Idle Movement
+    },
+    [FISH_SPECIES_WAILMER] = {
+        SPECIES_WAILMER, // Species constant
         7,   // Speed
         1,   // Speed Variability
         5,   // Movement Delay
@@ -143,6 +170,16 @@ static const u16 sFishBehavior[][7] =
         80,  // Distance
         60,  // Distance Variability
         2    // Idle Movement
+    },
+    [FISH_SPECIES_CORPHISH] = {
+        SPECIES_CORPHISH, // Species constant
+        10,  // Speed
+        3,   // Speed Variability
+        50,  // Movement Delay
+        20,  // Delay Variability
+        5,   // Distance
+        5,   // Distance Variability
+        8    // Idle Movement
     }
 };
 
@@ -440,28 +477,28 @@ static void VblankCB_FishingGame(void)
 
 // Data for Tasks
 #define tFrameCounter       data[0]
-#define tFishIconSpriteId   data[2]
-#define tBarLeftSpriteId    data[3]
-#define tBarRightSpriteId   data[4]
-#define tScoreMeterSpriteId data[5]
-#define tQMarkSpriteId      data[6]
-#define tFishSpeedCounter   data[7]
-#define tInitialFishSpeed   data[8]
-#define tScore              data[9]
-#define tScoreDirection     data[10]
-#define tFishIsMoving       data[11]
-#define tVagueFish          data[12]
-#define tMonIconPalNum      data[13]
+#define tFishIconSpriteId   data[1]
+#define tBarLeftSpriteId    data[2]
+#define tScoreMeterSpriteId data[3]
+#define tQMarkSpriteId      data[4]
+#define tFishSpeedCounter   data[5]
+#define tInitialFishSpeed   data[6]
+#define tScore              data[7]
+#define tScoreDirection     data[8]
+#define tFishIsMoving       data[9]
+#define tVagueFish          data[10]
+#define tMonIconPalNum      data[11]
+#define tPaused             data[12]
 #define tPlayerGFXId        data[14]
-#define tPaused             data[15]
+#define tRodType            data[15]
 
 // Data for all sprites
 #define sTaskId             data[0]
 
 // Data for Fishing Bar sprite
-#define sBarPosition        data[2]
-#define sBarSpeed           data[3]
-#define sBarDirection       data[4]
+#define sBarPosition        data[1]
+#define sBarSpeed           data[2]
+#define sBarDirection       data[3]
 
 // Data for Mon Icon sprite
 #define sFishPosition       data[1]
@@ -578,6 +615,7 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     u8 y;
     u8 i;
     u8 sections = NUM_SCORE_SECTIONS;
+    u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
 
     gTasks[taskId].tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
     gTasks[taskId].tScore = STARTING_SCORE; // Set the starting score.
@@ -601,7 +639,6 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         gSprites[spriteId].oam.priority--;
     gSprites[spriteId].subpriority = 2;
-    gTasks[taskId].tBarRightSpriteId = spriteId;
 
     // Create mon icon sprite.
     if (MINIGAME_ON_SEPARATE_SCREEN == TRUE)
@@ -609,7 +646,7 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     else
         y = OW_FISH_ICON_Y;
     gTasks[taskId].tQMarkSpriteId = 200;
-    if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES)), FLAG_GET_SEEN))
+    if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
         || OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255)
     {
         if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
@@ -630,12 +667,12 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
             if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
                 gSprites[spriteId].oam.priority--;
             gSprites[spriteId].sTaskId = taskId;
-            spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
+            spriteId = CreateMonIcon(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
         }
     }
     else
     {
-        spriteId = CreateMonIcon(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
+        spriteId = CreateMonIcon(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
     }
     gSprites[spriteId].sTaskId = taskId;
@@ -645,7 +682,8 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     gSprites[spriteId].subpriority = 1;
     gSprites[spriteId].sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
     gSprites[spriteId].sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
-    gSprites[spriteId].sFishSpecies = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
+    gSprites[spriteId].sFishSpecies += gTasks[taskId].tRodType;
+    SetFishingSpeciesBehavior(spriteId, species);
     gTasks[taskId].tFishIconSpriteId = spriteId;
 
     // Create score meter sprite.
@@ -686,6 +724,20 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
         {
             spriteId = CreateSprite(&sSpriteTemplate_ScoreMeterBacking, ((SCORE_SECTION_WIDTH * i) - SCORE_BAR_OFFSET), y, 1);
             gSprites[spriteId].sTaskId = taskId;
+        }
+    }
+}
+
+static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
+{
+    u8 i;
+
+    for (i = NUM_DEFAULT_BEHAVIORS; i < FISH_SPECIES_COUNT; i++)
+    {
+        if (sFishBehavior[i][0] == species)
+        {
+            gSprites[spriteId].sFishSpecies = i;
+            return;
         }
     }
 }
