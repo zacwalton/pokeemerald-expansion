@@ -54,6 +54,7 @@
 #define FISH_ICON_START_X               36
 #define FISH_ICON_MIN_X                 26
 #define FISH_ICON_MAX_X                 ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) * POSITION_ADJUSTMENT)
+#define FISH_IDLE_NUDGE_CHANCE          60 // Percent chance per frame that the fish position value changes while idling.
 
 // Perfect Icon Constants
 #define PERFECT_SPRITE_WIDTH            32
@@ -74,7 +75,8 @@ enum {
     FISH_MOVE_DELAY,
     FISH_DELAY_VARIABILITY,
     FISH_DISTANCE,
-    FISH_DIST_VARIABILITY
+    FISH_DIST_VARIABILITY,
+    FISH_IDLE_MOVEMENT
 };
 
 enum {

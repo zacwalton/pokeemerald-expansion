@@ -88,15 +88,16 @@ const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing
 const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
-static const u16 sFishBehavior[][6] =
+static const u16 sFishBehavior[][7] =
 {
     [SPECIES_MAGIKARP] = {
         2,   // Speed
         0,   // Speed Variability
-        200, // Movement Delay
+        100, // Movement Delay
         60,  // Delay Variability
         10,  // Distance
-        5    // Distance Variability
+        5,   // Distance Variability
+        6    // Idle Movement
     },
     [SPECIES_GOLDEEN] = {
         7,   // Speed
@@ -104,7 +105,8 @@ static const u16 sFishBehavior[][6] =
         180, // Movement Delay
         10,  // Delay Variability
         70,  // Distance
-        10   // Distance Variability
+        10,  // Distance Variability
+        4    // Idle Movement
     },
     [SPECIES_CORPHISH] = {
         10,  // Speed
@@ -112,7 +114,8 @@ static const u16 sFishBehavior[][6] =
         50,  // Movement Delay
         20,  // Delay Variability
         5,   // Distance
-        5    // Distance Variability
+        5,   // Distance Variability
+        8    // Idle Movement
     },
     [SPECIES_GYARADOS] = {
         12,  // Speed
@@ -120,15 +123,17 @@ static const u16 sFishBehavior[][6] =
         25,  // Movement Delay
         10,  // Delay Variability
         40,  // Distance
-        30   // Distance Variability
+        30,  // Distance Variability
+        12   // Idle Movement
     },
     [SPECIES_TENTACOOL] = {
         4,   // Speed
         1,   // Speed Variability
-        5,   // Movement Delay
-        4,   // Delay Variability
+        100,   // Movement Delay
+        20,   // Delay Variability
         30,  // Distance
-        25   // Distance Variability
+        25,  // Distance Variability
+        6    // Idle Movement
     },
     [SPECIES_WAILMER] = {
         7,   // Speed
@@ -136,7 +141,8 @@ static const u16 sFishBehavior[][6] =
         5,   // Movement Delay
         10,  // Delay Variability
         80,  // Distance
-        60   // Distance Variability
+        60,  // Distance Variability
+        2    // Idle Movement
     }
 };
 
@@ -1226,18 +1232,18 @@ static void SetMonIconPosition(u8 taskId)
         }
 
         // Fish idle movement.
-        rand = (Random() % 20);
-        if (rand < 7) // Nudge to right.
+        rand = (Random() % 100);
+        if (rand < (FISH_IDLE_NUDGE_CHANCE / 2)) // Nudge to right.
         {
-            rand = (Random() % 4);
+            rand = (Random() % sBehavior[FISH_IDLE_MOVEMENT]);
             if ((fishIconData.sFishPosition + rand) > FISH_ICON_MAX_X)
                 fishIconData.sFishPosition = FISH_ICON_MAX_X;
             else
                 fishIconData.sFishPosition += rand;
         }
-        else if (rand < 14) // Nudge to left.
+        else if (rand < FISH_IDLE_NUDGE_CHANCE) // Nudge to left.
         {
-            rand = (Random() % 4);
+            rand = (Random() % sBehavior[FISH_IDLE_MOVEMENT]);
             if ((fishIconData.sFishPosition - rand) < FISH_ICON_MIN_X)
                 fishIconData.sFishPosition = FISH_ICON_MIN_X;
             else
