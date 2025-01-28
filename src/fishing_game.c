@@ -45,7 +45,7 @@
 #define TAG_SCORE_BACKING       0x1006
 
 static void LoadFishingSpritesheets(void);
-static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot);
+static void CreateMinigameSprites(u8 taskId);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -526,7 +526,6 @@ static void VblankCB_FishingGame(void)
 void CB2_InitFishingGame(void)
 {
     u8 taskId;
-    u8 iconPalSlot;
 
     SetVBlankCallback(NULL);
 
@@ -563,7 +562,6 @@ void CB2_InitFishingGame(void)
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
@@ -578,14 +576,13 @@ void CB2_InitFishingGame(void)
     
     taskId = CreateTask(Task_FishingGame, 0);
 
-    CreateMinigameSprites(taskId, iconPalSlot);
+    CreateMinigameSprites(taskId);
 }
 
 #define taskData    gTasks[taskId]
 
 void Task_InitOWMinigame(u8 taskId)
 {
-    u8 iconPalSlot;
     void *tilemapBuffer;
     
     tilemapBuffer = AllocZeroed(GetDecompressedDataSize(gFishingGameOWBG_Gfx));
@@ -597,9 +594,8 @@ void Task_InitOWMinigame(u8 taskId)
     LoadMessageBoxAndFrameGfx(0, TRUE);
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES), GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
-    CreateMinigameSprites(taskId, iconPalSlot);
+    CreateMinigameSprites(taskId);
 
     taskData.func = Task_FishingGame;
 }
@@ -615,13 +611,14 @@ static void LoadFishingSpritesheets(void)
 
 #define spriteData  gSprites[spriteId]
 
-static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
+static void CreateMinigameSprites(u8 taskId)
 {
     u8 spriteId;
     u8 y;
     u8 i;
     u8 sections = NUM_SCORE_SECTIONS;
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
+    u8 iconPalSlot = LoadMonIconPaletteGetIndex(species, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
     taskData.tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
     taskData.tScore = STARTING_SCORE; // Set the starting score.
@@ -671,8 +668,8 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     else
         y = OW_FISH_ICON_Y;
     taskData.tQMarkSpriteId = 200;
-    if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
-        || OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255)
+    if (OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255
+        || (OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN)))
     {
         if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
         {
