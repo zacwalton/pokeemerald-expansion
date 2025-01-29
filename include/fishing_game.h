@@ -25,6 +25,7 @@
 
 #define FISH_FIRST_MOVE_DELAY           0.8  // Number of seconds before the fish will make its first movement.
 #define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
+#define FISH_SPEED_MULTIPLIER           100  // Global fish speed multiplier. It is a percent, so 50 would be half speed and 200 would be double speed.
 
 
 // Fishing Bar Constants
