@@ -108,8 +108,8 @@ static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
         1,   // Speed Variability
         100, // Movement Delay
         20,  // Delay Variability
-        30,  // Distance
-        25,  // Distance Variability
+        35,  // Distance
+        20,  // Distance Variability
         6    // Idle Movement
     },
     [FISH_SUPER_ROD_DEFAULT] = {
@@ -128,8 +128,8 @@ static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
         1,   // Speed Variability
         100, // Movement Delay
         20,  // Delay Variability
-        30,  // Distance
-        25,  // Distance Variability
+        40,  // Distance
+        15,  // Distance Variability
         6    // Idle Movement
     },
     [FISH_SPECIES_GOLDEEN] = {
@@ -158,18 +158,18 @@ static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
         4,   // Speed Variability
         25,  // Movement Delay
         10,  // Delay Variability
-        40,  // Distance
-        30,  // Distance Variability
+        50,  // Distance
+        20,  // Distance Variability
         12   // Idle Movement
     },
     [FISH_SPECIES_WAILMER] = {
         SPECIES_WAILMER, // Species constant
         7,   // Speed
         1,   // Speed Variability
-        5,   // Movement Delay
-        10,  // Delay Variability
-        80,  // Distance
-        60,  // Distance Variability
+        15,  // Movement Delay
+        5,   // Delay Variability
+        100, // Distance
+        40,  // Distance Variability
         2    // Idle Movement
     },
     [FISH_SPECIES_CORPHISH] = {
@@ -178,8 +178,8 @@ static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
         3,   // Speed Variability
         50,  // Movement Delay
         20,  // Delay Variability
-        5,   // Distance
-        5,   // Distance Variability
+        7,   // Distance
+        3,   // Distance Variability
         8    // Idle Movement
     }
 };
@@ -756,7 +756,7 @@ static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
 
     for (i = NUM_DEFAULT_BEHAVIORS; i < FISH_SPECIES_COUNT; i++)
     {
-        if (sFishBehavior[i][0] == species)
+        if (sFishBehavior[i][FISH_SPECIES] == species)
         {
             spriteData.sFishSpecies = i;
             return;
@@ -1152,11 +1152,9 @@ static void SetFishingBarPosition(u8 taskId)
 #define sFishIconData            gSprites[taskData.tFishIconSpriteId]
 #define sBehavior               sFishBehavior[sFishIconData.sFishSpecies]
 #define s60PercentMovedRight    (sFishIconData.sFishDestination - ((sFishIconData.sFishDestInterval / 100) * 40))
-#define s70PercentMovedRight    (sFishIconData.sFishDestination - ((sFishIconData.sFishDestInterval / 100) * 30))
 #define s80PercentMovedRight    (sFishIconData.sFishDestination - ((sFishIconData.sFishDestInterval / 100) * 20))
 #define s90PercentMovedRight    (sFishIconData.sFishDestination - ((sFishIconData.sFishDestInterval / 100) * 10))
 #define s60PercentMovedLeft     (sFishIconData.sFishDestination + ((sFishIconData.sFishDestInterval / 100) * 40))
-#define s70PercentMovedLeft     (sFishIconData.sFishDestination + ((sFishIconData.sFishDestInterval / 100) * 30))
 #define s80PercentMovedLeft     (sFishIconData.sFishDestination + ((sFishIconData.sFishDestInterval / 100) * 20))
 #define s90PercentMovedLeft     (sFishIconData.sFishDestination + ((sFishIconData.sFishDestInterval / 100) * 10))
 
@@ -1172,20 +1170,20 @@ static void SetMonIconPosition(u8 taskId)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition >= s70PercentMovedRight && taskData.tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
+            else if (sFishIconData.sFishPosition >= s80PercentMovedRight && taskData.tFishSpeedCounter == 1) // If the mon has traveled at least 80% of the total movement distance.
             {
                 if (sFishIconData.sFishSpeed > 2)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition >= s80PercentMovedRight && taskData.tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
+            else if (sFishIconData.sFishPosition >= s90PercentMovedRight && taskData.tFishSpeedCounter == 2 && sFishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
             {
                 if (sFishIconData.sFishSpeed > 2)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition >= s90PercentMovedRight && taskData.tFishSpeedCounter == 3 && sFishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
-                sFishIconData.sFishSpeed *= 0.5; // Reduce the current fish speed by half.
+            if (sFishIconData.sFishSpeed < 1)
+                sFishIconData.sFishSpeed = 1;
 
             if ((sFishIconData.sFishPosition + sFishIconData.sFishSpeed) <= FISH_ICON_MAX_X) // If the fish position wouldn't exceed the right edge.
                 sFishIconData.sFishPosition += sFishIconData.sFishSpeed; // Move the fish to the right.
@@ -1203,20 +1201,20 @@ static void SetMonIconPosition(u8 taskId)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition <= s70PercentMovedLeft && taskData.tFishSpeedCounter == 1) // If the mon has traveled at least 70% of the total movement distance.
+            else if (sFishIconData.sFishPosition <= s80PercentMovedLeft && taskData.tFishSpeedCounter == 1) // If the mon has traveled at least 80% of the total movement distance.
             {
                 if (sFishIconData.sFishSpeed > 2)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition <= s80PercentMovedLeft && taskData.tFishSpeedCounter == 2) // If the mon has traveled at least 80% of the total movement distance.
+            else if (sFishIconData.sFishPosition <= s90PercentMovedLeft && taskData.tFishSpeedCounter == 2 && sFishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
             {
                 if (sFishIconData.sFishSpeed > 2)
                     sFishIconData.sFishSpeed -= (taskData.tInitialFishSpeed / 4); // Reduce the speed by a quarter of the initial speed value.
                 taskData.tFishSpeedCounter++;
             }
-            else if (sFishIconData.sFishPosition <= s90PercentMovedLeft && taskData.tFishSpeedCounter == 3 && sFishIconData.sFishSpeed > 2) // If the mon has traveled at least 90% of the total movement distance.
-                sFishIconData.sFishSpeed *= 0.5; // Reduce the current fish speed by half.
+            if (sFishIconData.sFishSpeed < 1)
+                sFishIconData.sFishSpeed = 1;
 
             if ((sFishIconData.sFishPosition - sFishIconData.sFishSpeed) >= FISH_ICON_MIN_X) // If the fish position wouldn't exceed the left edge.
                 sFishIconData.sFishPosition -= sFishIconData.sFishSpeed; // Move the fish to the left.
@@ -1244,7 +1242,7 @@ static void SetMonIconPosition(u8 taskId)
 
             // Set fish movement speed.
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_SPEED_VARIABILITY]);
+            variablility = (Random() % (sBehavior[FISH_SPEED_VARIABILITY] + 1));
             sFishIconData.sFishSpeed = sBehavior[FISH_SPEED];
             if (rand < 10)
                 sFishIconData.sFishSpeed -= variablility;
@@ -1257,18 +1255,14 @@ static void SetMonIconPosition(u8 taskId)
 
             // Set time until next movement.
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_DELAY_VARIABILITY]);
+            variablility = (Random() % (sBehavior[FISH_DELAY_VARIABILITY] + 1));
             sFishIconData.sTimeToNextMove = sBehavior[FISH_MOVE_DELAY];
-            for (i = 0; i < variablility; i++)
-            {
-                if (rand < 10)
-                    sFishIconData.sTimeToNextMove--;
-                else
-                    sFishIconData.sTimeToNextMove++;
-
-                if (sFishIconData.sTimeToNextMove < 1)
-                    sFishIconData.sTimeToNextMove = 1;
-            }
+            if (rand < 10)
+                sFishIconData.sTimeToNextMove -= variablility;
+            else
+                sFishIconData.sTimeToNextMove += variablility;
+            if (sFishIconData.sTimeToNextMove < 1)
+                sFishIconData.sTimeToNextMove = 1;
 
             // Set movement direction.
             leftProbability = (sFishIconData.sFishPosition / (FISH_ICON_MAX_X / 100));
@@ -1281,11 +1275,13 @@ static void SetMonIconPosition(u8 taskId)
             // Set fish destination and interval.
             distance = sBehavior[FISH_DISTANCE];
             rand = (Random() % 20);
-            variablility = (Random() % sBehavior[FISH_DIST_VARIABILITY]);
-            for (i = 0; i < variablility; i++)
-            {
-                distance++;
-            }
+            variablility = (Random() % (sBehavior[FISH_DIST_VARIABILITY] + 1));
+            if (rand < 10)
+                distance -= variablility;
+            else
+                distance += variablility;
+            if (distance < 1)
+                distance = 1;
             distance *= POSITION_ADJUSTMENT;
             if (sFishIconData.sFishDirection == FISH_DIR_LEFT)
             {
