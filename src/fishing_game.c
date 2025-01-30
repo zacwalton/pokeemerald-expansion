@@ -41,7 +41,7 @@
 #define TAG_SCORE_METER         0x1002
 #define TAG_PERFECT             0x1003
 #define TAG_QUESTION_MARK       0x1004
-#define TAG_UNKNOWN_FISH        0x1005
+#define TAG_VAGUE_FISH          0x1005
 #define TAG_SCORE_BACKING       0x1006
 
 static void LoadFishingSpritesheets(void);
@@ -372,8 +372,8 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
     },
     [VAGUE_FISH] = {
         .data = gVagueFish_Gfx,
-        .size = 512,
-        .tag = TAG_UNKNOWN_FISH
+        .size = 1024,
+        .tag = TAG_VAGUE_FISH
     },
     [SCORE_METER_BACKING] = {
         .data = gScoreMeterOWBehind_Gfx,
@@ -389,6 +389,18 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
         .tag = TAG_FISHING_BAR
     },
     {NULL},
+};
+
+static const union AnimCmd sAnim_VagueFish[] =
+{
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(16, 10),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd * const sAnims_VagueFish[] =
+{
+    sAnim_VagueFish,
 };
 
 static const struct SpriteTemplate sSpriteTemplate_FishingBar =
@@ -448,10 +460,10 @@ static const struct SpriteTemplate sSpriteTemplate_QuestionMark =
 
 static const struct SpriteTemplate sSpriteTemplate_VagueFish =
 {
-    .tileTag = TAG_UNKNOWN_FISH,
+    .tileTag = TAG_VAGUE_FISH,
     .paletteTag = TAG_FISHING_BAR,
     .oam = &sOam_UnknownFish,
-    .anims = gDummySpriteAnimTable,
+    .anims = sAnims_VagueFish,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_FishingMonIcon
@@ -1364,18 +1376,33 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == 3)
     {
-        FreeAndDestroyMonIconSprite(sprite);
-        return;
+        if (gTasks[sprite->sTaskId].tVagueFish)
+        {
+            DestroySpriteAndFreeResources(sprite);
+            return;
+        }
+        else
+        {
+            FreeAndDestroyMonIconSprite(sprite);
+            return;
+        }
     }
     else if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
     {
         if (gTasks[sprite->sTaskId].tVagueFish == FALSE)
             UpdateMonIconFrame(sprite); // Animate the mon icon.
+        else if (sprite->animPaused)
+            sprite->animPaused = FALSE;
 
         sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X); // Set the fish sprite location.
         
         if (gTasks[sprite->sTaskId].tQMarkSpriteId != 200) // If the Question Mark sprite exists.
             gSprites[gTasks[sprite->sTaskId].tQMarkSpriteId].x = sprite->x; // Move the Question Mark with the fish sprite. This occurs in the fish sprite CB to prevent desync between the sprites.
+    }
+    else if (gTasks[sprite->sTaskId].tVagueFish == TRUE && gTasks[sprite->sTaskId].tPaused == TRUE)
+    {
+        if (!sprite->animPaused)
+            sprite->animPaused = TRUE;
     }
 }
 
