@@ -381,6 +381,13 @@
       "elevation": 0,
       "dest_map": "MAP_ROUTE117_POKEMON_DAY_CARE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 26,
+      "y": 1,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [

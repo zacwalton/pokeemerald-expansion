@@ -17,13 +17,34 @@
       "map": "MAP_RUGGED_SEA_SLATEPORT",
       "offset": -16,
       "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE110",
+      "offset": -90,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_SLATEPORT_CITY",
+      "offset": 20,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_OLD_POWER_PLANT_UNDERWATER",
+      "offset": 0,
+      "direction": "dive"
     }
   ],
   "object_events": [
 
   ],
   "warp_events": [
-
+    {
+      "x": 20,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_OLD_POWER_PLANT",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
 

@@ -220,20 +220,6 @@
   ],
   "warp_events": [
     {
-      "x": 20,
-      "y": 0,
-      "elevation": 0,
-      "dest_map": "MAP_ROUTE112_CABLE_CAR_STATION",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 21,
-      "y": 0,
-      "elevation": 0,
-      "dest_map": "MAP_ROUTE112_CABLE_CAR_STATION",
-      "dest_warp_id": "1"
-    },
-    {
       "x": 6,
       "y": 9,
       "elevation": 3,
@@ -245,20 +231,6 @@
       "y": 9,
       "elevation": 3,
       "dest_map": "MAP_JAGGED_PASS",
-      "dest_warp_id": "1"
-    },
-    {
-      "x": 39,
-      "y": 1,
-      "elevation": 0,
-      "dest_map": "MAP_FIERY_PATH",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 23,
-      "y": 5,
-      "elevation": 0,
-      "dest_map": "MAP_FIERY_PATH",
       "dest_warp_id": "1"
     }
   ],

@@ -2,10 +2,10 @@
   "id": "MAP_VALLEY_OF_STEEL_EAST",
   "name": "ValleyOfSteel_East",
   "layout": "LAYOUT_VALLEY_OF_STEEL_EAST",
-  "music": "MUS_VERDANTURF",
+  "music": "MUS_RG_SEVII_DUNGEON",
   "region_map_section": "MAPSEC_ROUTE_116",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
+  "weather": "WEATHER_SHADE",
   "map_type": "MAP_TYPE_ROUTE",
   "allow_cycling": true,
   "allow_escaping": false,
@@ -15,12 +15,12 @@
   "connections": [
     {
       "map": "MAP_ROUTE116_WEST",
-      "offset": 0,
+      "offset": 6,
       "direction": "down"
     },
     {
       "map": "MAP_FORINA",
-      "offset": -24,
+      "offset": -30,
       "direction": "left"
     },
     {
@@ -38,7 +38,55 @@
 
   ],
   "warp_events": [
-
+    {
+      "x": 13,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 21,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 20,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 23,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 26,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 40,
+      "y": 25,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "6"
+    },
+    {
+      "x": 40,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_VALLEY_OF_STEEL_EAST",
+      "dest_warp_id": "5"
+    }
   ],
   "coord_events": [
 

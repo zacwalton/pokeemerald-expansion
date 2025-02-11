@@ -1266,3 +1266,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/RustboroCity_Flat4_2F/scripts.inc"
 
 	.include "data/maps/RustboroCity_Museum_1F/scripts.inc"
+
+	.include "data/maps/OldPowerPlant_Underwater/scripts.inc"
+
+	.include "data/maps/RuggedSea_Slateport_Underwater/scripts.inc"

@@ -2,10 +2,10 @@
   "id": "MAP_VALLEY_OF_STEEL",
   "name": "ValleyOfSteel",
   "layout": "LAYOUT_VALLEY_OF_STEEL",
-  "music": "MUS_DUMMY",
+  "music": "MUS_RG_SEVII_DUNGEON",
   "region_map_section": "MAPSEC_ABANDONED_SHIP",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
+  "weather": "WEATHER_SHADE",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",
   "allow_cycling": true,
   "allow_escaping": false,
@@ -32,13 +32,24 @@
       "map": "MAP_ROUTE111_SOUTH",
       "offset": 12,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE116_WEST",
+      "offset": 34,
+      "direction": "left"
     }
   ],
   "object_events": [
 
   ],
   "warp_events": [
-
+    {
+      "x": 27,
+      "y": 37,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE117",
+      "dest_warp_id": "1"
+    }
   ],
   "coord_events": [
 

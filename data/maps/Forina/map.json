@@ -30,7 +30,7 @@
     },
     {
       "map": "MAP_METEOR_FALLS_EXTERIOR",
-      "offset": 46,
+      "offset": 36,
       "direction": "up"
     },
     {
@@ -40,7 +40,7 @@
     },
     {
       "map": "MAP_VALLEY_OF_STEEL_EAST",
-      "offset": 24,
+      "offset": 30,
       "direction": "right"
     }
   ],

@@ -475,7 +475,7 @@
       "id": "LAYOUT_ROUTE128",
       "name": "Route128_Layout",
       "width": 120,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Mossdeep_Summer",
       "border_filepath": "data/layouts/Route128/border.bin",
@@ -4477,7 +4477,7 @@
       "width": 56,
       "height": 65,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Dewford_Summer",
+      "secondary_tileset": "gTileset_Littleroot_Summer",
       "border_filepath": "data/layouts/RuggedSea_Slateport/border.bin",
       "blockdata_filepath": "data/layouts/RuggedSea_Slateport/map.bin"
     },
@@ -4537,7 +4537,7 @@
       "width": 40,
       "height": 30,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Slateport_Summer",
+      "secondary_tileset": "gTileset_Littleroot_Summer",
       "border_filepath": "data/layouts/OldPowerPlant/border.bin",
       "blockdata_filepath": "data/layouts/OldPowerPlant/map.bin"
     },
@@ -4597,7 +4597,7 @@
       "width": 60,
       "height": 54,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "secondary_tileset": "gTileset_Forina_Summer",
       "border_filepath": "data/layouts/ValleyOfSteel/border.bin",
       "blockdata_filepath": "data/layouts/ValleyOfSteel/map.bin"
     },
@@ -4647,7 +4647,7 @@
       "width": 40,
       "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Forina_Summer",
+      "secondary_tileset": "gTileset_Fallarbor_Summer",
       "border_filepath": "data/layouts/MeteorFallsExterior/border.bin",
       "blockdata_filepath": "data/layouts/MeteorFallsExterior/map.bin"
     },
@@ -4835,7 +4835,7 @@
       "id": "LAYOUT_RUGGED_SEA_ROUTE131",
       "name": "RuggedSea_Route131_Layout",
       "width": 40,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/RuggedSea_Route131/border.bin",
@@ -4855,7 +4855,7 @@
       "id": "LAYOUT_DONTO_ISLAND",
       "name": "DontoIsland_Layout",
       "width": 40,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/DontoIsland/border.bin",
@@ -4865,7 +4865,7 @@
       "id": "LAYOUT_RUGGED_SEA_ROUTE130",
       "name": "RuggedSea_Route130_Layout",
       "width": 89,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/RuggedSea_Route130/border.bin",
@@ -4917,7 +4917,7 @@
       "width": 40,
       "height": 30,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Verdanturf_Summer",
+      "secondary_tileset": "gTileset_Forina_Summer",
       "border_filepath": "data/layouts/Route116_West/border.bin",
       "blockdata_filepath": "data/layouts/Route116_West/map.bin"
     },
@@ -4927,7 +4927,7 @@
       "width": 46,
       "height": 34,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "secondary_tileset": "gTileset_Forina_Summer",
       "border_filepath": "data/layouts/ValleyOfSteel_East/border.bin",
       "blockdata_filepath": "data/layouts/ValleyOfSteel_East/map.bin"
     },
@@ -5020,6 +5020,26 @@
       "secondary_tileset": "gTileset_RustboroCity_Museum",
       "border_filepath": "data/layouts/RustboroCity_Museum_1F/border.bin",
       "blockdata_filepath": "data/layouts/RustboroCity_Museum_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_OLD_POWER_PLANT_UNDERWATER",
+      "name": "OldPowerPlant_Underwater_Layout",
+      "width": 40,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Underwater",
+      "border_filepath": "data/layouts/OldPowerPlant_Underwater/border.bin",
+      "blockdata_filepath": "data/layouts/OldPowerPlant_Underwater/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUGGED_SEA_SLATEPORT_UNDERWATER",
+      "name": "RuggedSea_Slateport_Underwater_Layout",
+      "width": 56,
+      "height": 65,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Underwater",
+      "border_filepath": "data/layouts/RuggedSea_Slateport_Underwater/border.bin",
+      "blockdata_filepath": "data/layouts/RuggedSea_Slateport_Underwater/map.bin"
     }
   ]
 }

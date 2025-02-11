@@ -25,8 +25,13 @@
     },
     {
       "map": "MAP_VALLEY_OF_STEEL_EAST",
-      "offset": 0,
+      "offset": -6,
       "direction": "up"
+    },
+    {
+      "map": "MAP_VALLEY_OF_STEEL",
+      "offset": -34,
+      "direction": "right"
     }
   ],
   "object_events": [

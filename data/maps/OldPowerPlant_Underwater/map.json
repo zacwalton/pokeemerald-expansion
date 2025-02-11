@@ -1,0 +1,39 @@
+{
+  "id": "MAP_OLD_POWER_PLANT_UNDERWATER",
+  "name": "OldPowerPlant_Underwater",
+  "layout": "LAYOUT_OLD_POWER_PLANT_UNDERWATER",
+  "music": "MUS_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERWATER",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": false,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_OLD_POWER_PLANT",
+      "offset": 0,
+      "direction": "emerge"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_SLATEPORT_UNDERWATER",
+      "offset": -17,
+      "direction": "down"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

@@ -112,14 +112,14 @@
       "y": 40,
       "elevation": 3,
       "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "2"
+      "dest_warp_id": "0"
     },
     {
       "x": 15,
       "y": 40,
       "elevation": 3,
       "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "3"
+      "dest_warp_id": "1"
     },
     {
       "x": 13,

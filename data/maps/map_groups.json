@@ -486,7 +486,9 @@
     "TerraCave_End",
     "AlteringCave",
     "MeteorFalls_StevensCave",
-    "PetalburgWoods_Entrance"
+    "PetalburgWoods_Entrance",
+    "OldPowerPlant_Underwater",
+    "RuggedSea_Slateport_Underwater"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

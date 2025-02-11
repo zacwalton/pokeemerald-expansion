@@ -433,3 +433,10 @@ MossdeepCity_Text_SootopolisNewGymLeader:
 	.string "People tell me the new LEADER once\n"
 	.string "mentored WALLACE.$"
 
+MossdeepCity_EventScript_BattleTentSign::
+	msgbox MossdeepCity_Text_BattleTentSign, MSGBOX_SIGN
+	end
+	
+MossdeepCity_Text_BattleTentSign:
+	.string "BATTLE TENT MOSSDEEP SITE\n"
+	.string "“Feast Your Eyes on Battles!”$"

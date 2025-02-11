@@ -37,6 +37,11 @@
       "map": "MAP_SLATEPORT_CITY",
       "offset": -10,
       "direction": "right"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_SLATEPORT_UNDERWATER",
+      "offset": 0,
+      "direction": "dive"
     }
   ],
   "object_events": [
