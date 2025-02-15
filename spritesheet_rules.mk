@@ -5106,6 +5106,9 @@ $(OBJEVENTGFXDIR)/pokemon/surfable/0381_latios.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/surfable/0382_kyogre.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 8 -mheight 8
 
+$(OBJEVENTGFXDIR)/pokemon/surfable/0382_kyogre_primal.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 8 -mheight 8
+
 $(OBJEVENTGFXDIR)/pokemon/surfable/0384_rayquaza.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 8 -mheight 8
 
@@ -5502,5 +5505,3 @@ $(OBJEVENTGFXDIR)/pokemon/surfable/basculegion.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/surfable/overqwil.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
-$(OBJEVENTGFXDIR)/pokemon/surfable/0382_kyogre_primal.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 8 -mheight 8

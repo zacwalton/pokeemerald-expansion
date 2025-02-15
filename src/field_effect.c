@@ -3055,6 +3055,7 @@ static void Task_SurfFieldEffect(u8 taskId)
 
 static void SurfFieldEffect_Init(struct Task *task)
 {
+	VarSet(VAR_FREEZESURFBLOB, 1);
     LockPlayerFieldControls();
     FreezeObjectEvents();
     // Put follower into pokeball before using Surf
@@ -3121,6 +3122,7 @@ static void SurfFieldEffect_End(struct Task *task)
         SetSurfBlob_BobState(objectEvent->fieldEffectSpriteId, BOB_PLAYER_AND_MON);
         UnfreezeObjectEvents();
         UnlockPlayerFieldControls();
+		VarSet(VAR_FREEZESURFBLOB, 0);
         FieldEffectActiveListRemove(FLDEFF_USE_SURF);
         FieldEffectActiveListRemove(FLDEFF_USE_WHIRLPOOL);
         FieldEffectActiveListRemove(FLDEFF_USE_LAVA);
