@@ -1270,3 +1270,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/OldPowerPlant_Underwater/scripts.inc"
 
 	.include "data/maps/RuggedSea_Slateport_Underwater/scripts.inc"
+
+	.include "data/maps/FallarborTown_RangerDepot/scripts.inc"

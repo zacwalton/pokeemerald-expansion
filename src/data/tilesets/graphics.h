@@ -2033,3 +2033,22 @@ const u16 gTilesetPalettes_RustboroCity_Museum[][16] =
 };
 
 const u32 gTilesetTiles_RustboroCity_Museum[] = INCBIN_U32("data/tilesets/secondary/rustboro_city_museum/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_RangerDepot[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ranger_depot/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_RangerDepot[] = INCBIN_U32("data/tilesets/secondary/ranger_depot/tiles.4bpp.lz");

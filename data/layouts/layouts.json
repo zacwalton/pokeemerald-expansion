@@ -5040,6 +5040,16 @@
       "secondary_tileset": "gTileset_Underwater",
       "border_filepath": "data/layouts/RuggedSea_Slateport_Underwater/border.bin",
       "blockdata_filepath": "data/layouts/RuggedSea_Slateport_Underwater/map.bin"
+    },
+    {
+      "id": "LAYOUT_FALLARBOR_TOWN_RANGER_DEPOT",
+      "name": "FallarborTown_RangerDepot_Layout",
+      "width": 15,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_RangerDepot",
+      "border_filepath": "data/layouts/FallarborTown_RangerDepot/border.bin",
+      "blockdata_filepath": "data/layouts/FallarborTown_RangerDepot/map.bin"
     }
   ]
 }
