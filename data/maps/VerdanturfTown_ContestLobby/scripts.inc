@@ -1,0 +1,164 @@
+@ Note: data/scripts/berry_blender.inc is for the same map, so shares local IDs
+.set LOCALID_RECEPTIONIST, 1
+
+VerdanturfTown_ContestLobby_MapScripts::
+	.byte 0
+
+
+@ EventScript_SpeakToContestReceptionist either ends or returns after a contest entry is submitted
+VerdanturfTown_ContestLobby_EventScript_ContestReceptionist::
+	special ClearLinkContestFlags
+	specialvar VAR_RESULT, IsContestDebugActive  @ Always FALSE
+	goto_if_eq VAR_RESULT, TRUE, VerdanturfTown_ContestLobby_EventScript_SetDebug
+	call VerdanturfTown_ContestLobby_EventScript_SpeakToContestReceptionist
+	call VerdanturfTown_ContestLobby_EventScript_LeadToContestHall
+	special SetContestTrainerGfxIds
+	call LilycoveCity_ContestLobby_EventScript_SetPlayerGfx
+	call VerdanturfTown_ContestLobby_EventScript_SetNormalContestType
+	call VerdanturfTown_ContestLobby_EventScript_WarpToContestHall
+	waitstate
+	end
+
+VerdanturfTown_ContestLobby_EventScript_SetNormalContestType::
+	setvar VAR_CONTEST_TYPE, CONTEST_TYPE_NPC_NORMAL
+	return
+
+VerdanturfTown_ContestLobby_EventScript_SpeakToContestReceptionist::
+	lock
+	faceplayer
+	goto_if_ne VAR_CONTEST_PRIZE_PICKUP, 0, LilycoveCity_ContestLobby_EventScript_PickUpPrize
+	call_if_set FLAG_RECEIVED_POKEBLOCK_CASE, LilycoveCity_ContestLobby_EventScript_ReceptionWelcome
+	call_if_unset FLAG_RECEIVED_POKEBLOCK_CASE, LilycoveCity_ContestLobby_EventScript_GivePokeblockCase
+	goto VerdanturfTown_ContestLobby_EventScript_AskEnterContest
+	end
+	
+VerdanturfTown_ContestLobby_EventScript_AskEnterContest::
+	message LilycoveCity_ContestLobby_Text_EnterContest1
+	waitmessage
+	multichoice 0, 0, MULTI_ENTERINFO, FALSE
+	switch VAR_RESULT
+	case 0, LilycoveCity_ContestLobby_EventScript_EnterNormalRank
+	case 1, LilycoveCity_ContestLobby_EventScript_ContestInfo
+	case 2, LilycoveCity_ContestLobby_EventScript_CancelEnterContest
+	case MULTI_B_PRESSED, LilycoveCity_ContestLobby_EventScript_CancelEnterContest
+	end
+
+@ Functionally unused
+VerdanturfTown_ContestLobby_EventScript_SetDebug::
+	setflag FLAG_HIDE_LILYCOVE_MUSEUM_CURATOR
+	copyvar VAR_LILYCOVE_MUSEUM_2F_STATE, 1
+	additem ITEM_CONTEST_PASS
+	setvar VAR_0x800B, 8
+	setvar VAR_CONTEST_RANK, CONTEST_RANK_MASTER
+	setvar VAR_LILYCOVE_CONTEST_LOBBY_STATE, 1
+	setflag FLAG_SYS_RIBBON_GET
+	end
+
+VerdanturfTown_ContestLobby_EventScript_WarpToContestHall::
+	setflag FLAG_ENTERED_CONTEST
+	switch VAR_CONTEST_CATEGORY
+	case CONTEST_CATEGORY_COOL, VerdanturfTown_ContestLobby_EventScript_WarpToCoolContestHall
+	case CONTEST_CATEGORY_BEAUTY, VerdanturfTown_ContestLobby_EventScript_WarpToBeautyContestHall
+	case CONTEST_CATEGORY_CUTE, VerdanturfTown_ContestLobby_EventScript_WarpToCuteContestHall
+	case CONTEST_CATEGORY_SMART, VerdanturfTown_ContestLobby_EventScript_WarpToSmartContestHall
+	case CONTEST_CATEGORY_TOUGH, VerdanturfTown_ContestLobby_EventScript_WarpToToughContestHall
+	return
+
+VerdanturfTown_ContestLobby_EventScript_WarpToCoolContestHall::
+	setwarp MAP_CONTEST_HALL_COOL, 7, 5
+	special DoContestHallWarp
+	waitstate
+	return
+
+VerdanturfTown_ContestLobby_EventScript_WarpToBeautyContestHall::
+	setwarp MAP_CONTEST_HALL_BEAUTY, 7, 5
+	special DoContestHallWarp
+	waitstate
+	return
+
+VerdanturfTown_ContestLobby_EventScript_WarpToCuteContestHall::
+	setwarp MAP_CONTEST_HALL_CUTE, 7, 5
+	special DoContestHallWarp
+	waitstate
+	return
+
+VerdanturfTown_ContestLobby_EventScript_WarpToSmartContestHall::
+	setwarp MAP_CONTEST_HALL_SMART, 7, 5
+	special DoContestHallWarp
+	waitstate
+	return
+
+VerdanturfTown_ContestLobby_EventScript_WarpToToughContestHall::
+	setwarp MAP_CONTEST_HALL_TOUGH, 7, 5
+	special DoContestHallWarp
+	waitstate
+	return
+
+VerdanturfTown_ContestLobby_EventScript_LeadToContestHall::
+	lockall
+	applymovement LOCALID_RECEPTIONIST, VerdanturfTown_ContestLobby_Movement_ReceptionistApproachCounter
+	waitmovement 0
+	playse SE_BRIDGE_WALK
+	setmetatile 4, 2, METATILE_Contest_WallShadow, TRUE
+	setmetatile 4, 3, METATILE_Contest_FloorShadow, TRUE
+	special DrawWholeMapView
+	applymovement LOCALID_RECEPTIONIST, VerdanturfTown_ContestLobby_Movement_ReceptionistExitCounter
+	waitmovement 0
+	playse SE_BRIDGE_WALK
+	setmetatile 4, 2, METATILE_Contest_CounterFlap_Top, TRUE
+	setmetatile 4, 3, METATILE_Contest_CounterFlap_Bottom, TRUE
+	special DrawWholeMapView
+	delay 20
+	applymovement LOCALID_RECEPTIONIST, VerdanturfTown_ContestLobby_Movement_ReceptionistFacePlayer
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, VerdanturfTown_ContestLobby_Movement_PlayerApproachReceptionist
+	waitmovement 0
+	msgbox LilycoveCity_ContestLobby_Text_ComeThroughHere, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_RECEPTIONIST, VerdanturfTown_ContestLobby_Movement_ReceptionistWalkToContestHall
+	applymovement OBJ_EVENT_ID_PLAYER, VerdanturfTown_ContestLobby_Movement_PlayerWalkToContestHall
+	waitmovement 0
+	releaseall
+	return
+
+VerdanturfTown_ContestLobby_Movement_PlayerWalkToContestHall:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	delay_8
+	set_invisible
+	step_end
+
+VerdanturfTown_ContestLobby_Movement_PlayerApproachReceptionist:
+	walk_in_place_faster_left
+	step_end
+
+VerdanturfTown_ContestLobby_Movement_ReceptionistApproachCounter:
+	walk_left
+	walk_in_place_faster_down
+	step_end
+
+VerdanturfTown_ContestLobby_Movement_ReceptionistExitCounter:
+	walk_down
+	walk_down
+	walk_in_place_faster_up
+	step_end
+
+VerdanturfTown_ContestLobby_Movement_ReceptionistWalkToContestHall:
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	delay_8
+	set_invisible
+	step_end
+
+VerdanturfTown_ContestLobby_Movement_ReceptionistFacePlayer:
+	walk_in_place_faster_right
+	step_end

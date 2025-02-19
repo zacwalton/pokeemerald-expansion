@@ -125,6 +125,13 @@
       "elevation": 0,
       "dest_map": "MAP_FALLARBOR_TOWN_RANGER_DEPOT",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_FALLARBOR_TOWN_CONTEST_LOBBY",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [

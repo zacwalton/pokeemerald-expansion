@@ -1272,3 +1272,15 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/RuggedSea_Slateport_Underwater/scripts.inc"
 
 	.include "data/maps/FallarborTown_RangerDepot/scripts.inc"
+
+	.include "data/maps/FallarborTown_ContestLobby/scripts.inc"
+
+	.include "data/maps/FallarborTown_ContestHall/scripts.inc"
+
+	.include "data/maps/VerdanturfTown_ContestLobby/scripts.inc"
+
+	.include "data/maps/VerdanturfTown_ContestHall/scripts.inc"
+
+	.include "data/maps/SlateportCity_ContestLobby/scripts.inc"
+
+	.include "data/maps/SlateportCity_ContestHall/scripts.inc"
