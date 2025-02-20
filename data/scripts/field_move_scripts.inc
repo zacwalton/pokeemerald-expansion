@@ -736,7 +736,8 @@ Text_ActivateDefog::
 	
 EventScript_UseLava::
 	checkmovefieldeffectflag 0x1000
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_EndUseLavaSurf
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_CantLavaSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8005
 	setfieldeffectargument 0, VAR_RESULT
@@ -774,7 +775,8 @@ Text_PlayerUsedLavaSurf:
 	
 EventScript_UseSludge::
 	checkmovefieldeffectflag  0x200000
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_EndUseSludgeSurf
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_CantSludgeSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8005
 	setfieldeffectargument 0, VAR_RESULT
@@ -801,10 +803,10 @@ EventScript_CancelSludgeSurf::
 Text_CantSludgeSurf:
 	.string "The water is foul and contaminated.\n$"
 	
-Text_WantToUseLavaSurf:
+Text_WantToUseSludgeSurf:
     .string "The water is foul and contaminated.\n"
     .string "Would you like to Surf it?$"
 
-Text_PlayerUsedLavaSurf:
+Text_PlayerUsedSludgeSurf:
     .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	

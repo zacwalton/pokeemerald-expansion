@@ -1495,12 +1495,6 @@ static void FieldCallback_Lava(void)
     FieldEffectStart(FLDEFF_USE_LAVA);
 }
 
-static void FieldCallback_Defog(void)
-{
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
-    ScriptContext_SetupScript(EventScript_UseDefog);
-}
-
 // Sludge Wave
 static void FieldMove_Sludge(void)
 {

@@ -561,14 +561,14 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 
 static const u8 *GetInteractedLavaScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (PartyHasMonWithLavaSurf() == TRUE && IsPlayerFacingLava() == TRUE)
+    if (IsPlayerFacingLava() == TRUE)
         return EventScript_UseLava;
     return NULL;
 }
 
 static const u8 *GetInteractedSludgeScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (PartyHasMonWithSludgeSurf() == TRUE && IsPlayerFacingSludge() == TRUE)
+    if (IsPlayerFacingSludge() == TRUE)
         return EventScript_UseSludge;
     return NULL;
 }
