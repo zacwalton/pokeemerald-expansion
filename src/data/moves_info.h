@@ -420,6 +420,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_VICE_GRIP},
         .battleAnimScript = gBattleAnimMove_Guillotine,
+		.fieldMoveFlags = IS_FIELD_MOVE_CUT,
     },
 
     [MOVE_RAZOR_WIND] =
@@ -12139,6 +12140,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SludgeWave,
+		.fieldMoveFlags = IS_FIELD_MOVE_SLUDGE,
     },
 
     [MOVE_QUIVER_DANCE] =

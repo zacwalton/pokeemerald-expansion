@@ -63,6 +63,9 @@ bool8 SetUpFieldMove_Defog(void);
 // Lava Plume
 bool8 FldEff_UseLava(void);
 bool8 SetUpFieldMove_Lava(void);
+// Sludge Wave
+bool8 FldEff_UseSludge(void);
+bool8 SetUpFieldMove_Sludge(void);
 
 
 #endif // GUARD_FLDEFF_H

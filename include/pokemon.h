@@ -587,6 +587,7 @@ enum FieldMoveType
 	IS_FIELD_MOVE_ESCAPE	= 1 << 18,		// 0x40000 		Dig - escape from caves effect - currently unused
 	IS_FIELD_MOVE_LURE		= 1 << 19,		// 0x80000 		Sweet Scent effect - currently unused
 	IS_FIELD_MOVE_SECRET	= 1 << 20		// 0x100000		Secret Power
+	IS_FIELD_MOVE_SLUDGE	= 1 << 21		// 0x200000		Sludge Wave - Surf Toxic Water
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}

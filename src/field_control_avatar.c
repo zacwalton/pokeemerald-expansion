@@ -55,6 +55,7 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *, u8, u8
 static const u8 *GetInteractedMetatileScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedWaterScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedLavaScript(struct MapPosition *, u8, u8);
+static const u8 *GetInteractedSludgeScript(struct MapPosition *, u8, u8);
 static bool32 TrySetupDiveDownScript(void);
 static bool32 TrySetupDiveEmergeScript(void);
 static bool8 TryStartStepBasedScript(struct MapPosition *, u16, u16);
@@ -303,6 +304,10 @@ static const u8 *GetInteractionScript(struct MapPosition *position, u8 metatileB
         return script;
 
     script = GetInteractedLavaScript(position, metatileBehavior, direction);
+    if (script != NULL)
+        return script;
+
+    script = GetInteractedSludgeScript(position, metatileBehavior, direction);
     if (script != NULL)
         return script;
 
@@ -558,6 +563,13 @@ static const u8 *GetInteractedLavaScript(struct MapPosition *unused1, u8 metatil
 {
     if (PartyHasMonWithLavaSurf() == TRUE && IsPlayerFacingLava() == TRUE)
         return EventScript_UseLava;
+    return NULL;
+}
+
+static const u8 *GetInteractedSludgeScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
+{
+    if (PartyHasMonWithSludgeSurf() == TRUE && IsPlayerFacingSludge() == TRUE)
+        return EventScript_UseSludge;
     return NULL;
 }
 

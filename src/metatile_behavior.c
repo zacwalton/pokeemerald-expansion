@@ -135,6 +135,7 @@ static const u8 sTileBitAttributes[NUM_METATILE_BEHAVIORS] =
     [MB_ROCK_STAIRS]                        = TILE_FLAG_UNUSED,
     [MB_ROCK_CLIMB]                      = TILE_FLAG_UNUSED,
 	[MB_LAVA]								= TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
+	[MB_SLUDGE]								= TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
 };
 
 bool8 MetatileBehavior_IsATile(u8 metatileBehavior)
@@ -1556,6 +1557,14 @@ bool8 MetatileBehavior_IsRockClimbable(u8 metatileBehavior)
 bool8 MetatileBehavior_IsLava(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_LAVA)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsSludge(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_SLUDGE)
         return TRUE;
     else
         return FALSE;

@@ -88,6 +88,9 @@ static void FieldCallback_Defog(void);
 static void FieldMove_Lava(void);
 static void FieldCallback_Lava(void);
 
+static void FieldMove_Sludge(void);
+static void FieldCallback_Sludge(void);
+
 static const struct OamData sOam_SecretPower =
 {
     .y = 0,
@@ -1490,5 +1493,41 @@ static void FieldCallback_Lava(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_LAVA);
+}
+
+static void FieldCallback_Defog(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    ScriptContext_SetupScript(EventScript_UseDefog);
+}
+
+// Sludge Wave
+static void FieldMove_Sludge(void)
+{
+    PlaySE(SE_M_SURF);
+    FieldEffectActiveListRemove(FLDEFF_USE_SLUDGE);
+    ScriptContext_Enable();
+}
+
+
+bool8 SetUpFieldMove_Sludge(void)
+{
+	GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+	if (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SLUDGE)
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Sludge;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+static void FieldCallback_Sludge(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    FieldEffectStart(FLDEFF_USE_SLUDGE);
 }
 

@@ -168,5 +168,6 @@ bool8 MetatileBehavior_IsSidewaysStairsLeftSideBottom(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsRightSideAny(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior);
 bool8 MetatileBehavior_IsLava(u8);
+bool8 MetatileBehavior_IsSludge(u8);
 
 #endif // GUARD_METATILE_BEHAVIOR_H

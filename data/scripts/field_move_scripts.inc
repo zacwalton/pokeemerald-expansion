@@ -770,3 +770,41 @@ Text_WantToUseLavaSurf:
 Text_PlayerUsedLavaSurf:
     .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	
+
+	
+EventScript_UseSludge::
+	checkmovefieldeffectflag  0x200000
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_EndUseSludgeSurf
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8005
+	setfieldeffectargument 0, VAR_RESULT
+	lockall
+	msgbox Text_WantToUseSludgeSurf, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_ReleaseUseSludgeSurf
+	msgbox Text_PlayerUsedSludgeSurf, MSGBOX_DEFAULT
+	dofieldeffect FLDEFF_USE_SLUDGE
+EventScript_ReleaseUseSludgeSurf::
+	releaseall
+	end
+EventScript_EndUseSludgeSurf::
+	msgbox Text_CantSludgeSurf, MSGBOX_YESNO
+	releaseall
+	end
+	
+EventScript_CantSludgeSurf::
+	msgbox Text_CantSludgeSurf, MSGBOX_DEFAULT
+	
+EventScript_CancelSludgeSurf::
+	releaseall
+	end
+
+Text_CantSludgeSurf:
+	.string "The water is foul and contaminated.\n$"
+	
+Text_WantToUseLavaSurf:
+    .string "The water is foul and contaminated.\n"
+    .string "Would you like to Surf it?$"
+
+Text_PlayerUsedLavaSurf:
+    .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
+	

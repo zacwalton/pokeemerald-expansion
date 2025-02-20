@@ -858,6 +858,7 @@ static const u16 sFieldMoves[FIELD_MOVES_COUNT + 1] =
     [FIELD_MOVE_CHATTER]  = MOVE_CHATTER,
     [FIELD_MOVE_PHANTOM_FORCE]  = MOVE_PHANTOM_FORCE,
     [FIELD_MOVE_SHADOW_FORCE]  = MOVE_SHADOW_FORCE,
+    [FIELD_MOVE_SLUDGE_WAVE]  = MOVE_SLUDGE_WAVE,
     // NOTE: This value is used as the terminal value for the table. There's no reason to do this, as the size of the table is known.
     //       Whichever move shares this value (MOVE_SWORDS_DANCE by default) if present will be treated as the end of the array rather than a field move.
     [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT
@@ -938,6 +939,7 @@ struct
     [FIELD_MOVE_CHATTER]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_PHANTOM_FORCE]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_SHADOW_FORCE]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_SLUDGE_WAVE]  = {SetUpFieldMove_Sludge,  PARTY_MSG_CANT_USE_HERE},
 };
 
 static const u8 *const sUnionRoomTradeMessages[] =
