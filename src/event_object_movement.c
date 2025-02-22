@@ -11095,3 +11095,31 @@ bool8 MovementAction_WalkFastDiagonal_Step1(struct ObjectEvent *objectEvent, str
     }
     return FALSE;
 }
+
+bool8 MovementAction_DouseFire_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    SetAndStartSpriteAnim(sprite, ANIM_REMOVE_OBSTACLE, 0);
+    sprite->sActionFuncId = 1;
+    return FALSE;
+}
+
+bool8 MovementAction_DouseFire_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (SpriteAnimEnded(sprite))
+    {
+        SetMovementDelay(sprite, 32);
+        sprite->sActionFuncId = 2;
+    }
+    return FALSE;
+}
+
+bool8 MovementAction_DouseFire_Step2(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    objectEvent->invisible ^= TRUE;
+    if (WaitForMovementDelay(sprite))
+    {
+        objectEvent->invisible = TRUE;
+        sprite->sActionFuncId = 3;
+    }
+    return FALSE;
+}

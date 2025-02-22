@@ -86,6 +86,7 @@ gFieldEffectScriptPointers::
 	.4byte gFieldEffectScript_UseDefog             		@ FLDEFF_USE_DEFOG
 	.4byte gFieldEffectScript_UseLava        	        @ FLDEFF_USE_LAVA
 	.4byte gFieldEffectScript_UseSludge        	        @ FLDEFF_USE_SLUDGE
+	.4byte gFieldEffectScript_UseDouse        	        @ FLDEFF_USE_DOUSE
 
 gFieldEffectScript_ExclamationMarkIcon1::
 	field_eff_callnative FldEff_ExclamationMarkIcon
@@ -409,5 +410,10 @@ gFieldEffectScript_UseLava::
 	
 gFieldEffectScript_UseSludge:: 
 	field_eff_callnative FldEff_UseSludge
+	field_eff_end
+	
+	
+gFieldEffectScript_UseDouse:: 
+	field_eff_callnative FldEff_UseDouse
 	field_eff_end
 	

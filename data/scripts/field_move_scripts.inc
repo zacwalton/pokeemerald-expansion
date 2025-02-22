@@ -810,3 +810,71 @@ Text_WantToUseSludgeSurf:
 Text_PlayerUsedSludgeSurf:
     .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	
+@ Interact with large fire
+EventScript_DouseFire::
+	//lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkmovefieldeffectflag 0x400000
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckCantDouse
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8005
+	goto EventScript_DouseFireSuccess
+	
+EventScript_DouseFireSuccess::
+	msgbox Text_WantToDouse, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelDouse
+	msgbox Text_MonUsedFieldMoveDouse, MSGBOX_DEFAULT
+	closemessage
+EventScript_DouseFireCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_DOUSE
+	waitstate
+EventScript_DouseFireDown:: @ fallthrough
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	applymovement VAR_LAST_TALKED, Movement_DouseFire
+	waitmovement 0
+	removeobject VAR_LAST_TALKED
+		random 10
+	goto_if_eq VAR_RESULT, 1, EventScript_DouseFireItem
+	releaseall
+	end
+
+@ Use Douse from party menu
+EventScript_UseDouse::
+	//lockall
+	goto EventScript_DouseFireCommon
+
+Movement_DouseFire:
+	douse_fire
+	step_end
+
+EventScript_CheckCantDouse::
+	msgbox Text_CantDouse, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CancelDouse::
+	closemessage
+	releaseall
+	end
+	
+EventScript_DouseFireItem::
+    giveitem ITEM_CHARCOAL
+	releaseall
+	end
+
+
+Text_WantToDouse:
+	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR5}Doused{COLOR DARK_GRAY}!\p"
+	.string "Would you like to{COLOR DYNAMIC_COLOR5} Extinguish {COLOR DARK_GRAY}it?$"
+
+Text_MonUsedFieldMoveDouse:
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+
+
+Text_CantDouse:
+	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR5}Doused{COLOR DARK_GRAY}!$"
+	

@@ -1094,6 +1094,28 @@ static const union AnimCmd sAnim_HoOhStayStill[] =
     ANIMCMD_JUMP(0),
 };
 
+static const union AnimCmd sAnim_LargeFire[] =
+{
+    ANIMCMD_FRAME(0, 6),
+    ANIMCMD_FRAME(1, 6),
+    ANIMCMD_FRAME(2, 6),
+    ANIMCMD_FRAME(3, 6),
+    ANIMCMD_FRAME(4, 6),
+    ANIMCMD_FRAME(5, 6),
+    ANIMCMD_FRAME(6, 6),
+    ANIMCMD_FRAME(7, 6),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sAnim_LargeFireRemove[] =
+{
+    ANIMCMD_FRAME(0, 6),
+    ANIMCMD_FRAME(1, 6),
+    ANIMCMD_FRAME(2, 6),
+    ANIMCMD_FRAME(3, 6),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd *const sAnimTable_Inanimate[] = {
     [ANIM_STAY_STILL] = sAnim_StayStill,
 };
@@ -1498,6 +1520,11 @@ static const union AffineAnimCmd *const sAffineAnimTable_KyogreGroudon[] = {
     sAffineAnim_KyogreGroudon_AttackEast,   // Unused
     sAffineAnim_KyogreGroudon_DipWest,      // Unused
     sAffineAnim_KyogreGroudon_DipEast,      // Unused
+};
+
+static const union AnimCmd *const sAnimTable_LargeFire[] = {
+    [ANIM_STAY_STILL] = sAnim_LargeFire,
+    [ANIM_REMOVE_OBSTACLE] = sAnim_LargeFireRemove,
 };
 
 // For animations with alternating steps

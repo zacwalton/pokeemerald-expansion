@@ -82,6 +82,7 @@
 #define FLDEFF_USE_DEFOG			 	 77
 #define FLDEFF_USE_LAVA				 	 78
 #define FLDEFF_USE_SLUDGE				 79
+#define FLDEFF_USE_DOUSE				 80
 
 #define FLDEFFOBJ_SHADOW_S              0
 #define FLDEFFOBJ_SHADOW_M              1

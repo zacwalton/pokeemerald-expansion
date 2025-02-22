@@ -408,6 +408,7 @@ extern const u8 EventScript_UseHeadbutt[];
 extern const u8 EventScript_UseWhirlpool[];
 extern const u8 EventScript_UseDig[];
 extern const u8 EventScript_UseDefog[];
+extern const u8 EventScript_UseDouse[];
 
 //player pc
 extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_TurnOffPlayerPC[];

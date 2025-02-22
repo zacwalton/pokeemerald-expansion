@@ -67,5 +67,9 @@ bool8 SetUpFieldMove_Lava(void);
 bool8 FldEff_UseSludge(void);
 bool8 SetUpFieldMove_Sludge(void);
 
+// Douse
+bool8 SetUpFieldMove_Douse(void);
+bool8 FldEff_UseDouse(void);
+
 
 #endif // GUARD_FLDEFF_H
