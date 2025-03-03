@@ -2201,7 +2201,7 @@ static bool32 Fishing_PutRodAway(struct Task *task)
             SetSurfBlob_PlayerOffset(gObjectEvents[gPlayerAvatar.objectEventId].fieldEffectSpriteId, FALSE, 0);
         gSprites[gPlayerAvatar.spriteId].x2 = 0;
         gSprites[gPlayerAvatar.spriteId].y2 = 0;
-        task->tFrameCounter = 0; // TODO: See if this is necessary
+        //task->tFrameCounter = 0; // TODO: See if this is necessary
         task->tStep = FISHING_END_NO_MON;
     }
     return FALSE;
@@ -2214,14 +2214,14 @@ static bool32 Fishing_EndNoMon(struct Task *task)
     {
         if (FISH_MINIGAME_ENABLED)
         {
-            if (task->tFrameCounter == 0)
-            {
-                task->tFrameCounter++; // TODO: See if this is necessary
-            }
             if (!gPaletteFade.active) // If the screen has fully faded from black.
             {
                 gObjectEvents[gPlayerAvatar.objectEventId].trackedByCamera = TRUE;
                 FreeMonIconPalettes();
+            }
+            else
+            {
+                return FALSE;
             }
         }
         gPlayerAvatar.preventStep = FALSE;

@@ -90,15 +90,18 @@ const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing
 const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
+struct FishValues
+{
+    u8 min;
+    u8 max;
+};
+
 struct FishBehaviorData
 {
     u16 species;
-    u8 speedMin;
-    u8 speedMax;
-    u8 distanceMin;
-    u8 distanceMax;
-    u8 delayMin;
-    u8 delayMax;
+    struct FishValues speed;
+    struct FishValues distance;
+    struct FishValues delay;
     u8 idleMovement; // Cannot be less than 1.
 };
 
@@ -106,203 +109,216 @@ static const struct FishBehaviorData sFishBehavior[] =
 {
     { // Old Rod default behavior.
         .species = 0,
-        .speedMin = 2,
-        .speedMax = 2,
-        .distanceMin = 5,
-        .distanceMax = 15,
-        .delayMin = 40,
-        .delayMax = 160,
+        .speed.min = 2,
+        .speed.max = 2,
+        .distance.min = 5,
+        .distance.max = 15,
+        .delay.min = 40,
+        .delay.max = 160,
         .idleMovement = 6
     },
     { // Good Rod default behavior.
         .species = 0,
-        .speedMin = 3,
-        .speedMax = 5,
-        .distanceMin = 15,
-        .distanceMax = 55,
-        .delayMin = 80,
-        .delayMax = 120,
+        .speed.min = 3,
+        .speed.max = 5,
+        .distance.min = 15,
+        .distance.max = 55,
+        .delay.min = 80,
+        .delay.max = 120,
         .idleMovement = 6
     },
     { // Super Rod default behavior.
         .species = 0,
-        .speedMin = 8,
-        .speedMax = 16,
-        .distanceMin = 10,
-        .distanceMax = 70,
-        .delayMin = 15,
-        .delayMax = 35,
+        .speed.min = 8,
+        .speed.max = 16,
+        .distance.min = 10,
+        .distance.max = 70,
+        .delay.min = 15,
+        .delay.max = 35,
         .idleMovement = 12
     },
     // Don't add new entries above this line.
+
+    /* EMPTY TEMPLATE
+    {
+        .species = ,
+        .speed.min = ,
+        .speed.max = ,
+        .distance.min = ,
+        .distance.max = ,
+        .delay.min = ,
+        .delay.max = ,
+        .idleMovement = 
+    },
+    */
     {
         .species = SPECIES_TENTACOOL,
-        .speedMin = 3,
-        .speedMax = 5,
-        .distanceMin = 25,
-        .distanceMax = 55,
-        .delayMin = 80,
-        .delayMax = 120,
+        .speed.min = 3,
+        .speed.max = 5,
+        .distance.min = 25,
+        .distance.max = 55,
+        .delay.min = 80,
+        .delay.max = 120,
         .idleMovement = 6
     },
     {
         .species = SPECIES_TENTACRUEL,
-        .speedMin = 8,
-        .speedMax = 10,
-        .distanceMin = 25,
-        .distanceMax = 75,
-        .delayMin = 80,
-        .delayMax = 120,
+        .speed.min = 8,
+        .speed.max = 10,
+        .distance.min = 25,
+        .distance.max = 75,
+        .delay.min = 80,
+        .delay.max = 120,
         .idleMovement = 8
     },
     {
         .species = SPECIES_HORSEA,
-        .speedMin = 4,
-        .speedMax = 10,
-        .distanceMin = 40,
-        .distanceMax = 80,
-        .delayMin = 30,
-        .delayMax = 70,
+        .speed.min = 4,
+        .speed.max = 10,
+        .distance.min = 40,
+        .distance.max = 80,
+        .delay.min = 30,
+        .delay.max = 70,
         .idleMovement = 7
     },
     {
         .species = SPECIES_GOLDEEN,
-        .speedMin = 4,
-        .speedMax = 10,
-        .distanceMin = 60,
-        .distanceMax = 80,
-        .delayMin = 170,
-        .delayMax = 190,
+        .speed.min = 4,
+        .speed.max = 10,
+        .distance.min = 60,
+        .distance.max = 80,
+        .delay.min = 170,
+        .delay.max = 190,
         .idleMovement = 4
     },
     {
         .species = SPECIES_SEAKING,
-        .speedMin = 6,
-        .speedMax = 12,
-        .distanceMin = 50,
-        .distanceMax = 90,
-        .delayMin = 100,
-        .delayMax = 140,
+        .speed.min = 6,
+        .speed.max = 12,
+        .distance.min = 50,
+        .distance.max = 90,
+        .delay.min = 100,
+        .delay.max = 140,
         .idleMovement = 6
     },
     {
         .species = SPECIES_STARYU,
-        .speedMin = 7,
-        .speedMax = 13,
-        .distanceMin = 15,
-        .distanceMax = 45,
-        .delayMin = 20,
-        .delayMax = 80,
+        .speed.min = 7,
+        .speed.max = 13,
+        .distance.min = 15,
+        .distance.max = 45,
+        .delay.min = 20,
+        .delay.max = 80,
         .idleMovement = 5
     },
     {
         .species = SPECIES_MAGIKARP,
-        .speedMin = 2,
-        .speedMax = 2,
-        .distanceMin = 5,
-        .distanceMax = 15,
-        .delayMin = 40,
-        .delayMax = 160,
+        .speed.min = 2,
+        .speed.max = 2,
+        .distance.min = 5,
+        .distance.max = 15,
+        .delay.min = 40,
+        .delay.max = 160,
         .idleMovement = 6
     },
     {
         .species = SPECIES_GYARADOS,
-        .speedMin = 8,
-        .speedMax = 16,
-        .distanceMin = 30,
-        .distanceMax = 70,
-        .delayMin = 15,
-        .delayMax = 35,
+        .speed.min = 8,
+        .speed.max = 16,
+        .distance.min = 30,
+        .distance.max = 70,
+        .delay.min = 15,
+        .delay.max = 35,
         .idleMovement = 12
     },
     {
         .species = SPECIES_CORSOLA,
-        .speedMin = 4,
-        .speedMax = 8,
-        .distanceMin = 10,
-        .distanceMax = 70,
-        .delayMin = 55,
-        .delayMax = 95,
+        .speed.min = 4,
+        .speed.max = 8,
+        .distance.min = 10,
+        .distance.max = 70,
+        .delay.min = 55,
+        .delay.max = 95,
         .idleMovement = 1
     },
     {
         .species = SPECIES_CARVANHA,
-        .speedMin = 7,
-        .speedMax = 13,
-        .distanceMin = 15,
-        .distanceMax = 25,
-        .delayMin = 30,
-        .delayMax = 70,
+        .speed.min = 7,
+        .speed.max = 13,
+        .distance.min = 15,
+        .distance.max = 25,
+        .delay.min = 30,
+        .delay.max = 70,
         .idleMovement = 15
     },
     {
         .species = SPECIES_SHARPEDO,
-        .speedMin = 10,
-        .speedMax = 30,
-        .distanceMin = 55,
-        .distanceMax = 95,
-        .delayMin = 70,
-        .delayMax = 90,
+        .speed.min = 10,
+        .speed.max = 30,
+        .distance.min = 55,
+        .distance.max = 95,
+        .delay.min = 70,
+        .delay.max = 90,
         .idleMovement = 20
     },
     {
         .species = SPECIES_WAILMER,
-        .speedMin = 6,
-        .speedMax = 8,
-        .distanceMin = 60,
-        .distanceMax = 140,
-        .delayMin = 10,
-        .delayMax = 20,
+        .speed.min = 6,
+        .speed.max = 8,
+        .distance.min = 60,
+        .distance.max = 140,
+        .delay.min = 10,
+        .delay.max = 20,
         .idleMovement = 2
     },
     {
         .species = SPECIES_BARBOACH,
-        .speedMin = 4,
-        .speedMax = 8,
-        .distanceMin = 10,
-        .distanceMax = 40,
-        .delayMin = 45,
-        .delayMax = 75,
+        .speed.min = 4,
+        .speed.max = 8,
+        .distance.min = 10,
+        .distance.max = 40,
+        .delay.min = 45,
+        .delay.max = 75,
         .idleMovement = 6
     },
     {
         .species = SPECIES_WHISCASH,
-        .speedMin = 8,
-        .speedMax = 12,
-        .distanceMin = 25,
-        .distanceMax = 55,
-        .delayMin = 30,
-        .delayMax = 60,
+        .speed.min = 8,
+        .speed.max = 12,
+        .distance.min = 25,
+        .distance.max = 55,
+        .delay.min = 30,
+        .delay.max = 60,
         .idleMovement = 5
     },
     {
         .species = SPECIES_CORPHISH,
-        .speedMin = 7,
-        .speedMax = 13,
-        .distanceMin = 4,
-        .distanceMax = 10,
-        .delayMin = 30,
-        .delayMax = 70,
+        .speed.min = 7,
+        .speed.max = 13,
+        .distance.min = 4,
+        .distance.max = 10,
+        .delay.min = 30,
+        .delay.max = 70,
         .idleMovement = 8
     },
     {
         .species = SPECIES_FEEBAS,
-        .speedMin = 4,
-        .speedMax = 6,
-        .distanceMin = 8,
-        .distanceMax = 22,
-        .delayMin = 40,
-        .delayMax = 140,
+        .speed.min = 4,
+        .speed.max = 6,
+        .distance.min = 8,
+        .distance.max = 22,
+        .delay.min = 40,
+        .delay.max = 140,
         .idleMovement = 6
     },
     {
         .species = SPECIES_LUVDISC,
-        .speedMin = 6,
-        .speedMax = 8,
-        .distanceMin = 35,
-        .distanceMax = 65,
-        .delayMin = 10,
-        .delayMax = 40,
+        .speed.min = 6,
+        .speed.max = 8,
+        .distance.min = 35,
+        .distance.max = 65,
+        .delay.min = 10,
+        .delay.max = 40,
         .idleMovement = 3
     }
 };
@@ -1373,16 +1389,16 @@ static void SetMonIconPosition(u8 taskId)
             taskData.tFishSpeedCounter = 0;
 
             // Set fish movement speed.
-            rand = (Random() % (sBehavior.speedMax - sBehavior.speedMin));
-            sFishIconData.sFishSpeed = sBehavior.speedMin + rand;
+            rand = (Random() % ((sBehavior.speed.max - sBehavior.speed.min) + 1));
+            sFishIconData.sFishSpeed = sBehavior.speed.min + rand;
             sFishIconData.sFishSpeed = ((sFishIconData.sFishSpeed * FISH_SPEED_MULTIPLIER) / 100);
             if (sFishIconData.sFishSpeed < 1)
                 sFishIconData.sFishSpeed = 1;
             taskData.tInitialFishSpeed = sFishIconData.sFishSpeed;
 
             // Set time until next movement.
-            rand = (Random() % (sBehavior.delayMax - sBehavior.delayMin));
-            sFishIconData.sTimeToNextMove = sBehavior.delayMin + rand;
+            rand = (Random() % ((sBehavior.delay.max - sBehavior.delay.min) + 1));
+            sFishIconData.sTimeToNextMove = sBehavior.delay.min + rand;
             if (sFishIconData.sTimeToNextMove < 1)
                 sFishIconData.sTimeToNextMove = 1;
 
@@ -1395,8 +1411,8 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sFishDirection = FISH_DIR_RIGHT;
 
             // Set fish destination and interval.
-            rand = (Random() % (sBehavior.distanceMax - sBehavior.distanceMin));
-            distance = sBehavior.distanceMin + rand;
+            rand = (Random() % ((sBehavior.distance.max - sBehavior.distance.min) + 1));
+            distance = sBehavior.distance.min + rand;
             if (distance < 1)
                 distance = 1;
             distance *= POSITION_ADJUSTMENT;
