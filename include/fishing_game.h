@@ -2,9 +2,11 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
+#define FISH_MINIGAME_ENABLED           TRUE    // If set to FALSE, this fishing minigame will be completely disabled.
+
 #define MINIGAME_ON_SEPARATE_SCREEN     FALSE   // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
-#define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
+#define PREVENT_FAILURE_IN_DOTS_GAME    TRUE    // If TRUE, the dots game cannot be failed.
 #define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
 #define VAGUE_FISH_FOR_OBSCURED         FALSE   // If TRUE, uses a vague fish shape instead of a blacked out Pokemon icon when obscured.
 #define OBSCURE_ALL_FISH                FALSE   // If TRUE, the Pokemon icon will always be obscured.
@@ -16,7 +18,7 @@
 #define SUPER_ROD_BAR_WIDTH             60   // Fishing bar pixel width for the Super Rod. BAR_WIDTH_FROM_ROD_TYPE must be TRUE. Cannot be below 33 or above 64.
 #define FISHING_BAR_MAX_SPEED           50   // The greater the number, the faster the bar is allowed to go.
 #define FISHING_BAR_BOUNCINESS          1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
-#define BAR_SPEED_VALUE                 2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
+#define BAR_SPEED_SLOWING               2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
 
 #define STARTING_SCORE                  300  // The number of points you already have when the game starts.
 #define SCORE_INCREASE                  3    // The score increases by this many point every frame while the fish is within the bar.
@@ -29,7 +31,7 @@
 
 
 // Fishing Bar Constants
-#define BAR_SPEED_MODIFIER              (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / BAR_SPEED_VALUE))
+#define BAR_SPEED_MODIFIER              (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / BAR_SPEED_SLOWING))
 #define FISHING_AREA_WIDTH              202  // The width of the total fishing bar area in number of pixels.
 #define FISHING_BAR_Y                   102
 #define FISHING_BAR_START_X             35
