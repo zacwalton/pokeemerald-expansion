@@ -99,7 +99,7 @@ struct FishBehaviorData
     u8 delayVariability;
     u8 distance;
     u8 distanceVariability;
-    u8 idleMovement;
+    u8 idleMovement; // Cannot be less than 1.
 };
 
 static const struct FishBehaviorData sFishBehavior[] =
@@ -134,7 +134,7 @@ static const struct FishBehaviorData sFishBehavior[] =
         .distanceVariability = 30,
         .idleMovement = 12
     },
-// Don't add new entries above this line.
+    // Don't add new entries above this line.
     {
         .species = SPECIES_TENTACOOL,
         .speed = 4,
@@ -146,6 +146,26 @@ static const struct FishBehaviorData sFishBehavior[] =
         .idleMovement = 6
     },
     {
+        .species = SPECIES_TENTACRUEL,
+        .speed = 9,
+        .speedVariability = 1,
+        .movementDelay = 100,
+        .delayVariability = 20,
+        .distance = 50,
+        .distanceVariability = 25,
+        .idleMovement = 8
+    },
+    {
+        .species = SPECIES_HORSEA,
+        .speed = 7,
+        .speedVariability = 3,
+        .movementDelay = 50,
+        .delayVariability = 20,
+        .distance = 60,
+        .distanceVariability = 20,
+        .idleMovement = 7
+    },
+    {
         .species = SPECIES_GOLDEEN,
         .speed = 7,
         .speedVariability = 3,
@@ -154,6 +174,26 @@ static const struct FishBehaviorData sFishBehavior[] =
         .distance = 70,
         .distanceVariability = 10,
         .idleMovement = 4
+    },
+    {
+        .species = SPECIES_SEAKING,
+        .speed = 9,
+        .speedVariability = 3,
+        .movementDelay = 120,
+        .delayVariability = 20,
+        .distance = 70,
+        .distanceVariability = 20,
+        .idleMovement = 6
+    },
+    {
+        .species = SPECIES_STARYU,
+        .speed = 10,
+        .speedVariability = 3,
+        .movementDelay = 50,
+        .delayVariability = 30,
+        .distance = 30,
+        .distanceVariability = 15,
+        .idleMovement = 5
     },
     {
         .species = SPECIES_MAGIKARP,
@@ -176,6 +216,16 @@ static const struct FishBehaviorData sFishBehavior[] =
         .idleMovement = 12
     },
     {
+        .species = SPECIES_CORSOLA,
+        .speed = 6,
+        .speedVariability = 2,
+        .movementDelay = 75,
+        .delayVariability = 20,
+        .distance = 40,
+        .distanceVariability = 30,
+        .idleMovement = 1
+    },
+    {
         .species = SPECIES_CARVANHA,
         .speed = 10,
         .speedVariability = 3,
@@ -184,6 +234,16 @@ static const struct FishBehaviorData sFishBehavior[] =
         .distance = 20,
         .distanceVariability = 5,
         .idleMovement = 15
+    },
+    {
+        .species = SPECIES_SHARPEDO,
+        .speed = 20,
+        .speedVariability = 10,
+        .movementDelay = 80,
+        .delayVariability = 10,
+        .distance = 75,
+        .distanceVariability = 20,
+        .idleMovement = 20
     },
     {
         .species = SPECIES_WAILMER,
@@ -199,11 +259,21 @@ static const struct FishBehaviorData sFishBehavior[] =
         .species = SPECIES_BARBOACH,
         .speed = 6,
         .speedVariability = 2,
-        .movementDelay = 75,
-        .delayVariability = 25,
-        .distance = 15,
-        .distanceVariability = 5,
-        .idleMovement = 4
+        .movementDelay = 60,
+        .delayVariability = 15,
+        .distance = 25,
+        .distanceVariability = 15,
+        .idleMovement = 6
+    },
+    {
+        .species = SPECIES_WHISCASH,
+        .speed = 10,
+        .speedVariability = 2,
+        .movementDelay = 45,
+        .delayVariability = 15,
+        .distance = 40,
+        .distanceVariability = 15,
+        .idleMovement = 5
     },
     {
         .species = SPECIES_CORPHISH,
@@ -215,6 +285,26 @@ static const struct FishBehaviorData sFishBehavior[] =
         .distanceVariability = 3,
         .idleMovement = 8
     },
+    {
+        .species = SPECIES_FEEBAS,
+        .speed = 5,
+        .speedVariability = 1,
+        .movementDelay = 90,
+        .delayVariability = 50,
+        .distance = 15,
+        .distanceVariability = 7,
+        .idleMovement = 6
+    },
+    {
+        .species = SPECIES_LUVDISC,
+        .speed = 7,
+        .speedVariability = 1,
+        .movementDelay = 25,
+        .delayVariability = 15,
+        .distance = 50,
+        .distanceVariability = 15,
+        .idleMovement = 3
+    }
 };
 
 static const u16 gBarColors[] =
