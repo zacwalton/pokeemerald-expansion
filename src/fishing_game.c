@@ -90,98 +90,131 @@ const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing
 const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
-static const u16 sFishBehavior[FISH_SPECIES_COUNT][8] =
+struct FishBehaviorData
 {
-    [FISH_OLD_ROD_DEFAULT] = {
-        0,   // Species constant
-        2,   // Speed
-        0,   // Speed Variability
-        100, // Movement Delay
-        60,  // Delay Variability
-        10,  // Distance
-        5,   // Distance Variability
-        6    // Idle Movement
+    u16 species;
+    u8 speed;
+    u8 speedVariability;
+    u8 movementDelay;
+    u8 delayVariability;
+    u8 distance;
+    u8 distanceVariability;
+    u8 idleMovement;
+};
+
+static const struct FishBehaviorData sFishBehavior[] =
+{
+    { // Old Rod default behavior.
+        .species = 0,
+        .speed = 2,
+        .speedVariability = 0,
+        .movementDelay = 100,
+        .delayVariability = 60,
+        .distance = 10,
+        .distanceVariability = 5,
+        .idleMovement = 6
     },
-    [FISH_GOOD_ROD_DEFAULT] = {
-        0,   // Species constant
-        4,   // Speed
-        1,   // Speed Variability
-        100, // Movement Delay
-        20,  // Delay Variability
-        35,  // Distance
-        20,  // Distance Variability
-        6    // Idle Movement
+    { // Good Rod default behavior.
+        .species = 0,
+        .speed = 4,
+        .speedVariability = 1,
+        .movementDelay = 100,
+        .delayVariability = 20,
+        .distance = 35,
+        .distanceVariability = 20,
+        .idleMovement = 6
     },
-    [FISH_SUPER_ROD_DEFAULT] = {
-        0,   // Species constant
-        12,  // Speed
-        4,   // Speed Variability
-        25,  // Movement Delay
-        10,  // Delay Variability
-        40,  // Distance
-        30,  // Distance Variability
-        12   // Idle Movement
+    { // Super Rod default behavior.
+        .species = 0,
+        .speed = 12,
+        .speedVariability = 4,
+        .movementDelay = 25,
+        .delayVariability = 10,
+        .distance = 40,
+        .distanceVariability = 30,
+        .idleMovement = 12
     },
-    [FISH_SPECIES_TENTACOOL] = {
-        SPECIES_TENTACOOL, // Species constant
-        4,   // Speed
-        1,   // Speed Variability
-        100, // Movement Delay
-        20,  // Delay Variability
-        40,  // Distance
-        15,  // Distance Variability
-        6    // Idle Movement
+// Don't add new entries above this line.
+    {
+        .species = SPECIES_TENTACOOL,
+        .speed = 4,
+        .speedVariability = 1,
+        .movementDelay = 100,
+        .delayVariability = 20,
+        .distance = 40,
+        .distanceVariability = 15,
+        .idleMovement = 6
     },
-    [FISH_SPECIES_GOLDEEN] = {
-        SPECIES_GOLDEEN, // Species constant
-        7,   // Speed
-        3,   // Speed Variability
-        180, // Movement Delay
-        10,  // Delay Variability
-        70,  // Distance
-        10,  // Distance Variability
-        4    // Idle Movement
+    {
+        .species = SPECIES_GOLDEEN,
+        .speed = 7,
+        .speedVariability = 3,
+        .movementDelay = 180,
+        .delayVariability = 10,
+        .distance = 70,
+        .distanceVariability = 10,
+        .idleMovement = 4
     },
-    [FISH_SPECIES_MAGIKARP] = {
-        SPECIES_MAGIKARP, // Species constant
-        2,   // Speed
-        0,   // Speed Variability
-        100, // Movement Delay
-        60,  // Delay Variability
-        10,  // Distance
-        5,   // Distance Variability
-        6    // Idle Movement
+    {
+        .species = SPECIES_MAGIKARP,
+        .speed = 2,
+        .speedVariability = 0,
+        .movementDelay = 100,
+        .delayVariability = 60,
+        .distance = 10,
+        .distanceVariability = 5,
+        .idleMovement = 6
     },
-    [FISH_SPECIES_GYARADOS] = {
-        SPECIES_GYARADOS, // Species constant
-        12,  // Speed
-        4,   // Speed Variability
-        25,  // Movement Delay
-        10,  // Delay Variability
-        50,  // Distance
-        20,  // Distance Variability
-        12   // Idle Movement
+    {
+        .species = SPECIES_GYARADOS,
+        .speed = 12,
+        .speedVariability = 4,
+        .movementDelay = 25,
+        .delayVariability = 10,
+        .distance = 50,
+        .distanceVariability = 20,
+        .idleMovement = 12
     },
-    [FISH_SPECIES_WAILMER] = {
-        SPECIES_WAILMER, // Species constant
-        7,   // Speed
-        1,   // Speed Variability
-        15,  // Movement Delay
-        5,   // Delay Variability
-        100, // Distance
-        40,  // Distance Variability
-        2    // Idle Movement
+    {
+        .species = SPECIES_CARVANHA,
+        .speed = 10,
+        .speedVariability = 3,
+        .movementDelay = 50,
+        .delayVariability = 20,
+        .distance = 20,
+        .distanceVariability = 5,
+        .idleMovement = 15
     },
-    [FISH_SPECIES_CORPHISH] = {
-        SPECIES_CORPHISH, // Species constant
-        10,  // Speed
-        3,   // Speed Variability
-        50,  // Movement Delay
-        20,  // Delay Variability
-        7,   // Distance
-        3,   // Distance Variability
-        8    // Idle Movement
-    }
+    {
+        .species = SPECIES_WAILMER,
+        .speed = 7,
+        .speedVariability = 1,
+        .movementDelay = 15,
+        .delayVariability = 5,
+        .distance = 100,
+        .distanceVariability = 40,
+        .idleMovement = 2
+    },
+    {
+        .species = SPECIES_BARBOACH,
+        .speed = 6,
+        .speedVariability = 2,
+        .movementDelay = 75,
+        .delayVariability = 25,
+        .distance = 15,
+        .distanceVariability = 5,
+        .idleMovement = 4
+    },
+    {
+        .species = SPECIES_CORPHISH,
+        .speed = 10,
+        .speedVariability = 3,
+        .movementDelay = 50,
+        .delayVariability = 20,
+        .distance = 7,
+        .distanceVariability = 3,
+        .idleMovement = 8
+    },
 };
 
 static const u16 gBarColors[] =
@@ -766,9 +799,9 @@ static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
 {
     u8 i;
 
-    for (i = NUM_DEFAULT_BEHAVIORS; i < FISH_SPECIES_COUNT; i++)
+    for (i = NUM_DEFAULT_BEHAVIORS; i < ARRAY_COUNT(sFishBehavior); i++)
     {
-        if (sFishBehavior[i][FISH_SPECIES] == species)
+        if (sFishBehavior[i].species == species)
         {
             spriteData.sFishSpecies = i;
             return;
@@ -1253,8 +1286,8 @@ static void SetMonIconPosition(u8 taskId)
 
             // Set fish movement speed.
             rand = (Random() % 20);
-            variablility = (Random() % (sBehavior[FISH_SPEED_VARIABILITY] + 1));
-            sFishIconData.sFishSpeed = sBehavior[FISH_SPEED];
+            variablility = (Random() % (sBehavior.speedVariability + 1));
+            sFishIconData.sFishSpeed = sBehavior.speed;
             if (rand < 10)
                 sFishIconData.sFishSpeed -= variablility;
             else
@@ -1266,8 +1299,8 @@ static void SetMonIconPosition(u8 taskId)
 
             // Set time until next movement.
             rand = (Random() % 20);
-            variablility = (Random() % (sBehavior[FISH_DELAY_VARIABILITY] + 1));
-            sFishIconData.sTimeToNextMove = sBehavior[FISH_MOVE_DELAY];
+            variablility = (Random() % (sBehavior.delayVariability + 1));
+            sFishIconData.sTimeToNextMove = sBehavior.movementDelay;
             if (rand < 10)
                 sFishIconData.sTimeToNextMove -= variablility;
             else
@@ -1284,9 +1317,9 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sFishDirection = FISH_DIR_RIGHT;
 
             // Set fish destination and interval.
-            distance = sBehavior[FISH_DISTANCE];
+            distance = sBehavior.distance;
             rand = (Random() % 20);
-            variablility = (Random() % (sBehavior[FISH_DIST_VARIABILITY] + 1));
+            variablility = (Random() % (sBehavior.distanceVariability + 1));
             if (rand < 10)
                 distance -= variablility;
             else
@@ -1314,7 +1347,7 @@ static void SetMonIconPosition(u8 taskId)
         rand = (Random() % 100);
         if (rand < (FISH_IDLE_NUDGE_CHANCE / 2)) // Nudge to right.
         {
-            rand = (Random() % sBehavior[FISH_IDLE_MOVEMENT]);
+            rand = (Random() % sBehavior.idleMovement);
             if ((sFishIconData.sFishPosition + rand) > FISH_ICON_MAX_X)
                 sFishIconData.sFishPosition = FISH_ICON_MAX_X;
             else
@@ -1322,7 +1355,7 @@ static void SetMonIconPosition(u8 taskId)
         }
         else if (rand < FISH_IDLE_NUDGE_CHANCE) // Nudge to left.
         {
-            rand = (Random() % sBehavior[FISH_IDLE_MOVEMENT]);
+            rand = (Random() % sBehavior.idleMovement);
             if ((sFishIconData.sFishPosition - rand) < FISH_ICON_MIN_X)
                 sFishIconData.sFishPosition = FISH_ICON_MIN_X;
             else
