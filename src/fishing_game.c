@@ -674,7 +674,7 @@ static void VblankCB_FishingGame(void)
 #define sPerfectFrameCount  data[1]
 #define sPerfectMoveFrames  data[2]
 
-void CB2_InitFishingGame(void)
+void CB2_InitFishingMinigame(void)
 {
     u8 taskId;
 
@@ -732,7 +732,7 @@ void CB2_InitFishingGame(void)
 
 #define taskData    gTasks[taskId]
 
-void Task_InitOWMinigame(u8 taskId)
+void Task_InitOWFishingMinigame(u8 taskId)
 {
     void *tilemapBuffer;
     
@@ -1154,16 +1154,16 @@ static void CalculateScoreMeterPalette(struct Sprite *sprite)
 
 static void UpdateHelpfulTextHigher(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
-        scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
+    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
+    scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
 static void UpdateHelpfulTextLower(u8 taskId)
 {
-        FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
-        scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
+    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    AddTextPrinterParameterized(0, FONT_NORMAL, sHelpfulTextTable[scoreMeterData.sScoreThird + 3], 0, 1, 1, NULL); // Print the helpful text that corresponds with the current score third.
+    scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
 #define barData         gSprites[taskData.tBarLeftSpriteId]
