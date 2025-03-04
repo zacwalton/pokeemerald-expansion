@@ -1440,7 +1440,7 @@ static void SetMonIconPosition(u8 taskId)
         rand = (Random() % 100);
         if (rand < (FISH_IDLE_NUDGE_CHANCE / 2)) // Nudge to right.
         {
-            rand = (Random() % sBehavior.idleMovement);
+            rand = (Random() % (sBehavior.idleMovement + 1));
             if ((sFishIconData.sFishPosition + rand) > FISH_ICON_MAX_X)
                 sFishIconData.sFishPosition = FISH_ICON_MAX_X;
             else
@@ -1448,7 +1448,7 @@ static void SetMonIconPosition(u8 taskId)
         }
         else if (rand < FISH_IDLE_NUDGE_CHANCE) // Nudge to left.
         {
-            rand = (Random() % sBehavior.idleMovement);
+            rand = (Random() % (sBehavior.idleMovement + 1));
             if ((sFishIconData.sFishPosition - rand) < FISH_ICON_MIN_X)
                 sFishIconData.sFishPosition = FISH_ICON_MIN_X;
             else
