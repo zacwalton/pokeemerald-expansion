@@ -43,7 +43,13 @@
 
   ],
   "warp_events": [
-
+    {
+      "x": 11,
+      "y": 30,
+      "elevation": 0,
+      "dest_map": "MAP_NEW_MAUVILLE_ENTRANCE",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
 

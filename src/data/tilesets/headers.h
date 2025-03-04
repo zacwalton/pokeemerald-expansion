@@ -1067,3 +1067,14 @@ const struct Tileset gTileset_RangerDepot =
     .metatileAttributes = gMetatileAttributes_RangerDepot,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Sewer =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Sewer,
+    .palettes = gTilesetPalettes_Sewer,
+    .metatiles = gMetatiles_Sewer,
+    .metatileAttributes = gMetatileAttributes_Sewer,
+    .callback = NULL,
+};

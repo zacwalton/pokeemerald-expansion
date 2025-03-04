@@ -273,3 +273,6 @@ const u16 gMetatileAttributes_RustboroCity_Museum[] = INCBIN_U16("data/tilesets/
 
 const u16 gMetatiles_RangerDepot[] = INCBIN_U16("data/tilesets/secondary/ranger_depot/metatiles.bin");
 const u16 gMetatileAttributes_RangerDepot[] = INCBIN_U16("data/tilesets/secondary/ranger_depot/metatile_attributes.bin");
+
+const u16 gMetatiles_Sewer[] = INCBIN_U16("data/tilesets/secondary/sewer/metatiles.bin");
+const u16 gMetatileAttributes_Sewer[] = INCBIN_U16("data/tilesets/secondary/sewer/metatile_attributes.bin");

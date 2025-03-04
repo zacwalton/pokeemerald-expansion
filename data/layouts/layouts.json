@@ -5110,6 +5110,16 @@
       "secondary_tileset": "gTileset_Contest",
       "border_filepath": "data/layouts/SlateportCity_ContestHall/border.bin",
       "blockdata_filepath": "data/layouts/SlateportCity_ContestHall/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTBORO_CITY_SEWER",
+      "name": "RustboroCity_Sewer_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Sewer",
+      "border_filepath": "data/layouts/RustboroCity_Sewer/border.bin",
+      "blockdata_filepath": "data/layouts/RustboroCity_Sewer/map.bin"
     }
   ]
 }

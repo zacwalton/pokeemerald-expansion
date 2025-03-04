@@ -270,7 +270,8 @@
     "RustboroCity_House6",
     "RustboroCity_Flat4_1F",
     "RustboroCity_Flat4_2F",
-    "RustboroCity_Museum_1F"
+    "RustboroCity_Museum_1F",
+    "RustboroCity_Sewer"
   ],
   "gMapGroup_IndoorFortree": [
     "FortreeCity_House1",

@@ -401,26 +401,26 @@ EventScript_CancelStrength::
 	end
 
 Text_WantToStrength:
-	.string "It's a big boulder, but a POKéMON\n"
+	.string "It looks heavy, but a POKéMON\n"
 	.string "may be able to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it aside.\p"
 	.string "Would you like to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it?$"
 
 Text_MonUsedStrength:
 	.string "{STR_VAR_1} used {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}{STR_VAR_2}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}!\p"
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}boulders around!$"
+	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}objects around!$"
 
 Text_ActivateStrength:
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}boulders around!$"
+	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}objects around!$"
 
 Text_CantStrength:
-	.string "It's a big boulder, but a POKéMON\n"
+	.string "It looks heavy, but a POKéMON\n"
 	.string "may be able to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it aside.$"
 
 Text_StrengthActivated:
 	.string "{STR_VAR_1} made it possible to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}\n"
-	.string "boulders around.$"
+	.string "objects around.$"
 
 EventScript_UseWaterfall::
 	lockall

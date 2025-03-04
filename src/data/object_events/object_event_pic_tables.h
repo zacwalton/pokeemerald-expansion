@@ -381,6 +381,10 @@ const struct SpriteFrameImage sPicTable_LargeFire[] = {
     overworld_frame(gObjectEventPic_LargeFire, 2, 4, 7),
 };
 
+static const struct SpriteFrameImage sPicTable_SewerGrate[] = {
+    obj_frame_tiles(gObjectEventPic_SewerGrate),
+};
+
 static const struct SpriteFrameImage sPicTable_Truck[] = {
     obj_frame_tiles(gObjectEventPic_Truck),
 };
