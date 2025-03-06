@@ -2,11 +2,11 @@
   "map_sections": [
     {
       "map_section": "MAPSEC_LITTLEROOT_TOWN",
-      "name": "LITTLEROOT TOWN",
+      "name": "LITTLEROOT CITY",
       "x": 4,
       "y": 11,
       "width": 1,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_OLDALE_TOWN",
@@ -27,7 +27,7 @@
     {
       "map_section": "MAPSEC_LAVARIDGE_TOWN",
       "name": "LAVARIDGE TOWN",
-      "x": 5,
+      "x": 4,
       "y": 3,
       "width": 1,
       "height": 1
@@ -219,9 +219,9 @@
     {
       "map_section": "MAPSEC_ROUTE_112",
       "name": "ROUTE 112",
-      "x": 6,
+      "x": 5,
       "y": 3,
-      "width": 2,
+      "width": 3,
       "height": 1
     },
     {
@@ -268,9 +268,9 @@
       "map_section": "MAPSEC_ROUTE_118",
       "name": "ROUTE 118",
       "x": 10,
-      "y": 6,
+      "y": 5,
       "width": 2,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_ROUTE_119",
@@ -278,7 +278,7 @@
       "x": 11,
       "y": 0,
       "width": 1,
-      "height": 6
+      "height": 5
     },
     {
       "map_section": "MAPSEC_ROUTE_120",
@@ -387,17 +387,17 @@
     {
       "map_section": "MAPSEC_ROUTE_133",
       "name": "ROUTE 133",
-      "x": 12,
-      "y": 10,
-      "width": 3,
-      "height": 1
+      "x": 13,
+      "y": 7,
+      "width": 2,
+      "height": 4
     },
     {
       "map_section": "MAPSEC_ROUTE_134",
       "name": "ROUTE 134",
       "x": 9,
       "y": 10,
-      "width": 3,
+      "width": 4,
       "height": 1
     },
     {
@@ -451,18 +451,18 @@
     {
       "map_section": "MAPSEC_MT_CHIMNEY",
       "name": "MT. CHIMNEY",
-      "x": 6,
-      "y": 2,
-      "width": 1,
-      "height": 1
+      "x": 4,
+      "y": 1,
+      "width": 4,
+      "height": 2
     },
     {
       "map_section": "MAPSEC_SAFARI_ZONE",
       "name": "SAFARI ZONE",
-      "x": 16,
-      "y": 2,
-      "width": 1,
-      "height": 1
+      "x": 9,
+      "y": 0,
+      "width": 2,
+      "height": 2
     },
     {
       "map_section": "MAPSEC_BATTLE_FRONTIER",
@@ -485,15 +485,15 @@
       "name": "RUSTURF TUNNEL",
       "x": 2,
       "y": 5,
-      "width": 1,
+      "width": 3,
       "height": 1
     },
     {
       "map_section": "MAPSEC_ABANDONED_SHIP",
-      "name": "ABANDONED SHIP",
+      "name": "SEA MAUVILLE",
       "x": 6,
-      "y": 14,
-      "width": 1,
+      "y": 13,
+      "width": 2,
       "height": 1
     },
     {
@@ -526,12 +526,11 @@
       "x": 16,
       "y": 4,
       "width": 1,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_AQUA_HIDEOUT_OLD",
       "name": "{AQUA} HIDEOUT",
-      "name_clone": true,
       "x": 19,
       "y": 3,
       "width": 1,
@@ -684,8 +683,8 @@
     {
       "map_section": "MAPSEC_SKY_PILLAR",
       "name": "SKY PILLAR",
-      "x": 19,
-      "y": 10,
+      "x": 18,
+      "y": 9,
       "width": 1,
       "height": 1
     },
@@ -796,7 +795,6 @@
     {
       "map_section": "MAPSEC_ROUTE_4_POKECENTER",
       "name": "ROUTE 4",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -805,7 +803,6 @@
     {
       "map_section": "MAPSEC_ROUTE_10_POKECENTER",
       "name": "ROUTE 10",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1046,7 +1043,6 @@
     {
       "map_section": "MAPSEC_UNDERGROUND_PATH_2",
       "name": "UNDERGROUND PATH",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1063,7 +1059,6 @@
     {
       "map_section": "MAPSEC_KANTO_VICTORY_ROAD",
       "name": "VICTORY ROAD",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1096,7 +1091,6 @@
     {
       "map_section": "MAPSEC_KANTO_SAFARI_ZONE",
       "name": "SAFARI ZONE",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1441,7 +1435,6 @@
     {
       "map_section": "MAPSEC_TRAINER_TOWER_2",
       "name": "TRAINER TOWER",
-      "name_clone": true,
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1709,6 +1702,110 @@
       "x": 8,
       "y": 4,
       "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_SLATEPORT_LIGHTHOUSE",
+      "name": "SLATEPORT LIGHTHOUSE",
+      "x": 9,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_111_DESERT",
+      "name": "ROUTE 111 DESERT",
+      "x": 9,
+      "y": 2,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "map_section": "MAPSEC_PETALBURG_WOODS2",
+      "name": "",
+      "x": 1,
+      "y": 7,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_METEOR_FALLS3",
+      "name": "METEOR FALLS",
+      "x": 2,
+      "y": 1,
+      "width": 2,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_FORINA",
+      "name": "FORINA",
+      "x": 1,
+      "y": 3,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_DEWFORD_ISLAND",
+      "name": "",
+      "x": 0,
+      "y": 14,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_OLDALE_RUINS",
+      "name": "",
+      "x": 5,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_OLD_POWER_PLANT",
+      "name": "",
+      "x": 6,
+      "y": 10,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_DONTO_ISLAND",
+      "name": "DONTO ISLAND",
+      "x": 20,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_GIBAN_ISLAND",
+      "name": "GIBAN ISLAND",
+      "x": 17,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_VALLEY_OF_STEEL",
+      "name": "VALLEY OF STEEL",
+      "x": 4,
+      "y": 4,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_WILD_ISLAND",
+      "name": "",
+      "x": 9,
+      "y": 7,
+      "width": 4,
+      "height": 3
+    },
+    {
+      "map_section": "MAPSEC_VERDALE_FALLS",
+      "name": "VERDALE_FALLS",
+      "x": 4,
+      "y": 7,
+      "width": 4,
       "height": 1
     }
   ]

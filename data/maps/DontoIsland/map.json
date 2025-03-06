@@ -3,7 +3,7 @@
   "name": "DontoIsland",
   "layout": "LAYOUT_DONTO_ISLAND",
   "music": "MUS_CAVE_OF_ORIGIN",
-  "region_map_section": "MAPSEC_SKY_PILLAR",
+  "region_map_section": "MAPSEC_DONTO_ISLAND",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",

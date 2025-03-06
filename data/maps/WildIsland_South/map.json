@@ -3,7 +3,7 @@
   "name": "WildIsland_South",
   "layout": "LAYOUT_WILD_ISLAND_SOUTH",
   "music": "MUS_DUMMY",
-  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_WILD_ISLAND",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_ROUTE",

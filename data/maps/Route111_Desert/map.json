@@ -3,7 +3,7 @@
   "name": "Route111_Desert",
   "layout": "LAYOUT_ROUTE111_DESERT",
   "music": "MUS_DESERT",
-  "region_map_section": "MAPSEC_ROUTE_111",
+  "region_map_section": "MAPSEC_ROUTE_111_DESERT",
   "requires_flash": false,
   "weather": "WEATHER_SANDSTORM",
   "map_type": "MAP_TYPE_ROUTE",
