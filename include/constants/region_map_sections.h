@@ -214,7 +214,7 @@
 #define MAPSEC_ALTERING_CAVE                0xD2
 #define MAPSEC_NAVEL_ROCK                   0xD3
 #define MAPSEC_TRAINER_HILL                 0xD4
-#define MAPSEC_NONE                         0xD5
+#define MAPSEC_METEOR_FALLS3                0xD5
 #define MAPSEC_FORINA                       0xD6
 #define MAPSEC_VALLEY_OF_STEEL              0xD7
 #define MAPSEC_VERDALE_FALLS                0xD8
@@ -227,7 +227,7 @@
 #define MAPSEC_OLDALE_RUINS                 0xDF
 #define MAPSEC_OLD_POWER_PLANT              0xE0
 #define MAPSEC_PETALBURG_WOODS2	            0xE1
-#define MAPSEC_METEOR_FALLS3	            0xE2
+#define MAPSEC_NONE	            			0xE2
 
 #define METLOC_SPECIAL_EGG                  0xFD
 #define METLOC_IN_GAME_TRADE                0xFE
