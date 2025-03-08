@@ -46,6 +46,9 @@
 #define MAPCURSOR_Y_MAX (MAPCURSOR_Y_MIN + MAP_HEIGHT - 1)
 
 #define FLYDESTICON_RED_OUTLINE 6
+#define FLYDESTICON_TOWN 7
+#define FLYDESTICON_GREEN_CANFLY 8
+#define FLYDESTICON_GREEN_SELECT 9
 
 enum {
     TAG_CURSOR,
@@ -432,6 +435,18 @@ static const u16 sRedOutlineFlyDestinations[][2] =
     }
 };
 
+// List of mapsec that use blue town sprites
+static const u16 sTownFlyDestinations[] =
+{
+	MAPSEC_OLDALE_TOWN,
+	MAPSEC_DEWFORD_TOWN,
+	MAPSEC_LAVARIDGE_TOWN,
+	MAPSEC_FALLARBOR_TOWN,
+	MAPSEC_VERDANTURF_TOWN,
+	MAPSEC_PACIFIDLOG_TOWN,
+	MAPSEC_NONE
+};
+
 static const struct OamData sFlyDestIcon_OamData =
 {
     .shape = SPRITE_SHAPE(8x8),
@@ -482,6 +497,26 @@ static const union AnimCmd sFlyDestIcon_Anim_RedOutline[] =
     ANIMCMD_END
 };
 
+static const union AnimCmd sFlyDestIcon_Anim_Town[] =
+{
+    ANIMCMD_FRAME(11, 5),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sFlyDestIcon_Anim_GreenCanFly[] =
+{
+    ANIMCMD_FRAME( 10, 16),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sFlyDestIcon_Anim_GreenSelected[] =
+{
+    ANIMCMD_FRAME( 10, 16),
+    ANIMCMD_FRAME( 12, 16),
+	ANIMCMD_JUMP(0),
+    ANIMCMD_END
+};
+
 static const union AnimCmd *const sFlyDestIcon_Anims[] =
 {
     [SPRITE_SHAPE(8x8)]       = sFlyDestIcon_Anim_8x8CanFly,
@@ -490,7 +525,10 @@ static const union AnimCmd *const sFlyDestIcon_Anims[] =
     [SPRITE_SHAPE(8x8)  + 3]  = sFlyDestIcon_Anim_8x8CantFly,
     [SPRITE_SHAPE(16x8) + 3]  = sFlyDestIcon_Anim_16x8CantFly,
     [SPRITE_SHAPE(8x16) + 3]  = sFlyDestIcon_Anim_8x16CantFly,
-    [FLYDESTICON_RED_OUTLINE] = sFlyDestIcon_Anim_RedOutline
+    [FLYDESTICON_RED_OUTLINE] = sFlyDestIcon_Anim_RedOutline,
+    [FLYDESTICON_TOWN] 		  = sFlyDestIcon_Anim_Town,
+    [FLYDESTICON_GREEN_CANFLY]      = sFlyDestIcon_Anim_GreenCanFly,
+    [FLYDESTICON_GREEN_SELECT]      = sFlyDestIcon_Anim_GreenSelected
 };
 
 static const struct SpriteTemplate sFlyDestIconSpriteTemplate =
@@ -1909,6 +1947,18 @@ static void LoadFlyDestIcons(void)
 #define sIconMapSec   data[0]
 #define sFlickerTimer data[1]
 
+// Check if mapsec has an entry in sTownFlyDestinations
+static bool8 IsTownFlyDestination(u16 mapSecId)
+{
+    u16 i;
+    for (i = 0; sTownFlyDestinations[i] != MAPSEC_NONE; i++)
+    {
+        if (sTownFlyDestinations[i] == mapSecId)
+            return TRUE;
+    }
+    return FALSE;
+}
+
 static void CreateFlyDestIcons(void)
 {
     u16 canFlyFlag;
@@ -1918,6 +1968,7 @@ static void CreateFlyDestIcons(void)
     u16 width;
     u16 height;
     u16 shape;
+    u16 animNum;
     u8 spriteId;
 
     canFlyFlag = FLAG_VISITED_LITTLEROOT_TOWN;
@@ -1927,12 +1978,26 @@ static void CreateFlyDestIcons(void)
         x = (x + MAPCURSOR_X_MIN) * 8 + 4;
         y = (y + MAPCURSOR_Y_MIN) * 8 + 4;
 
-        if (width == 2)
+		if (width == 2)
+		{
             shape = SPRITE_SHAPE(16x8);
+            animNum = SPRITE_SHAPE(16x8);
+		}
         else if (height == 2)
+		{
             shape = SPRITE_SHAPE(8x16);
-        else
+            animNum = SPRITE_SHAPE(8x16);
+		}
+        else if (IsTownFlyDestination(mapSecId))
+		{
             shape = SPRITE_SHAPE(8x8);
+            animNum = FLYDESTICON_TOWN;
+		}
+        else
+		{
+            shape = SPRITE_SHAPE(8x8);
+			animNum = SPRITE_SHAPE(8x8);
+		}
 
         spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
         if (spriteId != MAX_SPRITES)
@@ -1940,12 +2005,17 @@ static void CreateFlyDestIcons(void)
             gSprites[spriteId].oam.shape = shape;
 
             if (FlagGet(canFlyFlag))
+			{
                 gSprites[spriteId].callback = SpriteCB_FlyDestIcon;
+			    StartSpriteAnim(&gSprites[spriteId], animNum);
+				gSprites[spriteId].sIconMapSec = mapSecId;
+			}
             else
+			{
                 shape += 3;
-
-            StartSpriteAnim(&gSprites[spriteId], shape);
-            gSprites[spriteId].sIconMapSec = mapSecId;
+				StartSpriteAnim(&gSprites[spriteId], shape);
+				gSprites[spriteId].sIconMapSec = mapSecId;
+			}
         }
         canFlyFlag++;
     }
@@ -1965,40 +2035,66 @@ static void TryCreateRedOutlineFlyDestIcons(void)
 
     for (i = 0; sRedOutlineFlyDestinations[i][1] != MAPSEC_NONE; i++)
     {
+		
         if (FlagGet(sRedOutlineFlyDestinations[i][0]))
         {
-            mapSecId = sRedOutlineFlyDestinations[i][1];
-            GetMapSecDimensions(mapSecId, &x, &y, &width, &height);
-            x = (x + MAPCURSOR_X_MIN) * 8;
-            y = (y + MAPCURSOR_Y_MIN) * 8;
+			mapSecId = sRedOutlineFlyDestinations[i][1];
+			GetMapSecDimensions(mapSecId, &x, &y, &width, &height);
+			x = (x + MAPCURSOR_X_MIN) * 8 + 4;
+			y = (y + MAPCURSOR_Y_MIN) * 8 + 4;
             spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
             if (spriteId != MAX_SPRITES)
             {
-                gSprites[spriteId].oam.size = SPRITE_SIZE(16x16);
                 gSprites[spriteId].callback = SpriteCB_FlyDestIcon;
-                StartSpriteAnim(&gSprites[spriteId], FLYDESTICON_RED_OUTLINE);
+				StartSpriteAnim(&gSprites[spriteId], FLYDESTICON_GREEN_CANFLY);
                 gSprites[spriteId].sIconMapSec = mapSecId;
             }
         }
+	}
+}
+
+// Check if mapsec has an entry in sRedOutlineFlyDestinations
+static bool8 IsRedOutlineFlyDestination(u16 mapSecId) 
+{
+    u16 i;
+    for (i = 0; sRedOutlineFlyDestinations[i][1] != MAPSEC_NONE; i++)
+    {
+        if (sRedOutlineFlyDestinations[i][1] == mapSecId)
+            return TRUE;
     }
+    return FALSE;
 }
 
 // Flickers fly destination icon color (by hiding the fly icon sprite) if the cursor is currently on it
 static void SpriteCB_FlyDestIcon(struct Sprite *sprite)
 {
-    if (sFlyMap->regionMap.mapSecId == sprite->sIconMapSec)
-    {
-        if (++sprite->sFlickerTimer > 16)
-        {
-            sprite->sFlickerTimer = 0;
-            sprite->invisible = sprite->invisible ? FALSE : TRUE;
-        }
-    }
-    else
-    {
-        sprite->sFlickerTimer = 16;
-        sprite->invisible = FALSE;
-    }
+	if (IsRedOutlineFlyDestination(sprite->sIconMapSec))
+		{
+			sprite->invisible = FALSE;
+			if (IsRedOutlineFlyDestination(sFlyMap->regionMap.mapSecId))
+			{
+				// Cursor is on Battle Frontier -> Play highlight animation
+				StartSpriteAnimIfDifferent(sprite, FLYDESTICON_GREEN_SELECT);
+			}
+			else
+			{
+				// Cursor moved away -> Reset to default
+				StartSpriteAnimIfDifferent(sprite, FLYDESTICON_GREEN_CANFLY);
+			}
+		}
+		else if (sFlyMap->regionMap.mapSecId == sprite->sIconMapSec)
+		{
+			if (++sprite->sFlickerTimer > 16)
+			{
+				sprite->sFlickerTimer = 0;
+				sprite->invisible = sprite->invisible ? FALSE : TRUE;
+			}
+		}
+		else
+		{
+			sprite->sFlickerTimer = 16;
+			sprite->invisible = TRUE;
+		}
 }
 
 #undef sIconMapSec
@@ -2076,12 +2172,12 @@ static void CB_ExitFlyMap(void)
                         case MAPSEC_LITTLEROOT_TOWN:
                             SetWarpDestinationToHealLocation(gSaveBlock2Ptr->playerGender == MALE ? HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE : HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE);
                             break;
-                        case MAPSEC_EVER_GRANDE_CITY:
+                        /*case MAPSEC_EVER_GRANDE_CITY:
                             SetWarpDestinationToHealLocation(FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && sFlyMap->regionMap.posWithinMapSec == 0 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
                             break;
 						case MAPSEC_MT_CHIMNEY:
 							SetWarpDestinationToHealLocation(HEAL_LOCATION_MT_CHIMNEY);
-							break;
+							break;*/
                         default:
                             if (sMapHealLocations[sFlyMap->regionMap.mapSecId][2] != HEAL_LOCATION_NONE)
                                 SetWarpDestinationToHealLocation(sMapHealLocations[sFlyMap->regionMap.mapSecId][2]);
