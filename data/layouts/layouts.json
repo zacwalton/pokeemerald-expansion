@@ -4615,7 +4615,7 @@
       "id": "LAYOUT_ROUTE111_NORTH",
       "name": "Route111_North_Layout",
       "width": 45,
-      "height": 146,
+      "height": 138,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Route_111_Summer",
       "border_filepath": "data/layouts/Route111_North/border.bin",

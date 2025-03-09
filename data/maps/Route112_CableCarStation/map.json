@@ -3,7 +3,7 @@
   "name": "Route112_CableCarStation",
   "layout": "LAYOUT_CABLE_CAR_STATION",
   "music": "MUS_ROUTE110",
-  "region_map_section": "MAPSEC_ROUTE_112",
+  "region_map_section": "MAPSEC_CABLECAR",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -12,7 +12,7 @@
   "allow_running": false,
   "show_map_name": false,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": 0,
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
@@ -46,17 +46,21 @@
       "x": 6,
       "y": 11,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_MT_CHIMNEY_EXTERIOR",
+      "dest_warp_id": "4"
     },
     {
       "x": 7,
       "y": 11,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "1"
+      "dest_map": "MAP_MT_CHIMNEY_EXTERIOR",
+      "dest_warp_id": "5"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
 }

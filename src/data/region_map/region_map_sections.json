@@ -214,7 +214,7 @@
       "x": 8,
       "y": 0,
       "width": 1,
-      "height": 6
+      "height": 5
     },
     {
       "map_section": "MAPSEC_ROUTE_112",
@@ -499,7 +499,7 @@
     {
       "map_section": "MAPSEC_NEW_MAUVILLE",
       "name": "NEW MAUVILLE",
-      "x": 8,
+      "x": 9,
       "y": 7,
       "width": 1,
       "height": 1
@@ -571,7 +571,7 @@
     {
       "map_section": "MAPSEC_MIRAGE_ISLAND",
       "name": "MIRAGE ISLAND",
-      "x": 17,
+      "x": 19,
       "y": 10,
       "width": 1,
       "height": 1
@@ -596,7 +596,7 @@
       "map_section": "MAPSEC_FIERY_PATH",
       "name": "FIERY PATH",
       "x": 6,
-      "y": 3,
+      "y": 2,
       "width": 1,
       "height": 1
     },
@@ -604,14 +604,14 @@
       "map_section": "MAPSEC_FIERY_PATH2",
       "name": "FIERY PATH",
       "x": 7,
-      "y": 3,
+      "y": 1,
       "width": 1,
       "height": 1
     },
     {
       "map_section": "MAPSEC_JAGGED_PASS",
       "name": "JAGGED PASS",
-      "x": 6,
+      "x": 5,
       "y": 3,
       "width": 1,
       "height": 1
@@ -619,7 +619,7 @@
     {
       "map_section": "MAPSEC_JAGGED_PASS2",
       "name": "JAGGED PASS",
-      "x": 7,
+      "x": 6,
       "y": 2,
       "width": 1,
       "height": 1
@@ -1706,7 +1706,7 @@
     },
     {
       "map_section": "MAPSEC_SLATEPORT_LIGHTHOUSE",
-      "name": "SLATEPORT LIGHTHOUSE",
+      "name": "SLATEPORT LIGHT",
       "x": 9,
       "y": 11,
       "width": 1,
@@ -1714,7 +1714,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_111_DESERT",
-      "name": "ROUTE 111 DESERT",
+      "name": "DESERT",
       "x": 9,
       "y": 2,
       "width": 2,
@@ -1722,7 +1722,7 @@
     },
     {
       "map_section": "MAPSEC_PETALBURG_WOODS2",
-      "name": "",
+      "name": "PETALBURG WOODS",
       "x": 1,
       "y": 7,
       "width": 3,
@@ -1746,7 +1746,7 @@
     },
     {
       "map_section": "MAPSEC_DEWFORD_ISLAND",
-      "name": "",
+      "name": "DEWFORD ISLAND",
       "x": 0,
       "y": 14,
       "width": 2,
@@ -1754,7 +1754,7 @@
     },
     {
       "map_section": "MAPSEC_OLDALE_RUINS",
-      "name": "",
+      "name": "OLDALE RUINS",
       "x": 5,
       "y": 9,
       "width": 1,
@@ -1762,7 +1762,7 @@
     },
     {
       "map_section": "MAPSEC_OLD_POWER_PLANT",
-      "name": "",
+      "name": "OLD POWER PLANT",
       "x": 6,
       "y": 10,
       "width": 1,
@@ -1794,7 +1794,7 @@
     },
     {
       "map_section": "MAPSEC_WILD_ISLAND",
-      "name": "",
+      "name": "WILD ISLAND",
       "x": 9,
       "y": 7,
       "width": 4,
@@ -1802,10 +1802,34 @@
     },
     {
       "map_section": "MAPSEC_VERDALE_FALLS",
-      "name": "VERDALE_FALLS",
+      "name": "VERDALE FALLS",
       "x": 4,
       "y": 7,
       "width": 4,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_111_SOUTH",
+      "name": "ROUTE 111",
+      "x": 8,
+      "y": 5,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_CABLECAR",
+      "name": "CABLE CAR",
+      "x": 7,
+      "y": 2,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_CABLECAR_TOP",
+      "name": "CABLE CAR",
+      "x": 6,
+      "y": 2,
+      "width": 1,
       "height": 1
     }
   ]

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "global.h"
 #include "event_data.h"
 #include "constants/region_map_sections.h"
 
@@ -169,48 +170,45 @@ static const struct Landmark *const Landmarks_Route110_2[]  =
 static const struct Landmark *const Landmarks_Route111_0[]  =
 {
     &Landmark_OldLadysRestShop,
-    NULL,
-};
-
-static const struct Landmark *const Landmarks_Route111_1[]  =
-{
-    &Landmark_Desert,
+    &Landmark_SafariZoneEntrance,
     NULL,
 };
 
 static const struct Landmark *const Landmarks_Route111_2[]  =
 {
-    &Landmark_MirageTower,
     &Landmark_Desert,
     NULL,
 };
 
 static const struct Landmark *const Landmarks_Route111_3[]  =
 {
-    &Landmark_DesertRuins,
     &Landmark_Desert,
     NULL,
 };
 
 static const struct Landmark *const Landmarks_Route111_4[]  =
 {
+    &Landmark_Desert,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_Route111_Desert_3[]  =
+{
+    &Landmark_DesertRuins,
+    &Landmark_MirageTower,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_Route111_South_0[]  =
+{
     &Landmark_TrainerHill,
     &Landmark_WinstrateFamily,
-    &Landmark_Desert,
     NULL,
 };
 
 static const struct Landmark *const Landmarks_Route112_0[]  =
 {
-    &Landmark_FieryPath,
     &Landmark_JaggedPass,
-    NULL,
-};
-
-static const struct Landmark *const Landmarks_Route112_1[]  =
-{
-    &Landmark_CableCar,
-    &Landmark_FieryPath,
     NULL,
 };
 
@@ -258,6 +256,12 @@ static const struct Landmark *const Landmarks_Route117_2[]  =
     NULL,
 };
 
+static const struct Landmark *const Landmarks_Route119_0[]  =
+{
+    &Landmark_SafariZoneEntrance,
+    NULL,
+};
+
 static const struct Landmark *const Landmarks_Route119_1[]  =
 {
     &Landmark_WeatherInstitute,
@@ -300,7 +304,7 @@ static const struct Landmark *const Landmarks_Route124_7[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_Route125_2[]  =
+static const struct Landmark *const Landmarks_Route125_0[]  =
 {
     &Landmark_ShoalCave,
     NULL,
@@ -331,10 +335,23 @@ static const struct Landmark *const Landmarks_Route134_2[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_MtChimney_2[]  =
+static const struct Landmark *const Landmarks_MtChimney_3[]  =
+{
+    &Landmark_FieryPath,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_MtChimney_6[]  =
 {
     &Landmark_CableCar,
     &Landmark_JaggedPass,
+    &Landmark_FieryPath,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_MtChimney_7[]  =
+{
+    &Landmark_CableCar,
     NULL,
 };
 
@@ -351,12 +368,10 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_110, 1, Landmarks_Route110_1},
     {MAPSEC_ROUTE_110, 2, Landmarks_Route110_2},
     {MAPSEC_ROUTE_111, 0, Landmarks_Route111_0},
-    {MAPSEC_ROUTE_111, 1, Landmarks_Route111_1},
     {MAPSEC_ROUTE_111, 2, Landmarks_Route111_2},
     {MAPSEC_ROUTE_111, 3, Landmarks_Route111_3},
-    {MAPSEC_ROUTE_111, 4, Landmarks_Route111_4},
+    {MAPSEC_ROUTE_111, 4, Landmarks_Route111_3},
     {MAPSEC_ROUTE_112, 0, Landmarks_Route112_0},
-    {MAPSEC_ROUTE_112, 1, Landmarks_Route112_1},
     {MAPSEC_ROUTE_113, 1, Landmarks_Route113_1},
     {MAPSEC_ROUTE_114, 1, Landmarks_Route114_1},
     {MAPSEC_ROUTE_114, 2, Landmarks_Route114_2},
@@ -366,6 +381,7 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_116, 1, Landmarks_Route116_1},
     {MAPSEC_ROUTE_116, 2, Landmarks_Route116_2},
     {MAPSEC_ROUTE_117, 2, Landmarks_Route117_2},
+    {MAPSEC_ROUTE_119, 0, Landmarks_Route119_0},
     {MAPSEC_ROUTE_119, 1, Landmarks_Route119_1},
     {MAPSEC_ROUTE_120, 0, Landmarks_Route120_0},
     {MAPSEC_ROUTE_120, 2, Landmarks_Route120_2},
@@ -379,18 +395,22 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_122, 1, Landmarks_Route122_0},
 #endif
     {MAPSEC_ROUTE_124, 7, Landmarks_Route124_7},
-    {MAPSEC_ROUTE_125, 2, Landmarks_Route125_2},
+    {MAPSEC_ROUTE_125, 2, Landmarks_Route125_0},
     {MAPSEC_ROUTE_128, 1, Landmarks_Route128_1},
     {MAPSEC_ROUTE_131, 1, Landmarks_Route131_1},
     {MAPSEC_ROUTE_132, 0, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_132, 1, Landmarks_OceanCurrent},
-    {MAPSEC_ROUTE_133, 0, Landmarks_OceanCurrent},
-    {MAPSEC_ROUTE_133, 1, Landmarks_OceanCurrent},
-    {MAPSEC_ROUTE_133, 2, Landmarks_OceanCurrent},
+    {MAPSEC_ROUTE_133, 6, Landmarks_OceanCurrent},
+    {MAPSEC_ROUTE_133, 7, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_134, 0, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_134, 1, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_134, 2, Landmarks_Route134_2},
-    {MAPSEC_MT_CHIMNEY, 2, Landmarks_MtChimney_2},
+    {MAPSEC_ROUTE_134, 3, Landmarks_OceanCurrent},
+    {MAPSEC_MT_CHIMNEY, 3, Landmarks_MtChimney_3},
+    {MAPSEC_MT_CHIMNEY, 6, Landmarks_MtChimney_6},
+    {MAPSEC_MT_CHIMNEY, 7, Landmarks_MtChimney_7},
+    {MAPSEC_ROUTE_111_DESERT, 0, Landmarks_Route111_Desert_3},
+    {MAPSEC_ROUTE_111_SOUTH, 0, Landmarks_Route111_South_0},
     {MAPSEC_NONE, 0, NULL},
 };
 

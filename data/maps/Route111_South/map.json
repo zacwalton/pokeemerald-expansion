@@ -3,7 +3,7 @@
   "name": "Route111_South",
   "layout": "LAYOUT_ROUTE111_SOUTH",
   "music": "MUS_ROUTE110",
-  "region_map_section": "MAPSEC_ROUTE_111",
+  "region_map_section": "MAPSEC_ROUTE_111_SOUTH",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_ROUTE",
