@@ -14,34 +14,24 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE131",
-      "offset": 59,
+      "map": "MAP_ROUTE130",
+      "offset": 9,
       "direction": "down"
     },
     {
-      "map": "MAP_PACIFIDLOG_TOWN",
-      "offset": 19,
-      "direction": "down"
-    },
-    {
-      "map": "MAP_RUGGED_SEA_ROUTE132",
-      "offset": -50,
+      "map": "MAP_RUGGED_SEA_ROUTE131",
+      "offset": 0,
       "direction": "left"
     },
     {
-      "map": "MAP_SKY_PILLAR_EXTERIOR",
-      "offset": 0,
-      "direction": "right"
-    },
-    {
-      "map": "MAP_RUGGED_SEA_ROUTE118",
-      "offset": 0,
+      "map": "MAP_ROUTE126_SOUTH",
+      "offset": -21,
       "direction": "up"
     },
     {
-      "map": "MAP_ROUTE132",
-      "offset": -61,
-      "direction": "down"
+      "map": "MAP_RUGGED_SEA_ROUTE130",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

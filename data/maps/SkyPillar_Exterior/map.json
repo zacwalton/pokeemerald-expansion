@@ -24,14 +24,14 @@
       "direction": "up"
     },
     {
-      "map": "MAP_GIBAN_ISLAND",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE131",
       "offset": -21,
       "direction": "down"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

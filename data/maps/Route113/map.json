@@ -27,6 +27,11 @@
       "map": "MAP_MT_CHIMNEY_EXTERIOR",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_MT_CHIMNEY_BASE",
+      "offset": 77,
+      "direction": "down"
     }
   ],
   "object_events": [

@@ -34,8 +34,8 @@
       "direction": "up"
     },
     {
-      "map": "MAP_ROUTE111_NORTH",
-      "offset": -26,
+      "map": "MAP_MT_CHIMNEY_BASE",
+      "offset": 0,
       "direction": "right"
     }
   ],
@@ -44,60 +44,32 @@
   ],
   "warp_events": [
     {
-      "x": 59,
+      "x": 48,
       "y": 46,
       "elevation": 0,
       "dest_map": "MAP_MT_CHIMNEY_CABLE_CAR_STATION",
       "dest_warp_id": "0"
     },
     {
-      "x": 60,
+      "x": 49,
       "y": 46,
       "elevation": 0,
       "dest_map": "MAP_MT_CHIMNEY_CABLE_CAR_STATION",
       "dest_warp_id": "1"
     },
     {
-      "x": 56,
+      "x": 45,
       "y": 53,
       "elevation": 0,
       "dest_map": "MAP_JAGGED_PASS",
       "dest_warp_id": "2"
     },
     {
-      "x": 57,
+      "x": 46,
       "y": 53,
       "elevation": 0,
       "dest_map": "MAP_JAGGED_PASS",
       "dest_warp_id": "3"
-    },
-    {
-      "x": 88,
-      "y": 53,
-      "elevation": 0,
-      "dest_map": "MAP_ROUTE112_CABLE_CAR_STATION",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 89,
-      "y": 53,
-      "elevation": 0,
-      "dest_map": "MAP_ROUTE112_CABLE_CAR_STATION",
-      "dest_warp_id": "1"
-    },
-    {
-      "x": 97,
-      "y": 15,
-      "elevation": 0,
-      "dest_map": "MAP_FIERY_PATH",
-      "dest_warp_id": "1"
-    },
-    {
-      "x": 77,
-      "y": 61,
-      "elevation": 0,
-      "dest_map": "MAP_FIERY_PATH",
-      "dest_warp_id": "0"
     }
   ],
   "coord_events": [

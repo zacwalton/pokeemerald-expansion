@@ -24,11 +24,6 @@
       "direction": "left"
     },
     {
-      "map": "MAP_MT_CHIMNEY_EXTERIOR",
-      "offset": 26,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE111_SOUTH",
       "offset": 0,
       "direction": "down"
@@ -47,6 +42,11 @@
       "map": "MAP_SAFARI_ZONE_NW",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_MT_CHIMNEY_BASE",
+      "offset": 26,
+      "direction": "left"
     }
   ],
   "object_events": [

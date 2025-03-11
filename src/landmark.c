@@ -19,7 +19,7 @@ struct LandmarkList
 static const u8 LandmarkName_FlowerShop[] = _("FLOWER SHOP");
 static const u8 LandmarkName_PetalburgWoods[] = _("PETALBURG WOODS");
 static const u8 LandmarkName_MrBrineysCottage[] = _("MR. BRINEY'S COTTAGE");
-static const u8 LandmarkName_AbandonedShip[] = _("ABANDONED SHIP");
+static const u8 LandmarkName_AbandonedShip[] = _("SEA MAUVILLE");
 static const u8 LandmarkName_SeashoreHouse[] = _("SEASHORE HOUSE");
 static const u8 LandmarkName_SlateportBeach[] = _("SLATEPORT BEACH");
 static const u8 LandmarkName_CyclingRoad[] = _("CYCLING ROAD");
@@ -58,7 +58,7 @@ static const u8 LandmarkName_MirageTower[] = _("MIRAGE TOWER");
 static const u8 LandmarkName_AlteringCave[] = _("ALTERING CAVE");
 static const u8 LandmarkName_DesertUnderpass[] = _("DESERT UNDERPASS");
 static const u8 LandmarkName_TrainerHill[] = _("TRAINER HILL");
-static const u8 LandmarkName_Forina[] = _("FORINA");
+static const u8 LandmarkName_SlateportLighthouse[] = _("SLATEPORT LIGHTHOUSE");
 
 static const struct Landmark Landmark_FlowerShop = {LandmarkName_FlowerShop, FLAG_LANDMARK_FLOWER_SHOP};
 static const struct Landmark Landmark_PetalburgWoods = {LandmarkName_PetalburgWoods, -1};
@@ -101,7 +101,7 @@ static const struct Landmark Landmark_MirageTower = {LandmarkName_MirageTower, F
 static const struct Landmark Landmark_AlteringCave = {LandmarkName_AlteringCave, FLAG_LANDMARK_ALTERING_CAVE};
 static const struct Landmark Landmark_DesertUnderpass = {LandmarkName_DesertUnderpass, FLAG_LANDMARK_DESERT_UNDERPASS};
 static const struct Landmark Landmark_TrainerHill = {LandmarkName_TrainerHill, FLAG_LANDMARK_TRAINER_HILL};
-static const struct Landmark Landmark_Forina = {LandmarkName_Forina, -1};
+static const struct Landmark Landmark_SlateportLighthouse = {LandmarkName_SlateportLighthouse, -1};
 
 static const struct Landmark *const Landmarks_Route103_2[]  =
 {
@@ -118,6 +118,11 @@ static const struct Landmark *const Landmarks_Route104_0[]  =
 static const struct Landmark *const Landmarks_Route104_1[]  =
 {
     &Landmark_PetalburgWoods,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_Route104_2[]  =
+{
     &Landmark_MrBrineysCottage,
     NULL,
 };
@@ -131,12 +136,6 @@ static const struct Landmark *const Landmarks_Route105_0[]  =
 static const struct Landmark *const Landmarks_Route106_1[]  =
 {
     &Landmark_GraniteCave,
-    NULL,
-};
-
-static const struct Landmark *const Landmarks_Route108_0[]  =
-{
-    &Landmark_AbandonedShip,
     NULL,
 };
 
@@ -192,10 +191,15 @@ static const struct Landmark *const Landmarks_Route111_4[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_Route111_Desert_3[]  =
+static const struct Landmark *const Landmarks_Route111_Desert_2[]  =
+{
+    &Landmark_MirageTower,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_Route111_Desert_4[]  =
 {
     &Landmark_DesertRuins,
-    &Landmark_MirageTower,
     NULL,
 };
 
@@ -335,23 +339,29 @@ static const struct Landmark *const Landmarks_Route134_2[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_MtChimney_3[]  =
+static const struct Landmark *const Landmarks_SlateportLighthouse_0[]  =
 {
-    &Landmark_FieryPath,
+    &Landmark_SlateportLighthouse,
     NULL,
 };
 
-static const struct Landmark *const Landmarks_MtChimney_6[]  =
+static const struct Landmark *const Landmarks_MtChimney_4[]  =
 {
     &Landmark_CableCar,
     &Landmark_JaggedPass,
+    NULL,
+};
+
+static const struct Landmark *const Landmarks_MtChimney_Base_0[]  =
+{
     &Landmark_FieryPath,
     NULL,
 };
 
-static const struct Landmark *const Landmarks_MtChimney_7[]  =
+static const struct Landmark *const Landmarks_MtChimney_Base_1[]  =
 {
     &Landmark_CableCar,
+    &Landmark_FieryPath,
     NULL,
 };
 
@@ -360,9 +370,9 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_103, 2, Landmarks_Route103_2},
     {MAPSEC_ROUTE_104, 0, Landmarks_Route104_0},
     {MAPSEC_ROUTE_104, 1, Landmarks_Route104_1},
+    {MAPSEC_ROUTE_104, 2, Landmarks_Route104_2},
     {MAPSEC_ROUTE_105, 0, Landmarks_Route105_0},
     {MAPSEC_ROUTE_106, 1, Landmarks_Route106_1},
-    {MAPSEC_ROUTE_108, 0, Landmarks_Route108_0},
     {MAPSEC_ROUTE_109, 0, Landmarks_Route109_0},
     {MAPSEC_ROUTE_110, 0, Landmarks_Route110_0},
     {MAPSEC_ROUTE_110, 1, Landmarks_Route110_1},
@@ -405,12 +415,14 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_134, 0, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_134, 1, Landmarks_OceanCurrent},
     {MAPSEC_ROUTE_134, 2, Landmarks_Route134_2},
+    {MAPSEC_SLATEPORT_LIGHTHOUSE, 2, Landmarks_SlateportLighthouse_0},
     {MAPSEC_ROUTE_134, 3, Landmarks_OceanCurrent},
-    {MAPSEC_MT_CHIMNEY, 3, Landmarks_MtChimney_3},
-    {MAPSEC_MT_CHIMNEY, 6, Landmarks_MtChimney_6},
-    {MAPSEC_MT_CHIMNEY, 7, Landmarks_MtChimney_7},
-    {MAPSEC_ROUTE_111_DESERT, 0, Landmarks_Route111_Desert_3},
+    {MAPSEC_MT_CHIMNEY, 4, Landmarks_MtChimney_4},
+    {MAPSEC_ROUTE_111_DESERT, 2, Landmarks_Route111_Desert_2},
+    {MAPSEC_ROUTE_111_DESERT, 4, Landmarks_Route111_Desert_4},
     {MAPSEC_ROUTE_111_SOUTH, 0, Landmarks_Route111_South_0},
+    {MAPSEC_MT_CHIMNEY_BASE, 0, Landmarks_MtChimney_Base_0},
+    {MAPSEC_MT_CHIMNEY_BASE, 1, Landmarks_MtChimney_Base_1},
     {MAPSEC_NONE, 0, NULL},
 };
 

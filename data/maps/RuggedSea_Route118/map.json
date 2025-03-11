@@ -24,11 +24,6 @@
       "direction": "right"
     },
     {
-      "map": "MAP_GIBAN_ISLAND",
-      "offset": 0,
-      "direction": "down"
-    },
-    {
       "map": "MAP_RUGGED_SEA_ROUTE132",
       "offset": 0,
       "direction": "left"
@@ -51,6 +46,11 @@
     {
       "map": "MAP_RUGGED_SEA_ROUTE131",
       "offset": 120,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": 0,
       "direction": "down"
     }
   ],

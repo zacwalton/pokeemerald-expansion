@@ -10,7 +10,7 @@ MtChimney_CableCarStation_OnTransition:
 	end
 
 MtChimney_CableCarStation_EventScript_MoveAttendantAside::
-	setobjectxyperm LOCALID_ATTENDANT, 5, 4
+	setobjectxyperm LOCALID_ATTENDANT, 19, 18
 	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_RIGHT
 	return
 
@@ -24,7 +24,7 @@ MtChimney_CableCarStation_EventScript_ExitCableCar::
 	applymovement LOCALID_ATTENDANT, MtChimney_CableCarStation_Movement_FollowPlayerOutFromCableCar
 	waitmovement 0
 	setvar VAR_CABLE_CAR_STATION_STATE, 0
-	setobjectxyperm LOCALID_ATTENDANT, 6, 7
+	setobjectxyperm LOCALID_ATTENDANT, 19, 18
 	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
 	releaseall
 	end

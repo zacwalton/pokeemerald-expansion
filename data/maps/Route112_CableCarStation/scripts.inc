@@ -11,7 +11,7 @@ Route112_CableCarStation_OnTransition:
 	end
 
 Route112_CableCarStation_EventScript_MoveAttendantAside::
-	setobjectxyperm LOCALID_ATTENDANT, 7, 4
+	setobjectxyperm LOCALID_ATTENDANT, 19, 18
 	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_LEFT
 	return
 
@@ -25,7 +25,7 @@ Route112_CableCarStation_EventScript_ExitCableCar::
 	applymovement LOCALID_ATTENDANT, Route112_CableCarStation_Movement_FollowPlayerOutFromCableCar
 	waitmovement 0
 	setvar VAR_CABLE_CAR_STATION_STATE, 0
-	setobjectxyperm LOCALID_ATTENDANT, 6, 7
+	setobjectxyperm LOCALID_ATTENDANT, 19, 18
 	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
 	releaseall
 	end

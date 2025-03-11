@@ -358,7 +358,7 @@
       "x": 24,
       "y": 10,
       "width": 2,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_ROUTE_130",
@@ -374,7 +374,7 @@
       "x": 18,
       "y": 10,
       "width": 3,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_ROUTE_132",
@@ -453,7 +453,7 @@
       "name": "MT. CHIMNEY",
       "x": 4,
       "y": 1,
-      "width": 4,
+      "width": 3,
       "height": 2
     },
     {
@@ -595,7 +595,7 @@
     {
       "map_section": "MAPSEC_FIERY_PATH",
       "name": "FIERY PATH",
-      "x": 6,
+      "x": 7,
       "y": 2,
       "width": 1,
       "height": 1
@@ -619,7 +619,7 @@
     {
       "map_section": "MAPSEC_JAGGED_PASS2",
       "name": "JAGGED PASS",
-      "x": 6,
+      "x": 5,
       "y": 2,
       "width": 1,
       "height": 1
@@ -1670,7 +1670,7 @@
       "x": 24,
       "y": 10,
       "width": 2,
-      "height": 1
+      "height": 2
     },
     {
       "map_section": "MAPSEC_DESERT_UNDERPASS",
@@ -1706,7 +1706,7 @@
     },
     {
       "map_section": "MAPSEC_SLATEPORT_LIGHTHOUSE",
-      "name": "SLATEPORT LIGHT",
+      "name": "SLATEPORT CITY",
       "x": 9,
       "y": 11,
       "width": 1,
@@ -1771,7 +1771,7 @@
     {
       "map_section": "MAPSEC_DONTO_ISLAND",
       "name": "DONTO ISLAND",
-      "x": 20,
+      "x": 17,
       "y": 9,
       "width": 1,
       "height": 1
@@ -1779,7 +1779,7 @@
     {
       "map_section": "MAPSEC_GIBAN_ISLAND",
       "name": "GIBAN ISLAND",
-      "x": 17,
+      "x": 20,
       "y": 9,
       "width": 1,
       "height": 1
@@ -1802,7 +1802,7 @@
     },
     {
       "map_section": "MAPSEC_VERDALE_FALLS",
-      "name": "VERDALE FALLS",
+      "name": "",
       "x": 4,
       "y": 7,
       "width": 4,
@@ -1817,19 +1817,51 @@
       "height": 1
     },
     {
-      "map_section": "MAPSEC_CABLECAR",
-      "name": "CABLE CAR",
+      "map_section": "MAPSEC_MT_CHIMNEY_BASE",
+      "name": "MT. CHIMNEY",
       "x": 7,
-      "y": 2,
+      "y": 1,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_BOMBA_ISLAND",
+      "name": "BOMBA ISLAND",
+      "x": 24,
+      "y": 12,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "map_section": "MAPSEC_IZABE_ISLAND",
+      "name": "IZABE ISLAND",
+      "x": 17,
+      "y": 11,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_IZABE_ISLAND2",
+      "name": "IZABE ISLAND",
+      "x": 19,
+      "y": 13,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_RIYADO_TOWN",
+      "name": "RIYADO TOWN",
+      "x": 18,
+      "y": 13,
       "width": 1,
       "height": 1
     },
     {
-      "map_section": "MAPSEC_CABLECAR_TOP",
-      "name": "CABLE CAR",
-      "x": 6,
-      "y": 2,
-      "width": 1,
+      "map_section": "MAPSEC_ROUTE_135",
+      "name": "ROUTE 135",
+      "x": 19,
+      "y": 12,
+      "width": 5,
       "height": 1
     }
   ]

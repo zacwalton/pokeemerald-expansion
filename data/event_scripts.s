@@ -1286,3 +1286,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/SlateportCity_ContestHall/scripts.inc"
 
 	.include "data/maps/RustboroCity_Sewer/scripts.inc"
+
+	.include "data/maps/MtChimneyBase/scripts.inc"

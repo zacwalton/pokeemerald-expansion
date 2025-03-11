@@ -1214,8 +1214,8 @@
     {
       "id": "LAYOUT_CABLE_CAR_STATION",
       "name": "CableCarStation_Layout",
-      "width": 13,
-      "height": 12,
+      "width": 39,
+      "height": 24,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Facility",
       "border_filepath": "data/layouts/CableCarStation/border.bin",
@@ -4634,7 +4634,7 @@
     {
       "id": "LAYOUT_MT_CHIMNEY_EXTERIOR",
       "name": "MtChimneyExterior_Layout",
-      "width": 106,
+      "width": 77,
       "height": 70,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Lavaridge_Summer",
@@ -4724,8 +4724,8 @@
     {
       "id": "LAYOUT_GIBAN_ISLAND",
       "name": "GibanIsland_Layout",
-      "width": 80,
-      "height": 40,
+      "width": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/GibanIsland/border.bin",
@@ -4854,8 +4854,8 @@
     {
       "id": "LAYOUT_DONTO_ISLAND",
       "name": "DontoIsland_Layout",
-      "width": 40,
-      "height": 60,
+      "width": 80,
+      "height": 40,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/DontoIsland/border.bin",
@@ -5120,6 +5120,16 @@
       "secondary_tileset": "gTileset_Sewer",
       "border_filepath": "data/layouts/RustboroCity_Sewer/border.bin",
       "blockdata_filepath": "data/layouts/RustboroCity_Sewer/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_CHIMNEY_BASE",
+      "name": "MtChimneyBase_Layout",
+      "width": 29,
+      "height": 70,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Lavaridge_Summer",
+      "border_filepath": "data/layouts/MtChimneyBase/border.bin",
+      "blockdata_filepath": "data/layouts/MtChimneyBase/map.bin"
     }
   ]
 }

@@ -32,6 +32,11 @@
       "map": "MAP_VALLEY_OF_STEEL",
       "offset": 10,
       "direction": "down"
+    },
+    {
+      "map": "MAP_MT_CHIMNEY_BASE",
+      "offset": 41,
+      "direction": "up"
     }
   ],
   "object_events": [

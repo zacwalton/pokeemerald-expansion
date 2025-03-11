@@ -24,13 +24,13 @@
       "direction": "right"
     },
     {
-      "map": "MAP_GIBAN_ISLAND",
-      "offset": 61,
+      "map": "MAP_RUGGED_SEA_ROUTE132",
+      "offset": 0,
       "direction": "up"
     },
     {
-      "map": "MAP_RUGGED_SEA_ROUTE132",
-      "offset": 0,
+      "map": "MAP_DONTO_ISLAND",
+      "offset": 61,
       "direction": "up"
     }
   ],

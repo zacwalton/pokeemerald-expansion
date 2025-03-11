@@ -19,11 +19,6 @@
       "direction": "right"
     },
     {
-      "map": "MAP_GIBAN_ISLAND",
-      "offset": -59,
-      "direction": "up"
-    },
-    {
       "map": "MAP_SKY_PILLAR_EXTERIOR",
       "offset": 21,
       "direction": "up"
@@ -37,6 +32,11 @@
       "map": "MAP_PACIFIDLOG_TOWN",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_DONTO_ISLAND",
+      "offset": -59,
+      "direction": "up"
     }
   ],
   "object_events": [

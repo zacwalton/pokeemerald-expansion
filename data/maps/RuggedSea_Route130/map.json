@@ -19,11 +19,6 @@
       "direction": "down"
     },
     {
-      "map": "MAP_DONTO_ISLAND",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE128",
       "offset": 0,
       "direction": "right"
@@ -32,6 +27,11 @@
       "map": "MAP_ROUTE126_SOUTH",
       "offset": -61,
       "direction": "up"
+    },
+    {
+      "map": "MAP_GIBAN_ISLAND",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [
