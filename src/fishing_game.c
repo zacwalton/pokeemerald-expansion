@@ -1015,6 +1015,7 @@ static void Task_FishGotAway(u8 taskId)
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_PokemonGotAway, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Failure text.
         PlaySE(SE_FLEE);
         taskData.tFrameCounter++;
+        return;
     }
 
     RunTextPrinters();
