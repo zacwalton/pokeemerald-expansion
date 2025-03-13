@@ -439,19 +439,20 @@ static const u16 sRedOutlineFlyDestinations[][2] =
     }
 };
 
-static const u16 sSpecialFlyDestinations[][2] =
+// Flag, mapsec, x offset, y offset
+static const u16 sSpecialFlyDestinations[][4] =
 {
     {
-        FLAG_LANDMARK_ABANDONED_SHIP, MAPSEC_ABANDONED_SHIP
+        FLAG_LANDMARK_ABANDONED_SHIP, MAPSEC_ABANDONED_SHIP, 0, 0
     },
     {
-        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_ROUTE_122
+        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_ROUTE_122, 0, 1
     },
     {
-        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_ROUTE_111
+        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_ROUTE_111, 0, 0
     },
     {
-        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_MT_CHIMNEY
+        FLAG_LANDMARK_POKEMON_LEAGUE, MAPSEC_MT_CHIMNEY, 1, 1
     },
     {
         -1,
@@ -2046,8 +2047,8 @@ static void TryCreateSpecialFlyDestIcons(void)
         {
 			mapSecId = sSpecialFlyDestinations[i][1];
 			GetMapSecDimensions(mapSecId, &x, &y, &width, &height);
-			x = (x + MAPCURSOR_X_MIN) * 8 + 4;
-			y = (y + MAPCURSOR_Y_MIN) * 8 + 4;
+			x = (x + MAPCURSOR_X_MIN + (sSpecialFlyDestinations[i][2])) * 8 + 4;
+			y = (y + MAPCURSOR_Y_MIN + (sSpecialFlyDestinations[i][3])) * 8 + 4;
             spriteId = CreateSprite(&sFlyDestIconSpriteTemplate, x, y, 10);
             if (spriteId != MAX_SPRITES)
             {
