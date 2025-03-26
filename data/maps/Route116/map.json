@@ -32,6 +32,11 @@
       "map": "MAP_ROUTE116_WEST",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_TRACKLESS_FOREST",
+      "offset": 0,
+      "direction": "down"
     }
   ],
   "object_events": [

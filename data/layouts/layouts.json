@@ -4735,7 +4735,7 @@
       "id": "LAYOUT_WILD_ISLAND_NORTH",
       "name": "WildIsland_North_Layout",
       "width": 106,
-      "height": 60,
+      "height": 70,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Slateport_Summer",
       "border_filepath": "data/layouts/WildIsland_North/border.bin",
@@ -5130,6 +5130,16 @@
       "secondary_tileset": "gTileset_Lavaridge_Summer",
       "border_filepath": "data/layouts/MtChimneyBase/border.bin",
       "blockdata_filepath": "data/layouts/MtChimneyBase/map.bin"
+    },
+    {
+      "id": "LAYOUT_TRACKLESS_FOREST",
+      "name": "TracklessForest_Layout",
+      "width": 80,
+      "height": 30,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Route_104_Summer",
+      "border_filepath": "data/layouts/TracklessForest/border.bin",
+      "blockdata_filepath": "data/layouts/TracklessForest/map.bin"
     }
   ]
 }

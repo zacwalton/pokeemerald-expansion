@@ -37,6 +37,11 @@
       "map": "MAP_PETALBURG_WOODS",
       "offset": 70,
       "direction": "right"
+    },
+    {
+      "map": "MAP_TRACKLESS_FOREST",
+      "offset": 40,
+      "direction": "right"
     }
   ],
   "object_events": [

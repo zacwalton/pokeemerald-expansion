@@ -140,7 +140,8 @@
     "Route104_North",
     "Route116_West",
     "ValleyOfSteel_East",
-    "MtChimneyBase"
+    "MtChimneyBase",
+    "TracklessForest"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",

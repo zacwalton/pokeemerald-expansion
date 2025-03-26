@@ -27,6 +27,11 @@
       "map": "MAP_METEOR_FALLS_EXTERIOR",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_MT_CHIMNEY_EXTERIOR",
+      "offset": 34,
+      "direction": "right"
     }
   ],
   "object_events": [

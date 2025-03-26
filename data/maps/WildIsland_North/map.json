@@ -20,7 +20,7 @@
     },
     {
       "map": "MAP_RUGGED_SEA_ROUTE133",
-      "offset": 20,
+      "offset": 30,
       "direction": "right"
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "map": "MAP_WILD_ISLAND_EAST",
-      "offset": 0,
+      "offset": 10,
       "direction": "left"
     }
   ],

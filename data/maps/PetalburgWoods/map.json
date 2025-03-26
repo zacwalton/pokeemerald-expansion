@@ -42,6 +42,11 @@
       "map": "MAP_RUSTBORO_CITY",
       "offset": -70,
       "direction": "left"
+    },
+    {
+      "map": "MAP_TRACKLESS_FOREST",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

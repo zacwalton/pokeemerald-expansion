@@ -25,7 +25,7 @@
     },
     {
       "map": "MAP_WILD_ISLAND_NORTH",
-      "offset": 0,
+      "offset": -10,
       "direction": "right"
     },
     {

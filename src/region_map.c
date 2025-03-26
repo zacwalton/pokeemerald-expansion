@@ -2190,9 +2190,9 @@ static void CB_ExitFlyMap(void)
                         case MAPSEC_EVER_GRANDE_CITY:
                             SetWarpDestinationToHealLocation(FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && sFlyMap->regionMap.posWithinMapSec == 0 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
                             break;
-						/*case MAPSEC_MT_CHIMNEY:
+						case MAPSEC_MT_CHIMNEY:
 							SetWarpDestinationToHealLocation(HEAL_LOCATION_MT_CHIMNEY);
-							break;*/
+							break;
                         default:
                             if (sMapHealLocations[sFlyMap->regionMap.mapSecId][2] != HEAL_LOCATION_NONE)
                                 SetWarpDestinationToHealLocation(sMapHealLocations[sFlyMap->regionMap.mapSecId][2]);
