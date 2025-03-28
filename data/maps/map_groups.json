@@ -141,7 +141,8 @@
     "Route116_West",
     "ValleyOfSteel_East",
     "MtChimneyBase",
-    "TracklessForest"
+    "TracklessForest",
+    "ForbiddenForest"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",

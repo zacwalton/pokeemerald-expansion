@@ -4505,7 +4505,7 @@
       "id": "LAYOUT_RUGGED_SEA_ROUTE132",
       "name": "RuggedSea_Route132_Layout",
       "width": 61,
-      "height": 90,
+      "height": 110,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/RuggedSea_Route132/border.bin",
@@ -4515,7 +4515,7 @@
       "id": "LAYOUT_RUGGED_SEA_ROUTE133",
       "name": "RuggedSea_Route133_Layout",
       "width": 60,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/RuggedSea_Route133/border.bin",
@@ -4845,7 +4845,7 @@
       "id": "LAYOUT_SKY_PILLAR_EXTERIOR",
       "name": "SkyPillar_Exterior_Layout",
       "width": 40,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/SkyPillar_Exterior/border.bin",
@@ -4855,7 +4855,7 @@
       "id": "LAYOUT_DONTO_ISLAND",
       "name": "DontoIsland_Layout",
       "width": 80,
-      "height": 40,
+      "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Pacifidlog_Summer",
       "border_filepath": "data/layouts/DontoIsland/border.bin",
@@ -5140,6 +5140,16 @@
       "secondary_tileset": "gTileset_Route_104_Summer",
       "border_filepath": "data/layouts/TracklessForest/border.bin",
       "blockdata_filepath": "data/layouts/TracklessForest/map.bin"
+    },
+    {
+      "id": "LAYOUT_FORBIDDEN_FOREST",
+      "name": "ForbiddenForest_Layout",
+      "width": 40,
+      "height": 68,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Foretree_Summer",
+      "border_filepath": "data/layouts/ForbiddenForest/border.bin",
+      "blockdata_filepath": "data/layouts/ForbiddenForest/map.bin"
     }
   ]
 }

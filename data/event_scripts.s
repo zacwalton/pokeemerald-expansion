@@ -1290,3 +1290,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/MtChimneyBase/scripts.inc"
 
 	.include "data/maps/TracklessForest/scripts.inc"
+
+	.include "data/maps/ForbiddenForest/scripts.inc"

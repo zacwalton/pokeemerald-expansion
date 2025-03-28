@@ -32,6 +32,11 @@
       "map": "MAP_ROUTE111_DESERT",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_FORBIDDEN_FOREST",
+      "offset": -34,
+      "direction": "right"
     }
   ],
   "object_events": [

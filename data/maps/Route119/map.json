@@ -32,6 +32,11 @@
       "map": "MAP_SAFARI_ZONE_NE",
       "offset": 0,
       "direction": "left"
+    },
+    {
+      "map": "MAP_FORBIDDEN_FOREST",
+      "offset": 50,
+      "direction": "right"
     }
   ],
   "object_events": [
