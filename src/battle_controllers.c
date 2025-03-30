@@ -23,6 +23,7 @@
 #include "test_runner.h"
 #include "util.h"
 #include "text.h"
+#include "dynamic_palettes.h"
 #include "constants/abilities.h"
 #include "constants/songs.h"
 
@@ -2906,7 +2907,9 @@ void BtlController_HandleIntroTrainerBallThrow(u32 battler, u16 tagTrainerPal, c
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], ShouldDoSlideInAnim() ? 2 : 1);
 
         paletteNum = AllocSpritePalette(tagTrainerPal);
-        LoadCompressedPalette(trainerPal, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
+// DYNPAL: The trainer back palette is reloaded into a new slot when the ball throw animation starts. This seems weird, but keeping it to be safe
+// If using RHH Expansion this function is moved to battle_controllers, so this must be moved
+		DynPal_LoadPaletteByOffset(sDynPalPlayerBattleBack, OBJ_PLTT_ID(paletteNum));
         gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = paletteNum;
     }
     else

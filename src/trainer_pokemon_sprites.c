@@ -4,6 +4,7 @@
 #include "malloc.h"
 #include "palette.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "trainer_pokemon_sprites.h"
 #include "data.h"
 #include "pokemon.h"
@@ -293,7 +294,8 @@ static u16 CreateTrainerCardSprite(u16 species, bool8 isShiny, u32 personality, 
     if (framePics && !DecompressPic(species, personality, isFrontPic, framePics, isTrainer))
     {
         BlitBitmapRectToWindow(windowId, framePics, 0, 0, TRAINER_PIC_WIDTH, TRAINER_PIC_HEIGHT, destX, destY, TRAINER_PIC_WIDTH, TRAINER_PIC_HEIGHT);
-        LoadPicPaletteBySlot(species, isShiny, personality, paletteSlot, isTrainer);
+                // DYNPAL override trainer card palette in BG slot 8
+        DynPal_LoadPaletteByOffset(sDynPalPlayerBattleFront, BG_PLTT_ID(8));
         Free(framePics);
         return 0;
     }

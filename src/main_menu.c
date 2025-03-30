@@ -6,6 +6,7 @@
 #include "constants/trainers.h"
 #include "data.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "event_data.h"
 #include "field_effect.h"
 #include "gpu_regs.h"
@@ -221,6 +222,11 @@ static void NewGameBirchSpeech_ClearGenderWindow(u8, u8);
 static void Task_NewGameBirchSpeech_WhatsYourName(u8);
 static void Task_NewGameBirchSpeech_SlideOutOldGenderSprite(u8);
 static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8);
+// DYNPAL Intro seq funcs
+static void Task_NewGame_DynPal_ChoosePlayerTonesStart(u8 taskId);
+static void Task_NewGame_DynPal_ShowToneMenu(u8 taskId);
+static void Task_NewGame_CharacterRestart(u8 taskId);
+
 static void Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint(u8);
 static void Task_NewGameBirchSpeech_WaitPressBeforeNameChoice(u8);
 static void Task_NewGameBirchSpeech_StartNamingScreen(u8);
@@ -1488,6 +1494,8 @@ static void Task_NewGameBirchSpeech_StartPlayerFadeIn(u8 taskId)
             NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 2);
             NewGameBirchSpeech_StartFadePlatformOut(taskId, 1);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForPlayerFadeIn;
+            // DYNPAL Preload custom part indices if they exist
+            DynPal_LoadIntroToneIndices();
         }
     }
 }
@@ -1506,6 +1514,9 @@ static void Task_NewGameBirchSpeech_BoyOrGirl(u8 taskId)
     NewGameBirchSpeech_ClearWindow(0);
     StringExpandPlaceholders(gStringVar4, gText_Birch_BoyOrGirl);
     AddTextPrinterForMessage(TRUE);
+    // DYNPAL Load indices again. Necessary for returning from "no" after naming screen
+    DynPal_LoadIntroToneIndices();
+
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowGenderMenu;
 }
 
@@ -1529,13 +1540,13 @@ static void Task_NewGameBirchSpeech_ChooseGender(u8 taskId)
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
+            gTasks[taskId].func = Task_NewGame_DynPal_ChoosePlayerTonesStart;
             break;
         case FEMALE:
             PlaySE(SE_SELECT);
             gSaveBlock2Ptr->playerGender = gender;
             NewGameBirchSpeech_ClearGenderWindow(1, 1);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_WhatsYourName;
+            gTasks[taskId].func = Task_NewGame_DynPal_ChoosePlayerTonesStart;
             break;
     }
     gender2 = Menu_GetCursorPos();
@@ -1589,6 +1600,32 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
             gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseGender;
         }
     }
+}
+
+// DYNPAL Game Intro Tasks
+static void Task_NewGame_DynPal_ChoosePlayerTonesStart(u8 taskId)
+{
+    NewGameBirchSpeech_ClearWindow(0);
+
+    StringExpandPlaceholders(gStringVar4, gText_NewGame_ChooseTones);
+    AddTextPrinterForMessage(TRUE);
+
+    gTasks[taskId].func = Task_NewGame_DynPal_ShowToneMenu;
+}
+
+static void Task_NewGame_DynPal_ShowToneMenu(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active() && ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON))))
+    {
+        DynPal_ShowMenuSequence(taskId, Task_NewGameBirchSpeech_WhatsYourName, Task_NewGame_CharacterRestart, FALSE);
+    }
+}
+
+// Clear some stuff upon dynpal cancel
+static void Task_NewGame_CharacterRestart(u8 taskId) {
+    NewGameBirchSpeech_ClearWindow(0);
+    gTasks[taskId].tTimer = 0;
+    gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
 }
 
 static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)

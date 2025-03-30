@@ -46,6 +46,7 @@
 #include "menu.h"
 #include "pokemon_summary_screen.h"
 #include "type_icons.h"
+#include "dynamic_palettes.h"
 
 static void PlayerBufferExecCompleted(u32 battler);
 static void PlayerHandleLoadMonSprite(u32 battler);

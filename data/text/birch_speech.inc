@@ -59,3 +59,6 @@ gText_Birch_AreYouReady::
 	.string "Well, I'll be expecting you later.\n"
 	.string "Come see me in my POKéMON LAB.\p"
 	.string "$"
+		
+gText_NewGame_ChooseTones::
+	.string "Tell me more about yourself.$"
