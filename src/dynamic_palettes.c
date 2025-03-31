@@ -191,8 +191,8 @@ static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16*
 // If you don't want the character sprites to load with parts {0, 0, 0} in the intro, you can set the preferred palette indices here
 void DynPal_LoadIntroToneIndices()
 {
-    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_BRENDAN, 0, 0, 0);
-    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_MAY, 0, 2, 0);
+    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_BRENDAN, 0, 1, 2);
+    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_MAY, 0, 1, 2);
 }
 
 // Copies <numberOfColors> values from the ROM palette <src>, to dynamic palette <dest>
