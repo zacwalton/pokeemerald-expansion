@@ -24,3 +24,4 @@ void DynPal_ShowFullToneMenu(void); // Do complete sequence of 3 menus
 void DynPal_ShowToneMenuA(void);
 void DynPal_ShowToneMenuB(void);
 void DynPal_ShowToneMenuC(void);
+void DynPal_ShowToneMenuD(void);
