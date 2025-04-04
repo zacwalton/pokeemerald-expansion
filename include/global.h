@@ -566,6 +566,7 @@ struct SaveBlock2
     u8 dynPalPartBPreset;
     u8 dynPalPartCPreset;
     u8 dynPalPartDPreset;
+    u8 dynPalPartEPreset;
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;

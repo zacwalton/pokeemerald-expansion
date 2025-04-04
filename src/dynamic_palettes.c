@@ -30,18 +30,22 @@ const u16 sDynPal_Part_Skin1[] = INCBIN_U16("graphics/dynpal/player_dynpal_skin_
 const u16 sDynPal_Part_Skin2[] = INCBIN_U16("graphics/dynpal/player_dynpal_skin_2.gbapal");
 const u16 sDynPal_Part_Skin3[] = INCBIN_U16("graphics/dynpal/player_dynpal_skin_3.gbapal");
 const u16 sDynPal_Part_Skin4[] = INCBIN_U16("graphics/dynpal/player_dynpal_skin_4.gbapal");
-const u16 sDynPal_Part_Misc1[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_blonde.gbapal");
-const u16 sDynPal_Part_Misc2[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_brown.gbapal");
-const u16 sDynPal_Part_Misc3[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_black.gbapal");
-const u16 sDynPal_Part_Misc4[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_red.gbapal");
-const u16 sDynPal_Part_Clothes1[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_blue.gbapal");
-const u16 sDynPal_Part_Clothes2[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_red.gbapal");
-const u16 sDynPal_Part_Clothes3[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_green.gbapal");
-const u16 sDynPal_Part_Clothes4[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_black.gbapal");
+const u16 sDynPal_Part_Hair1[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_blonde.gbapal");
+const u16 sDynPal_Part_Hair2[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_brown.gbapal");
+const u16 sDynPal_Part_Hair3[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_black.gbapal");
+const u16 sDynPal_Part_Hair4[] = INCBIN_U16("graphics/dynpal/player_dynpal_hair_red.gbapal");
 const u16 sDynPal_Part_Eyes1[] = INCBIN_U16("graphics/dynpal/player_dynpal_eyes_blue.gbapal");
 const u16 sDynPal_Part_Eyes2[] = INCBIN_U16("graphics/dynpal/player_dynpal_eyes_green.gbapal");
 const u16 sDynPal_Part_Eyes3[] = INCBIN_U16("graphics/dynpal/player_dynpal_eyes_hazel.gbapal");
 const u16 sDynPal_Part_Eyes4[] = INCBIN_U16("graphics/dynpal/player_dynpal_eyes_brown.gbapal");
+const u16 sDynPal_Part_Clothes_Blue[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_blue.gbapal");
+const u16 sDynPal_Part_Clothes_Red[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_red.gbapal");
+const u16 sDynPal_Part_Clothes_Green[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_green.gbapal");
+const u16 sDynPal_Part_Clothes_Black[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_black.gbapal");
+const u16 sDynPal_Part_Clothes_White[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_white.gbapal");
+const u16 sDynPal_Part_Clothes_Grey[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_grey.gbapal");
+const u16 sDynPal_Part_Clothes_Yellow[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_yellow.gbapal");
+const u16 sDynPal_Part_Clothes_Orange[] = INCBIN_U16("graphics/dynpal/player_dynpal_clothes_orange.gbapal");
 
 // *MODIFY*
 // Text definitions for intro / menus
@@ -49,18 +53,22 @@ const u8 sText_DynPal_Skin1[] = _("SKIN TONE 1");
 const u8 sText_DynPal_Skin2[] = _("SKIN TONE 2");
 const u8 sText_DynPal_Skin3[] = _("SKIN TONE 3");
 const u8 sText_DynPal_Skin4[] = _("SKIN TONE 4");
-const u8 sText_DynPal_Misc1[] = _("BLONDE");
-const u8 sText_DynPal_Misc2[] = _("BROWN");
-const u8 sText_DynPal_Misc3[] = _("BLACK");
-const u8 sText_DynPal_Misc4[] = _("RED");
-const u8 sText_DynPal_Clothes1[] = _("BLUE");
-const u8 sText_DynPal_Clothes2[] = _("RED");
-const u8 sText_DynPal_Clothes3[] = _("GREEN");
-const u8 sText_DynPal_Clothes4[] = _("BLACK");
+const u8 sText_DynPal_Hair1[] = _("BLONDE");
+const u8 sText_DynPal_Hair2[] = _("BROWN");
+const u8 sText_DynPal_Hair3[] = _("BLACK");
+const u8 sText_DynPal_Hair4[] = _("RED");
 const u8 sText_DynPal_Eyes1[] = _("BLUE");
 const u8 sText_DynPal_Eyes2[] = _("GREEN");
 const u8 sText_DynPal_Eyes3[] = _("HAZEL");
 const u8 sText_DynPal_Eyes4[] = _("BROWN");
+const u8 sText_DynPal_Clothes_Blue[] = _("BLUE");
+const u8 sText_DynPal_Clothes_Red[] = _("RED");
+const u8 sText_DynPal_Clothes_Green[] = _("GREEN");
+const u8 sText_DynPal_Clothes_Black[] = _("BLACK");
+const u8 sText_DynPal_Clothes_White[] = _("WHITE");
+const u8 sText_DynPal_Clothes_Grey[] = _("GREY");
+const u8 sText_DynPal_Clothes_Yellow[] = _("YELLOW");
+const u8 sText_DynPal_Clothes_Orange[] = _("ORANGE");
 
 // *MODIFY*
 // Preset lists (indices in these lists are what is saved to game save)
@@ -73,34 +81,51 @@ static const struct SpritePalette sDynPalPartAPresets[] = {
 
 // *MODIFY*
 static const struct SpritePalette sDynPalPartBPresets[] = {
-    {sDynPal_Part_Misc1, 0x1305},
-    {sDynPal_Part_Misc2, 0x1306},
-    {sDynPal_Part_Misc3, 0x1307},
-    {sDynPal_Part_Misc4, 0x1308}
+    {sDynPal_Part_Hair1, 0x1305},
+    {sDynPal_Part_Hair2, 0x1306},
+    {sDynPal_Part_Hair3, 0x1307},
+    {sDynPal_Part_Hair4, 0x1308}
+};
+
+// *MODIFY*
+static const struct SpritePalette sDynPalPartEPresets[] = {
+    {sDynPal_Part_Eyes1, 0x1309},
+    {sDynPal_Part_Eyes2, 0x130A},
+    {sDynPal_Part_Eyes3, 0x130B},
+    {sDynPal_Part_Eyes4, 0x130C}
 };
 
 // *MODIFY*
 static const struct SpritePalette sDynPalPartCPresets[] = {
-    {sDynPal_Part_Clothes1, 0x1309},
-    {sDynPal_Part_Clothes2, 0x130A},
-    {sDynPal_Part_Clothes3, 0x130B},
-    {sDynPal_Part_Clothes4, 0x130C}
+    {sDynPal_Part_Clothes_Blue, 	0x130D},
+    {sDynPal_Part_Clothes_Red, 		0x130E},
+    {sDynPal_Part_Clothes_Green, 	0x130F},
+    {sDynPal_Part_Clothes_Black, 	0x1310},
+    {sDynPal_Part_Clothes_White, 	0x1311},
+    {sDynPal_Part_Clothes_Grey, 	0x1312},
+    {sDynPal_Part_Clothes_Yellow, 	0x1313},
+    {sDynPal_Part_Clothes_Orange, 	0x1314}
 };
 
 // *MODIFY*
 static const struct SpritePalette sDynPalPartDPresets[] = {
-    {sDynPal_Part_Eyes1, 0x130D},
-    {sDynPal_Part_Eyes2, 0x130E},
-    {sDynPal_Part_Eyes3, 0x130F},
-    {sDynPal_Part_Eyes4, 0x1310}
+    {sDynPal_Part_Clothes_Blue, 	0x130D},
+    {sDynPal_Part_Clothes_Red, 		0x130E},
+    {sDynPal_Part_Clothes_Green, 	0x130F},
+    {sDynPal_Part_Clothes_Black, 	0x1310},
+    {sDynPal_Part_Clothes_White, 	0x1311},
+    {sDynPal_Part_Clothes_Grey, 	0x1312},
+    {sDynPal_Part_Clothes_Yellow, 	0x1313},
+    {sDynPal_Part_Clothes_Orange, 	0x1314}
 };
 
 // *MODIFY*
 // Change to match counts for preceding arrays
 #define COUNT_PART_A_TONES 4
 #define COUNT_PART_B_TONES 4
-#define COUNT_PART_C_TONES 4
-#define COUNT_PART_D_TONES 4
+#define COUNT_PART_E_TONES 4
+#define COUNT_PART_C_TONES 8
+#define COUNT_PART_D_TONES 8
 
 // *MODIFY*
 // List text definitions for menu
@@ -108,25 +133,39 @@ static const struct ListMenuItem sListItems_DynPal_PartATones[] = {
     {sText_DynPal_Skin1, 0},
     {sText_DynPal_Skin2, 1},
     {sText_DynPal_Skin3, 2},
-    {sText_DynPal_Skin3, 3}
+    {sText_DynPal_Skin4, 3}
 };
 static const struct ListMenuItem sListItems_DynPal_PartBTones[] = {
-    {sText_DynPal_Misc1, 0},
-    {sText_DynPal_Misc2, 1},
-    {sText_DynPal_Misc3, 2},
-    {sText_DynPal_Misc4, 3}
+    {sText_DynPal_Hair1, 0},
+    {sText_DynPal_Hair2, 1},
+    {sText_DynPal_Hair3, 2},
+    {sText_DynPal_Hair4, 3}
 };
-static const struct ListMenuItem sListItems_DynPal_PartCTones[] = {
-    {sText_DynPal_Clothes1, 0},
-    {sText_DynPal_Clothes2, 1},
-    {sText_DynPal_Clothes3, 2},
-    {sText_DynPal_Clothes4, 3}
-};
-static const struct ListMenuItem sListItems_DynPal_PartDTones[] = {
+static const struct ListMenuItem sListItems_DynPal_PartETones[] = {
     {sText_DynPal_Eyes1, 0},
     {sText_DynPal_Eyes2, 1},
     {sText_DynPal_Eyes3, 2},
     {sText_DynPal_Eyes4, 3}
+};
+static const struct ListMenuItem sListItems_DynPal_PartCTones[] = {
+    {sText_DynPal_Clothes_Blue, 0},
+    {sText_DynPal_Clothes_Red, 1},
+    {sText_DynPal_Clothes_Green, 2},
+    {sText_DynPal_Clothes_Black, 3},
+    {sText_DynPal_Clothes_White, 4},
+    {sText_DynPal_Clothes_Grey, 5},
+    {sText_DynPal_Clothes_Yellow, 6},
+    {sText_DynPal_Clothes_Orange, 7}
+};
+static const struct ListMenuItem sListItems_DynPal_PartDTones[] = {
+    {sText_DynPal_Clothes_Blue, 0},
+    {sText_DynPal_Clothes_Red, 1},
+    {sText_DynPal_Clothes_Green, 2},
+    {sText_DynPal_Clothes_Black, 3},
+    {sText_DynPal_Clothes_White, 4},
+    {sText_DynPal_Clothes_Grey, 5},
+    {sText_DynPal_Clothes_Yellow, 6},
+    {sText_DynPal_Clothes_Orange, 7}
 };
 
 // Dynamic palette definitions are split into 3 groups of 5, starting from palette index 1.
@@ -134,12 +173,12 @@ static const struct ListMenuItem sListItems_DynPal_PartDTones[] = {
 #define DYNPAL_COLOR_GROUP_REFLECTION 5
 #define DYNPAL_COLOR_GROUP_UNDERWATER 10
 
-static void DynPal_InitOverworld(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, int groupOffset);
-static void DynPal_InitBattleFront(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, int groupOffset);
-static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, int groupOffset);
+static void DynPal_InitOverworld(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset);
+static void DynPal_InitBattleFront(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset);
+static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset);
 
 static void DynPal_CopySection(const u16* src, u16* dest, int srcInd, int destInd, int groupOffset, int numberOfColors);
-static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone);
+static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone, u8 partETone);
 
 static void Task_DynPal_MenuOne(u8 taskId);
 static void Task_DynPal_MenuSequence(u8 taskId);
@@ -152,7 +191,7 @@ static void DynPal_MenuShow(u8 taskId);
 static void DynPal_MenuCursorMoved(s32 itemIndex, bool8 onInit, struct ListMenu* list);
 static void DynPal_MenuSaveToneIndex(int dynPalType, int tone);
 static void DynPal_ReloadToneForMenuByType(int dynPalType, int tone);
-static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone);
+static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone, u8 partETone);
 
 // *MODIFY*
 // Fill all dynamic palettes with data according to indices in Save Block
@@ -162,23 +201,24 @@ void DynPal_InitAllDynamicPalettes()
     const u16* partBPalData = sDynPalPartBPresets[min(gSaveBlock2Ptr->dynPalPartBPreset, COUNT_PART_B_TONES)].data;
     const u16* partCPalData = sDynPalPartCPresets[min(gSaveBlock2Ptr->dynPalPartCPreset, COUNT_PART_C_TONES)].data;
     const u16* partDPalData = sDynPalPartDPresets[min(gSaveBlock2Ptr->dynPalPartDPreset, COUNT_PART_D_TONES)].data;
+    const u16* partEPalData = sDynPalPartEPresets[min(gSaveBlock2Ptr->dynPalPartEPreset, COUNT_PART_E_TONES)].data;
 
     // Player Normal
-    DynPal_InitOverworld(sDynPalPlayerOverworld, partAPalData, partBPalData, partCPalData, partDPalData, DYNPAL_COLOR_GROUP_NORMAL);
+    DynPal_InitOverworld(sDynPalPlayerOverworld, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, DYNPAL_COLOR_GROUP_NORMAL);
     // Player Reflection
-    DynPal_InitOverworld(sDynPalPlayerReflection, partAPalData, partBPalData, partCPalData, partDPalData, DYNPAL_COLOR_GROUP_REFLECTION);
+    DynPal_InitOverworld(sDynPalPlayerReflection, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, DYNPAL_COLOR_GROUP_REFLECTION);
     // Player Underwater
-    DynPal_InitOverworld(sDynPalPlayerUnderwater, partAPalData, partBPalData, partCPalData, partDPalData, DYNPAL_COLOR_GROUP_UNDERWATER);
+    DynPal_InitOverworld(sDynPalPlayerUnderwater, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, DYNPAL_COLOR_GROUP_UNDERWATER);
     // Player Battle Front
-    DynPal_InitBattleFront(sDynPalPlayerBattleFront, partAPalData, partBPalData, partCPalData, partDPalData, DYNPAL_COLOR_GROUP_NORMAL);
+    DynPal_InitBattleFront(sDynPalPlayerBattleFront, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, DYNPAL_COLOR_GROUP_NORMAL);
     // Player Battle Back
-    DynPal_InitBattleBack(sDynPalPlayerBattleBack, partAPalData, partBPalData, partCPalData, partDPalData, DYNPAL_COLOR_GROUP_NORMAL);
+    DynPal_InitBattleBack(sDynPalPlayerBattleBack, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, DYNPAL_COLOR_GROUP_NORMAL);
 }
 
 // *MODIFY*
 // Load each section of the palette. Your implementation will differ depending on how the sprite palette is arranged.
 // For any sections of the palette that should remain constant regardless of parts, use sDynPal_Base as <src>
-static void DynPal_InitOverworld(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData,const u16* partDPalData, int groupOffset)
+static void DynPal_InitOverworld(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset)
 {
     // Change this function to match your palette setup
 
@@ -188,31 +228,33 @@ static void DynPal_InitOverworld(u16* dest, const u16* partAPalData, const u16* 
     //Skin 1-3
     DynPal_CopySection(partAPalData, dest, 1, 1, groupOffset, 3);
     //Eyes 4
-    DynPal_CopySection(partDPalData, dest, 1, 4, groupOffset, 1);
-    //Misc 5-8
+    DynPal_CopySection(partEPalData, dest, 1, 4, groupOffset, 1);
+    //Hair (+pokeball @8) 5-8
     DynPal_CopySection(partBPalData, dest, 1, 5, groupOffset, 4);
     //Grey 9
     DynPal_CopySection(sDynPal_Base, dest, 1, 9, groupOffset, 1);
-    //Clothes 10-13
-    DynPal_CopySection(partCPalData, dest, 1, 10, groupOffset, 4);
+    //Clothes 10-11
+    DynPal_CopySection(partCPalData, dest, 1, 10, groupOffset, 2);
+    //Clothes2 12-13
+    DynPal_CopySection(partDPalData, dest, 1, 12, groupOffset, 2);
     //Black&White 14-15
     DynPal_CopySection(sDynPal_Base, dest, 2, 14, groupOffset, 2);
 }
 
 // *MODIFY*
 // Derive battle front sprite palette - first load the overworld palette, then make modifications. Your specific implementation may differ.
-static void DynPal_InitBattleFront(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, int groupOffset)
+static void DynPal_InitBattleFront(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset)
 {
-    DynPal_InitOverworld(dest, partAPalData, partBPalData, partCPalData, partDPalData, groupOffset);
+    DynPal_InitOverworld(dest, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, groupOffset);
 
     //Add any modifications you need here
 }
 
 // *MODIFY*
 // Derive battle front sprite palette - first load the overworld palette, then make modifications. Your specific implementation may differ.
-static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, int groupOffset)
+static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16* partBPalData, const u16* partCPalData, const u16* partDPalData, const u16* partEPalData, int groupOffset)
 {
-    DynPal_InitOverworld(dest, partAPalData, partBPalData, partCPalData, partDPalData, groupOffset);
+    DynPal_InitOverworld(dest, partAPalData, partBPalData, partCPalData, partDPalData, partEPalData, groupOffset);
     
     //Add any modifications you need here
 }
@@ -221,8 +263,8 @@ static void DynPal_InitBattleBack(u16* dest, const u16* partAPalData, const u16*
 // If you don't want the character sprites to load with parts {0, 0, 0} in the intro, you can set the preferred palette indices here
 void DynPal_LoadIntroToneIndices()
 {
-    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_BRENDAN, 0, 1, 2, 0);
-    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_MAY, 0, 1, 2, 0);
+    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_BRENDAN, 0, 1, 2, 0, 0);
+    DynPal_ReloadPlayerPaletteForMenu(TRAINER_PIC_MAY, 0, 1, 2, 0, 0);
 }
 
 // Copies <numberOfColors> values from the ROM palette <src>, to dynamic palette <dest>
@@ -253,7 +295,7 @@ void DynPal_LoadPaletteByTag(u16* paletteData, u16 paletteTag)
 }
 
 // Write palette indices to save block (can send 0xFF to exclude that tone list)
-static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone)
+static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone, u8 partETone)
 {
     if (partATone != 0xFF)
     {
@@ -262,6 +304,10 @@ static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 p
     if (partBTone != 0xFF)
     {
         gSaveBlock2Ptr->dynPalPartBPreset = partBTone % COUNT_PART_B_TONES;
+    }
+    if (partETone != 0xFF)
+    {
+        gSaveBlock2Ptr->dynPalPartEPreset = partETone % COUNT_PART_E_TONES;
     }
     if (partCTone != 0xFF)
     {
@@ -278,9 +324,10 @@ static void DynPal_SetToneIndices(u8 partATone, u8 partBTone, u8 partCTone, u8 p
 #define DYNPAL_MENU_ID_CANCEL -1
 #define DYNPAL_MENU_ID_PART_A 0
 #define DYNPAL_MENU_ID_PART_B 1
-#define DYNPAL_MENU_ID_PART_C 2
-#define DYNPAL_MENU_ID_PART_D 3
-#define DYNPAL_MENU_ID_FINISH 4
+#define DYNPAL_MENU_ID_PART_E 2
+#define DYNPAL_MENU_ID_PART_C 3
+#define DYNPAL_MENU_ID_PART_D 4
+#define DYNPAL_MENU_ID_FINISH 5
 
 // Dynpal list menu template
 static const struct ListMenuTemplate sListTemplate_DynPal =
@@ -312,6 +359,7 @@ static EWRAM_DATA struct {
     u8 partBTone;
     u8 partCTone;
     u8 partDTone;
+    u8 partETone;
     u16 scrollOffset;
 } sDynPalMenu = {0};
 
@@ -381,7 +429,7 @@ static void Task_DynPal_MenuFinish(u8 taskId)
     // For singleton case, only continue after menu is deactivated again
     if (!sDynPalMenu.isActive)
     {
-        DynPal_SetToneIndices(sDynPalMenu.partATone, sDynPalMenu.partBTone, sDynPalMenu.partCTone, sDynPalMenu.partDTone);
+        DynPal_SetToneIndices(sDynPalMenu.partATone, sDynPalMenu.partBTone, sDynPalMenu.partCTone, sDynPalMenu.partDTone, sDynPalMenu.partETone);
         DynPal_InitAllDynamicPalettes();
 
         // For overworld use case, reload player palette.
@@ -437,6 +485,7 @@ static void DynPal_MenuInit()
     sDynPalMenu.partBTone = 0xFF;
     sDynPalMenu.partCTone = 0xFF;
     sDynPalMenu.partDTone = 0xFF;
+    sDynPalMenu.partETone = 0xFF;
     sDynPalMenu.scrollOffset = 0;
 }
 
@@ -464,6 +513,10 @@ static void DynPal_MenuShow(u8 taskId)
     case DYNPAL_MENU_ID_PART_D:
         menuItems = sListItems_DynPal_PartDTones;
         numItems = COUNT_PART_D_TONES;
+        break;
+    case DYNPAL_MENU_ID_PART_E:
+        menuItems = sListItems_DynPal_PartETones;
+        numItems = COUNT_PART_E_TONES;
         break;
     }
     // If the menu has no values, skip past it. If you don't want to use one of the part groups this should handle it
@@ -578,6 +631,9 @@ static void DynPal_MenuSaveToneIndex(int dynPalType, int tone)
     case DYNPAL_MENU_ID_PART_D:
         sDynPalMenu.partDTone = tone;
         break;
+    case DYNPAL_MENU_ID_PART_E:
+        sDynPalMenu.partETone = tone;
+        break;
     }
 }
 
@@ -587,23 +643,26 @@ static void DynPal_ReloadToneForMenuByType(int dynPalType, int tone)
     switch (dynPalType)
     {
         case DYNPAL_MENU_ID_PART_A:
-            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), tone, 0xFF, 0xFF, 0xFF);
+            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), tone, 0xFF, 0xFF, 0xFF, 0xFF);
             break;
         case DYNPAL_MENU_ID_PART_B:
-            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, tone, 0xFF, 0xFF);
+            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, tone, 0xFF, 0xFF, 0xFF);
             break;
         case DYNPAL_MENU_ID_PART_C:
-            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, 0xFF, tone, 0xFF);
+            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, 0xFF, tone, 0xFF, 0xFF);
             break;
         case DYNPAL_MENU_ID_PART_D:
-            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, 0xFF, 0xFF, tone);
+            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, 0xFF, 0xFF, tone, 0xFF);
+            break;
+        case DYNPAL_MENU_ID_PART_E:
+            DynPal_ReloadPlayerPaletteForMenu(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 0xFF, 0xFF, 0xFF, 0xFF, tone);
             break;
     }
 }
 
 // *MODIFY*
 // Hot reload player palette - Main section should be identical to DynPal_InitOverworld, but split up between each tone
-static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone)
+static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 partBTone, u8 partCTone, u8 partDTone, u8 partETone)
 {
     u16 offset;
     if (sDynPalMenu.isOverworld)
@@ -620,6 +679,11 @@ static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 p
         const u16* partAPalData = sDynPalPartAPresets[min(partATone, COUNT_PART_A_TONES)].data;
         DynPal_CopySection(partAPalData, &gPlttBufferUnfaded[offset], 1, 1, DYNPAL_COLOR_GROUP_NORMAL, 3);
     }
+    if (partETone != 0xFF)
+    {
+        const u16* partEPalData = sDynPalPartEPresets[min(partETone, COUNT_PART_E_TONES)].data;
+        DynPal_CopySection(partEPalData, &gPlttBufferUnfaded[offset], 1, 4, DYNPAL_COLOR_GROUP_NORMAL, 1);
+    }
     if (partBTone != 0xFF)
     {
         const u16* partBPalData = sDynPalPartBPresets[min(partBTone, COUNT_PART_B_TONES)].data;
@@ -628,12 +692,12 @@ static void DynPal_ReloadPlayerPaletteForMenu(u16 paletteTag, u8 partATone, u8 p
     if (partCTone != 0xFF)
     {
         const u16* partCPalData = sDynPalPartCPresets[min(partCTone, COUNT_PART_C_TONES)].data;
-        DynPal_CopySection(partCPalData, &gPlttBufferUnfaded[offset], 1, 10, DYNPAL_COLOR_GROUP_NORMAL, 4);
+        DynPal_CopySection(partCPalData, &gPlttBufferUnfaded[offset], 1, 10, DYNPAL_COLOR_GROUP_NORMAL, 2);
     }
     if (partDTone != 0xFF)
     {
         const u16* partDPalData = sDynPalPartDPresets[min(partDTone, COUNT_PART_D_TONES)].data;
-        DynPal_CopySection(partDPalData, &gPlttBufferUnfaded[offset], 1, 4, DYNPAL_COLOR_GROUP_NORMAL, 1);
+        DynPal_CopySection(partDPalData, &gPlttBufferUnfaded[offset], 1, 12, DYNPAL_COLOR_GROUP_NORMAL, 2);
     }
     DynPal_CopySection(sDynPal_Base, &gPlttBufferUnfaded[offset], 1, 9, DYNPAL_COLOR_GROUP_NORMAL, 1);
     DynPal_CopySection(sDynPal_Base, &gPlttBufferUnfaded[offset], 2, 14, DYNPAL_COLOR_GROUP_NORMAL, 2);
@@ -674,9 +738,15 @@ void DynPal_ShowToneMenuD(void)
     DynPal_ShowMenuSingleton(DYNPAL_MENU_ID_PART_D, CreateTask(NULL, 0), NULL, NULL, TRUE);
 }
 
+void DynPal_ShowToneMenuE(void)
+{
+    DynPal_ShowMenuSingleton(DYNPAL_MENU_ID_PART_E, CreateTask(NULL, 0), NULL, NULL, TRUE);
+}
+
 #undef DYNPAL_MENU_ID_CANCEL
 #undef DYNPAL_MENU_ID_PART_A
 #undef DYNPAL_MENU_ID_PART_B
+#undef DYNPAL_MENU_ID_PART_E
 #undef DYNPAL_MENU_ID_PART_C
 #undef DYNPAL_MENU_ID_PART_D
 #undef DYNPAL_MENU_ID_FINISH
