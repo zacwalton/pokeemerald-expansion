@@ -10,19 +10,19 @@ Route102_OnResume:
 	end
 
 Route102_Resource_Wood1::
-	setmetatile 22, 23, METATILE_General_Grass, FALSE
+	setmetatile 22, 25, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Wood2::
-	setmetatile 27, 34, METATILE_General_Grass, FALSE
+	setmetatile 27, 36, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Mushroom1::
-	setmetatile 27, 23, METATILE_General_Grass, FALSE
+	setmetatile 27, 25, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Vivichoke1::
-	setmetatile 40, 29, METATILE_General_Grass, FALSE
+	setmetatile 39, 30, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Wood1Harvest::

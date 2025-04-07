@@ -45,13 +45,13 @@ LittlerootTown_OnLoad:
 	specialvar VAR_RESULT, Rtc_GetSeason
 	compare VAR_RESULT, 1
 	goto_if_eq LittlerootTown_EventScript_Summer
-	specialvar VAR_RESULT, MapSeason
-	compare VAR_RESULT, 2
-	goto_if_eq LittlerootTown_EventScript_Autumn
-	compare VAR_RESULT, 3
-	goto_if_eq LittlerootTown_EventScript_Winter
-	compare VAR_RESULT, 0
-	goto_if_eq LittlerootTown_EventScript_Spring
+//	specialvar VAR_RESULT, MapSeason
+//	compare VAR_RESULT, 2
+//	goto_if_eq LittlerootTown_EventScript_Autumn
+//	compare VAR_RESULT, 3
+//	goto_if_eq LittlerootTown_EventScript_Winter
+//	compare VAR_RESULT, 0
+//	goto_if_eq LittlerootTown_EventScript_Spring 
 
 LittlerootTown_OnResume:
 	call_if_Set FLAG_LITTLEROOTTOWN_LEEK1, LittlerootTown_Resource_leek1
@@ -123,7 +123,7 @@ LittlerootTown_Resource_Vivichoke1::
 	return
 
 LittlerootTown_Resource_KingsLeaf1::
-	setmetatile 23, 21, METATILE_General_Grass, FALSE
+	setmetatile 24, 34, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_OnTransition:
@@ -651,32 +651,6 @@ LittlerootTown_EventScript_TownSign::
 	end
 
 LittlerootTown_EventScript_TestTownSign::
-
-	setflag FLAG_LANDMARK_FLOWER_SHOP
-	setflag FLAG_LANDMARK_MR_BRINEY_HOUSE
-	setflag FLAG_LANDMARK_ABANDONED_SHIP
-	setflag FLAG_LANDMARK_SEASHORE_HOUSE
-	setflag FLAG_LANDMARK_SOUTHERN_ISLAND
-	setflag FLAG_LANDMARK_TRICK_HOUSE
-	setflag FLAG_LANDMARK_OLD_LADY_REST_SHOP
-	setflag FLAG_LANDMARK_WINSTRATE_FAMILY
-	setflag FLAG_LANDMARK_GLASS_WORKSHOP
-	setflag FLAG_LANDMARK_TUNNELERS_REST_HOUSE
-	setflag FLAG_LANDMARK_POKEMON_DAYCARE
-	setflag FLAG_LANDMARK_SEAFLOOR_CAVERN
-	setflag FLAG_LANDMARK_LANETTES_HOUSE
-	setflag FLAG_LANDMARK_FIERY_PATH
-	setflag FLAG_LANDMARK_BERRY_MASTERS_HOUSE
-	setflag FLAG_LANDMARK_ISLAND_CAVE
-	setflag FLAG_LANDMARK_DESERT_RUINS
-	setflag FLAG_LANDMARK_SCORCHED_SLAB
-	setflag FLAG_LANDMARK_ANCIENT_TOMB
-	setflag FLAG_LANDMARK_SEALED_CHAMBER
-	setflag FLAG_LANDMARK_FOSSIL_MANIACS_HOUSE
-	setflag FLAG_LANDMARK_HUNTERS_HOUSE
-	setflag FLAG_LANDMARK_SKY_PILLAR
-	setflag FLAG_LANDMARK_DESERT_UNDERPASS
-	setflag FLAG_LANDMARK_TRAINER_HILL
 	msgbox LittlerootTown_Text_TestTownSign, MSGBOX_SIGN
 	end
 	

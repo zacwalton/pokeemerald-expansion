@@ -243,11 +243,19 @@
 #define METATILE_General_TallGrass_TreeUp      0x025
 #define METATILE_General_YellowCaveIndent      0x1A8
 #define METATILE_General_YellowCaveOpen        0x1A9
+#define METATILE_General_MountainTop_Grass     0x069
 
 // gTileset_GenericBuilding
 #define METATILE_GenericBuilding_TableEdge               0x2F1
 #define METATILE_GenericBuilding_TrickHouse_Door_Closed  0x21B
 #define METATILE_GenericBuilding_TrickHouse_Stairs_Down  0x219
+
+// gTileset_Hoenn_Summer
+#define METATILE_Hoenn_Summer_METATILE_General_Grass              0x001
+#define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame0  0x0E8
+#define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame1  0x0E9
+#define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame2  0x0EA
+#define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame3  0x0EB
 
 // gTileset_InsideOfTruck
 #define METATILE_InsideOfTruck_DoorClosedFloor_Bottom  0x21D
