@@ -2096,9 +2096,6 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case FISHTASK_OBTAIN_ITEM:
             if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
             {
-                u8 pocket;
-                u8 direction;
-                
                 PlaySE(SE_SELECT);
 
                 if (!AddBagItem(gSpecialVar_ItemId, 1))
