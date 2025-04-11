@@ -17,6 +17,9 @@
                                                     // This is an offset value for the table in fishing_game_treasures.h.
                                                     // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
                                                     // The value of this Var should always be less than the number of items in the table (or the item will always be Tiny Mushroom).
+#define DEFAULT_TREASURE_SCORE_PAUSE        FALSE   // If TRUE, the minigame score will not decrease while the treasure is within the fishing bar.
+                                                    // Overridden if a flag is assigned to FG_FLAG_TREASURE_SCORE_PAUSE.
+#define FG_FLAG_TREASURE_SCORE_PAUSE        0       // Replace 0 with an unused Flag to use it to toggle DEFAULT_TREASURE_SCORE_PAUSE.
 
 // Look at the Easily Changed Constants at the top of include/fishing_game.h to customize more specific minigame parameters.
 
