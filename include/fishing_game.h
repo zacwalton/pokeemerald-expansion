@@ -21,17 +21,22 @@
 #define DEFAULT_TREASURE_CHANCE         30   // Percent chance a random treasure will spawn if FG_VAR_TREASURE_CHANCE is 0.
 #define TREASURE_ITEM_POOL_SIZE         14   // Number of different items allowed in the treasure pool.
 #define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will be restricted to the lower(more common) half of the current pool.
+#define TREASURE_ICON_HITBOX_WIDTH      12   // Width of the treasure's hitbox in number of pixels.
 
+
+// Fishing Area Constants
+#define FISHING_AREA_LEFT_EDGE_X        19
+#define FISHING_AREA_RIGHT_EDGE_X       220
+#define FISHING_AREA_WIDTH              FISHING_AREA_RIGHT_EDGE_X - (FISHING_AREA_LEFT_EDGE_X - 1)  // The width of the total fishing bar area in number of pixels.
+#define POSITION_ADJUSTMENT             10   // Multiplier to make values larger so decimal places are retained.
 
 // Fishing Bar Constants
 #define BAR_SPEED_MODIFIER              (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / BAR_SPEED_SLOWING))
-#define FISHING_AREA_WIDTH              202  // The width of the total fishing bar area in number of pixels.
 #define FISHING_BAR_Y                   22
 #define FISHING_BAR_START_X             35
 #define FISHING_BAR_SEGMENT_WIDTH       32
 #define FISHING_BAR_WIDTH_MIN           33
 #define FISHING_BAR_WIDTH_MAX           64
-#define POSITION_ADJUSTMENT             10   // Multiplier to make values larger so decimal places are retained.
 #define FISHING_BAR_MAX                 ((FISHING_AREA_WIDTH - FISHING_BAR_WIDTH) * POSITION_ADJUSTMENT)
 
 // Score Meter Constants
@@ -51,9 +56,10 @@
 // Pokemon Icon Constants
 #define FISH_ICON_WIDTH                 32
 #define FISH_ICON_Y                     19
-#define FISH_ICON_START_X               36
-#define FISH_ICON_MIN_X                 26
-#define FISH_ICON_MAX_X                 ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) * POSITION_ADJUSTMENT)
+#define FISH_ICON_START_OFFSET          10   // Number of pixels from the minimum icon position. Used to set the initial icon position.
+#define FISH_ICON_START_X               (((FISH_ICON_MIN_POS) / POSITION_ADJUSTMENT) + FISH_ICON_START_OFFSET)
+#define FISH_ICON_MIN_POS               ((FISHING_AREA_LEFT_EDGE_X + (FISH_ICON_WIDTH / 4)) * POSITION_ADJUSTMENT)
+#define FISH_ICON_MAX_POS               ((FISHING_AREA_RIGHT_EDGE_X - (FISH_ICON_WIDTH / 4)) * POSITION_ADJUSTMENT)
 #define FISH_IDLE_NUDGE_CHANCE          60   // Percent chance per frame that the fish position value changes while idling.
 
 // Perfect Icon Constants
@@ -62,23 +68,26 @@
 #define PERFECT_Y                       38
 
 // Treasure Icon Constants
+#define TREASURE_ICON_START_X           (TREASURE_ICON_MIN_POS / POSITION_ADJUSTMENT)
+#define TREASURE_ICON_MIN_POS           ((FISHING_AREA_LEFT_EDGE_X + (TREASURE_ICON_WIDTH / 4)) * POSITION_ADJUSTMENT)
+#define TREASURE_ICON_MAX_POS           ((FISHING_AREA_RIGHT_EDGE_X - (TREASURE_ICON_WIDTH / 4)) * POSITION_ADJUSTMENT)
 #define TREASURE_TIME_GOAL              135  // Number of frames inside the fishing bar required to claim the treasure. Must be divisible by TREASURE_INCREMENT.
 #define TREASURE_INCREMENT              15   // Height of full treasure score meter in pixels.
 #define TREASURE_ICON_WIDTH             32
-#define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
 #define TREASURE_DEST_X                 230  // X position of the treasure icon after it is acquired.
 #define TREASURE_DEST_Y                 4    // Y position of the treasure icon after it is acquired.
-#define TREASURE_TILE_SIZE              4
+#define TREASURE_TILE_SIZE              (TREASURE_ICON_WIDTH / 8)
 #define TREASURE_SCORE_COLOR_INTERVAL   (TREASURE_TIME_GOAL / NUM_COLOR_INTERVALS)
 #define TREASURE_SCORE_COLOR_NUM        10   // The color position in the palette that the treasure score meter uses.
 #define TREASURE_POST_GAME_X            109  // X position of the treasure icon to be inside the text box after battle.
-#define TREASURE_POST_GAME_Y            68  // Y position of the treasure icon to be inside the text box after battle.
+#define TREASURE_POST_GAME_Y            68   // Y position of the treasure icon to be inside the text box after battle.
 
 // Other Constants
 #define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts in the overworld.
-#define SEPARATE_SCREEN_MODIFIER        80
+#define SEPARATE_SCREEN_MODIFIER        80   // Position offset for sprites if on separate screen.
+#define ICON_CENTER_OFFSET              1.5  // Multiplier for the icon width in order to calculate the icon center.
 
 
 // Sprite sheet numbers.

@@ -928,7 +928,7 @@ static void CreateMinigameSprites(u8 taskId)
     if (!taskData.tSeparateScreen)
         spriteData.oam.priority--;
     spriteData.subpriority = 1;
-    spriteData.sFishPosition = (FISH_ICON_START_X - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
+    spriteData.sFishPosition = FISH_ICON_START_X * POSITION_ADJUSTMENT;
     spriteData.sTimeToNextMove = (FISH_FIRST_MOVE_DELAY * 60);
     spriteData.sFishSpecies += taskData.tRodType;
     SetFishingSpeciesBehavior(spriteId, species);
@@ -999,9 +999,10 @@ static void CreateTreasureSprite(u8 taskId)
     if (taskData.tSeparateScreen)
         y += SEPARATE_SCREEN_MODIFIER;
         
-    spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
+    spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_ICON_START_X, y, 2);
     spriteData.invisible = TRUE;
     spriteData.sTaskId = taskId;
+    spriteData.sTreasurePosition = TREASURE_ICON_MIN_POS;
     if (taskData.tSeparateScreen)
         spriteData.oam.priority = 1;
     spriteData.sTreasScoreFrame = 0;
@@ -1322,7 +1323,7 @@ static void UpdateHelpfulTextLower(u8 taskId)
 
 #define barData         gSprites[taskData.tBarLeftSpriteId]
 #define fishData        gSprites[taskData.tFishIconSpriteId]
-#define fishCenter      (fishData.sFishPosition + ((FISH_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define fishCenter      (fishData.sFishPosition - ((FISH_ICON_HITBOX_WIDTH * ICON_CENTER_OFFSET) * POSITION_ADJUSTMENT))
 #define barLeftEdge     barData.sBarPosition
 #define barRightEdge    (barLeftEdge + (barData.sBarWidth * POSITION_ADJUSTMENT))
 #define barMax          ((FISHING_AREA_WIDTH - barData.sBarWidth) * POSITION_ADJUSTMENT)
@@ -1492,10 +1493,10 @@ static void SetMonIconPosition(u8 taskId)
             if (sFishIconData.sFishSpeed < 1)
                 sFishIconData.sFishSpeed = 1;
 
-            if ((sFishIconData.sFishPosition + sFishIconData.sFishSpeed) <= FISH_ICON_MAX_X) // If the fish position wouldn't exceed the right edge.
+            if ((sFishIconData.sFishPosition + sFishIconData.sFishSpeed) <= FISH_ICON_MAX_POS) // If the fish position wouldn't exceed the right edge.
                 sFishIconData.sFishPosition += sFishIconData.sFishSpeed; // Move the fish to the right.
             else
-                sFishIconData.sFishPosition = FISH_ICON_MAX_X; // Cap the position at the right edge.
+                sFishIconData.sFishPosition = FISH_ICON_MAX_POS; // Cap the position at the right edge.
 
             if (sFishIconData.sFishPosition >= sFishIconData.sFishDestination)
                 taskData.tFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
@@ -1523,10 +1524,10 @@ static void SetMonIconPosition(u8 taskId)
             if (sFishIconData.sFishSpeed < 1)
                 sFishIconData.sFishSpeed = 1;
 
-            if ((sFishIconData.sFishPosition - sFishIconData.sFishSpeed) >= FISH_ICON_MIN_X) // If the fish position wouldn't exceed the left edge.
+            if ((sFishIconData.sFishPosition - sFishIconData.sFishSpeed) >= FISH_ICON_MIN_POS) // If the fish position wouldn't exceed the left edge.
                 sFishIconData.sFishPosition -= sFishIconData.sFishSpeed; // Move the fish to the left.
             else
-                sFishIconData.sFishPosition = FISH_ICON_MIN_X; // Cap the position at the left edge.
+                sFishIconData.sFishPosition = FISH_ICON_MIN_POS; // Cap the position at the left edge.
 
             if (sFishIconData.sFishPosition <= sFishIconData.sFishDestination) // If movement has completed.
                 taskData.tFishIsMoving = FALSE; // Return to idle behavior.
@@ -1559,7 +1560,7 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sTimeToNextMove = 1;
 
             // Set movement direction.
-            leftProbability = (sFishIconData.sFishPosition / (FISH_ICON_MAX_X / 100));
+            leftProbability = (sFishIconData.sFishPosition / (FISH_ICON_MAX_POS / 100));
             rand = (Random() % 100);
             if (rand < leftProbability)
                 sFishIconData.sFishDirection = FISH_DIR_LEFT;
@@ -1575,15 +1576,15 @@ static void SetMonIconPosition(u8 taskId)
             if (sFishIconData.sFishDirection == FISH_DIR_LEFT)
             {
                 sFishIconData.sFishDestination = (sFishIconData.sFishPosition - distance);
-                if (sFishIconData.sFishDestination < FISH_ICON_MIN_X)
-                    sFishIconData.sFishDestination = FISH_ICON_MIN_X;
+                if (sFishIconData.sFishDestination < FISH_ICON_MIN_POS)
+                    sFishIconData.sFishDestination = FISH_ICON_MIN_POS;
                 sFishIconData.sFishDestInterval = (sFishIconData.sFishPosition - sFishIconData.sFishDestination);
             }
             else
             {
                 sFishIconData.sFishDestination = (sFishIconData.sFishPosition + distance);
-                if (sFishIconData.sFishDestination > FISH_ICON_MAX_X)
-                    sFishIconData.sFishDestination = FISH_ICON_MAX_X;
+                if (sFishIconData.sFishDestination > FISH_ICON_MAX_POS)
+                    sFishIconData.sFishDestination = FISH_ICON_MAX_POS;
                 sFishIconData.sFishDestInterval = (sFishIconData.sFishDestination - sFishIconData.sFishPosition);
             }
         }
@@ -1593,16 +1594,16 @@ static void SetMonIconPosition(u8 taskId)
         if (rand < (FISH_IDLE_NUDGE_CHANCE / 2)) // Nudge to right.
         {
             rand = (Random() % (sBehavior.idleMovement + 1));
-            if ((sFishIconData.sFishPosition + rand) > FISH_ICON_MAX_X)
-                sFishIconData.sFishPosition = FISH_ICON_MAX_X;
+            if ((sFishIconData.sFishPosition + rand) > FISH_ICON_MAX_POS)
+                sFishIconData.sFishPosition = FISH_ICON_MAX_POS;
             else
                 sFishIconData.sFishPosition += rand;
         }
         else if (rand < FISH_IDLE_NUDGE_CHANCE) // Nudge to left.
         {
             rand = (Random() % (sBehavior.idleMovement + 1));
-            if ((sFishIconData.sFishPosition - rand) < FISH_ICON_MIN_X)
-                sFishIconData.sFishPosition = FISH_ICON_MIN_X;
+            if ((sFishIconData.sFishPosition - rand) < FISH_ICON_MIN_POS)
+                sFishIconData.sFishPosition = FISH_ICON_MIN_POS;
             else
                 sFishIconData.sFishPosition -= rand;
         }
@@ -1612,38 +1613,39 @@ static void SetMonIconPosition(u8 taskId)
 static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
 {
     u8 monSpriteX = gSprites[gTasks[taskId].tFishIconSpriteId].x; // Fish's current X position.
-    u8 interval = (FISHING_AREA_WIDTH - ((TREASURE_ICON_WIDTH / 4) + (TREASURE_ICON_HITBOX_WIDTH / 2))) / 3; // A third of the area the fish is allowed to go.
+    u16 interval = ((FISH_ICON_MAX_POS - FISH_ICON_MIN_POS) / POSITION_ADJUSTMENT) / 3; // A third of the area the fish is allowed to go.
     u8 i;
     u8 random;
 
     for (i = 1; i <= 3; i++) // Determine the fish's current interval.
     {
-        if (monSpriteX < (FISH_ICON_MIN_X + (i * interval)))
+        if (monSpriteX < (i * interval))
         {
             break;
         }
     }
+    
+    interval = ((TREASURE_ICON_MAX_POS - TREASURE_ICON_MIN_POS) / POSITION_ADJUSTMENT) / 3; // A third of the area the treasure is allowed to go.
 
     random = (Random() % (interval * 2)) + 1;
 
     switch (i)
     {
         case 1: // Fish is in the left third.
-            sprite->sTreasurePosition = FISH_ICON_MIN_X + interval + random;
+            sprite->sTreasurePosition += (interval + random) * POSITION_ADJUSTMENT;
             break;
         case 2: // Fish is in the middle third.
             if (random <= interval)
-                sprite->sTreasurePosition = FISH_ICON_MIN_X + random;
+                sprite->sTreasurePosition += random * POSITION_ADJUSTMENT;
             else
-                sprite->sTreasurePosition = FISH_ICON_MIN_X + interval + random;
+                sprite->sTreasurePosition += (interval + random) * POSITION_ADJUSTMENT;
             break;
         case 3: // Fish is in the right third.
-            sprite->sTreasurePosition = FISH_ICON_MIN_X + random;
+            sprite->sTreasurePosition += random * POSITION_ADJUSTMENT;
             break;
     }
     
-    sprite->x = sprite->sTreasurePosition;
-    sprite->sTreasurePosition = (sprite->sTreasurePosition - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
+    sprite->x = (sprite->sTreasurePosition / POSITION_ADJUSTMENT);
 }
 
 #define sBarMax ((FISHING_AREA_WIDTH - sprite->sBarWidth) * POSITION_ADJUSTMENT)
@@ -1709,7 +1711,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
         else if (sprite->animPaused)
             sprite->animPaused = FALSE;
 
-        sprite->x = ((sprite->sFishPosition / POSITION_ADJUSTMENT) + FISH_ICON_MIN_X); // Set the fish sprite location.
+        sprite->x = sprite->sFishPosition / POSITION_ADJUSTMENT; // Set the fish sprite location.
         
         if (gTasks[sprite->sTaskId].tQMarkSpriteId != 200) // If the Question Mark sprite exists.
             gSprites[gTasks[sprite->sTaskId].tQMarkSpriteId].x = sprite->x; // Move the Question Mark with the fish sprite. This occurs in the fish sprite CB to prevent desync between the sprites.
@@ -1816,7 +1818,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     sprite->sPerfectMoveFrames++;
 }
 
-#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define treasureCenter      (sprite->sTreasurePosition - ((TREASURE_ICON_HITBOX_WIDTH * ICON_CENTER_OFFSET) * POSITION_ADJUSTMENT))
 #define treasureHBLeftEdge  (treasureCenter - ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define treasureHBRightEdge (treasureCenter + ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
