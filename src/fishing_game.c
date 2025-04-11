@@ -1,4 +1,8 @@
 #include "global.h"
+#include "config/fishing_game.h"
+#include "fishing_game.h"
+#include "fishing_game_species_behavior.h"
+#include "fishing_game_treasures.h"
 #include "battle_main.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
@@ -11,9 +15,6 @@
 #include "field_control_avatar.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
-#include "fishing_game.h"
-#include "fishing_game_species_behavior.h"
-#include "fishing_game_treasures.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "item.h"
@@ -831,7 +832,7 @@ static void LoadFishingSpritesheets(void)
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR]);
     LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[FISHING_BAR_RIGHT]);
-    if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
+    if (FG_MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[SCORE_METER_BACKING]);
 }
 
@@ -864,7 +865,7 @@ static void CreateMinigameSprites(u8 taskId)
     taskData.tBarLeftSpriteId = spriteId;
 
     // Set width of fishing bar.
-    if (BAR_WIDTH_FROM_ROD_TYPE == TRUE)
+    if (FG_BAR_WIDTH_FROM_ROD_TYPE == TRUE)
     {
         switch (taskData.tRodType)
         {
@@ -892,10 +893,10 @@ static void CreateMinigameSprites(u8 taskId)
         y += SEPARATE_SCREEN_MODIFIER;
 
     taskData.tQMarkSpriteId = 200;
-    if (OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255
-        || (OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN)))
+    if (FG_OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255
+        || (FG_OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN)))
     {
-        if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
+        if (FG_VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
         {
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, y, 0);
@@ -975,9 +976,9 @@ static void CreateMinigameSprites(u8 taskId)
     }
 
     // Create treasure sprite.
-    if (FISH_VAR_TREASURE_CHANCE != 0)
+    if (FG_VAR_TREASURE_CHANCE != 0)
     {
-        if ((Random() % 100) < VarGet(FISH_VAR_TREASURE_CHANCE))
+        if ((Random() % 100) < VarGet(FG_VAR_TREASURE_CHANCE))
         {
             CreateTreasureSprite(taskId);
         }
@@ -1015,9 +1016,9 @@ static void SetFishingTreasureItem(u8 rod)
     u8 random = Random() % TREASURE_ITEM_POOL_SIZE;
     u8 item;
 
-    if (FISH_VAR_ITEM_RARITY != 0)
+    if (FG_VAR_ITEM_RARITY != 0)
     {
-        offset = VarGet(FISH_VAR_ITEM_RARITY);
+        offset = VarGet(FG_VAR_ITEM_RARITY);
 
         if (offset >= arrayCount)
         {
@@ -1175,7 +1176,7 @@ static void Task_ReeledInFish(u8 taskId)
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, SEPARATE_SCREEN_MODIFIER, 0);
             else
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 0);
-            if (PERFECT_CHAIN_INCREASE == TRUE)
+            if (FG_PERFECT_CHAIN_INCREASE == TRUE)
                 UpdateChainFishingStreak();
             spriteData.sTaskId = taskId;
         }

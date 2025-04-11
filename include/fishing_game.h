@@ -1,21 +1,10 @@
 #ifndef GUARD_FISHING_GAME_H
 #define GUARD_FISHING_GAME_H
 
-// Configs
-#define FISH_MINIGAME_ENABLED           TRUE    // If set to FALSE, this fishing minigame will be completely disabled.
-
-#define MINIGAME_ON_SEPARATE_SCREEN     FALSE   // Play the minigame on its own dedicated screen instead of in the overworld.
-#define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
-#define PREVENT_FAILURE_IN_DOTS_GAME    TRUE    // If TRUE, the dots game cannot be failed.
-#define OBSCURE_UNDISCOVERED_MONS       TRUE    // If TRUE, the Pokemon icon will be obscured if that species has not been seen in the Pokedex.
-#define VAGUE_FISH_FOR_OBSCURED         FALSE   // If TRUE, uses a vague fish shape instead of a blacked out Pokemon icon when obscured.
-#define OBSCURE_ALL_FISH                FALSE   // If TRUE, the Pokemon icon will always be obscured.
-#define PERFECT_CHAIN_INCREASE          FALSE   // If TRUE, getting a "Perfect" in the minigame increases the chain fishing streak by an additional point.
-#define BAR_WIDTH_FROM_ROD_TYPE         TRUE    // If TRUE, sets the fishing bar width based on the type of rod used.
-
+// Easily Changed Constants
 #define OLD_ROD_BAR_WIDTH               40   // Default pixel width of the fishing bar. Cannot be below 33 or above 64.
-#define GOOD_ROD_BAR_WIDTH              50   // Fishing bar pixel width for the Good Rod. BAR_WIDTH_FROM_ROD_TYPE must be TRUE. Cannot be below 33 or above 64.
-#define SUPER_ROD_BAR_WIDTH             60   // Fishing bar pixel width for the Super Rod. BAR_WIDTH_FROM_ROD_TYPE must be TRUE. Cannot be below 33 or above 64.
+#define GOOD_ROD_BAR_WIDTH              50   // Fishing bar pixel width for the Good Rod. FG_BAR_WIDTH_FROM_ROD_TYPE must be TRUE. Cannot be below 33 or above 64.
+#define SUPER_ROD_BAR_WIDTH             60   // Fishing bar pixel width for the Super Rod. FG_BAR_WIDTH_FROM_ROD_TYPE must be TRUE. Cannot be below 33 or above 64.
 #define FISHING_BAR_MAX_SPEED           50   // The greater the number, the faster the bar is allowed to go.
 #define FISHING_BAR_BOUNCINESS          1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
 #define BAR_SPEED_SLOWING               2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
@@ -29,15 +18,8 @@
 #define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
 #define FISH_SPEED_MULTIPLIER           100  // Global fish speed multiplier. It is a percent, so 50 would be half speed and 200 would be double speed.
 
-#define FISH_VAR_TREASURE_CHANCE        0    // Replace 0 with an unused Var to use it to change the percent chance a random treasure will spawn via scripts.
-#define DEFAULT_TREASURE_CHANCE         30   // Percent chance a random treasure will spawn if FISH_VAR_TREASURE_CHANCE is 0.
+#define DEFAULT_TREASURE_CHANCE         30   // Percent chance a random treasure will spawn if FG_VAR_TREASURE_CHANCE is 0.
 #define TREASURE_ITEM_POOL_SIZE         14   // Number of different items allowed in the treasure pool.
-#define FISH_VAR_ITEM_RARITY            0    // Replace 0 with an unused Var to use it to change the rarity of the treasure item pool via scripts.
-                                             // Otherwise, the rarity will be determined by the type of rod used.
-                                             // This is an offset value for the table in fishing_game_treasures.h.
-                                             // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
-                                             // The value of this Var should always be less than the number of items in the table (or the item will always be Tiny Mushroom).
-
 #define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will be restricted to the lower(more common) half of the current pool.
 
 
