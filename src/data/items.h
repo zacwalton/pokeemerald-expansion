@@ -10416,7 +10416,7 @@ const struct Item gItemsInfo[] =
             "Looses a powerful\n"
             "blast of light that\n"
             "reduces accuracy."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10431,7 +10431,7 @@ const struct Item gItemsInfo[] =
             "Attacks the foe\n"
             "with sharp blades\n"
             "or claws."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10446,7 +10446,7 @@ const struct Item gItemsInfo[] =
             "A rock-crushingly\n"
             "tough attack that\n"
             "may lower Defense."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10461,7 +10461,7 @@ const struct Item gItemsInfo[] =
             "Raises Sp. Atk and\n"
             "Sp. Def by focusing\n"
             "the mind."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10476,7 +10476,7 @@ const struct Item gItemsInfo[] =
             "A savage roar that\n"
             "makes the foe flee \n"
             "to end the battle."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10491,7 +10491,7 @@ const struct Item gItemsInfo[] =
             "Adds an effect to\n"
             "attack depending\n"
             "on the location."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10506,7 +10506,7 @@ const struct Item gItemsInfo[] =
             "Creates a hailstorm\n"
             "that damages all\n"
             "types except Ice."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10521,7 +10521,7 @@ const struct Item gItemsInfo[] =
             "Bulks up the body\n"
             "to boost both\n"
             "Attack & Defense."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10536,7 +10536,7 @@ const struct Item gItemsInfo[] =
             "Attacks the foe\n"
             "with enough power\n"
             "to climb waterfalls."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -10551,7 +10551,7 @@ const struct Item gItemsInfo[] =
             "The attack power\n"
             "varies among\n"
             "different Pokémon."),
-        .importance = I_REUSABLE_TMS,
+        .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -11338,7 +11338,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_ICE_FANG, // Todo
     },
 
-    [ITEM_TM_SLUDGE_WAVE] =
+    [ITEM_TM_SLUDGE_BOMB] =
     {
         .name = _("TM66"),
         .price = 0,
@@ -11347,7 +11347,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_SLUDGE_WAVE, // Todo
+        .secondaryId = MOVE_SLUDGE_BOMB, // Todo
     },
 
     [ITEM_TM_MAGICAL_LEAF] =
@@ -11941,9 +11941,21 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_ACROBATICS,
     },
 
-    [ITEM_HM_DRAGON_ASCENT] =
+    [ITEM_HM_SLUDGE_WAVE] =
     {
         .name = _("HM13"),
+        .price = 0,
+        .description = sQuestionMarksDesc, // Todo
+        .importance = 1,
+        .pocket = POCKET_TM_HM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_TMHM,
+        .secondaryId = MOVE_SLUDGE_WAVE, // Todo
+    },
+
+    [ITEM_HM_DRAGON_ASCENT] =
+    {
+        .name = _("HM14"),
         .price = 0,
         .description = COMPOUND_STRING(
             "Dives underwater\n"

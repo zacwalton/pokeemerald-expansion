@@ -67,7 +67,7 @@
     F(FIRE_FANG) \
     F(THUNDER_FANG) \
     F(ICE_FANG) \
-    F(SLUDGE_WAVE) \
+    F(SLUDGE_BOMB) \
     F(MAGICAL_LEAF) \
     F(SMACK_DOWN) \
     F(U_TURN) \
@@ -116,6 +116,7 @@
     F(TELEKINESIS) \
     F(BODY_PRESS) \
     F(ACROBATICS) \
+    F(SLUDGE_WAVE) \
     F(DRAGON_ASCENT) 
 
 #define FOREACH_TMHM(F) \
