@@ -2592,3 +2592,29 @@ bool8 Scrcmd_checkleadspecies(struct ScriptContext *ctx)
 
     return FALSE;
 }
+
+/*bool8 ScrCmd_getbgeventxycoord(struct ScriptContext *ctx)
+{
+    u16 localId = VarGet(ScriptReadHalfword(ctx));
+
+	gSpecialVar_Result = GetBgEventPosition(u16* xPointer, u16* yPointer)
+    return FALSE;
+}*/
+
+bool8 ScrCmd_setmetatileateatbgeventid(struct ScriptContext *ctx)
+{
+	u16 localId = VarGet(ScriptReadHalfword(ctx));
+    u16 x, y;
+	GetBgEventPosition(&x, &y, localId);
+    u16 metatileId = VarGet(ScriptReadHalfword(ctx));
+    bool16 isImpassable = VarGet(ScriptReadHalfword(ctx));
+
+    x += MAP_OFFSET;
+    y += MAP_OFFSET;
+    if (!isImpassable)
+        MapGridSetMetatileIdAt(x, y, metatileId);
+    else
+        MapGridSetMetatileIdAt(x, y, metatileId | MAPGRID_COLLISION_MASK);
+    return FALSE;
+}
+

@@ -2448,3 +2448,11 @@
 	.2byte \speciesId
 	.endm
 
+	@ Get coordinates of BG Event
+	.macro setmetatileateatbgeventid localId:req, destX:req, destY:req
+	callnative ScrCmd_setmetatileateatbgeventid
+	.2byte \localId
+	.2byte \destX
+	.2byte \destY
+	.endm
+

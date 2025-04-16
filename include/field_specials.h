@@ -37,5 +37,6 @@ void GetObjectPosition(u16*, u16*, u32, u32);
 bool32 CheckObjectAtXY(u32, u32);
 bool32 CheckPartyHasSpecies(u32);
 bool32 CheckLeadMonSpecies(u32);
+bool8 GetBgEventPosition(u16* xPointer, u16* yPointer, u32 localId);
 
 #endif // GUARD_FIELD_SPECIALS_H

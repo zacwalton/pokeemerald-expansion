@@ -1,5 +1,6 @@
 .set LOCALID_GRUNT, 3
 .set LOCALID_DEVON_EMPLOYEE, 4
+.set LOCALID_WOOD4, 9
 
 PetalburgWoods_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, PetalburgWoods_OnResume
@@ -32,7 +33,7 @@ PetalburgWoods_Resource_Wood3::
 	return
 
 PetalburgWoods_Resource_Wood4::
-	setmetatile 53, 43, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD4, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood5::

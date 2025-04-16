@@ -1,5 +1,6 @@
 .set LOCALID_BIRCH, 2
 .set LOCALID_ZIGZAGOON, 4
+.set LOCALID_STONE1, 8
 
 Route101_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, Route101_OnLoad
@@ -51,7 +52,7 @@ Route101_Resource_Balm1::
 	return
 	
 Route101_Resource_Stone1::
-	setmetatile 8, 7, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
 	return
 
 Route101_Resource_Stone2::
