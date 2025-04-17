@@ -2116,7 +2116,9 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 TaskState = FISHTASK_OBTAIN_ITEM;
             break;
         case FISHTASK_OBTAIN_ITEM:
-            if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
+            RunTextPrinters();
+            
+            if (!IsTextPrinterActive(0) && (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON)))
             {
                 if (RoomForItem)
                 {
@@ -2153,9 +2155,9 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             break;
         case FISHTASK_STOP_FIELD_MOVE_ANIM:
             ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], taskData.tPlayerGFXId);
-            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
+            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) || !RoomForItem)
                 ResetPlayerAvatar(taskData.tPlayerGFXId);
-            else if (RoomForItem)
+            else
                 StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFaceDirectionAnimNum(DIR_SOUTH));
 
             if (RoomForItem)
