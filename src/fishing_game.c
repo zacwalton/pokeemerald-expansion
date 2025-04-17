@@ -1986,6 +1986,7 @@ static void CB2_FishingBattleStart(void)
 #define TaskState           taskData.data[1]
 #define TreasureSpriteId    taskData.data[2]
 #define ItemSpriteId        taskData.data[3]
+#define RoomForItem         taskData.data[4]
 #define TreasureSprite      gSprites[TreasureSpriteId]
 #define ItemSprite          gSprites[ItemSpriteId]
 
@@ -1996,13 +1997,13 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
     switch (TaskState)
     {
         case FISHTASK_FIRST_MSG:
-                LoadMessageBoxAndBorderGfx();
-                DrawDialogueFrame(0, TRUE);
-                StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
-                StringExpandPlaceholders(gStringVar4, gText_ReeledInTreasure);
-                AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
-
-                TaskState = FISHTASK_FIELD_MOVE_ANIM;
+            RoomForItem = TRUE;
+            LoadMessageBoxAndBorderGfx();
+            DrawDialogueFrame(0, TRUE);
+            StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
+            StringExpandPlaceholders(gStringVar4, gText_ReeledInTreasure);
+            AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
+            TaskState = FISHTASK_FIELD_MOVE_ANIM;
             break;
         case FISHTASK_FIELD_MOVE_ANIM:
             RunTextPrinters();
@@ -2067,7 +2068,14 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case FISHTASK_CREATE_ITEM_SPRITE:
             if (TreasureSprite.animEnded || TreasureSpriteId == MAX_SPRITES)
             {
-                PlayFanfare(FANFARE_OBTAIN_ITEM);
+                if (!AddBagItem(gSpecialVar_ItemId, 1))
+                {
+                    RoomForItem = FALSE;
+                }
+                else
+                {
+                    PlayFanfare(FANFARE_OBTAIN_ITEM);
+                }
                 spriteId = AddCustomItemIconSprite(&sSpriteTemplate_Item, TAG_ITEM, TAG_ITEM, gSpecialVar_ItemId);
                 spriteData.sTaskId = taskId;
                 ItemSpriteId = spriteId;
@@ -2110,33 +2118,30 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case FISHTASK_OBTAIN_ITEM:
             if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
             {
-                PlaySE(SE_SELECT);
-
-                if (!AddBagItem(gSpecialVar_ItemId, 1))
+                if (RoomForItem)
                 {
-                    FillWindowPixelBuffer(0, PIXEL_FILL(1));
-                    AddTextPrinterParameterized(0, FONT_NORMAL, gText_NoRoomForTreasure, 0, 1, 1, NULL);
+                    PlaySE(SE_SELECT);
+
+                    switch (GetPocketByItemId(gSpecialVar_ItemId))
+                    {
+                        case POCKET_ITEMS:
+                            StringCopy(gStringVar3, gText_Items);
+                            break;
+                        case POCKET_POKE_BALLS:
+                            StringCopy(gStringVar3, gText_Poke_Balls);
+                            break;
+                        case POCKET_TM_HM:
+                            StringCopy(gStringVar3, gText_TMs_Hms);
+                            break;
+                        case POCKET_BERRIES:
+                            StringCopy(gStringVar3, gText_Berries2);
+                            break;
+                        case POCKET_KEY_ITEMS:
+                            StringCopy(gStringVar3, gText_Key_Items);
+                            break;
+                    }
                 }
 
-                switch (GetPocketByItemId(gSpecialVar_ItemId))
-                {
-                    case POCKET_ITEMS:
-                        StringCopy(gStringVar3, gText_Items);
-                        break;
-                    case POCKET_POKE_BALLS:
-                        StringCopy(gStringVar3, gText_Poke_Balls);
-                        break;
-                    case POCKET_TM_HM:
-                        StringCopy(gStringVar3, gText_TMs_Hms);
-                        break;
-                    case POCKET_BERRIES:
-                        StringCopy(gStringVar3, gText_Berries2);
-                        break;
-                    case POCKET_KEY_ITEMS:
-                        StringCopy(gStringVar3, gText_Key_Items);
-                        break;
-                }
-                
                 TaskState = FISHTASK_DESTROY_TREASURE_SPRITE;
             }
             break;
@@ -2147,17 +2152,25 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             TaskState = FISHTASK_STOP_FIELD_MOVE_ANIM;
             break;
         case FISHTASK_STOP_FIELD_MOVE_ANIM:
-                ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], taskData.tPlayerGFXId);
-                if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
-                    ResetPlayerAvatar(taskData.tPlayerGFXId);
-                else
-                    StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFaceDirectionAnimNum(DIR_SOUTH));
-                StringExpandPlaceholders(gStringVar4, gText_PutTreasureInPocket);
-                FillWindowPixelBuffer(0, PIXEL_FILL(1));
-                AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
-                StartSpriteAffineAnim(&ItemSprite, ANIM_TREASURE_SHRINK);
+            ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], taskData.tPlayerGFXId);
+            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
+                ResetPlayerAvatar(taskData.tPlayerGFXId);
+            else if (RoomForItem)
+                StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFaceDirectionAnimNum(DIR_SOUTH));
+
+            if (RoomForItem)
+                TaskState = FISHTASK_PUT_ITEM_AWAY;
+            else
+                TaskState = FISHTASK_NO_ROOM_FOR_ITEM;
+
+            break;
+        case FISHTASK_PUT_ITEM_AWAY:
+            StringExpandPlaceholders(gStringVar4, gText_PutTreasureInPocket);
+            FillWindowPixelBuffer(0, PIXEL_FILL(1));
+            AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
+            StartSpriteAffineAnim(&ItemSprite, ANIM_TREASURE_SHRINK);
                 
-                TaskState = FISHTASK_ITEM_SHRINK;
+            TaskState = FISHTASK_ITEM_SHRINK;
             break;
         case FISHTASK_ITEM_SHRINK:
             RunTextPrinters();
@@ -2177,9 +2190,15 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
 
             taskData.tFrameCounter++;
             break;
+        case FISHTASK_NO_ROOM_FOR_ITEM:
+            DestroySpriteAndFreeResources(&ItemSprite);
+            FillWindowPixelBuffer(0, PIXEL_FILL(1));
+            AddTextPrinterParameterized(0, FONT_NORMAL, gText_NoRoomForTreasure, 0, 1, 1, NULL);
+            TaskState = FISHTASK_WAIT_FINAL_INPUT;
+            break;
         case FISHTASK_WAIT_FINAL_INPUT:
             RunTextPrinters();
-            if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
+            if (!IsTextPrinterActive(0) && (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON)))
             {
                 PlaySE(SE_SELECT);
                 TaskState = FISHTASK_END_TASK;
