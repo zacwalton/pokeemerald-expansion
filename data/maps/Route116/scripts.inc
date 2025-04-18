@@ -1,6 +1,24 @@
 .set LOCALID_BRINEY, 11
 .set LOCALID_WANDAS_BF_OUTSIDE, 21
 
+.set LOCALID_WOOD1, 20
+.set LOCALID_WOOD2, 21
+.set LOCALID_WOOD3, 22
+.set LOCALID_WOOD4, 23
+.set LOCALID_WOOD5, 24
+.set LOCALID_WOOD6, 25
+.set LOCALID_WOOD7, 26
+.set LOCALID_STONE1, 12
+.set LOCALID_STONE2, 13
+.set LOCALID_STONE3, 14
+.set LOCALID_STONE4, 15
+.set LOCALID_STONE5, 16
+.set LOCALID_STONE6, 17
+.set LOCALID_STONE7, 18
+.set LOCALID_STONE8, 19
+.set LOCALID_MUSHROOM1, 28
+.set LOCALID_KINGSLEAF1, 27
+
 Route116_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route116_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, Route116_OnTransition
@@ -29,315 +47,226 @@ Route116_OnResume:
 	end
 
 Route116_Resource_Wood1::
-	setmetatile 18, 18, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood2::
-	setmetatile 29, 20, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood3::
-	setmetatile 30, 15, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD3, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood4::
-	setmetatile 38, 17, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD4, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood5::
-	setmetatile 51, 22, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD5, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood6::
-	setmetatile 61, 22, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD6, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood7::
-	setmetatile 74, 21, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD7, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone1::
-	setmetatile 11, 14, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone2::
-	setmetatile 39, 18, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone3::
-	setmetatile 46, 20, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE3, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone4::
-	setmetatile 51, 18, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE4, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone5::
-	setmetatile 53, 24, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE5, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone6::
-	setmetatile 65, 19, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE6, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone7::
-	setmetatile 65, 16, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE7, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Stone8::
-	setmetatile 75, 16, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE8, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Mushroom1::
-	setmetatile 70, 15, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_KingsLeaf1::
-	setmetatile 56, 24, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_Grass, FALSE
 	return
 
 Route116_Resource_Wood1Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD1, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD1
 	call Route116_Resource_Wood1
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood2Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD2, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD2, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD2
 	call Route116_Resource_Wood2
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood3Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD3, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD3, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD3
 	call Route116_Resource_Wood3
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood4Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD4, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD4, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD4
 	call Route116_Resource_Wood4
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood5Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD5, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD5, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD5
 	call Route116_Resource_Wood5
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood6Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD6, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD6, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD6
 	call Route116_Resource_Wood6
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Wood7Harvest::
-	goto_if_set FLAG_ROUTE116_WOOD7, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_WOOD7, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_WOOD7
 	call Route116_Resource_Wood7
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route116_Resource_Stone1Harvest::
-	goto_if_set FLAG_ROUTE116_STONE1, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE1
 	call Route116_Resource_Stone1
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone2Harvest::
-	goto_if_set FLAG_ROUTE116_STONE2, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE2, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE2
 	call Route116_Resource_Stone2
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone3Harvest::
-	goto_if_set FLAG_ROUTE116_STONE3, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE3, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE3
 	call Route116_Resource_Stone3
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone4Harvest::
-	goto_if_set FLAG_ROUTE116_STONE4, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE4, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE4
 	call Route116_Resource_Stone4
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone5Harvest::
-	goto_if_set FLAG_ROUTE116_STONE5, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE5, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE5
 	call Route116_Resource_Stone5
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone6Harvest::
-	goto_if_set FLAG_ROUTE116_STONE6, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE6, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE6
 	call Route116_Resource_Stone6
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone7Harvest::
-	goto_if_set FLAG_ROUTE116_STONE7, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE7, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE7
 	call Route116_Resource_Stone7
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Stone8Harvest::
-	goto_if_set FLAG_ROUTE116_STONE8, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_STONE8, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_STONE8
 	call Route116_Resource_Stone8
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, Route116_Resource_Give_Stone2
-	case 1, Route116_Resource_Give_Stone3
-	case 2, Route116_Resource_Give_Mud2
-	case 3, Route116_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 Route116_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_ROUTE116_MUSHROOM1, Route116_Resource_Collected
+	goto_if_set FLAG_ROUTE116_MUSHROOM1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_MUSHROOM1
 	call Route116_Resource_Mushroom1
 	special DrawWholeMapView
-    random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	call Harvest_MushroomSmallScript
 	releaseall
 	end
 
 Route116_Resource_KingsLeaf1Harvest::
-	goto_if_set FLAG_ROUTE116_KINGSLEAF1, Route116_Resource_Collected
-	giveitem ITEM_KINGS_LEAF
+	goto_if_set FLAG_ROUTE116_KINGSLEAF1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE116_KINGSLEAF1
 	call Route116_Resource_KingsLeaf1
 	special DrawWholeMapView
+	call Harvest_KingsLeafScript
 	releaseall
 	end
 
-Route116_Resource_Collected::
-	releaseall
-	end
-
-Route116_Resource_Give_Stone2::
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_STONE, VAR_RESULT
-	releaseall
-	end
-	
-Route116_Resource_Give_Stone3::
-	random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_STONE, VAR_RESULT
-	giveitem ITEM_MUD
-	releaseall
-	end
-	
-Route116_Resource_Give_Mud2::
-    giveitem ITEM_STONE
-	random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_MUD, VAR_RESULT
-	releaseall
-	end
-	
-Route116_Resource_Give_Mud3::
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_MUD, VAR_RESULT
-	releaseall
-	end
 
 Route116_OnTransition:
 	call_if_set FLAG_RECOVERED_DEVON_GOODS, Route116_EventScript_SetWandasBoyfriendPos

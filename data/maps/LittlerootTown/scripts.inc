@@ -3,6 +3,17 @@
 .set LOCALID_RIVAL, 7
 .set LOCALID_BIRCH, 8
 
+.set LOCALID_LEEK1, 7
+.set LOCALID_LEEK2, 8
+.set LOCALID_MUSHROOM1, 11
+.set LOCALID_MUSHROOM2, 12
+.set LOCALID_MUSHROOM3, 13
+.set LOCALID_BALM1, 10
+.set LOCALID_STONE1, 15
+.set LOCALID_STONE2, 16
+.set LOCALID_VIVICHOKE1, 9
+.set LOCALID_KINGSLEAF1, 14
+
 LittlerootTown_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_OnLoad
 	map_script MAP_SCRIPT_ON_RESUME, LittlerootTown_OnResume
@@ -87,43 +98,43 @@ LittlerootTown_EventScript_SecretTree2Set::
 	return	
 	
 LittlerootTown_Resource_leek1::
-	setmetatile 34, 9, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK1, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_leek2::
-	setmetatile 39, 21, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK2, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Mushroom1::
-	setmetatile 37, 26, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Mushroom2::
-	setmetatile 12, 27, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM2, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Mushroom3::
-	setmetatile 40, 29, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM3, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Balm1::
-	setmetatile 36, 5, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_BALM1, METATILE_General_Grass, FALSE
 	return
 	
 LittlerootTown_Resource_Stone1::
-	setmetatile 22, 33, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Stone2::
-	setmetatile 19, 41, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_Vivichoke1::
-	setmetatile 34, 20, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_Resource_KingsLeaf1::
-	setmetatile 24, 34, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_Grass, FALSE
 	return
 
 LittlerootTown_OnTransition:
@@ -159,153 +170,95 @@ LittlerootTown_EventScript_Spring::
 
 
 LittlerootTown_Resource_leek1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_LEEK1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_LEEK1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_LEEK1
 	call LittlerootTown_Resource_leek1
 	special DrawWholeMapView
-	random 20
-	compare VAR_RESULT, 19
-	goto_if_ge LittlerootTown_Resource_Give_Herb
-	giveitem ITEM_STICK
+	call Harvest_LeekScript
 	releaseall
 	end
 
 LittlerootTown_Resource_leek2Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_LEEK2, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_LEEK2, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_LEEK2
 	call LittlerootTown_Resource_leek2
 	special DrawWholeMapView
-	random 20
-	compare VAR_RESULT, 19
-	goto_if_ge LittlerootTown_Resource_Give_Herb
-	giveitem ITEM_STICK
+	call Harvest_LeekScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_MUSHROOM1
 	call LittlerootTown_Resource_Mushroom1
 	special DrawWholeMapView
-    random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	call Harvest_MushroomSmallScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Mushroom2Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM2, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM2, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_MUSHROOM2
 	call LittlerootTown_Resource_Mushroom2
 	special DrawWholeMapView
-    random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	call Harvest_MushroomSmallScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Mushroom3Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM3, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_MUSHROOM3, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_MUSHROOM3
 	call LittlerootTown_Resource_Mushroom3
 	special DrawWholeMapView
-	giveitem ITEM_BIG_MUSHROOM
-    random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	call Harvest_MushroomLargeScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Balm1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_BALM1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_BALM1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_BALM1
 	call LittlerootTown_Resource_Balm1
 	special DrawWholeMapView
-	giveitem ITEM_BALM_MUSHROOM
+	call Harvest_MushroomBalmSmallScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Stone1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_STONE1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_STONE1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_STONE1
 	call LittlerootTown_Resource_Stone1
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, LittlerootTown_Resource_Give_Stone2
-	case 1, LittlerootTown_Resource_Give_Stone3
-	case 2, LittlerootTown_Resource_Give_Mud2
-	case 3, LittlerootTown_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Stone2Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_STONE2, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_STONE2, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_STONE2
 	call LittlerootTown_Resource_Stone2
 	special DrawWholeMapView
-	random 4
-	switch VAR_RESULT
-	case 0, LittlerootTown_Resource_Give_Stone2
-	case 1, LittlerootTown_Resource_Give_Stone3
-	case 2, LittlerootTown_Resource_Give_Mud2
-	case 3, LittlerootTown_Resource_Give_Mud3
+	call Harvest_StoneScript
 	releaseall
 	end
 
 LittlerootTown_Resource_Vivichoke1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_VIVICHOKE1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_VIVICHOKE1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_VIVICHOKE1
 	call LittlerootTown_Resource_Vivichoke1
 	special DrawWholeMapView
-	giveitem ITEM_VIVICHOKE
+	call Harvest_VivichokeScript
 	releaseall
 	end
 
 LittlerootTown_Resource_KingsLeaf1Harvest::
-	goto_if_set FLAG_LITTLEROOTTOWN_KINGSLEAF1, LittlerootTown_Resource_Collected
+	goto_if_set FLAG_LITTLEROOTTOWN_KINGSLEAF1, Harvest_Resource_Collected
 	setflag FLAG_LITTLEROOTTOWN_KINGSLEAF1
 	call LittlerootTown_Resource_KingsLeaf1
 	special DrawWholeMapView
-	giveitem ITEM_KINGS_LEAF
-	releaseall
-	end
-
-LittlerootTown_Resource_Collected::
-	releaseall
-	end
-
-LittlerootTown_Resource_Give_Stone2::
-	giveitem ITEM_STONE, 2
+	call Harvest_KingsLeafScript
 	releaseall
 	end
 	
-LittlerootTown_Resource_Give_Stone3::
-	giveitem ITEM_STONE, 3
-	releaseall
-	end
-	
-LittlerootTown_Resource_Give_Mud2::
-	giveitem ITEM_STONE, 2
-	giveitem ITEM_MUD
-	releaseall
-	end
-	
-LittlerootTown_Resource_Give_Mud3::
-	giveitem ITEM_STONE
-	giveitem ITEM_MUD, 2
-	releaseall
-	end
-
-LittlerootTown_Resource_Give_Leek::
-	giveitem ITEM_LEEK
-	releaseall
-	end
-	
-LittlerootTown_Resource_Give_Herb::
-	giveitem ITEM_REVIVAL_HERB
-	releaseall
-	end
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3

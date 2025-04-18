@@ -4350,7 +4350,7 @@ bool8 GetBgEventPosition(u16* xPointer, u16* yPointer, u32 localId)
     const struct BgEvent *bgEvents = gMapHeader.events->bgEvents;
     u32 count = gMapHeader.events->bgEventCount;
 
-    if (localId >= count)
+    if (localId > count)
         return FALSE;
 
     const struct BgEvent *bgEvent = &bgEvents[localId - 1];

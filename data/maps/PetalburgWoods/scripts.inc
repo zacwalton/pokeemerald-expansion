@@ -1,6 +1,16 @@
 .set LOCALID_GRUNT, 3
 .set LOCALID_DEVON_EMPLOYEE, 4
+.set LOCALID_WOOD1, 6
+.set LOCALID_WOOD2, 7
+.set LOCALID_WOOD3, 8
 .set LOCALID_WOOD4, 9
+.set LOCALID_WOOD5, 10
+.set LOCALID_WOOD6, 11
+.set LOCALID_BALM1, 12
+.set LOCALID_MUSHROOM1, 13
+.set LOCALID_KINGSLEAF1, 14
+.set LOCALID_STONE1, 15
+.set LOCALID_MUSHROOM2, 16
 
 PetalburgWoods_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, PetalburgWoods_OnResume
@@ -21,15 +31,15 @@ PetalburgWoods_OnResume:
 	end
 
 PetalburgWoods_Resource_Wood1::
-	setmetatile 23, 37, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood2::
-	setmetatile 40, 28, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood3::
-	setmetatile 50, 25, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD3, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood4::
@@ -37,31 +47,31 @@ PetalburgWoods_Resource_Wood4::
 	return
 
 PetalburgWoods_Resource_Wood5::
-	setmetatile 71, 29, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD5, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood6::
-	setmetatile 69, 52, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD6, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Stone1::
-	setmetatile 73, 32, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Mushroom1::
-	setmetatile 31, 41, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Mushroom2::
-	setmetatile 50, 55, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM2, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_KingsLeaf1::
-	setmetatile 78, 26, METATILE_General_MountainTop_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_MountainTop_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Balm1::
-	setmetatile 83, 33, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_BALM1, METATILE_General_Grass, FALSE
 	return
 
 PetalburgWoods_Resource_Wood1Harvest::

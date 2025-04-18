@@ -1,3 +1,8 @@
+.set LOCALID_WOOD1, 3
+.set LOCALID_WOOD2, 4
+.set LOCALID_MUSHROOM1, 5
+.set LOCALID_VIVICHOKE1, 6
+
 Route102_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route102_OnResume
 	.byte 0
@@ -10,64 +15,54 @@ Route102_OnResume:
 	end
 
 Route102_Resource_Wood1::
-	setmetatile 22, 25, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Wood2::
-	setmetatile 27, 36, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Mushroom1::
-	setmetatile 27, 25, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Vivichoke1::
-	setmetatile 39, 30, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
 	return
 
 Route102_Resource_Wood1Harvest::
-	goto_if_set FLAG_ROUTE102_WOOD1, Route102_Resource_Collected
+	goto_if_set FLAG_ROUTE102_WOOD1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE102_WOOD1
 	call Route102_Resource_Wood1
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route102_Resource_Wood2Harvest::
-	goto_if_set FLAG_ROUTE102_WOOD2, Route102_Resource_Collected
+	goto_if_set FLAG_ROUTE102_WOOD2, Harvest_Resource_Collected
 	setflag FLAG_ROUTE102_WOOD2
 	call Route102_Resource_Wood2
 	special DrawWholeMapView
-	random 2
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
+	call Harvest_WoodScript
 	releaseall
 	end
 
 Route102_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_ROUTE102_MUSHROOM1, Route102_Resource_Collected
+	goto_if_set FLAG_ROUTE102_MUSHROOM1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE102_MUSHROOM1
 	call Route102_Resource_Mushroom1
 	special DrawWholeMapView
-    random 1
-    addvar VAR_RESULT, 1
-    giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
+	call Harvest_MushroomSmallScript
 	releaseall
 	end
 
 Route102_Resource_Vivichoke1Harvest::
-	goto_if_set FLAG_ROUTE102_VIVICHOKE1, Route102_Resource_Collected
-	giveitem ITEM_VIVICHOKE
+	goto_if_set FLAG_ROUTE102_VIVICHOKE1, Harvest_Resource_Collected
 	setflag FLAG_ROUTE102_VIVICHOKE1
 	call Route102_Resource_Vivichoke1
 	special DrawWholeMapView
-	releaseall
-	end
-
-Route102_Resource_Collected::
+	call Harvest_VivichokeScript
 	releaseall
 	end
 
