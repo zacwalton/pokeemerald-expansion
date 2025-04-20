@@ -2333,7 +2333,7 @@
 	.endm
 
 	.macro setobjectstepcallback stepCbId:req
-	.byte 0xe5
+	.byte SCR_OP_SETOBJECTSTEPCALLBACK
 	.byte \stepCbId
 	.endm
 
@@ -2341,7 +2341,7 @@
 	@ (zero-indexed) slot number of the first Pokemon that knows the move. If not, VAR_RESULT is set to PARTY_SIZE.
 	@ VAR_0x8004 is also set to this Pokemon's species.
 	.macro checkmovefieldeffectflag fieldeffectflag:req
-	.byte 0xe6
+	.byte SCR_OP_CHECKFIELDMOVEEFFECTFLAG
 	.4byte \fieldeffectflag
 	.endm
 
