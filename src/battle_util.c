@@ -3525,8 +3525,6 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
 
             if (!gBattleStruct->isAtkCancelerForCalledMove
              && gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS
-             && (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD && B_MAGIC_GUARD >= GEN_4)
-             && !RandomPercentage(RNG_PARALYSIS, 90))
              && !(B_MAGIC_GUARD == GEN_4 && GetBattlerAbility(gBattlerAttacker) == ABILITY_MAGIC_GUARD)
              && !RandomPercentage(RNG_PARALYSIS, 90))
             {
