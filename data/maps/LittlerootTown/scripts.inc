@@ -621,6 +621,8 @@ LittlerootTown_EventScript_BrendansHouseSign::
 
 LittlerootTown_EventScript_ThirdHouseSign::
 	lock
+	setflag OW_FLAG_POKE_RIDER
+	setflag FLAG_SYS_QUEST_MENU_GET
 	specialvar VAR_RESULT, Rtc_GetSeason
 	buffernumberstring STR_VAR_1, VAR_RESULT
 	MSGBOX LittlerootTown_Text_TestTownSign

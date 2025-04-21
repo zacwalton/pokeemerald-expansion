@@ -254,6 +254,9 @@ gScriptCmdTable::
 	script_cmd_table_entry SCR_OP_DYNMULTIPUSH                  ScrCmd_dynmultipush,                requests_effects=1  @ 0xe4
 	script_cmd_table_entry SCR_OP_SETOBJECTSTEPCALLBACK         ScrCmd_setobjectstepcallback        requests_effects=0  @ 0xe5
 	script_cmd_table_entry SCR_OP_CHECKFIELDMOVEEFFECTFLAG      ScrCmd_checkmovefieldeffectflag     requests_effects=0  @ 0xe6
+    script_cmd_table_entry SCR_OP_QUESTMENU                     ScrCmd_questmenu                    requests_effects=0  @ 0xe7
+    script_cmd_table_entry SCR_OP_SUBQUESTMENU                  ScrCmd_subquestmenu                 requests_effects=0  @ 0xe8
+    script_cmd_table_entry SCR_OP_RETURNQUESTSTATE              ScrCmd_returnqueststate             requests_effects=0  @ 0xe9
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::
