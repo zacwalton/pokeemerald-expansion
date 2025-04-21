@@ -87,6 +87,7 @@ static void MoveSelectionDisplayPpNumber(u32 battler);
 static void MoveSelectionDisplayPpString(u32 battler);
 static void MoveSelectionDisplayMoveType(u32 battler);
 static void MoveSelectionDisplayMoveNames(u32 battler);
+static void TryMoveSelectionDisplayMoveDescription(u32 battler);
 static void MoveSelectionDisplayMoveDescription(u32 battler);
 static void SwitchIn_HandleSoundAndEnd(u32 battler);
 static void WaitForMonSelection(u32 battler);
@@ -787,8 +788,7 @@ void HandleInputChooseMove(u32 battler)
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);
             MoveSelectionDisplayPpNumber(battler);
             MoveSelectionDisplayMoveType(battler);
-            if (gBattleStruct->descriptionSubmenu)
-                MoveSelectionDisplayMoveDescription(battler);
+            TryMoveSelectionDisplayMoveDescription(battler);
             TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -803,8 +803,7 @@ void HandleInputChooseMove(u32 battler)
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);
             MoveSelectionDisplayPpNumber(battler);
             MoveSelectionDisplayMoveType(battler);
-            if (gBattleStruct->descriptionSubmenu)
-                MoveSelectionDisplayMoveDescription(battler);
+            TryMoveSelectionDisplayMoveDescription(battler);
             TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -818,8 +817,7 @@ void HandleInputChooseMove(u32 battler)
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);
             MoveSelectionDisplayPpNumber(battler);
             MoveSelectionDisplayMoveType(battler);
-            if (gBattleStruct->descriptionSubmenu)
-                MoveSelectionDisplayMoveDescription(battler);
+            TryMoveSelectionDisplayMoveDescription(battler);
             TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -834,8 +832,7 @@ void HandleInputChooseMove(u32 battler)
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);
             MoveSelectionDisplayPpNumber(battler);
             MoveSelectionDisplayMoveType(battler);
-            if (gBattleStruct->descriptionSubmenu)
-                MoveSelectionDisplayMoveDescription(battler);
+            TryMoveSelectionDisplayMoveDescription(battler);
             TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -877,7 +874,7 @@ void HandleInputChooseMove(u32 battler)
     else if (JOY_NEW(B_MOVE_DESCRIPTION_BUTTON))
     {
         gBattleStruct->descriptionSubmenu = TRUE;
-        MoveSelectionDisplayMoveDescription(battler);
+        TryMoveSelectionDisplayMoveDescription(battler);
     }
     else if (JOY_NEW(START_BUTTON))
     {
@@ -1720,9 +1717,9 @@ static void MoveSelectionDisplayMoveType(u32 battler)
     {
 
         if (speciesId == SPECIES_OGERPON_WELLSPRING || speciesId == SPECIES_OGERPON_WELLSPRING_TERA
-            || speciesId == SPECIES_OGERPON_HEARTHFLAME || speciesId == SPECIES_OGERPON_HEARTHFLAME_TERA
-            || speciesId == SPECIES_OGERPON_CORNERSTONE || speciesId == SPECIES_OGERPON_CORNERSTONE_TERA)
-            type = gBattleMons[battler].types[1];
+         || speciesId == SPECIES_OGERPON_HEARTHFLAME || speciesId == SPECIES_OGERPON_HEARTHFLAME_TERA
+         || speciesId == SPECIES_OGERPON_CORNERSTONE || speciesId == SPECIES_OGERPON_CORNERSTONE_TERA)
+            type = gSpeciesInfo[speciesId].types[1];
     }
     else if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS
              && (GetActiveGimmick(battler) == GIMMICK_DYNAMAX || IsGimmickSelected(battler, GIMMICK_DYNAMAX)))
@@ -1744,6 +1741,15 @@ static void MoveSelectionDisplayMoveType(u32 battler)
 
     PrependFontIdToFit(txtPtr, end, FONT_NORMAL, WindowWidthPx(B_WIN_MOVE_TYPE) - 25);
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
+}
+
+static void TryMoveSelectionDisplayMoveDescription(u32 battler)
+{
+    if (!B_SHOW_MOVE_DESCRIPTION)
+        return;
+
+    if (gBattleStruct->descriptionSubmenu)
+        MoveSelectionDisplayMoveDescription(battler);
 }
 
 static void MoveSelectionDisplayMoveDescription(u32 battler)

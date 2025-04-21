@@ -512,6 +512,20 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_Headbutt;
     if (MetatileBehavior_IsRockClimbable(metatileBehavior) == TRUE && !IsRockClimbActive())
         return EventScript_UseRockClimb;
+    if (MetatileBehavior_IsPokeMartSign(metatileBehavior) == TRUE)
+    {
+        if(direction != DIR_NORTH)
+            return NULL;
+        SetMsgSignPostAndVarFacing(direction);
+        return Common_EventScript_ShowPokemartSign;
+    }
+    if (MetatileBehavior_IsPokemonCenterSign(metatileBehavior) == TRUE)
+    {
+        if(direction != DIR_NORTH)
+            return NULL;
+        SetMsgSignPostAndVarFacing(direction);
+        return Common_EventScript_ShowPokemonCenterSign;
+    }
 
     elevation = position->elevation;
     if (elevation == MapGridGetElevationAt(position->x, position->y))
