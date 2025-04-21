@@ -480,139 +480,6 @@ struct SpeciesInfo /*0xC4*/
 #endif //OW_POKEMON_OBJECT_EVENTS
 };
 
-struct MoveInfo
-{
-    const u8 *name;
-    const u8 *description;
-    u16 effect;
-    u16 type:5;
-    u16 category:2;
-    u16 power:9; // up to 511
-    u16 accuracy:7;
-    u16 target:9;
-    u8 pp;
-    union {
-        u8 effect;
-        u8 powerOverride;
-    } zMove;
-
-    s32 priority:4;
-    u32 recoil:7;
-    u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
-    u32 criticalHitStage:2;
-    u32 alwaysCriticalHit:1;
-    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
-    // 12 bits left to complete this word - continues into flags
-
-    // Flags
-    u32 makesContact:1;
-    u32 ignoresProtect:1;
-    u32 magicCoatAffected:1;
-    u32 snatchAffected:1;
-    u32 ignoresKingsRock:1;
-    u32 punchingMove:1;
-    u32 bitingMove:1;
-    u32 pulseMove:1;
-    u32 soundMove:1;
-    u32 ballisticMove:1;
-    u32 powderMove:1;
-    u32 danceMove:1;
-    u32 windMove:1;
-    u32 slicingMove:1; // end of word
-    u32 healingMove:1;
-    u32 minimizeDoubleDamage:1;
-    u32 ignoresTargetAbility:1;
-    u32 ignoresTargetDefenseEvasionStages:1;
-    u32 damagesUnderground:1;
-    u32 damagesUnderwater:1;
-    u32 damagesAirborne:1;
-    u32 damagesAirborneDoubleDamage:1;
-    u32 ignoreTypeIfFlyingAndUngrounded:1;
-    u32 thawsUser:1;
-    u32 ignoresSubstitute:1;
-    u32 forcePressure:1;
-    u32 cantUseTwice:1;
-
-    // Ban flags
-    u32 gravityBanned:1;
-    u32 mirrorMoveBanned:1;
-    u32 meFirstBanned:1;
-    u32 mimicBanned:1;
-    u32 metronomeBanned:1;
-    u32 copycatBanned:1;
-    u32 assistBanned:1; // Matches same moves as copycatBanned + semi-invulnerable moves and Mirror Coat.
-    u32 sleepTalkBanned:1;
-    u32 instructBanned:1;
-    u32 encoreBanned:1;
-    u32 parentalBondBanned:1;
-    u32 skyBattleBanned:1;
-    u32 sketchBanned:1;
-    u32 padding:5; // end of word
-
-    u32 argument;
-
-    // primary/secondary effects
-    const struct AdditionalEffect *additionalEffects;
-
-    // contest parameters
-    u8 contestEffect;
-    u8 contestCategory:3;
-    u8 contestComboStarterId;
-    u8 contestComboMoves[MAX_COMBO_MOVES];
-    const u8 *battleAnimScript;
-	
-	// field move effects
-	u32 fieldMoveFlags;
-};
-
-enum FieldMoveType
-{
-    IS_FIELD_MOVE_CUT 		= 1 << 0,		// 0x0001		Cut
-    IS_FIELD_MOVE_SMASH 	= 1 << 1,		// 0x0002		Rock Smash
-    IS_FIELD_MOVE_SHAKE 	= 1 << 2,		// 0x0004		Headbutt
-    IS_FIELD_MOVE_PUSH 		= 1 << 3, 		// 0x0008		Strength
-    IS_FIELD_MOVE_CLIMB 	= 1 << 4, 		// 0x0010		Rock Climb
-    IS_FIELD_MOVE_SURF 		= 1 << 5, 		// 0x0020		Surf
-    IS_FIELD_MOVE_WATERFALL = 1 << 6, 		// 0x0040		Waterfall
-    IS_FIELD_MOVE_DIVE 		= 1 << 7, 		// 0x0080		Dive
-    IS_FIELD_MOVE_DIG 		= 1 << 8, 		// 0x0100		Access Underground - not implemented
-    IS_FIELD_MOVE_SOAR 		= 1 << 9, 		// 0x0200		Eon Flute - needs linking
-    IS_FIELD_MOVE_WHIRLPOOL = 1 << 10, 		// 0x0400		Whilrpool - not implemented
-    IS_FIELD_MOVE_FLASH 	= 1 << 11, 		// 0x0800		Flash
-    IS_FIELD_MOVE_LAVA 		= 1 << 12, 		// 0x1000		Lava Plume - lava surfing, needs implementing
-    IS_FIELD_MOVE_HP 		= 1 << 13, 		// 0x2000		Softboiled/Milk Drink - currently has no effect
-    IS_FIELD_MOVE_JUMP 		= 1 << 14, 		// 0x4000		Jump up ledges - not implemented
-    IS_FIELD_MOVE_WARP 		= 1 << 15, 		// 0x8000		Warp to known locations - currently has no effect
-	IS_FIELD_MOVE_HACK		= 1 << 16, 		// 0x10000		Charge Beam - open locked electronic doors, not implemented
-	IS_FIELD_MOVE_DEFOG		= 1 << 17,		// 0x20000		Defog - not implemented
-	IS_FIELD_MOVE_ESCAPE	= 1 << 18,		// 0x40000 		Dig - escape from caves effect - currently unused
-	IS_FIELD_MOVE_LURE		= 1 << 19,		// 0x80000 		Sweet Scent effect - currently unused
-	IS_FIELD_MOVE_SECRET	= 1 << 20,		// 0x100000		Secret Power
-	IS_FIELD_MOVE_SLUDGE	= 1 << 21,		// 0x200000		Sludge Wave - Surf Toxic Water
-	IS_FIELD_MOVE_DOUSE 	= 1 << 22		// 0x400000		Extinguish Fires
-};
-
-#define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
-#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
-
-enum SheerForceBoost
-{
-    SHEER_FORCE_AUTO_BOOST, // This is the default state when a move has a move effect with a chance
-    SHEER_FORCE_BOOST,      // If a move effect doesn't have an effect with a chance this can force a boost
-    SHEER_FORCE_NO_BOOST,   // Prevents a Sheer Force boost
-};
-
-struct AdditionalEffect
-{
-    u16 moveEffect;
-    u8 self:1;
-    u8 onlyIfTargetRaisedStats:1;
-    u8 onChargeTurnOnly:1;
-    u8 sheerForceBoost:2; // Handles edge cases for Sheer Force
-    u8 padding:3;
-    u8 chance; // 0% = effect certain, primary effect
-};
-
 struct Ability
 {
     u8 name[ABILITY_NAME_LENGTH + 1];
@@ -742,7 +609,6 @@ extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 extern u16 gFollowerSteps;
 
-extern const struct MoveInfo gMovesInfo[];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpeciesInfo gSpeciesInfo[];
@@ -919,8 +785,8 @@ void DestroyMonSpritesGfxManager(u8 managerId);
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum);
 u16 GetFormSpeciesId(u16 speciesId, u8 formId);
 u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
-u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
-u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
+u32 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
+u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
 void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv);
@@ -937,13 +803,8 @@ u16 GetCryIdBySpecies(u16 species);
 u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
-const u8 *GetMoveName(u16 moveId);
-const u8 *GetMoveAnimationScript(u16 moveId);
 void UpdateDaysPassedSinceFormChange(u16 days);
 void TrySetDayLimitToFormChange(struct Pokemon *mon);
-u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage);
-u16 GetPossibleGenderEvolution(u16 species, u8 gender, u8 level, u8 maxStage);
-u8 GetPartyMonCurvedLevel(void);
 u32 CheckDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler);
 uq4_12_t GetDynamaxLevelHPMultiplier(u32 dynamaxLevel, bool32 inverseMultiplier);
 u32 GetRegionalFormByRegion(u32 species, u32 region);
