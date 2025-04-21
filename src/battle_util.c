@@ -3258,35 +3258,44 @@ static void CancellerFrozen(u32 *effect)
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
-					effect = 2;
+					*effect = 2;
+
                 }
 				else if (gBattleWeather & B_WEATHER_HAIL)
 				{
-					if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) && !RandomPercentage(RNG_FROZEN_MOVE, 75))
+					if (!gBattleStruct->isAtkCancelerForCalledMove 
+					&& (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE))
 					{
-						gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
-						gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
-						effect = 2;
+						if (!RandomPercentage(RNG_FROZEN_MOVE, 75))
+						{
+							gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
+							gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
+							*effect = 2;
+						}
 					}
 				}
-        else if (!RandomPercentage(RNG_FROZEN, 10))
+				else 
 				{
-					if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) && !RandomPercentage(RNG_FROZEN_MOVE, 75))
+					if (!RandomPercentage(RNG_FROZEN, 10))
 					{
-						gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
-						gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
-						effect = 2;
+						if (!gBattleStruct->isAtkCancelerForCalledMove 
+						&& (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) 
+						&& !RandomPercentage(RNG_FROZEN_MOVE, 75))
+						{
+							gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
+							gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
+							*effect = 2;
+						}
 					}
-					gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
+					else // unfreeze
+					{
+						gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
+						BattleScriptPushCursor();
+						gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
+						gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
+						*effect = 2;
+					}
 				}
-        else // unfreeze
-        {
-            gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
-            BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
-            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
-        }
-        *effect = 2;
     }
 }
 
@@ -3560,7 +3569,7 @@ static void CancellerBide(u32 *effect)
 
 static void CancellerThaw(u32 *effect)
 {
-    if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE)
+    if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE && MoveThawsUser(gCurrentMove))
     {
         if (!(IsMoveEffectRemoveSpeciesType(gCurrentMove, MOVE_EFFECT_REMOVE_ARG_TYPE, TYPE_FIRE) && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_FIRE)))
         {
@@ -10740,7 +10749,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u32 move, u32 move
             mod = UQ_4_12(1.0);
     }
     // added B_WEATHER_HAIL makes Ice-type Super Effective moves against Water-type Pokémon
-    if (gBattleWeather & B_WEATHER_HAIL && WEATHER_HAS_EFFECT)
+    if (gBattleWeather & B_WEATHER_HAIL && HasWeatherEffect())
     {
 		if (moveType == TYPE_WATER && defType == TYPE_ICE && mod == UQ_4_12(1.0))
 			mod = UQ_4_12(0.5);
@@ -10832,26 +10841,26 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(u32 move, u32 mov
         }
 		else if (recordAbilities && defAbility == ABILITY_DESERT_SPIRIT)
         {
-            gLastUsedAbility = ABILITY_DESERT_SPIRIT;
-            gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[battlerDef] = 0;
-            gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(battlerDef, ABILITY_DESERT_SPIRIT);
         }
 		else if (recordAbilities && defAbility == ABILITY_DAUNTING_WINGS)
         {
-            gLastUsedAbility = ABILITY_DAUNTING_WINGS;
-            gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[battlerDef] = 0;
-            gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(battlerDef, ABILITY_DAUNTING_WINGS);
         }
 		else if (recordAbilities && defAbility == ABILITY_WIND_CHIME)
         {
-            gLastUsedAbility = ABILITY_WIND_CHIME;
-            gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_LEVITATE;
             gLastLandedMoves[battlerDef] = 0;
-            gBattleCommunication[MISS_TYPE] = B_MSG_GROUND_MISS;
+            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(battlerDef, ABILITY_WIND_CHIME);
         }
     }

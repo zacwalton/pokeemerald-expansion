@@ -11,6 +11,7 @@
 #include "fieldmap.h"
 #include "menu.h"
 #include "metatile_behavior.h"
+#include "move.h"
 #include "overworld.h"
 #include "party_menu.h"
 #include "random.h"
