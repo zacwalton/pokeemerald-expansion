@@ -2179,19 +2179,29 @@ static void CB_ExitFlyMap(void)
 {
     switch (sFlyMap->state)
     {
-        case 0:
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            sFlyMap->state++;
-            break;
-        case 1:
-            if (!UpdatePaletteFade())
+    case 0:
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        sFlyMap->state++;
+        break;
+    case 1:
+        if (!UpdatePaletteFade())
+        {
+            FreeRegionMapIconResources();
+            if (sFlyMap->choseFlyLocation)
             {
                 struct RegionMap* tempRegionMap = &sFlyMap->regionMap;
 
                 SetFlyDestination(tempRegionMap);
                 ReturnToFieldFromFlyMapSelect();
             }
-            break;
+            else
+            {
+                SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
+            }
+            TRY_FREE_AND_SET_NULL(sFlyMap);
+            FreeAllWindowBuffers();
+        }
+        break;
     }
 }
 
