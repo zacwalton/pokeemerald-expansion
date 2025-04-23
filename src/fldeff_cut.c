@@ -362,6 +362,60 @@ static void SetCutGrassMetatile(s16 x, s16 y)
     case METATILE_General_TallGrass:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
         break;
+		//Tall Grass Grid
+		
+    case METATILE_General_TallGrass_TopLeft:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_TopCenter:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_TopRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_MidLeft:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_MidCenter:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_MidRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_BottomLeft:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_BottomCenter:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_BottomRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_InnerCornerTL:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_InnerCornerTR:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_InnerCornerBL:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_InnerCornerBR:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        break;
+    case METATILE_General_TallGrass_BL_TreeLeft:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
+        break;
+    case METATILE_General_TallGrass_BR_TreeRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
+        break;
+    case METATILE_General_TallGrass_BL_TreeRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
+        break;
+    case METATILE_General_TallGrass_BR_TreeLeft:
+        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
+        break;
+		
     case METATILE_General_TallGrass_TreeLeft:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
         break;
