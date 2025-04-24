@@ -219,7 +219,7 @@
 #define METATILE_General_Grass_TreeLeft           0x1E4
 #define METATILE_General_Grass_TreeRight          0x1E5
 #define METATILE_General_Grass_TreeUp             0x00E
-#define METATILE_General_LongGrass                0x015
+#define METATILE_General_LongGrass                0x014
 #define METATILE_General_MountainTop_Grass        0x069
 #define METATILE_General_MuddySlope_Frame0        0x0E8
 #define METATILE_General_MuddySlope_Frame1        0x0E9
@@ -279,6 +279,8 @@
 #define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame1  0x0E9
 #define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame2  0x0EA
 #define METATILE_Hoenn_Summer_METATILE_General_MuddySlope_Frame3  0x0EB
+#define METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR           0x1CF
+#define METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL           0x1CE
 
 // gTileset_InsideOfTruck
 #define METATILE_InsideOfTruck_DoorClosedFloor_Bottom  0x21D

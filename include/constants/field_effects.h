@@ -75,18 +75,17 @@
 #define FLDEFF_TRACKS_SLITHER            70
 #define FLDEFF_TRACKS_SPOT               71
 #define FLDEFF_TRACKS_BUG                72
-#define FLDEFF_CAVE_DUST                 73
+#define FLDEFF_USE_HEADBUTT              73
+#define FLDEFF_USE_ROCK_CLIMB            74
+#define FLDEFF_ROCK_CLIMB_DUST           75
+#define FLDEFF_USE_WHIRLPOOL			 76
+#define FLDEFF_USE_DEFOG			 	 77
+#define FLDEFF_USE_LAVA				 	 78
+#define FLDEFF_USE_SLUDGE				 79
+#define FLDEFF_USE_DOUSE				 80
+#define FLDEFF_CAVE_DUST                 81
 
-#define FLDEFF_COUNT                 	 74
 
-#define FLDEFF_USE_HEADBUTT              (FLDEFF_COUNT + 0)
-#define FLDEFF_USE_ROCK_CLIMB            (FLDEFF_COUNT + 1)
-#define FLDEFF_ROCK_CLIMB_DUST           (FLDEFF_COUNT + 2)
-#define FLDEFF_USE_WHIRLPOOL			 (FLDEFF_COUNT + 3)
-#define FLDEFF_USE_DEFOG			 	 (FLDEFF_COUNT + 4)
-#define FLDEFF_USE_LAVA				 	 (FLDEFF_COUNT + 5)
-#define FLDEFF_USE_SLUDGE				 (FLDEFF_COUNT + 6)
-#define FLDEFF_USE_DOUSE				 (FLDEFF_COUNT + 7)
 
 
 
