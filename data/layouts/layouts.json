@@ -4877,7 +4877,7 @@
       "width": 37,
       "height": 110,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Mauville_Summer",
+      "secondary_tileset": "gTileset_Verdanturf_Summer",
       "border_filepath": "data/layouts/WildIsland_East/border.bin",
       "blockdata_filepath": "data/layouts/WildIsland_East/map.bin"
     },
