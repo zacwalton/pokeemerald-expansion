@@ -2441,11 +2441,9 @@
 	.endm
 
 	@ Get coordinates of BG Event
-	.macro setmetatileateatbgeventid localId:req, destX:req, destY:req
+	.macro setmetatileateatbgeventid localId:req
 	callnative ScrCmd_setmetatileateatbgeventid
 	.2byte \localId
-	.2byte \destX
-	.2byte \destY
 	.endm
 
 	@ Hides any follower Pokémon if present, putting them into their Poké Ball; by default waits for their movement to finish.

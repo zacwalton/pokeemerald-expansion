@@ -8,7 +8,7 @@
 .set LOCALID_MUSHROOM2, 6
 .set LOCALID_BALM1, 7
 .set LOCALID_STONE1, 8
-.set LOCALID_STONE2, 8
+.set LOCALID_STONE2, 9
 .set LOCALID_WOOD1, 10
 .set LOCALID_WOOD2, 11
 .set LOCALID_VIVICHOKE1, 12
@@ -40,51 +40,51 @@ Route101_OnResume:
 	end
 
 Route101_Resource_leek1::
-	setmetatileateatbgeventid LOCALID_LEEK1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK1
 	return
 
 Route101_Resource_leek2::
-	setmetatileateatbgeventid LOCALID_LEEK2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK2
 	return
 
 Route101_Resource_leek3::
-	setmetatileateatbgeventid LOCALID_LEEK3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK3
 	return
 
 Route101_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1
 	return
 
 Route101_Resource_Mushroom2::
-	setmetatileateatbgeventid LOCALID_MUSHROOM2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM2 
 	return
 
 Route101_Resource_Balm1::
-	setmetatileateatbgeventid LOCALID_BALM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_BALM1 
 	return
 	
 Route101_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1 
 	return
 
 Route101_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2 
 	return
 
 Route101_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 Route101_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2 
 	return
 
 Route101_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
 	return
 
 Route101_Resource_KingsLeaf1::
-	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1 
 	return
 
 Route101_OnTransition:

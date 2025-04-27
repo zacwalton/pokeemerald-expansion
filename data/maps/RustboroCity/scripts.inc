@@ -22,15 +22,15 @@ RustboroCity_OnResume:
 	end
 
 RustboroCity_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 RustboroCity_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2 
 	return
 
 RustboroCity_Resource_Wood3::
-	setmetatileateatbgeventid LOCALID_WOOD3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD3 
 	return
 
 RustboroCity_Resource_Wood1Harvest::

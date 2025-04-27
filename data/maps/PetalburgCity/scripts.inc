@@ -23,19 +23,19 @@ PetalburgCity_OnResume:
 	end
 
 PetalburgCity_Resource_leek1::
-	setmetatileateatbgeventid LOCALID_LEEK1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK1 
 	return
 
 PetalburgCity_Resource_leek2::
-	setmetatileateatbgeventid LOCALID_LEEK2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK2 
 	return
 
 PetalburgCity_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 PetalburgCity_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
 	return
 
 PetalburgCity_Resource_leek1Harvest::

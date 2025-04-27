@@ -31,47 +31,47 @@ PetalburgWoods_OnResume:
 	end
 
 PetalburgWoods_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 PetalburgWoods_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2 
 	return
 
 PetalburgWoods_Resource_Wood3::
-	setmetatileateatbgeventid LOCALID_WOOD3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD3 
 	return
 
 PetalburgWoods_Resource_Wood4::
-	setmetatileateatbgeventid LOCALID_WOOD4, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD4 
 	return
 
 PetalburgWoods_Resource_Wood5::
-	setmetatileateatbgeventid LOCALID_WOOD5, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD5 
 	return
 
 PetalburgWoods_Resource_Wood6::
-	setmetatileateatbgeventid LOCALID_WOOD6, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD6 
 	return
 
 PetalburgWoods_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1 
 	return
 
 PetalburgWoods_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1 
 	return
 
 PetalburgWoods_Resource_Mushroom2::
-	setmetatileateatbgeventid LOCALID_MUSHROOM2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM2 
 	return
 
 PetalburgWoods_Resource_KingsLeaf1::
-	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_MountainTop_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1
 	return
 
 PetalburgWoods_Resource_Balm1::
-	setmetatileateatbgeventid LOCALID_BALM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_BALM1 
 	return
 
 PetalburgWoods_Resource_Wood1Harvest::
@@ -151,7 +151,7 @@ PetalburgWoods_Resource_Mushroom2Harvest::
 	setflag FLAG_PETALBURGWOODS_MUSHROOM2
 	call PetalburgWoods_Resource_Mushroom2
 	special DrawWholeMapView
-    call Harvest_MushroomSmallScript
+    call Harvest_MushroomLargeScript
 	releaseall
 	end
 

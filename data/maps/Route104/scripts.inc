@@ -21,19 +21,19 @@ Route104_OnResume:
 	end
 
 Route104_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 Route104_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1 
 	return
 
 Route104_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_SandPit_Center, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2 
 	return
 
 Route104_Resource_Stone3::
-	setmetatileateatbgeventid LOCALID_STONE3, METATILE_General_SandPit_Center, FALSE
+	setmetatileateatbgeventid LOCALID_STONE3 
 	return
 
 Route104_OnFrame:

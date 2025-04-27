@@ -57,6 +57,7 @@
 #include "malloc.h"
 #include "quests.h"
 #include "constants/event_objects.h"
+#include "constants/metatile_labels.h"
 
 typedef u16 (*SpecialFunc)(void);
 typedef void (*NativeFunc)(struct ScriptContext *ctx);
@@ -3163,11 +3164,203 @@ bool8 ScrCmd_setmetatileateatbgeventid(struct ScriptContext *ctx)
 	u16 localId = VarGet(ScriptReadHalfword(ctx));
     u16 x, y;
 	GetBgEventPosition(&x, &y, localId);
-    u16 metatileId = VarGet(ScriptReadHalfword(ctx));
-    bool16 isImpassable = VarGet(ScriptReadHalfword(ctx));
+    u16 metatileId;
+    bool16 isImpassable;
+	s32 previousMetatileId = MapGridGetMetatileIdAt(x, y);
 
     x += MAP_OFFSET;
     y += MAP_OFFSET;
+	
+	switch (previousMetatileId)
+	{
+		//Plain Grass 
+		/*
+		case METATILE_Hoenn_Summer_BALM_GRASS:
+		case METATILE_Hoenn_Summer_BALM_LARGE_GRASS:
+		case METATILE_Hoenn_Summer_MUSHROOM_GRASS:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_GRASS:
+		case METATILE_Hoenn_Summer_KINGSLEAF_GRASS:
+		case METATILE_Hoenn_Summer_VIVICHOKE_GRASS:
+		case METATILE_Hoenn_Summer_STONE_GRASS:
+		case METATILE_Hoenn_Summer_WOOD_GRASS:
+		case METATILE_Hoenn_Summer_LEEK_GRASS:
+		case METATILE_Hoenn_Summer_LIMESTONE_GRASS:
+		case METATILE_Hoenn_Summer_REDSTONE_GRASS:
+		case METATILE_Hoenn_Summer_GREENSTONE_GRASS:
+		case METATILE_Hoenn_Summer_GOLDSTONE_GRASS:
+			metatileId = METATILE_General_Grass;
+			isImpassable = FALSE;
+			break;
+		*/
+		// Grass Mountain Top
+		case METATILE_Hoenn_Summer_BALM_TOP:
+		case METATILE_Hoenn_Summer_BALM_LARGE_TOP:
+		case METATILE_Hoenn_Summer_MUSHROOM_TOP:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_TOP:
+		case METATILE_Hoenn_Summer_KINGSLEAF_TOP:
+		case METATILE_Hoenn_Summer_VIVICHOKE_TOP:
+		case METATILE_Hoenn_Summer_STONE_TOP:
+		case METATILE_Hoenn_Summer_WOOD_TOP:
+		case METATILE_Hoenn_Summer_LEEK_TOP:
+			metatileId = METATILE_Hoenn_Summer_MountainTop_Grass;
+			isImpassable = FALSE;
+			break;
+		// Grass Mountain Top left
+		case METATILE_Hoenn_Summer_BALM_TOPLEFT:
+		case METATILE_Hoenn_Summer_BALM_LARGE_TOPLEFT:
+		case METATILE_Hoenn_Summer_MUSHROOM_TOPLEFT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_TOPLEFT:
+		case METATILE_Hoenn_Summer_KINGSLEAF_TOPLEFT:
+		case METATILE_Hoenn_Summer_VIVICHOKE_TOPLEFT:
+		case METATILE_Hoenn_Summer_STONE_TOPLEFT:
+		case METATILE_Hoenn_Summer_WOOD_TOPLEFT:
+		case METATILE_Hoenn_Summer_LEEK_TOPLEFT:
+			metatileId = METATILE_Hoenn_Summer_MountainTopLeft_Grass;
+			isImpassable = FALSE;
+			break;
+		// Grass Mountain Top Right
+		case METATILE_Hoenn_Summer_BALM_TOPRIGHT:
+		case METATILE_Hoenn_Summer_BALM_LARGE_TOPRIGHT:
+		case METATILE_Hoenn_Summer_MUSHROOM_TOPRIGHT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_TOPRIGHT:
+		case METATILE_Hoenn_Summer_KINGSLEAF_TOPRIGHT:
+		case METATILE_Hoenn_Summer_VIVICHOKE_TOPRIGHT:
+		case METATILE_Hoenn_Summer_STONE_TOPRIGHT:
+		case METATILE_Hoenn_Summer_WOOD_TOPRIGHT:
+		case METATILE_Hoenn_Summer_LEEK_TOPRIGHT:
+			metatileId = METATILE_Hoenn_Summer_MountainTopRight_Grass;
+			isImpassable = FALSE;
+			break;
+		// Sand
+		case METATILE_Hoenn_Summer_BALM_SAND:
+		case METATILE_Hoenn_Summer_BALM_LARGE_SAND:
+		case METATILE_Hoenn_Summer_MUSHROOM_SAND:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_SAND:
+		case METATILE_Hoenn_Summer_KINGSLEAF_SAND:
+		case METATILE_Hoenn_Summer_VIVICHOKE_SAND:
+		case METATILE_Hoenn_Summer_STONE_SAND:
+		case METATILE_Hoenn_Summer_WOOD_SAND:
+		case METATILE_Hoenn_Summer_LEEK_SAND:
+			metatileId = METATILE_Hoenn_Summer_Sand;
+			isImpassable = FALSE;
+			break;
+		// Rock
+		case METATILE_Hoenn_Summer_BALM_ROCK:
+		case METATILE_Hoenn_Summer_BALM_LARGE_ROCK:
+		case METATILE_Hoenn_Summer_MUSHROOM_ROCK:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_ROCK:
+		case METATILE_Hoenn_Summer_KINGSLEAF_ROCK:
+		case METATILE_Hoenn_Summer_VIVICHOKE_ROCK:
+		case METATILE_Hoenn_Summer_STONE_ROCK:
+		case METATILE_Hoenn_Summer_WOOD_ROCK:
+		case METATILE_Hoenn_Summer_LEEK_ROCK:
+			metatileId = METATILE_Hoenn_Summer_Rock_Walkable;
+			isImpassable = FALSE;
+			break;
+		// Shallow Water
+		case METATILE_Hoenn_Summer_BALM_WATER:
+		case METATILE_Hoenn_Summer_BALM_LARGE_WATER:
+		case METATILE_Hoenn_Summer_MUSHROOM_WATER:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_WATER:
+		case METATILE_Hoenn_Summer_KINGSLEAF_WATER:
+		case METATILE_Hoenn_Summer_VIVICHOKE_WATER:
+		case METATILE_Hoenn_Summer_STONE_WATER:
+		case METATILE_Hoenn_Summer_WOOD_WATER:
+		case METATILE_Hoenn_Summer_LEEK_WATER:
+			metatileId = METATILE_Hoenn_Summer_Water_Shallow;
+			isImpassable = FALSE;
+			break;
+		// Cliff
+		case METATILE_Hoenn_Summer_BALM_LARGE_CLIFF:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_CLIFF:
+		case METATILE_Hoenn_Summer_KINGSLEAF_CLIFF:
+			metatileId = METATILE_Hoenn_Summer_Cliff;
+			isImpassable = TRUE;
+			break;
+		// Grassy Cliff
+		case METATILE_Hoenn_Summer_BALM_LARGE_GRASSCLIFF:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_GRASSCLIFF:
+		case METATILE_Hoenn_Summer_KINGSLEAF_GRASSCLIFF:
+			metatileId = METATILE_Hoenn_Summer_Cliff_Grass;
+			isImpassable = TRUE;
+			break;
+		// Green Tree Left
+		case METATILE_Hoenn_Summer_BALM_LARGE_GREENTREELEFT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_GREENTREELEFT:
+			metatileId = METATILE_Hoenn_Summer_GreenTreeLeft;
+			isImpassable = TRUE;
+			break;
+		// Green Tree Right
+		case METATILE_Hoenn_Summer_BALM_LARGE_GREENTREERIGHT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_GREENTREERIGHT:
+			metatileId = METATILE_Hoenn_Summer_GreenTreeRight;
+			isImpassable = TRUE;
+			break;
+		// Blue Tree Left
+		case METATILE_Hoenn_Summer_BALM_LARGE_BLUETREELEFT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_BLUETREELEFT:
+			metatileId = METATILE_Hoenn_Summer_BlueTreeLeft;
+			isImpassable = TRUE;
+			break;
+		// Blue Tree Right
+		case METATILE_Hoenn_Summer_BALM_LARGE_BLUETREERIGHT:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_BLUETREERIGHT:
+			metatileId = METATILE_Hoenn_Summer_BlueTreeRight;
+			isImpassable = TRUE;
+			break;
+		//Limestone Cliff
+		case METATILE_Hoenn_Summer_BALM_CHALK:
+		case METATILE_Hoenn_Summer_BALM_LARGE_CHALK:
+		case METATILE_Hoenn_Summer_MUSHROOM_CHALK:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_CHALK:
+		case METATILE_Hoenn_Summer_KINGSLEAF_CHALK:
+		case METATILE_Hoenn_Summer_STONE_CHALK:
+		case METATILE_Hoenn_Summer_WOOD_CHALK:
+		case METATILE_Hoenn_Summer_LIMESTONE_CHALK:
+			metatileId = METATILE_Hoenn_Summer_ChalkCliff_Walkable;
+			isImpassable = FALSE;
+			break;
+		//Volcanic Cliff
+		case METATILE_Hoenn_Summer_BALM_VOLCANIC:
+		case METATILE_Hoenn_Summer_BALM_LARGE_VOLCANIC:
+		case METATILE_Hoenn_Summer_MUSHROOM_VOLCANIC:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_VOLCANIC:
+		case METATILE_Hoenn_Summer_KINGSLEAF_VOLCANIC:
+		case METATILE_Hoenn_Summer_STONE_VOLCANIC:
+		case METATILE_Hoenn_Summer_WOOD_VOLCANIC:
+		case METATILE_Hoenn_Summer_REDSTONE_VOLCANIC:
+			metatileId = METATILE_Hoenn_Summer_VolcanicCliff_Walkable;
+			isImpassable = FALSE;
+			break;
+		//Emerald Cliff
+		case METATILE_Hoenn_Summer_BALM_EMERALD:
+		case METATILE_Hoenn_Summer_BALM_LARGE_EMERALD:
+		case METATILE_Hoenn_Summer_MUSHROOM_EMERALD:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_EMERALD:
+		case METATILE_Hoenn_Summer_KINGSLEAF_EMERALD:
+		case METATILE_Hoenn_Summer_STONE_EMERALD:
+		case METATILE_Hoenn_Summer_WOOD_EMERALD:
+		case METATILE_Hoenn_Summer_GREENSTONE_EMERALD:
+			metatileId = METATILE_Hoenn_Summer_EmeraldCliff_Walkable;
+			isImpassable = FALSE;
+			break;
+		//Gold Cliff
+		case METATILE_Hoenn_Summer_BALM_GOLD:
+		case METATILE_Hoenn_Summer_BALM_LARGE_GOLD:
+		case METATILE_Hoenn_Summer_MUSHROOM_GOLD:
+		case METATILE_Hoenn_Summer_MUSHROOM_LARGE_GOLD:
+		case METATILE_Hoenn_Summer_KINGSLEAF_GOLD:
+		case METATILE_Hoenn_Summer_STONE_GOLD:
+		case METATILE_Hoenn_Summer_WOOD_GOLD:
+		case METATILE_Hoenn_Summer_GOLDSTONE_GOLD:
+			metatileId = METATILE_Hoenn_Summer_GoldCliff_Walkable;
+			isImpassable = FALSE;
+			break;
+		default:
+			metatileId = METATILE_General_Grass;
+			isImpassable = FALSE;
+	}
+	
     if (!isImpassable)
         MapGridSetMetatileIdAt(x, y, metatileId);
     else

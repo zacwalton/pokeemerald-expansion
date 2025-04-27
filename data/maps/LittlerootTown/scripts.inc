@@ -98,43 +98,43 @@ LittlerootTown_EventScript_SecretTree2Set::
 	return	
 	
 LittlerootTown_Resource_leek1::
-	setmetatileateatbgeventid LOCALID_LEEK1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK1 
 	return
 
 LittlerootTown_Resource_leek2::
-	setmetatileateatbgeventid LOCALID_LEEK2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_LEEK2 
 	return
 
 LittlerootTown_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1 
 	return
 
 LittlerootTown_Resource_Mushroom2::
-	setmetatileateatbgeventid LOCALID_MUSHROOM2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM2 
 	return
 
 LittlerootTown_Resource_Mushroom3::
-	setmetatileateatbgeventid LOCALID_MUSHROOM3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM3 
 	return
 
 LittlerootTown_Resource_Balm1::
-	setmetatileateatbgeventid LOCALID_BALM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_BALM1 
 	return
 	
 LittlerootTown_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1 
 	return
 
 LittlerootTown_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2 
 	return
 
 LittlerootTown_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
 	return
 
 LittlerootTown_Resource_KingsLeaf1::
-	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1 
 	return
 
 LittlerootTown_OnTransition:

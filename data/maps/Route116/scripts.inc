@@ -47,71 +47,71 @@ Route116_OnResume:
 	end
 
 Route116_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 Route116_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2 
 	return
 
 Route116_Resource_Wood3::
-	setmetatileateatbgeventid LOCALID_WOOD3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD3 
 	return
 
 Route116_Resource_Wood4::
-	setmetatileateatbgeventid LOCALID_WOOD4, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD4 
 	return
 
 Route116_Resource_Wood5::
-	setmetatileateatbgeventid LOCALID_WOOD5, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD5 
 	return
 
 Route116_Resource_Wood6::
-	setmetatileateatbgeventid LOCALID_WOOD6, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD6 
 	return
 
 Route116_Resource_Wood7::
-	setmetatileateatbgeventid LOCALID_WOOD7, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD7 
 	return
 
 Route116_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE1 
 	return
 
 Route116_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE2 
 	return
 
 Route116_Resource_Stone3::
-	setmetatileateatbgeventid LOCALID_STONE3, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE3 
 	return
 
 Route116_Resource_Stone4::
-	setmetatileateatbgeventid LOCALID_STONE4, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE4 
 	return
 
 Route116_Resource_Stone5::
-	setmetatileateatbgeventid LOCALID_STONE5, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE5 
 	return
 
 Route116_Resource_Stone6::
-	setmetatileateatbgeventid LOCALID_STONE6, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE6 
 	return
 
 Route116_Resource_Stone7::
-	setmetatileateatbgeventid LOCALID_STONE7, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE7 
 	return
 
 Route116_Resource_Stone8::
-	setmetatileateatbgeventid LOCALID_STONE8, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_STONE8 
 	return
 
 Route116_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1 
 	return
 
 Route116_Resource_KingsLeaf1::
-	setmetatileateatbgeventid LOCALID_KINGSLEAF1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_KINGSLEAF1 
 	return
 
 Route116_Resource_Wood1Harvest::

@@ -9,7 +9,7 @@ PetalburgWoods_Entrance_OnResume:
 	end
 
 PetalburgWoods_Entrance_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1 
 	return
 
 PetalburgWoods_Entrance_Resource_Mushroom1Harvest::

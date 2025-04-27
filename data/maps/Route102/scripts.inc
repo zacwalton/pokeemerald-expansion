@@ -15,19 +15,19 @@ Route102_OnResume:
 	end
 
 Route102_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD1 
 	return
 
 Route102_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_WOOD2 
 	return
 
 Route102_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_MUSHROOM1 
 	return
 
 Route102_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1, METATILE_General_Grass, FALSE
+	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
 	return
 
 Route102_Resource_Wood1Harvest::
