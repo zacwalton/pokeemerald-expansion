@@ -305,6 +305,8 @@
 #define METATILE_Hoenn_Summer_BALM_WATER                          0x470
 #define METATILE_Hoenn_Summer_BlueTreeLeft                        0x458
 #define METATILE_Hoenn_Summer_BlueTreeRight                       0x459
+#define METATILE_Hoenn_Summer_Blue_TreeLeft                       0x44A
+#define METATILE_Hoenn_Summer_Blue_TreeRight                      0x44B
 #define METATILE_Hoenn_Summer_ChalkCliff_Walkable                 0x330
 #define METATILE_Hoenn_Summer_Cliff                               0x091
 #define METATILE_Hoenn_Summer_Cliff_Grass                         0x079
@@ -390,6 +392,13 @@
 #define METATILE_Hoenn_Summer_STONE_VOLCANIC                      0x362
 #define METATILE_Hoenn_Summer_STONE_WATER                         0x468
 #define METATILE_Hoenn_Summer_Sand                                0x124
+#define METATILE_Hoenn_Summer_SmallTree_Blue                      0x255
+#define METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBLeft          0x245
+#define METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBRight         0x24D
+#define METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBLeft          0x247
+#define METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBRight         0x24F
+#define METATILE_Hoenn_Summer_TallGrass_BlueTreeBLeft             0x246
+#define METATILE_Hoenn_Summer_TallGrass_BlueTreeBRight            0x24E
 #define METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR           0x1CF
 #define METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL           0x1CE
 #define METATILE_Hoenn_Summer_VIVICHOKE_GRASS                     0x021
@@ -461,11 +470,7 @@
 #define METATILE_LilycoveMuseum_Painting4_Right  0x863
 
 // gTileset_Littleroot_Summer
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BL_TreeBLeft   0x8C6
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BR_SmallTree   0x8E8
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BR_TreeBRight  0x8C7
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_TreeBLeft      0x8C4
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_TreeBRight     0x8C5
+#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BR_SmallTree  0x8E8
 
 // gTileset_Mauville
 #define METATILE_Mauville_DeepSand_BottomMid  0x859
