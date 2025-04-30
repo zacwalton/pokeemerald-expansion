@@ -397,10 +397,19 @@
 #define METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBRight         0x24D
 #define METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBLeft          0x247
 #define METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBRight         0x24F
+#define METATILE_Hoenn_Summer_TallGrass_BR_SmallTree              0x257
 #define METATILE_Hoenn_Summer_TallGrass_BlueTreeBLeft             0x246
 #define METATILE_Hoenn_Summer_TallGrass_BlueTreeBRight            0x24E
 #define METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR           0x1CF
 #define METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL           0x1CE
+#define METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Left      0x480
+#define METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Right     0x481
+#define METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left     0x482
+#define METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right    0x483
+#define METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueBush      0x487
+#define METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree      0x485
+#define METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenBush     0x486
+#define METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree     0x484
 #define METATILE_Hoenn_Summer_VIVICHOKE_GRASS                     0x021
 #define METATILE_Hoenn_Summer_VIVICHOKE_ROCK                      0x3F9
 #define METATILE_Hoenn_Summer_VIVICHOKE_SAND                      0x3DB
@@ -470,7 +479,10 @@
 #define METATILE_LilycoveMuseum_Painting4_Right  0x863
 
 // gTileset_Littleroot_Summer
-#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BR_SmallTree  0x8E8
+#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BL_TreeBLeft   0x8C6
+#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_BR_TreeBRight  0x8C7
+#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_TreeBLeft      0x8C4
+#define METATILE_Littleroot_Summer_METATILE_General_TallGrass_TreeBRight     0x8C5
 
 // gTileset_Mauville
 #define METATILE_Mauville_DeepSand_BottomMid  0x859
