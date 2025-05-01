@@ -1857,7 +1857,7 @@ static bool32 Fishing_InitDots(struct Task *task)
     u32 randVal;
 
     LoadMessageBoxAndFrameGfx(0, TRUE);
-    if (FG_FISH_MINIGAME_ENABLED && !FG_DO_DOTS_GAME_BEFORE_MAIN_GAME)
+    if (FG_FISH_MINIGAME_ENABLED && !FG_DO_DOTS_GAME_BEFORE_MAIN_GAME && DoesCurrentMapHaveFishingMons())
     {
         StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
         task->tStep = FISHING_MON_ON_HOOK;
