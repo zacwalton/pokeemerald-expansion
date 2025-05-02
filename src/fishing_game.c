@@ -3,6 +3,7 @@
 #include "fishing_game.h"
 #include "fishing_game_species_behavior.h"
 #include "fishing_game_treasures.h"
+#include "battle.h"
 #include "battle_main.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
@@ -1955,6 +1956,7 @@ static void CB2_FishingBattleTransition(void)
     FreeMonIconPalettes();
     PlayBattleBGM(); // Play the battle music.
     BattleTransition_Start(B_TRANSITION_WAVE); // Start the battle transition. The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
+    gBattleTypeFlags = 0;
     SetMainCallback2(CB2_FishingBattleStart);
 }
 
