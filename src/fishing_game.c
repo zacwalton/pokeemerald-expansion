@@ -1954,9 +1954,9 @@ static void SpriteCB_Other(struct Sprite *sprite)
 static void CB2_FishingBattleTransition(void)
 {
     FreeMonIconPalettes();
+    gBattleTypeFlags = 0;
     PlayBattleBGM(); // Play the battle music.
     BattleTransition_Start(B_TRANSITION_WAVE); // Start the battle transition. The only other transitions that work properly here are B_TRANSITION_SLICE and B_TRANSITION_GRID_SQUARES.
-    gBattleTypeFlags = 0;
     SetMainCallback2(CB2_FishingBattleStart);
 }
 
