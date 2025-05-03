@@ -34,8 +34,14 @@ extern const u16 gFieldEffectPal_CutGrass[];
 #define CUT_NORMAL_SIDE 3
 #define CUT_NORMAL_AREA CUT_NORMAL_SIDE * CUT_NORMAL_SIDE
 
+#define CUT_LARGE_SIDE 4
+#define CUT_LARGE_AREA CUT_LARGE_SIDE * CUT_LARGE_SIDE
+
 #define CUT_HYPER_SIDE 5
 #define CUT_HYPER_AREA CUT_HYPER_SIDE * CUT_HYPER_SIDE
+
+#define CUT_MAX_SIDE 6
+#define CUT_MAX_AREA CUT_MAX_AREA * CUT_MAX_AREA
 
 #define CUT_SPRITE_ARRAY_COUNT 8
 
@@ -409,162 +415,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 	
 	switch (TileCalculatedValue)
 	{
-//0 tiles
-		case 	0	:
-//1 tile
-		case 	16	:
-		case 	1	:
-		case 	32	:
-		case 	2	:
-		case 	64	:
-		case 	4	:
-		case 	128	:
-		case 	8	:
-//2 tiles
-		case 	17	:
-		case 	48	:
-		case 	18	:
-		case 	80	:
-		case 	20	:
-		case 	144	:
-		case 	24	:
-		case 	33	:
-		case 	3	:
-		case 	65	:
-		case 	5	:
-		case 	129	:
-		case 	9	:
-		case 	34	:
-		case 	96	:
-		case 	36	:
-		case 	160	:
-		case 	40	:
-		case 	66	:
-		case 	6	:
-		case 	130	:
-		case 	10	:
-		case 	68	:
-		case 	192	:
-		case 	72	:
-		case 	132	:
-		case 	12	:
-		case 	136	:
-//3 tiles
-		case 	49	:
-		case 	19	:
-		case 	81	:
-		case 	21	:
-		case 	145	:
-		case 	50	:
-		case 	112	:
-		case 	52	:
-		case 	176	:
-		case 	56	:
-		case 	82	:
-		case 	22	:
-		case 	146	:
-		case 	26	:
-		case 	84	:
-		case 	208	:
-		case 	88	:
-		case 	148	:
-		case 	28	:
-		case 	97	:
-		case 	37	:
-		case 	161	:
-		case 	41	:
-		case 	67	:
-		case 	7	:
-		case 	131	:
-		case 	11	:
-		case 	69	:
-		case 	193	:
-		case 	73	:
-		case 	133	:
-		case 	13	:
-		case 	137	:
-		case 	98	:
-		case 	38	:
-		case 	162	:
-		case 	42	:
-		case 	100	:
-		case 	224	:
-		case 	104	:
-		case 	164	:
-		case 	44	:
-		case 	168	:
-		case 	194	:
-		case 	74	:
-		case 	134	:
-		case 	14	:
-		case 	138	:
-		case 	196	:
-		case 	76	:
-		case 	200	:
-//4 tiles
-		case 	113	:
-		case 	53	:
-		case 	177	:
-		case 	83	:
-		case 	23	:
-		case 	147	:
-		case 	85	:
-		case 	209	:
-		case 	149	:
-		case 	114	:
-		case 	54	:
-		case 	178	:
-		case 	58	:
-		case 	116	:
-		case 	240	:
-		case 	120	:
-		case 	180	:
-		case 	60	:
-		case 	184	:
-		case 	210	:
-		case 	90	:
-		case 	212	:
-		case 	92	:
-		case 	216	:
-		case 	101	:
-		case 	225	:
-		case 	105	:
-		case 	165	:
-		case 	45	:
-		case 	169	:
-		case 	195	:
-		case 	75	:
-		case 	135	:
-		case 	15	:
-		case 	139	:
-		case 	77	:
-		case 	201	:
-		case 	226	:
-		case 	106	:
-		case 	166	:
-		case 	46	:
-		case 	170	:
-		case 	228	:
-		case 	108	:
-		case 	232	:
-		case 	202	:
-//5 tiles
-		case 	117	:
-		case 	241	:
-		case 	211	:
-		case 	151	:
-		case 	213	:
-		case 	242	:
-		case 	122	:
-		case 	182	:
-		case 	62	:
-		case 	218	:
-		case 	229	:
-		case 	109	:
-		case 	203	:
-//6 tiles
-		case 	245	:
-		case 	250	:
+		default:
 			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
 			break;
 		case 59:
@@ -691,9 +542,9 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		case 95:
 			MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL);
 			break;
-		default:
+		//default:
 			//MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
-			break;
+			//break;
 	}
 }
 
