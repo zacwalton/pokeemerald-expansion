@@ -319,101 +319,55 @@ static void StartCutGrassFieldEffect(void)
     FieldEffectStart(FLDEFF_CUT_GRASS);
 }
 	
-
+// Checks if the Metatile Behaviour is a member of MetatileBehavior_IsCuttableGrass
+//If you have custom behaviours (e.g. snow), make sure they are added to src/metatile_behaviour.c MetatileBehavior_IsCuttableGrass
 bool8 IsTileTallGrass(s16 x, s16 y)
 {
-	s32 metatileId = MapGridGetMetatileIdAt(x, y);
+	u8 metatilebehaviour = MapGridGetMetatileBehaviorAt(x, y);
 	
-	switch (metatileId)
-	{
-	//case METATILE_Fortree_LongGrass_Root:
-    //case METATILE_General_LongGrass:
-    case METATILE_General_TallGrass:
-    case METATILE_General_TallGrass_TopLeft:
-    case METATILE_General_TallGrass_TopCenter:
-    case METATILE_General_TallGrass_TopRight:
-    case METATILE_General_TallGrass_MidLeft:
-    case METATILE_General_TallGrass_MidCenter:
-    case METATILE_General_TallGrass_MidRight:
-    case METATILE_General_TallGrass_BottomLeft:
-    case METATILE_General_TallGrass_BottomCenter:
-    case METATILE_General_TallGrass_BottomRight:
-    case METATILE_General_TallGrass_InnerCornerTL:
-    case METATILE_General_TallGrass_InnerCornerTR:
-    case METATILE_General_TallGrass_InnerCornerBL:
-    case METATILE_General_TallGrass_InnerCornerBR:
-    case METATILE_General_TallGrass_BL_TreeLeft:
-    case METATILE_General_TallGrass_BR_TreeRight:
-    case METATILE_General_TallGrass_BL_TreeRight:
-    case METATILE_General_TallGrass_BR_TreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BlueTreeBLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBRight:
-    case METATILE_Hoenn_Summer_TallGrass_BlueTreeBRight:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBRight:
-    case METATILE_General_TallGrass_TreeLeft:
-    case METATILE_General_TallGrass_TreeRight:
-	case METATILE_Hoenn_Summer_TallGrass_BR_SmallTree:
-	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR:
-	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL:
-    //case METATILE_Fortree_SecretBase_LongGrass_BottomLeft:
-    //case METATILE_Fortree_SecretBase_LongGrass_BottomMid:
-    //case METATILE_Fortree_SecretBase_LongGrass_BottomRight:
-    case METATILE_Lavaridge_NormalGrass:
-    case METATILE_Lavaridge_AshGrass:
-    case METATILE_Fallarbor_NormalGrass:
-    case METATILE_Fallarbor_AshGrass:
-    case METATILE_General_TallGrass_TreeUp:
+    if (MetatileBehavior_IsCuttableGrass(metatilebehaviour) == TRUE)
 		return TRUE;
-        break;
-	default:
+	else
+	{
 		return FALSE;
-		break;
 	}
+	
 }
 	
+	// defines x, y coord, in clockwise order
+static const s8 sNeighbourTileOffsets[8][2] =
+{
+	{0, -1},	//Top
+	{1, 0},		//Right
+	{0, 1},		//Bottom
+	{-1, 0},	//Left
+	{-1, -1}, 	//Top Left
+	{1, -1}, 	//Top Right
+	{1, 1}		//Bottom Right
+	{-1, 1},	//Bottom Left
+};	
+
+u8 GetTileCalculatedTallGrassValue (s16 x, s16 y)
+{
+    //s32 metatileId = MapGridGetMetatileIdAt(x, y);
+	u8 tileCalculatedValue = 0;
+	u8 i;
+	
+    for (i = 0; i < 8; i++)
+	{
+		s16 neighbourX = x + sNeighbourTileOffsets[i][0];
+		s16 neighbourY = y + sNeighbourTileOffsets[i][1];
+		
+		if (IsTileTallGrass(neighbourX, neighbourY))
+			tileCalculatedValue |= (1 << i);
+	}
+	
+	return tileCalculatedValue;
+}
 
 static void SetAutotileMetatileId (s16 x, s16 y)
 {
-    //s32 metatileId = MapGridGetMetatileIdAt(x, y);
-	int TileCalculatedValue = 0;
-	
-	if (IsTileTallGrass(x, y - 1) == TRUE)
-	{
-		TileCalculatedValue += 1;
-	}
-	if (IsTileTallGrass(x + 1, y) == TRUE)
-	{
-		TileCalculatedValue += 2;
-	}
-	if (IsTileTallGrass(x, y + 1) == TRUE)
-	{
-		TileCalculatedValue += 4;
-	}
-	if (IsTileTallGrass(x - 1, y) == TRUE)
-	{
-		TileCalculatedValue += 8;
-	}
-	//Check diagonal neighbours
-	if (IsTileTallGrass(x - 1, y - 1) == TRUE)
-	{
-		TileCalculatedValue += 16;
-	}
-	if (IsTileTallGrass(x + 1, y - 1) == TRUE)
-	{
-		TileCalculatedValue += 32;
-	}
-	if (IsTileTallGrass(x + 1, y + 1) == TRUE)
-	{
-		TileCalculatedValue += 64;
-	}
-	if (IsTileTallGrass(x - 1, y + 1) == TRUE)
-	{
-		TileCalculatedValue += 128;
-	}
-	
-	switch (TileCalculatedValue)
+	switch (GetTileCalculatedTallGrassValue(x, y))
 	{
 		default:
 			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
