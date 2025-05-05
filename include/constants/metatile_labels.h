@@ -303,6 +303,7 @@
 #define METATILE_Hoenn_Summer_BALM_TOPRIGHT                       0x3C9
 #define METATILE_Hoenn_Summer_BALM_VOLCANIC                       0x36A
 #define METATILE_Hoenn_Summer_BALM_WATER                          0x470
+#define METATILE_Hoenn_Summer_BlueShrub                           0x455
 #define METATILE_Hoenn_Summer_BlueTreeLeft                        0x458
 #define METATILE_Hoenn_Summer_BlueTreeRight                       0x459
 #define METATILE_Hoenn_Summer_Blue_TreeLeft                       0x44A
@@ -316,6 +317,7 @@
 #define METATILE_Hoenn_Summer_GREENSTONE_EMERALD                  0x365
 #define METATILE_Hoenn_Summer_GREENSTONE_GRASS                    0x385
 #define METATILE_Hoenn_Summer_GoldCliff_Walkable                  0x336
+#define METATILE_Hoenn_Summer_GreenShrub                          0x00F
 #define METATILE_Hoenn_Summer_GreenTreeLeft                       0x1EC
 #define METATILE_Hoenn_Summer_GreenTreeRight                      0x1ED
 #define METATILE_Hoenn_Summer_KINGSLEAF_CHALK                     0x379
@@ -392,6 +394,8 @@
 #define METATILE_Hoenn_Summer_STONE_VOLCANIC                      0x362
 #define METATILE_Hoenn_Summer_STONE_WATER                         0x468
 #define METATILE_Hoenn_Summer_Sand                                0x124
+#define METATILE_Hoenn_Summer_SmallBlueTree                       0x00E
+#define METATILE_Hoenn_Summer_SmallGreenTree                      0x427
 #define METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft           0x246
 #define METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight          0x24E
 #define METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft          0x1EE

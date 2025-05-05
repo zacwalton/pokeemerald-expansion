@@ -2,16 +2,19 @@
 #include "event_object_lock.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
+#include "event_data.h"
 #include "faraway_island.h"
 #include "field_camera.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "fldeff.h"
+#include "item.h"
 #include "malloc.h"
 #include "metatile_behavior.h"
 #include "overworld.h"
 #include "party_menu.h"
+#include "random.h"
 #include "script.h"
 #include "sound.h"
 #include "sprite.h"
@@ -158,7 +161,13 @@ bool8 SetUpFieldMove_Cut(void)
     {
         PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
         userAbility = GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]);
-        if (userAbility == ABILITY_HYPER_CUTTER)
+		VarSet(VAR_0x8007, userAbility);
+        if ((userAbility == ABILITY_HYPER_CUTTER)
+			|| (userAbility == ABILITY_TECHNICIAN)
+			|| (userAbility == ABILITY_SHEER_FORCE)
+			|| (userAbility == ABILITY_HARVEST)
+			|| (userAbility == ABILITY_LONG_REACH)
+			|| (userAbility == ABILITY_SHARPNESS))
         {
             sCutSquareSide = CUT_HYPER_SIDE;
             sTileCountFromPlayer_X = 2;
@@ -217,7 +226,12 @@ bool8 SetUpFieldMove_Cut(void)
             }
         }
 
-        if (userAbility != ABILITY_HYPER_CUTTER)
+        if ((userAbility != ABILITY_HYPER_CUTTER)
+			&& (userAbility != ABILITY_TECHNICIAN)
+			&& (userAbility != ABILITY_SHEER_FORCE)
+			&& (userAbility != ABILITY_HARVEST)
+			&& (userAbility != ABILITY_LONG_REACH)
+			&& (userAbility != ABILITY_SHARPNESS))
         {
             if (ret == TRUE)
             {
@@ -774,6 +788,9 @@ bool8 FldEff_CutGrass(void)
 {
     s16 x, y;
     u8 i = 0;
+	u8 itemCount = 0;
+	u8 itemChance = 0;
+	u16 userAbility = VarGet(VAR_0x8007);
 
     PlaySE(SE_M_CUT);
     PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
@@ -787,13 +804,44 @@ bool8 FldEff_CutGrass(void)
             x = xAdd + gPlayerFacingPosition.x;
             y = yAdd + gPlayerFacingPosition.y;
 
+			if (IsTileTallGrass(x, y) == TRUE)
+			{
+				itemCount += Random() % 2;
+				if ((userAbility == ABILITY_KEEN_EYE)
+					|| (userAbility == ABILITY_ILLUMINATE)
+					|| (userAbility == ABILITY_PICKUP)
+					|| (userAbility == ABILITY_SUPER_LUCK)
+					|| (userAbility == ABILITY_FRISK)
+					|| (userAbility == ABILITY_HARVEST))
+					{
+						itemChance += 4;
+					}
+				else if ((userAbility == ABILITY_OBLIVIOUS)
+					|| (userAbility == ABILITY_UNAWARE))
+					{
+						itemChance += 1;
+					}
+				else
+				itemChance += 2;
+			}
             SetCutGrassMetatile(x, y);
             AllowObjectAtPosTriggerGroundEffects(x, y);
         }
     }
 
+	if (itemCount > 0)
+	{
+		VarSet(VAR_0x8008, itemCount);
+		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript);
+	}
+	if ((Random() % 100) < itemChance)
+	{
+		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript_Item);
+	}
+
     SetCutGrassMetatiles(gPlayerFacingPosition.x - sTileCountFromPlayer_X, gPlayerFacingPosition.y - (1 + sTileCountFromPlayer_Y));
     DrawWholeMapView();
+	//Check surrounding tiles for autotile system
 	for (i = 0; i < (CUT_MAX_AREA); i++)
     {
             s8 xAdd = (i % 7) - 3;
@@ -852,16 +900,16 @@ static void SetCutGrassMetatile(s16 x, s16 y)
 	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
         break;
-    case METATILE_General_TallGrass_BL_TreeLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
-        break;
-    case METATILE_General_TallGrass_BR_TreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
         break;
-    case METATILE_General_TallGrass_BL_TreeRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
-        break;
-    case METATILE_General_TallGrass_BR_TreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
         break;
 		//Tall Grass Blue Tree
@@ -875,13 +923,32 @@ static void SetCutGrassMetatile(s16 x, s16 y)
     case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight:
         MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_Blue_TreeRight);
         break;
+		//Small Trees/Shrubs
+    case METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeGreen:
+    case METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeGreen:
+    case METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeGreen:
+    case METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree:
+        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_SmallGreenTree);
+        break;
+    case METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue:
+    case METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue:
+    case METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue:
+    case METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree:
+        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_SmallBlueTree);
+        break;
+    case METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue:
+    case METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue:
+    case METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue:
+    case METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub:
+        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_BlueShrub);
+        break;
+    case METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen:
+    case METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen:
+    case METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen:
+    case METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub:
+        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_GreenShrub);
+        break;
 		//Other
-    case METATILE_General_TallGrass_TreeLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
-        break;
-    case METATILE_General_TallGrass_TreeRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
-        break;
     case METATILE_Fortree_SecretBase_LongGrass_BottomLeft:
         MapGridSetMetatileIdAt(x, y, METATILE_Fortree_SecretBase_LongGrass_TopLeft);
         break;
