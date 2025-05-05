@@ -34,14 +34,11 @@ extern const u16 gFieldEffectPal_CutGrass[];
 #define CUT_NORMAL_SIDE 3
 #define CUT_NORMAL_AREA CUT_NORMAL_SIDE * CUT_NORMAL_SIDE
 
-#define CUT_LARGE_SIDE 4
-#define CUT_LARGE_AREA CUT_LARGE_SIDE * CUT_LARGE_SIDE
-
 #define CUT_HYPER_SIDE 5
 #define CUT_HYPER_AREA CUT_HYPER_SIDE * CUT_HYPER_SIDE
 
-#define CUT_MAX_SIDE 6
-#define CUT_MAX_AREA CUT_MAX_AREA * CUT_MAX_AREA
+#define CUT_MAX_SIDE 7
+#define CUT_MAX_AREA CUT_MAX_SIDE * CUT_MAX_SIDE
 
 #define CUT_SPRITE_ARRAY_COUNT 8
 
@@ -318,7 +315,7 @@ static void StartCutGrassFieldEffect(void)
     FieldEffectActiveListRemove(FLDEFF_USE_CUT_ON_GRASS);
     FieldEffectStart(FLDEFF_CUT_GRASS);
 }
-	
+
 // Checks if the Metatile Behaviour is a member of MetatileBehavior_IsCuttableGrass
 //If you have custom behaviours (e.g. snow), make sure they are added to src/metatile_behaviour.c MetatileBehavior_IsCuttableGrass
 bool8 IsTileTallGrass(s16 x, s16 y)
@@ -334,19 +331,20 @@ bool8 IsTileTallGrass(s16 x, s16 y)
 	
 }
 	
-	// defines x, y coord, in clockwise order
+	// defines x, y coord
 static const s8 sNeighbourTileOffsets[8][2] =
 {
-	{0, -1},	//Top
-	{1, 0},		//Right
-	{0, 1},		//Bottom
-	{-1, 0},	//Left
-	{-1, -1}, 	//Top Left
-	{1, -1}, 	//Top Right
-	{1, 1}		//Bottom Right
-	{-1, 1},	//Bottom Left
+	{-1, -1}, 	//	[0] Top Left 		(1)
+	{0, -1},	//	[1] Up				(2)
+	{1, -1}, 	//	[2] Top Right		(4)
+	{1, 0},		//	[3] Right			(8)
+	{1, 1},		//	[4] Bottom Right	(16)
+	{0, 1},		//	[5] Down			(32)
+	{-1, 1},	//	[6] Bottom Left		(64)
+	{-1, 0}		//	[7] Left			(128)
 };	
 
+//Calculates tile value based on neighbours
 u8 GetTileCalculatedTallGrassValue (s16 x, s16 y)
 {
     //s32 metatileId = MapGridGetMetatileIdAt(x, y);
@@ -365,142 +363,412 @@ u8 GetTileCalculatedTallGrassValue (s16 x, s16 y)
 	return tileCalculatedValue;
 }
 
+
+#define AUTOGRASS_TOPLEFT		(1 << 0)
+#define AUTOGRASS_UP			(1 << 1)
+#define AUTOGRASS_TOPRIGHT		(1 << 2)
+#define AUTOGRASS_RIGHT			(1 << 3)
+
+#define AUTOGRASS_BOTTOMRIGHT	(1 << 4)
+#define AUTOGRASS_DOWN			(1 << 5)
+#define AUTOGRASS_BOTTOMLEFT	(1 << 6)
+#define AUTOGRASS_LEFT			(1 << 7)
+
+// Add grass variation types here
+enum {
+	TALL_GRASS_DEFAULT,
+	TREE_GREEN_LEFT,
+	TREE_GREEN_RIGHT,
+	TREE_BLUE_LEFT,
+	TREE_BLUE_RIGHT,
+	TREE_GREEN_SMALL,
+	TREE_BLUE_SMALL,
+	SHRUB_GREEN,
+	SHRUB_BLUE,
+	NUM_TALL_GRASS_VARIANTS,
+};
+
+struct TallGrassVariantType
+{
+	s32 metatileId;
+	u8 variantType;
+};
+
+// Defines all tiles for each variation type
+static const struct TallGrassVariantType sTallGrassVariants[] =
+{
+	//Green Tree Left
+	{METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeLeft, TREE_GREEN_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft, TREE_GREEN_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeLeft, TREE_GREEN_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left, TREE_GREEN_LEFT},
+	//Green Tree Right
+	{METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeRight, TREE_GREEN_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeRight, TREE_GREEN_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeRight, TREE_GREEN_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right, TREE_GREEN_RIGHT},
+	//Blue Tree Left
+	{METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeLeft, TREE_BLUE_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft, TREE_BLUE_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeLeft, TREE_BLUE_LEFT},
+	{METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Left, TREE_BLUE_LEFT},
+	//Blue Tree Right
+	{METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeRight, TREE_BLUE_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight, TREE_BLUE_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight, TREE_BLUE_RIGHT},
+	{METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Right, TREE_BLUE_RIGHT},
+	//Small Tree Green
+	{METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeGreen, TREE_GREEN_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeGreen, TREE_GREEN_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeGreen, TREE_GREEN_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree, TREE_GREEN_SMALL},
+	//Small Tree Green
+	{METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue, TREE_BLUE_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue, TREE_BLUE_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue, TREE_BLUE_SMALL},
+	{METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree, TREE_BLUE_SMALL},
+	//Shrub Green
+	{METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen, SHRUB_GREEN},
+	{METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen, SHRUB_GREEN},
+	{METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen, SHRUB_GREEN},
+	{METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub, SHRUB_GREEN},
+	//Shrub Green
+	{METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue, SHRUB_BLUE},
+	{METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue, SHRUB_BLUE},
+	{METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue, SHRUB_BLUE},
+	{METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub, SHRUB_BLUE},
+};
+
+// Get the tall grass variant type from the above
+static u8 GetTallGrassVariantType (s16 x, s16 y)
+{
+	s32 metatileId = MapGridGetMetatileIdAt(x, y);
+	u32 i;
+	
+	for (i = 0; i < ARRAY_COUNT(sTallGrassVariants); i++)
+	{
+		if (sTallGrassVariants[i].metatileId == metatileId)
+            return sTallGrassVariants[i].variantType;
+	}
+	return 0;
+}
+
+	// Define the metatiles to use for each tall grass variant type
+// 1x1 Single Grass Tile Variants
+static const s32 sTallGrassSingleVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass,
+    [TREE_GREEN_LEFT]  = METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left,
+    [TREE_GREEN_RIGHT] = METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right,
+    [TREE_BLUE_LEFT]   = METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Left,
+    [TREE_BLUE_RIGHT]  = METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Right,
+    [TREE_GREEN_SMALL] = METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree,
+    [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree,
+    [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub,
+    [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub,
+};
+
+//Top Left Corner Variants
+static const s32 sTallGrassTopLeftVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopLeft,
+};
+
+//Top Edge Variants
+static const s32 sTallGrassTopCenterVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopCenter,
+};
+
+//Top Right Corner Variants
+static const s32 sTallGrassTopRightVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopRight,
+};
+
+//Left Edge Variants
+static const s32 sTallGrassMidLeftVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidLeft,
+};
+
+//Center Tile Variants
+static const s32 sTallGrassMidCenterVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidCenter,
+};
+
+// Right Edge Variants
+static const s32 sTallGrassMidRightVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidRight,
+};
+
+//Bottom Right Corner Variants
+static const s32 sTallGrassBottomRightVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_BottomRight,
+    [TREE_GREEN_LEFT]  = METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeLeft,
+    [TREE_GREEN_RIGHT] = METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeRight,
+    [TREE_BLUE_LEFT]   = METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeLeft,
+    [TREE_BLUE_RIGHT]  = METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight,
+    [TREE_GREEN_SMALL] = METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeGreen,
+    [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue,
+    [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue,
+    [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen,
+};
+
+//Bottom Edge Variants
+static const s32 sTallGrassBottomCenterVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_BottomCenter,
+    [TREE_GREEN_LEFT]  = METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft,
+    [TREE_GREEN_RIGHT] = METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeRight,
+    [TREE_BLUE_LEFT]   = METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft,
+    [TREE_BLUE_RIGHT]  = METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight,
+    [TREE_GREEN_SMALL] = METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeGreen,
+    [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue,
+    [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue,
+    [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen,
+};
+
+//Bottom Left Corner Variants
+static const s32 sTallGrassBottomLeftVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_BottomLeft,
+    [TREE_GREEN_LEFT]  = METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeLeft,
+    [TREE_GREEN_RIGHT] = METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeRight,
+    [TREE_BLUE_LEFT]   = METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeLeft,
+    [TREE_BLUE_RIGHT]  = METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeRight,
+    [TREE_GREEN_SMALL] = METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeGreen,
+    [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue,
+    [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue,
+    [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen,
+};
+
+//Bottom Right Inner Corner Variants
+static const s32 sTallGrassInnerCornerBRVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerBR,
+};
+
+//Bottom Left Inner Corner Variants
+static const s32 sTallGrassInnerCornerBLVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerBL,
+};
+
+//Top Left Inner Corner Variants
+static const s32 sTallGrassInnerCornerTLVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerTL,
+};
+
+// Top Right Inner Corner Variants
+static const s32 sTallGrassInnerCornerTRVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerTR,
+};
+
+//Top Left+Bottom Right Inner Corner Intersect Variants
+static const s32 sTallGrassInnerCornerTLBRVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR,
+};
+
+//Top Right+Bottom Left Inner Corner Intersect Variants
+static const s32 sTallGrassInnerCornerTRBLVariant[] = 
+{
+    [TALL_GRASS_DEFAULT]  = METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL,
+};
+
+
+// Set the metatile based on the value calculated from its neighbours
 static void SetAutotileMetatileId (s16 x, s16 y)
 {
-	switch (GetTileCalculatedTallGrassValue(x, y))
+	u8 variantType = GetTallGrassVariantType(x, y);
+	u8 autotileValue = GetTileCalculatedTallGrassValue(x, y);
+	//Tall Grass Center
+	if (autotileValue == 0xFF) //1111 1111
 	{
-		default:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
-			break;
-		case 59:
-		case 123:
-		case 251:
-		case 63:
-		case 187:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomCenter);
-			break;
-		case 	35:
-		case 	51:
-		case 	99:
-		case 	39:
-		case 	163:
-		case 	43:
-		case 	227:
-		case 	107:
-		case 	115:
-		case 	235:
-		case 	243:
-		case 	167:
-		case	183:
-		case 	47:
-		case 	55:
-		case 	171:
-		case 	179:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomLeft);
-			break;
-		case 	103	:
-		case 	231	:
-		case 	247	:
-		case 	111	:
-		case 	119	:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidLeft);
-			break;
-		case 255:
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassMidCenterVariant[variantType]);
+		else
+		{
 			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidCenter);
-			break;
-		case 	70	:
-		case 	198	:
-		case 	214	:
-		case 	199	:
-		case 	230	:
-		case 	215	:
-		case 	246	:
-		case 	78	:
-		case 	94	:
-		case 	79	:
-		case 	110	:
-		case	126	:
-		case 	86	:
-		case 	87	:
-		case 	118	:
-		case 	71	:
-		case 	102	:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopLeft);
-			break;
-		case 	206	:
-		case 	222	:
-		case 	254	:
-		case 	207	:
-		case 	238	:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopCenter);
-			break;
-		case 	140	:
-		case 	156	:
-		case 	188	:
-		case 	158	:
-		case 	220	:
-		case 	190	:
-		case 	252	:
-		case 	141	:
-		case 	173	:
-		case 	143	:
-		case 	205	:
-		case 	237	:
-		case 	174	:
-		case 	236	:
-		case 	142	:
-		case 	204	:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopRight);
-			break;
-		case 	157	:
-		case 	189	:
-		case 	253	:
-		case 	159	:
-		case 	221	:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidRight);
-			break;
-		case 25:
-		case 57:
-		case 27:
-		case 89:
-		case 29:
-		case 153:
-		case 121:
-		case 61:
-		case 185:
-		case 125:
-		case 249:
-		case 91:
-		case 219:
-		case 31:
-		case 155:
-		case 93:
-		case 217:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomRight);
-			break;
-		case 239:
+		}
+	}
+	
+	//Inner Corners
+	
+	//Tall Grass Bottom Right Inner Corner
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //0111 1111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerBRVariant[variantType]);
+		else
+		{
 			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerBR);
-			break;
-		case 223:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerBL);
-			break;
-		case 191:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerTL);
-			break;
-		case 127:
-			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerTR);
-			break;
-		case 175:
-			MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR);
-			break;
-		case 95:
-			MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL);
-			break;
-		//default:
-			//MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
-			//break;
+		}
+	}
+	//Tall Grass Bottom Left Inner Corner
+	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //11011111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerBLVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerBL);
+		}
+	}
+	//Tall Grass Top Left Inner Corner
+	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //1111 0111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerTLVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerTL);
+		}
+	}
+	//Tall Grass Top Right Inner Corner
+	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) //1111 1101
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerTRVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerTR);
+		}
+	}
+	
+	//Tall Grass Top Left and Bottom Right Inner Corner
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //0111 0111
+	{
+		MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR);
+	}
+	//Tall Grass Top Right and Bottom Left Inner Corner
+	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) //1101 1101
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerTRBLVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL);
+		}
+	}	
+	
+	//Cardinal Directions
+	
+	//Tall Grass Bottom
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_LEFT | AUTOGRASS_RIGHT | AUTOGRASS_TOPLEFT | AUTOGRASS_TOPRIGHT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_LEFT | AUTOGRASS_RIGHT | AUTOGRASS_TOPLEFT | AUTOGRASS_TOPRIGHT)) //1111 0001
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassBottomCenterVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomCenter);
+		}
+	}
+	//Tall Grass Left
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_TOPRIGHT | AUTOGRASS_BOTTOMRIGHT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_TOPRIGHT | AUTOGRASS_BOTTOMRIGHT)) //01111 1000
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassMidLeftVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidLeft);
+		}
+	}
+	//Tall Grass Top
+	else if ((autotileValue & (AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_BOTTOMLEFT)) ==
+    (AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_BOTTOMLEFT)) //0001 1111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassTopCenterVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopCenter);
+		}
+	}
+	//Tall Grass Right
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_TOPLEFT | AUTOGRASS_BOTTOMLEFT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_TOPLEFT | AUTOGRASS_BOTTOMLEFT)) //1100 0111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassMidRightVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidRight);
+		}
+	}
+	
+	//Corners
+	
+	//Tall Grass Top Left Corner
+	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_LEFT)) //1100 0001
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassBottomRightVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomRight);
+		}
+	}
+	//Tall Grass Top Right Corner
+	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT)) ==
+    (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT)) //0111 0000
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassBottomLeftVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomLeft);
+		}
+	}
+	//Tall Grass Bottom Right Corner
+	else if ((autotileValue & (AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN)) ==
+    (AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN)) //0001 1100
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassTopLeftVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopLeft);
+		}
+	}
+	//Tall Grass Bottom Left Corner
+	else if ((autotileValue & (AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
+    (AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //0000 0111
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassTopRightVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopRight);
+		}
+	}
+	else
+	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassSingleVariant[variantType]);
+		else
+		{
+		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass);
+		}
 	}
 }
+
+
 
 bool8 FldEff_CutGrass(void)
 {
@@ -526,10 +794,10 @@ bool8 FldEff_CutGrass(void)
 
     SetCutGrassMetatiles(gPlayerFacingPosition.x - sTileCountFromPlayer_X, gPlayerFacingPosition.y - (1 + sTileCountFromPlayer_Y));
     DrawWholeMapView();
-	for (i = 0; i < (CUT_HYPER_AREA); i++)
+	for (i = 0; i < (CUT_MAX_AREA); i++)
     {
-            s8 xAdd = (i % 5) - 2;
-            s8 yAdd = (i / 5) - 2;
+            s8 xAdd = (i % 7) - 3;
+            s8 yAdd = (i / 7) - 3;
 
             x = xAdd + gPlayerFacingPosition.x;
             y = yAdd + gPlayerFacingPosition.y;
@@ -567,44 +835,21 @@ static void SetCutGrassMetatile(s16 x, s16 y)
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
         break;
 		//Tall Grass Grid
-		
     case METATILE_General_TallGrass_TopLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_TopCenter:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_TopRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_MidLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_MidCenter:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_MidRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_BottomLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_BottomCenter:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_BottomRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_InnerCornerTL:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_InnerCornerTR:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_InnerCornerBL:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
     case METATILE_General_TallGrass_InnerCornerBR:
+	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR:
+	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
         break;
     case METATILE_General_TallGrass_BL_TreeLeft:
@@ -620,14 +865,14 @@ static void SetCutGrassMetatile(s16 x, s16 y)
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
         break;
 		//Tall Grass Blue Tree
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BlueTreeBLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft:
+    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeLeft:
         MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_Blue_TreeLeft);
         break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeBRight:
-    case METATILE_Hoenn_Summer_TallGrass_BlueTreeBRight:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeBRight:
+    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight:
+    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight:
         MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_Blue_TreeRight);
         break;
 		//Other
