@@ -774,7 +774,7 @@ Text_CantLavaSurf:
 	
 Text_WantToUseLavaSurf:
     .string "The lava is hot and bubbling.\n"
-    .string "Would you like to Surf it?$"
+    .string "Would you like to {COLOR DYNAMIC_COLOR5}Surf{COLOR DARK_GRAY} it?$"
 
 Text_PlayerUsedLavaSurf:
     .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
@@ -813,7 +813,7 @@ Text_CantSludgeSurf:
 	
 Text_WantToUseSludgeSurf:
     .string "The water is foul and contaminated.\n"
-    .string "Would you like to Surf it?$"
+    .string "Would you like to {COLOR DYNAMIC_COLOR5}Surf {COLOR DARK_GRAY}it?$"
 
 Text_PlayerUsedSludgeSurf:
     .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
