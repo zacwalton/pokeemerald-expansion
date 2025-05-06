@@ -112,20 +112,23 @@ static const u32 sCancelButton_Tilemap[] = INCBIN_U32("graphics/party_menu/cance
 // Text colors for BG, FG, and Shadow in that order
 static const u8 sFontColorTable[][3] =
 {
-    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_LIGHT_GRAY, TEXT_COLOR_DARK_GRAY},  // Default				0
-    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE,      TEXT_COLOR_GREEN},      // Unused				1
-    {TEXT_COLOR_TRANSPARENT, TEXT_DYNAMIC_COLOR_2,  TEXT_DYNAMIC_COLOR_3},  // Gender symbol		2
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_DARK_GRAY,  TEXT_COLOR_LIGHT_GRAY}, // Selection actions	3
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_GRAY, TEXT_DYNAMIC_COLOR_2}, // Field moves			4 Strength
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_RED,  		TEXT_COLOR_LIGHT_GRAY}, // Field moves			5 Smash
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_RED, 	TEXT_COLOR_LIGHT_GRAY}, // Field moves			6 Flash
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_GREEN,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			7 Cut
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_GREEN,	TEXT_COLOR_LIGHT_GRAY}, // Field moves		8 Climb
-    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_5,  TEXT_COLOR_LIGHT_GRAY}, // Field moves			9 Hack
-    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_BLUE, TEXT_COLOR_LIGHT_GRAY}, // Field moves			10 Warp
-    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_4,  TEXT_COLOR_LIGHT_GRAY}, // Field moves			11 Misc
-    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_6,  TEXT_COLOR_LIGHT_GRAY}, // Field moves			12 Surf
-    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE,      TEXT_COLOR_DARK_GRAY},  // Unused				13
+    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_LIGHT_GRAY, 	TEXT_COLOR_DARK_GRAY},  // Default				0
+    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE,      	TEXT_COLOR_GREEN},      // Unused				1
+    {TEXT_COLOR_TRANSPARENT, TEXT_DYNAMIC_COLOR_2,  	TEXT_DYNAMIC_COLOR_3},  // Gender symbol		2
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_DARK_GRAY,  	TEXT_COLOR_LIGHT_GRAY}, // Selection actions	3
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_2, 		TEXT_COLOR_LIGHT_GRAY}, // Field moves			4 Strength	(Grey)
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_RED,  			TEXT_COLOR_LIGHT_GRAY}, // Field moves			5 Smash
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_RED, 		TEXT_COLOR_LIGHT_GRAY}, // Field moves			6 Flash
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_GREEN,  		TEXT_COLOR_LIGHT_GRAY}, // Field moves			7 Cut
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_GREEN,	TEXT_COLOR_LIGHT_GRAY}, // Field moves			8 Climb
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_1,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			9 Hack		(Yellow)
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_3, 		TEXT_COLOR_LIGHT_GRAY}, // Field moves			10 Warp		(Purple)
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_BLUE,  			TEXT_COLOR_LIGHT_GRAY}, // Field moves			11 Misc
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_5,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			12 Surf		(Blue)
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_6,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			13 Douse	(Cyan)
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_4,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			14 HP		(Pink)
+    {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_BLUE,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			15 Shake
+    {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE,      	TEXT_COLOR_DARK_GRAY},  // Unused				16
 };
 
 static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =

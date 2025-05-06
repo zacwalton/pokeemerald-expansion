@@ -2932,20 +2932,28 @@ static u8 DisplaySelectionWindow(u8 windowType)
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
 				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
 					fontColorsId = 4; //Light Gray
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_HP)
+					fontColorsId = 14; //Dynamic 4 (Pink)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SECRET)
+					fontColorsId = 11; //BLUE
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SMASH)
 					fontColorsId = 5; //Red
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_FLASH)
 					fontColorsId = 6; //Light Red
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_CUT)
 					fontColorsId = 7; //Green
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_CLIMB)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_WATERFALL))
 					fontColorsId = 8; //Light Green
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_HACK)
-					fontColorsId = 9; //Dynamic 5 (Turquoise)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_WARP)
-					fontColorsId = 10; //Light Blue
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SURF)
-					fontColorsId = 12; //Dynamic 6 (Teal)
+					fontColorsId = 9; //Dynamic 1 (Yellow)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_SOAR | IS_FIELD_MOVE_ESCAPE))
+					fontColorsId = 10; //Dynamic 3 (Purple)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_DIVE | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_LAVA | IS_FIELD_MOVE_SLUDGE))
+					fontColorsId = 12; //Dynamic 6 (Aquamarine)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_DOUSE)
+					fontColorsId = 13; //Dynamic 6 (Teal)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SHAKE)
+					fontColorsId = 15; //Ligh Blue
 				else
 					fontColorsId = 11; //Dynamic 4 (Aquamarine)
 		else 
