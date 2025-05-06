@@ -65,7 +65,7 @@ Text_MonUsedFieldMoveSmash:
 	.string "{STR_VAR_1} used{COLOR RED} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
 Text_MonUsedFieldMoveShake:
-	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR4} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+	.string "{STR_VAR_1} used{COLOR LIGHT_BLUE} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
 Text_CantCut:
 	.string "This tree looks like it can be\n"
@@ -398,24 +398,24 @@ EventScript_CancelStrength::
 
 Text_WantToStrength:
 	.string "It looks heavy, but a POKéMON\n"
-	.string "may be able to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it aside.\p"
-	.string "Would you like to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it?$"
+	.string "may be able to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}it aside.\p"
+	.string "Would you like to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}it?$"
 
 Text_MonUsedStrength:
-	.string "{STR_VAR_1} used {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}{STR_VAR_2}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}!\p"
+	.string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR2}{STR_VAR_2}{COLOR DARK_GRAY}!\p"
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}objects around!$"
+	.string "to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}objects around!$"
 
 Text_ActivateStrength:
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}objects around!$"
+	.string "to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}objects around!$"
 
 Text_CantStrength:
 	.string "It looks heavy, but a POKéMON\n"
-	.string "may be able to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}it aside.$"
+	.string "may be able to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}it aside.$"
 
 Text_StrengthActivated:
-	.string "{STR_VAR_1} made it possible to {COLOR LIGHT_GRAY}{SHADOW DYNAMIC_COLOR2}push{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}\n"
+	.string "{STR_VAR_1} made it possible to {COLOR DYNAMIC_COLOR2}push{COLOR DARK_GRAY}\n"
 	.string "objects around.$"
 
 EventScript_UseWaterfall::
@@ -442,15 +442,15 @@ EventScript_EndWaterfall::
 	end
 
 Text_CantWaterfall:
-	.string "A wall of water is crashing down with\n"
-	.string "a mighty roar.$"
+	.string "A wall of water is crashing down.\n"
+	.string "A Pokémon may be able to{COLOR LIGHT_GREEN} Scale{COLOR DARK_GRAY} it.$"
 
 Text_WantToWaterfall:
 	.string "It's a large waterfall.\n"
-	.string "Would you like to scale it?$"
+	.string "Would you like to {COLOR LIGHT_GREEN}Scale{COLOR DARK_GRAY} it?$"
 
 Text_MonUsedWaterfall:
-	.string "{STR_VAR_1} used {STR_VAR_2}.$"
+	.string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}.$"
 
 EventScript_UseDive::
 	lockall
@@ -565,11 +565,11 @@ Text_WantToUseWhirlpool::
 Text_PlayerUsedWhirlpool::
 	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!\p"
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY} the currents!$"
+	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY}the currents!$"
 
 Text_ActivateWhirlpool::
 	.string "{STR_VAR_1} made it possible\n"
-	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY} the currents!$"
+	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY}the currents!$"
 
 @ Interact with a tree a Pokémon can use headbutt on
 EventScript_Headbutt::
@@ -663,22 +663,22 @@ EventScript_UseCutGrass::
 
 Text_CantDive:
 	.string "The sea is deep here. A POKéMON\n"
-	.string "may be able to go underwater.$"
+	.string "may be able to {COLOR DYNAMIC_COLOR5}Dive {COLOR DARK_GRAY}underwater.$"
 
 Text_WantToDive:
 	.string "The sea is deep here.\n"
-	.string "Would you like to dive?$"
+	.string "Would you like to {COLOR DYNAMIC_COLOR5}Dive{COLOR DARK_GRAY}?$"
 
 Text_MonUsedDive:
-	.string "{STR_VAR_1} used {STR_VAR_2}.$"
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}.$"
 
 Text_CantSurface:
 	.string "Light is filtering down from above.\n"
-	.string "A POKéMON may be able to surface.$"
+	.string "A POKéMON may be able to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}.$"
 
 Text_WantToSurface:
 	.string "Light is filtering down from above.\n"
-	.string "Would you like to dive?$"
+	.string "Would you like to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}?$"
 
 EventScript_FailSweetScent::
 	msgbox Text_FailSweetScent, MSGBOX_SIGN
@@ -689,11 +689,11 @@ Text_FailSweetScent:
 
 Text_WantToHeadbutt:
 	.string "It's a large, formidable tree.\n"
-	.string "Would you like to{COLOR DYNAMIC_COLOR4} Shake{COLOR DARK_GRAY} it?$"
+	.string "Would you like to{COLOR LIGHT_BLUE} Shake{COLOR DARK_GRAY} it?$"
 
 Text_CantHeadbuttTree:
 	.string "There's a large, formidable tree.\n"
-	.string "It looks like it can be{COLOR DYNAMIC_COLOR4} Shook{COLOR DARK_GRAY}!$"
+	.string "It looks like it can be{COLOR LIGHT_BLUE} Shook{COLOR DARK_GRAY}!$"
 	
 EventScript_UseRockClimb::
 	lockall
@@ -777,7 +777,7 @@ Text_WantToUseLavaSurf:
     .string "Would you like to Surf it?$"
 
 Text_PlayerUsedLavaSurf:
-    .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
+    .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	
 
 	
@@ -816,7 +816,7 @@ Text_WantToUseSludgeSurf:
     .string "Would you like to Surf it?$"
 
 Text_PlayerUsedSludgeSurf:
-    .string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}!$"
+    .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	
 @ Interact with large fire
 EventScript_DouseFire::
@@ -876,13 +876,13 @@ EventScript_DouseFireItem::
 
 
 Text_WantToDouse:
-	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR5}Doused{COLOR DARK_GRAY}!\p"
-	.string "Would you like to{COLOR DYNAMIC_COLOR5} Extinguish {COLOR DARK_GRAY}it?$"
+	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR6}Doused{COLOR DARK_GRAY}!\p"
+	.string "Would you like to{COLOR DYNAMIC_COLOR6} Extinguish {COLOR DARK_GRAY}it?$"
 
 Text_MonUsedFieldMoveDouse:
-	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR6} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
 
 Text_CantDouse:
-	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR5}Doused{COLOR DARK_GRAY}!$"
+	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR6}Doused{COLOR DARK_GRAY}!$"
 	
