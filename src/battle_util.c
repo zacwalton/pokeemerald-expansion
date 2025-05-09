@@ -8011,6 +8011,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                 }
                 break;
             case HOLD_EFFECT_SUNFLOWER:
+                if (gBattleMons[battler].hp < gBattleMons[battler].maxHP && !moveTurn
                   && (B_HEAL_BLOCKING < GEN_5 || !(gStatuses3[battler] & STATUS3_HEAL_BLOCK))
 				  && (gBattleMons[battler].species == SPECIES_SUNFLORA))
                 {
