@@ -2343,7 +2343,7 @@ u8 DoBattlerEndTurnEffects(void)
             break;
         case ENDTURN_ITEMS3:  // berry effects
             if (gItemsInfo[gBattleMons[battler].item].pocket == POCKET_BERRIES
-             || GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_RESTORE_HP)  // Edge case for Berry Juice
+             || GetBattlerHoldEffect(battler, TRUE) == (HOLD_EFFECT_RESTORE_HP || HOLD_EFFECT_BERRY_JUICE))  // Edge case for Berry Juice
             {
                 if (ItemBattleEffects(ITEMEFFECT_NORMAL, battler, FALSE))
                     effect++;
@@ -7653,6 +7653,27 @@ static u8 ItemEffectMoveEnd(u32 battler, u16 holdEffect)
     case HOLD_EFFECT_MIRROR_HERB:
         effect = TryConsumeMirrorHerb(battler, ITEMEFFECT_NONE);
         break;
+    case HOLD_EFFECT_BERRY_JUICE:
+        if ((gBattleMons[battler].species == SPECIES_SPINDA))
+		{
+			BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
+			gEffectBattler = battler;
+			if (CanBeInfinitelyConfused(gEffectBattler))
+			{
+				gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
+			}
+			SET_STATCHANGER(STAT_ATK, 2, FALSE);
+
+			gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
+			gBattleScripting.animArg2 = 0;
+
+			BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
+			effect = ITEM_STATS_CHANGE;
+		}
+		
+        if (B_HP_BERRIES >= GEN_4)
+            effect = ItemHealHp(battler, gLastUsedItem, ITEMEFFECT_NONE, FALSE);
+        break;
     }
 
     return effect;
@@ -7936,6 +7957,26 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                 BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
                 effect = ITEM_STATS_CHANGE;
                 break;
+            case HOLD_EFFECT_BERRY_JUICE:
+				if ((gBattleMons[battler].species == SPECIES_SPINDA))
+				{
+					BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
+					gEffectBattler = battler;
+					if (CanBeInfinitelyConfused(gEffectBattler))
+					{
+						gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
+					}
+					SET_STATCHANGER(STAT_ATK, 2, FALSE);
+
+					gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
+					gBattleScripting.animArg2 = 0;
+
+					BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
+					effect = ITEM_STATS_CHANGE;
+				}
+                if (B_BERRIES_INSTANT >= GEN_4)
+                    effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
+                break;
             case HOLD_EFFECT_MIRROR_HERB:
                 effect = TryConsumeMirrorHerb(battler, caseID);
                 break;
@@ -8172,6 +8213,26 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                 BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
                 effect = ITEM_STATS_CHANGE;
                 break;
+            case HOLD_EFFECT_BERRY_JUICE:
+				if ((gBattleMons[battler].species == SPECIES_SPINDA))
+				{
+					BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
+					gEffectBattler = battler;
+					if (CanBeInfinitelyConfused(gEffectBattler))
+					{
+						gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
+					}
+					SET_STATCHANGER(STAT_ATK, 2, FALSE);
+
+					gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
+					gBattleScripting.animArg2 = 0;
+
+					BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
+					effect = ITEM_STATS_CHANGE;
+				}
+                if (!moveTurn)
+                    effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
+                break;
             case HOLD_EFFECT_MIRROR_HERB:
                 effect = TryConsumeMirrorHerb(battler, caseID);
                 break;
@@ -8244,6 +8305,29 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                     SetMoveEffect(FALSE, FALSE);
                     BattleScriptPop();
                 }
+            }
+            break;
+        case HOLD_EFFECT_NEON_SCALE:
+            {
+                u16 ability = GetBattlerAbility(gBattlerAttacker);
+				if (gBattleMons[gBattlerAttacker].species == SPECIES_FINNEON || SPECIES_LUMINEON)
+				{
+                if (B_SERENE_GRACE_BOOST >= GEN_5 && ability == ABILITY_SERENE_GRACE)
+                    atkHoldEffectParam *= 2;
+                if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_RAINBOW && gCurrentMove != MOVE_SECRET_POWER)
+                    atkHoldEffectParam *= 2;
+                if (IsBattlerTurnDamaged(gBattlerTarget)
+                    && !MoveIgnoresKingsRock(gCurrentMove)
+                    && gBattleMons[gBattlerTarget].hp
+                    && RandomPercentage(RNG_HOLD_EFFECT_FLINCH, 25)
+                    && ability != ABILITY_STENCH)
+                {
+                    gBattleScripting.moveEffect = MOVE_EFFECT_FLINCH;
+                    BattleScriptPushCursor();
+                    SetMoveEffect(FALSE, FALSE);
+                    BattleScriptPop();
+                }
+				}
             }
             break;
         case HOLD_EFFECT_BLUNDER_POLICY:

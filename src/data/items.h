@@ -1096,7 +1096,7 @@ const struct Item gItemsInfo[] =
         .name = _("Berry Juice"),
         .pluralName = _("Berry Juice"),
         .price = 100,
-        .holdEffect = HOLD_EFFECT_RESTORE_HP,
+        .holdEffect = HOLD_EFFECT_BERRY_JUICE,
         .holdEffectParam = 20,
         .description = COMPOUND_STRING(
             "A 100% pure juice\n"
@@ -14483,5 +14483,21 @@ const struct Item gItemsInfo[] =
         .flingPower = 90,
         .iconPic = gItemIcon_ThickClub,
         .iconPalette = gItemIconPalette_ThickClub,
+    },
+
+    [ITEM_NEON_SCALE] =
+    {
+        .name = _("Neon Scale"),
+        .price = (I_PRICE >= GEN_9) ? 3000 : ((I_PRICE >= GEN_7) ? 2000 : 500),
+        .holdEffect = HOLD_EFFECT_NEON_SCALE,
+        .description = COMPOUND_STRING(
+            "A mysterious scale\n"
+            "that evolves a\n"
+            "certain Pokémon."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .flingPower = 30,
+        .iconPic = gItemIcon_PrismScale,
+        .iconPalette = gItemIconPalette_PrismScale,
     },
 };

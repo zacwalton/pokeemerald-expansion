@@ -9864,12 +9864,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TROPIUS
     [SPECIES_TROPIUS] =
     {
-        .baseHP        = 130,
+        .baseHP        = 119,
         .baseAttack    = 78,
-        .baseDefense   = 88,
+        .baseDefense   = 93,
         .baseSpeed     = 51,
-        .baseSpAttack  = 87,
-        .baseSpDefense = 102,
+        .baseSpAttack  = 72,
+        .baseSpDefense = 97,
         .types = MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 161 : 169,

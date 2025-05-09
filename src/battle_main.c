@@ -4771,6 +4771,8 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species == SPECIES_DITTO && !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED))
         speed *= 2;
+    else if (holdEffect == HOLD_EFFECT_SWEET_FRUIT && gBattleMons[battler].species == SPECIES_TROPIUS && (gBattleWeather & B_WEATHER_SUN))
+        speed *= 2;
 
     // various effects
     if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)

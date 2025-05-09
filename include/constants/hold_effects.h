@@ -169,6 +169,7 @@ enum ItemHoldEffect
 	HOLD_EFFECT_BERRY_JUICE,		//Spinda evasion boost
 	HOLD_EFFECT_SILK_HUSK,			//Def + SpDef boost to caterpillar and spider pokemon
 	HOLD_EFFECT_PETRIFIED_LOG,		//Sudowoodo Atk boost
+	HOLD_EFFECT_NEON_SCALE,			//Finneon + Lumineon 20% chance to flinch
 };
 
 #define HOLD_EFFECT_CHOICE(holdEffect) ((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))

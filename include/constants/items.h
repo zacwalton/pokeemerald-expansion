@@ -1018,11 +1018,12 @@
 #define ITEM_SUNFLOWER		852
 #define ITEM_SILK_HUSK		853
 #define ITEM_PETRIFIED_LOG	854
+#define ITEM_NEON_SCALE		855
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 855
+#define ITEMS_COUNT 856
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
