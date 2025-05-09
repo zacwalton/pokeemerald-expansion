@@ -2260,7 +2260,8 @@ u8 DoBattlerEndTurnEffects(void)
                   && ability != ABILITY_WAXY_SKIN
                   && !IS_BATTLER_ANY_TYPE(gBattlerAttacker, TYPE_ROCK, TYPE_GROUND, TYPE_STEEL)
                   && !(gStatuses3[gBattlerAttacker] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
-                  && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
+                  && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+				  && ((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_WAX_HUSK)))
             {
                 gBattleScripting.battler = battler;
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
@@ -2288,7 +2289,8 @@ u8 DoBattlerEndTurnEffects(void)
                   && ability != ABILITY_ICE_BODY
                   && ability != ABILITY_THICK_FAT
                   && !(gStatuses3[battler] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
-                  && GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
+                  && GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+				  && ((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_WAX_HUSK)))
             {
                 gBattleScripting.battler = battler;
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
@@ -5954,7 +5956,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             u32 ability = GetBattlerAbility(gBattlerAttacker);
             if ((!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GRASS) || B_POWDER_GRASS < GEN_6)
              && ability != ABILITY_OVERCOAT
-             && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
+             && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+			 && ((gBattleMons[gBattlerAttacker].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_WAX_HUSK)))
             {
                 u32 poison, paralysis, sleep;
 
@@ -8007,6 +8010,26 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                     RecordItemEffectBattle(battler, battlerHoldEffect);
                 }
                 break;
+            case HOLD_EFFECT_SUNFLOWER:
+                  && (B_HEAL_BLOCKING < GEN_5 || !(gStatuses3[battler] & STATUS3_HEAL_BLOCK))
+				  && (gBattleMons[battler].species == SPECIES_SUNFLORA))
+                {
+					if ((gBattleWeather & B_WEATHER_SUN) && HasWeatherEffect())
+					{
+						gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 4;
+					}
+                    else 
+					{
+						gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 8;
+					}
+                    if (gBattleStruct->moveDamage[battler] == 0)
+                        gBattleStruct->moveDamage[battler] = 1;
+                    gBattleStruct->moveDamage[battler] *= -1;
+                    BattleScriptExecute(BattleScript_ItemHealHP_End2);
+                    effect = ITEM_HP_CHANGE;
+                    RecordItemEffectBattle(battler, battlerHoldEffect);
+                }
+                break;
             case HOLD_EFFECT_CONFUSE_SPICY:
                 if (!moveTurn)
                     effect = HealConfuseBerry(battler, gLastUsedItem, FLAVOR_SPICY, caseID);
@@ -9988,6 +10011,10 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
         if (IsBattleMoveSpecial(move) && GetActiveGimmick(battlerAtk) != GIMMICK_DYNAMAX)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
         break;
+    case HOLD_EFFECT_PETRIFIED_LOG:
+        if ((atkBaseSpeciesId == SPECIES_SUDOWOODO) && IsBattleMovePhysical(move))
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
+        break;
     }
 
     // The offensive stats of a Player's Pokémon are boosted by x1.1 (+10%) if they have the 1st badge and 7th badges.
@@ -10152,6 +10179,19 @@ static inline u32 CalcDefenseStat(struct DamageCalculationData *damageCalcData, 
          && (gBattleMons[battlerDef].species == SPECIES_LATIAS || gBattleMons[battlerDef].species == SPECIES_LATIOS)
          && !(gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
          && !usesDefStat)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
+        break;
+		//custom
+    case HOLD_EFFECT_MOON_STONE:
+        if (gBattleMons[battlerDef].species == SPECIES_LUNATONE && !usesDefStat)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
+        break;
+	case HOLD_EFFECT_SUN_STONE:
+        if (gBattleMons[battlerDef].species == SPECIES_SOLROCK && usesDefStat)
+            modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
+        break;
+    case HOLD_EFFECT_HARD_FRUIT:
+        if (gBattleMons[battlerDef].species == SPECIES_TROPIUS)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
         break;
     }
@@ -11701,7 +11741,12 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
     }
-    else if (holdEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS)
+    else if (holdEffect == (HOLD_EFFECT_HEAVY_DUTY_BOOTS))
+    {
+        ret = FALSE;
+        RecordItemEffectBattle(battler, holdEffect);
+    }
+    else if ((gBattleMons[battler].species == SPECIES_SHEDINJA) && (holdEffect == HOLD_EFFECT_WAX_HUSK))
     {
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
@@ -12425,6 +12470,12 @@ bool32 IsMovePowderBlocked(u32 battlerAtk, u32 battlerDef, u32 move)
         else if (GetBattlerHoldEffect(battlerDef, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
         {
             RecordItemEffectBattle(battlerDef, HOLD_EFFECT_SAFETY_GOGGLES);
+            gLastUsedItem = gBattleMons[battlerDef].item;
+            effect = TRUE;
+        }
+        else if ((gBattleMons[battlerDef].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battlerDef, TRUE) == HOLD_EFFECT_WAX_HUSK))
+        {
+            RecordItemEffectBattle(battlerDef, HOLD_EFFECT_WAX_HUSK);
             gLastUsedItem = gBattleMons[battlerDef].item;
             effect = TRUE;
         }

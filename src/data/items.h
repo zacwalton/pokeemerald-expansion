@@ -3904,6 +3904,7 @@ const struct Item gItemsInfo[] =
     {
         .name = _("Sun Stone"),
         .price = (I_PRICE >= GEN_7) ? 3000 : 2100,
+        .holdEffect = HOLD_EFFECT_SUN_STONE,
         .description = sEvolutionStoneDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -3918,6 +3919,7 @@ const struct Item gItemsInfo[] =
     {
         .name = _("Moon Stone"),
         .price = (I_PRICE >= GEN_7) ? 3000 : 2100,
+        .holdEffect = HOLD_EFFECT_MOON_STONE,
         .description = sEvolutionStoneDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -14192,6 +14194,7 @@ const struct Item gItemsInfo[] =
     [ITEM_WOOD] =
     {
         .name = _("Wood"),
+        .pluralName = _("Wood"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A chunk of wood."),
@@ -14206,13 +14209,14 @@ const struct Item gItemsInfo[] =
     [ITEM_STONE] =
     {
         .name = _("Stone"),
+        .pluralName = _("Stone"),
         .price = 20,
         .description = COMPOUND_STRING(
             "A chunk of stone."),
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .flingPower = 50,
+        .flingPower = 70,
         .iconPic = gItemIcon_HardStone,
         .iconPalette = gItemIconPalette_HardStone,
     },
@@ -14220,6 +14224,7 @@ const struct Item gItemsInfo[] =
     [ITEM_PLANT_FIBRE] =
     {
         .name = _("Plant Fibre"),
+        .pluralName = _("Plant Fibre"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A bundle of plant fibre."),
@@ -14234,6 +14239,7 @@ const struct Item gItemsInfo[] =
     [ITEM_WHEAT] =
     {
         .name = _("Wheat"),
+        .pluralName = _("Wheat"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A bundle of Wheat."),
@@ -14248,6 +14254,7 @@ const struct Item gItemsInfo[] =
     [ITEM_WOOL] =
     {
         .name = _("Wool"),
+        .pluralName = _("Wool"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A bundle of Wool."),
@@ -14262,6 +14269,7 @@ const struct Item gItemsInfo[] =
     [ITEM_YARN] =
     {
         .name = _("Yarn"),
+        .pluralName = _("Yarn"),
         .price = 100,
         .description = COMPOUND_STRING(
             "A spool of yarn."),
@@ -14282,7 +14290,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .flingPower = 70,
+        .flingPower = 80,
         .iconPic = gItemIcon_MetalAlloy,
         .iconPalette = gItemIconPalette_MetalAlloy,
     },
@@ -14318,6 +14326,7 @@ const struct Item gItemsInfo[] =
     [ITEM_LIMESTONE] =
     {
         .name = _("Limestone"),
+        .pluralName = _("Limestone"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A chunk of limestone."),
@@ -14332,6 +14341,7 @@ const struct Item gItemsInfo[] =
     [ITEM_MUD] =
     {
         .name = _("Mud"),
+        .pluralName = _("Mud"),
         .price = 2,
         .description = COMPOUND_STRING(
             "A ball of mud."),
@@ -14346,6 +14356,7 @@ const struct Item gItemsInfo[] =
     [ITEM_KINGS_LEAF] =
     {
         .name = _("King's Leaf"),
+        .pluralName = _("King's Leaf"),
         .price = 500,
         .description = COMPOUND_STRING(
             "A rare leaf."),
@@ -14369,5 +14380,108 @@ const struct Item gItemsInfo[] =
         .flingPower = 30,
         .iconPic = gItemIcon_BigBambooShoot,
         .iconPalette = gItemIconPalette_BigBambooShoot,
+    },
+
+    [ITEM_WAX_HUSK] =
+    {
+        .name = _("Wax Husk"),
+        .pluralName = _("Wax Husk"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : ((I_PRICE >= GEN_7) ? 4000 : 1000),
+        .holdEffect = HOLD_EFFECT_WAX_HUSK,
+        .description = COMPOUND_STRING(
+            "Protect from\n"
+            "passive damage and\n"
+            "powder moves."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 70,
+        .iconPic = gItemIcon_SafetyGoggles,
+        .iconPalette = gItemIconPalette_SafetyGoggles,
+    },
+
+    [ITEM_SWEET_FRUIT] =
+    {
+        .name = _("Sweet Fruit"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 500,
+        .holdEffect = HOLD_EFFECT_SWEET_FRUIT,
+        .description = COMPOUND_STRING(
+            "A hold item that \n"
+            "raises Cubone or\n"
+            "Marowak's Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+        .iconPic = gItemIcon_ThickClub,
+        .iconPalette = gItemIconPalette_ThickClub,
+    },
+
+    [ITEM_HARD_FRUIT] =
+    {
+        .name = _("Hard Fruit"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 500,
+        .holdEffect = HOLD_EFFECT_HARD_FRUIT,
+        .description = COMPOUND_STRING(
+            "A hold item that \n"
+            "raises Cubone or\n"
+            "Marowak's Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+        .iconPic = gItemIcon_ThickClub,
+        .iconPalette = gItemIconPalette_ThickClub,
+    },
+
+    [ITEM_SUNFLOWER] =
+    {
+        .name = _("Sunflower"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 500,
+        .holdEffect = HOLD_EFFECT_SUNFLOWER,
+        .description = COMPOUND_STRING(
+            "A hold item that \n"
+            "raises Cubone or\n"
+            "Marowak's Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+        .iconPic = gItemIcon_ThickClub,
+        .iconPalette = gItemIconPalette_ThickClub,
+    },
+
+    [ITEM_SILK_HUSK] =
+    {
+        .name = _("Silk Husk"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 500,
+        .holdEffect = HOLD_EFFECT_SILK_HUSK,
+        .description = COMPOUND_STRING(
+            "A hold item that \n"
+            "raises Cubone or\n"
+            "Marowak's Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+        .iconPic = gItemIcon_ThickClub,
+        .iconPalette = gItemIconPalette_ThickClub,
+    },
+
+    [ITEM_PETRIFIED_LOG] =
+    {
+        .name = _("Petrified Log"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 500,
+        .holdEffect = HOLD_EFFECT_PETRIFIED_LOG,
+        .description = COMPOUND_STRING(
+            "A hold item that \n"
+            "raises Cubone or\n"
+            "Marowak's Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+        .iconPic = gItemIcon_ThickClub,
+        .iconPalette = gItemIconPalette_ThickClub,
     },
 };

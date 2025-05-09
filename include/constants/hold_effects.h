@@ -159,6 +159,16 @@ enum ItemHoldEffect
     HOLD_EFFECT_OGERPON_MASK,
     // Gen2 hold effect
     HOLD_EFFECT_BERSERK_GENE,
+	//Custom hold effects
+	HOLD_EFFECT_MOON_STONE,			//Doubles Lunatone SpDef
+	HOLD_EFFECT_SUN_STONE,			//Doubles Solrock Def
+	HOLD_EFFECT_WAX_HUSK,			//Weather, Powder and Entry Hazard immunity for Shedinja
+	HOLD_EFFECT_SWEET_FRUIT,		//Doubles Tropius Speed in Sunshine
+	HOLD_EFFECT_HARD_FRUIT,			//Tropius 50% Def and SpDef boost
+	HOLD_EFFECT_SUNFLOWER,			//Sunflora Healing (boosted in sun)
+	HOLD_EFFECT_BERRY_JUICE,		//Spinda evasion boost
+	HOLD_EFFECT_SILK_HUSK,			//Def + SpDef boost to caterpillar and spider pokemon
+	HOLD_EFFECT_PETRIFIED_LOG,		//Sudowoodo Atk boost
 };
 
 #define HOLD_EFFECT_CHOICE(holdEffect) ((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))

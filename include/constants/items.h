@@ -1011,12 +1011,18 @@
 #define	ITEM_LIMESTONE	845				
 #define	ITEM_MUD	846				
 #define	ITEM_KINGS_LEAF	847				
-#define	ITEM_VIVICHOKE	848				
+#define	ITEM_VIVICHOKE	848		
+#define ITEM_WAX_HUSK 849	
+#define ITEM_SWEET_FRUIT		850
+#define ITEM_HARD_FRUIT		851
+#define ITEM_SUNFLOWER		852
+#define ITEM_SILK_HUSK		853
+#define ITEM_PETRIFIED_LOG	854
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 849
+#define ITEMS_COUNT 855
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
