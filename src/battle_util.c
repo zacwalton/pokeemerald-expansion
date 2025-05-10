@@ -7226,6 +7226,28 @@ static enum ItemEffect TryEjectPack(u32 battler, enum ItemCaseId caseID)
     return ITEM_NO_EFFECT;
 }
 
+static enum ItemEffect ConsumeBerserkGene(u32 battler, enum ItemCaseId caseID)
+{
+    if (CanBeInfinitelyConfused(battler))
+        gStatuses4[battler] |= STATUS4_INFINITE_CONFUSION;
+
+    BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
+    gBattlerAttacker = gEffectBattler = battler;
+    SET_STATCHANGER(STAT_ATK, 2, FALSE);
+    gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
+    gBattleScripting.animArg2 = 0;
+    if (caseID == ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN || caseID == ITEMEFFECT_NORMAL)
+    {
+        BattleScriptExecute(BattleScript_BerserkGeneRetEnd2);
+    }
+    else
+    {
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_BerserkGeneRet;
+    }
+    return ITEM_STATS_CHANGE;
+}
+
 static u32 ItemRestorePp(u32 battler, u32 itemId, enum ItemCaseId caseID)
 {
     struct Pokemon *party = GetBattlerParty(battler);
@@ -7636,41 +7658,14 @@ static u8 ItemEffectMoveEnd(u32 battler, u16 holdEffect)
         }
         break;
     case HOLD_EFFECT_BERSERK_GENE:
-        BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-        gEffectBattler = battler;
-        if (CanBeInfinitelyConfused(gEffectBattler))
-        {
-            gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-        }
-        SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-        gBattleScripting.animArg2 = 0;
-
-        BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-        effect = ITEM_STATS_CHANGE;
+        effect = ConsumeBerserkGene(battler, ITEMEFFECT_NONE);
         break;
     case HOLD_EFFECT_MIRROR_HERB:
         effect = TryConsumeMirrorHerb(battler, ITEMEFFECT_NONE);
         break;
     case HOLD_EFFECT_BERRY_JUICE:
         if ((gBattleMons[battler].species == SPECIES_SPINDA))
-		{
-			BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-			gEffectBattler = battler;
-			if (CanBeInfinitelyConfused(gEffectBattler))
-			{
-				gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-			}
-			SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-			gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-			gBattleScripting.animArg2 = 0;
-
-			BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-			effect = ITEM_STATS_CHANGE;
-		}
-		
+			effect = ConsumeBerserkGene(battler, ITEMEFFECT_NONE);
         if (B_HP_BERRIES >= GEN_4)
             effect = ItemHealHp(battler, gLastUsedItem, ITEMEFFECT_NONE, FALSE);
         break;
@@ -7943,39 +7938,13 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                 effect = TryEjectPack(battler, caseID);
                 break;
             case HOLD_EFFECT_BERSERK_GENE:
-                BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-                gEffectBattler = battler;
-                if (CanBeInfinitelyConfused(gEffectBattler))
-                {
-                    gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-                }
-                SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-                gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-                gBattleScripting.animArg2 = 0;
-
-                BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-                effect = ITEM_STATS_CHANGE;
+                effect = ConsumeBerserkGene(battler, caseID);
                 break;
             case HOLD_EFFECT_BERRY_JUICE:
 				if ((gBattleMons[battler].species == SPECIES_SPINDA))
-				{
-					BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-					gEffectBattler = battler;
-					if (CanBeInfinitelyConfused(gEffectBattler))
-					{
-						gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-					}
-					SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-					gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-					gBattleScripting.animArg2 = 0;
-
-					BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-					effect = ITEM_STATS_CHANGE;
-				}
+					effect = ConsumeBerserkGene(battler, caseID);
                 if (B_BERRIES_INSTANT >= GEN_4)
-                    effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
+                   effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
                 break;
             case HOLD_EFFECT_MIRROR_HERB:
                 effect = TryConsumeMirrorHerb(battler, caseID);
@@ -8199,37 +8168,11 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
                     effect = TrySetMicleBerry(battler, gLastUsedItem, caseID);
                 break;
             case HOLD_EFFECT_BERSERK_GENE:
-                BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-                gEffectBattler = battler;
-                if (CanBeInfinitelyConfused(gEffectBattler))
-                {
-                    gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-                }
-                SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-                gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-                gBattleScripting.animArg2 = 0;
-
-                BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-                effect = ITEM_STATS_CHANGE;
+                effect = ConsumeBerserkGene(battler, caseID);
                 break;
             case HOLD_EFFECT_BERRY_JUICE:
 				if ((gBattleMons[battler].species == SPECIES_SPINDA))
-				{
-					BufferStatChange(battler, STAT_ATK, STRINGID_STATROSE);
-					gEffectBattler = battler;
-					if (CanBeInfinitelyConfused(gEffectBattler))
-					{
-						gStatuses4[gEffectBattler] |= STATUS4_INFINITE_CONFUSION;
-					}
-					SET_STATCHANGER(STAT_ATK, 2, FALSE);
-
-					gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_ATK;
-					gBattleScripting.animArg2 = 0;
-
-					BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
-					effect = ITEM_STATS_CHANGE;
-				}
+					effect = ConsumeBerserkGene(battler, caseID);
                 if (!moveTurn)
                     effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
                 break;
