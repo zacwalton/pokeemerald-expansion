@@ -399,6 +399,8 @@ enum {
 	TREE_BLUE_SMALL,
 	SHRUB_GREEN,
 	SHRUB_BLUE,
+	ASH,
+	ASH_CLEAR,
 	NUM_TALL_GRASS_VARIANTS,
 };
 
@@ -451,6 +453,40 @@ static const struct TallGrassVariantType sTallGrassVariants[] =
 	{METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue, SHRUB_BLUE},
 	{METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue, SHRUB_BLUE},
 	{METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub, SHRUB_BLUE},
+	//Ash Grass
+	{METATILE_Fallarbor_Summer_TallGrass_Ash, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft, ASH},
+	{METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight, ASH},
+	//Ash Grass (Cleared)
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft, ASH_CLEAR},
+	{METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight, ASH_CLEAR},
 };
 
 // Get the tall grass variant type from the above
@@ -471,51 +507,65 @@ static u8 GetTallGrassVariantType (s16 x, s16 y)
 // 1x1 Single Grass Tile Variants
 static const s32 sTallGrassSingleVariant[] = 
 {
-    [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass,
-    [TREE_GREEN_LEFT]  = METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left,
-    [TREE_GREEN_RIGHT] = METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right,
-    [TREE_BLUE_LEFT]   = METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Left,
-    [TREE_BLUE_RIGHT]  = METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Right,
-    [TREE_GREEN_SMALL] = METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree,
-    [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree,
-    [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub,
-    [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub,
+    [TALL_GRASS_DEFAULT]	= METATILE_General_TallGrass,
+    [TREE_GREEN_LEFT]		= METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left,
+    [TREE_GREEN_RIGHT]		= METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right,
+    [TREE_BLUE_LEFT]		= METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Left,
+    [TREE_BLUE_RIGHT]		= METATILE_Hoenn_Summer_TallGrass_Single_BlueTree_Right,
+    [TREE_GREEN_SMALL]		= METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree,
+    [TREE_BLUE_SMALL]		= METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree,
+    [SHRUB_GREEN]			= METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub,
+    [SHRUB_BLUE]			= METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear,
 };
 
 //Top Left Corner Variants
 static const s32 sTallGrassTopLeftVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopLeft,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft,
 };
 
 //Top Edge Variants
 static const s32 sTallGrassTopCenterVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopCenter,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter,
 };
 
 //Top Right Corner Variants
 static const s32 sTallGrassTopRightVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_TopRight,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight,
 };
 
 //Left Edge Variants
 static const s32 sTallGrassMidLeftVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidLeft,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft,
 };
 
 //Center Tile Variants
 static const s32 sTallGrassMidCenterVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidCenter,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter,
 };
 
 // Right Edge Variants
 static const s32 sTallGrassMidRightVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_MidRight,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight,
 };
 
 //Bottom Right Corner Variants
@@ -530,6 +580,8 @@ static const s32 sTallGrassBottomRightVariant[] =
     [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue,
     [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue,
     [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight,
 };
 
 //Bottom Edge Variants
@@ -544,6 +596,8 @@ static const s32 sTallGrassBottomCenterVariant[] =
     [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue,
     [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue,
     [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter,
 };
 
 //Bottom Left Corner Variants
@@ -558,42 +612,56 @@ static const s32 sTallGrassBottomLeftVariant[] =
     [TREE_BLUE_SMALL]  = METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue,
     [SHRUB_GREEN]      = METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue,
     [SHRUB_BLUE]       = METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft,
 };
 
 //Bottom Right Inner Corner Variants
 static const s32 sTallGrassInnerCornerBRVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerBR,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR,
 };
 
 //Bottom Left Inner Corner Variants
 static const s32 sTallGrassInnerCornerBLVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerBL,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL,
 };
 
 //Top Left Inner Corner Variants
 static const s32 sTallGrassInnerCornerTLVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerTL,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL,
 };
 
 // Top Right Inner Corner Variants
 static const s32 sTallGrassInnerCornerTRVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_General_TallGrass_InnerCornerTR,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR,
 };
 
 //Top Left+Bottom Right Inner Corner Intersect Variants
 static const s32 sTallGrassInnerCornerTLBRVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR,
 };
 
 //Top Right+Bottom Left Inner Corner Intersect Variants
 static const s32 sTallGrassInnerCornerTRBLVariant[] = 
 {
     [TALL_GRASS_DEFAULT]  = METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL,
+	[ASH]					= METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL,
+	[ASH_CLEAR]				= METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL,
 };
 
 
@@ -965,6 +1033,40 @@ static void SetCutGrassMetatile(s16 x, s16 y)
     case METATILE_Fallarbor_NormalGrass:
     case METATILE_Fallarbor_AshGrass:
         MapGridSetMetatileIdAt(x, y, METATILE_Fallarbor_AshField);
+        break;
+    case METATILE_Fallarbor_Summer_TallGrass_Ash:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft:
+    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight:
+        MapGridSetMetatileIdAt(x, y, METATILE_Fallarbor_Summer_AshField);
         break;
     case METATILE_General_TallGrass_TreeUp:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeUp);

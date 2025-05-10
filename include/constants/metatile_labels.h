@@ -187,6 +187,41 @@
 #define METATILE_Fallarbor_RedCaveEntrance_Top       0x947
 #define METATILE_Fallarbor_RedRockWall               0x869
 
+// gTileset_Fallarbor_Summer
+#define METATILE_Fallarbor_Summer_AshField                            0x9F6
+#define METATILE_Fallarbor_Summer_TallGrass_Ash                       0x9DD
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear                  0x9E5
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter     0x8B9
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft       0x8B8
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight      0x8BA
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL    0x899
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR    0x898
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL    0x8A1
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR  0xA0F
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR    0x8A0
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL  0xA0E
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter        0x8B1
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft          0x8B0
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight         0x8B2
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter        0x8A9
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft          0x8A8
+#define METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight         0x8AA
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter          0x9D6
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft            0x9D5
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight           0x9D7
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL         0x9DF
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR         0x9DE
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL         0x9E7
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR       0xA07
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR         0x9E6
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL       0xA06
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter             0x9CE
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft               0x9CD
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight              0x9CF
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter             0x9C6
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft               0x9C5
+#define METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight              0x9C7
+
 // gTileset_Fortree
 #define METATILE_Fortree_BridgeOverGrass_Lowered           0x84F
 #define METATILE_Fortree_BridgeOverGrass_Raised            0x84E

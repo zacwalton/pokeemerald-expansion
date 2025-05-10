@@ -799,10 +799,45 @@ static void AshGrassPerStepCallback(u8 taskId)
     if (MetatileBehavior_IsAshGrass(MapGridGetMetatileBehaviorAt(x, y)))
     {
         // Remove ash from grass
-        if (MapGridGetMetatileIdAt(x, y) == METATILE_Fallarbor_AshGrass)
-            StartAshFieldEffect(x, y, METATILE_Fallarbor_NormalGrass, 4);
-        else
+		switch (MapGridGetMetatileIdAt(x, y))
+		{
+		case METATILE_Fallarbor_AshGrass:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_NormalGrass, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft, 0);
+		case METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight:
+            StartAshFieldEffect(x, y, METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight, 0);
+        default:
             StartAshFieldEffect(x, y, METATILE_Lavaridge_NormalGrass, 4);
+		}
 
         // Try to gather ash
         if (CheckBagHasItem(ITEM_SOOT_SACK, 1))
