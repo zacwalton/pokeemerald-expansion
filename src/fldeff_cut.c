@@ -694,6 +694,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 			MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerBR);
 		}
 	}
+	
 	//Tall Grass Bottom Left Inner Corner
 	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //11011111
@@ -705,6 +706,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerBL);
 		}
 	}
+	
 	//Tall Grass Top Left Inner Corner
 	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //1111 0111
@@ -716,6 +718,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_InnerCornerTL);
 		}
 	}
+	
 	//Tall Grass Top Right Inner Corner
 	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) //1111 1101
@@ -732,8 +735,14 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //0111 0111
 	{
+		if (variantType > 0)
+			MapGridSetMetatileIdAt(x, y, sTallGrassInnerCornerTLBRVariant[variantType]);
+		else
+		{
 		MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR);
+		}
 	}
+	
 	//Tall Grass Top Right and Bottom Left Inner Corner
 	else if ((autotileValue & (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_TOPLEFT | AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT)) //1101 1101
@@ -759,6 +768,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomCenter);
 		}
 	}
+	
 	//Tall Grass Left
 	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_TOPRIGHT | AUTOGRASS_BOTTOMRIGHT)) ==
     (AUTOGRASS_UP | AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_TOPRIGHT | AUTOGRASS_BOTTOMRIGHT)) //01111 1000
@@ -770,6 +780,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_MidLeft);
 		}
 	}
+	
 	//Tall Grass Top
 	else if ((autotileValue & (AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_BOTTOMLEFT)) ==
     (AUTOGRASS_RIGHT | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_BOTTOMLEFT)) //0001 1111
@@ -781,6 +792,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopCenter);
 		}
 	}
+	
 	//Tall Grass Right
 	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_TOPLEFT | AUTOGRASS_BOTTOMLEFT)) ==
     (AUTOGRASS_UP | AUTOGRASS_DOWN | AUTOGRASS_LEFT | AUTOGRASS_TOPLEFT | AUTOGRASS_BOTTOMLEFT)) //1100 0111
@@ -806,6 +818,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomRight);
 		}
 	}
+	
 	//Tall Grass Top Right Corner
 	else if ((autotileValue & (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT)) ==
     (AUTOGRASS_UP | AUTOGRASS_TOPRIGHT | AUTOGRASS_RIGHT)) //0111 0000
@@ -817,6 +830,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_BottomLeft);
 		}
 	}
+	
 	//Tall Grass Bottom Right Corner
 	else if ((autotileValue & (AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN)) ==
     (AUTOGRASS_RIGHT | AUTOGRASS_BOTTOMRIGHT | AUTOGRASS_DOWN)) //0001 1100
@@ -828,6 +842,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopLeft);
 		}
 	}
+	
 	//Tall Grass Bottom Left Corner
 	else if ((autotileValue & (AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) ==
     (AUTOGRASS_DOWN | AUTOGRASS_BOTTOMLEFT | AUTOGRASS_LEFT)) //0000 0111
@@ -839,6 +854,8 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 		MapGridSetMetatileIdAt(x, y, METATILE_General_TallGrass_TopRight);
 		}
 	}
+	
+	//Defaults to 1x1 grass tile
 	else
 	{
 		if (variantType > 0)
