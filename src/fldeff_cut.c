@@ -890,6 +890,7 @@ bool8 FldEff_CutGrass(void)
             x = xAdd + gPlayerFacingPosition.x;
             y = yAdd + gPlayerFacingPosition.y;
 
+			// ZETA- Do Items and Harvestable yields
 			if (IsTileTallGrass(x, y) == TRUE)
 			{
 				yieldCount += Random() % 2;
@@ -910,7 +911,7 @@ bool8 FldEff_CutGrass(void)
 				else
 				itemChance += 2;
 			}
-			
+			//ZETA- Do Ash grass yield
 			if (MetatileBehavior_IsAshGrass(MapGridGetMetatileBehaviorAt(x, y)))
 			{
 				// Try to gather ash
@@ -926,7 +927,7 @@ bool8 FldEff_CutGrass(void)
             AllowObjectAtPosTriggerGroundEffects(x, y);
         }
     }
-
+	//ZETA- Give items based on yields
 	if (yieldCount > 0)
 	{
 		VarSet(VAR_0x8008, yieldCount);
@@ -1085,7 +1086,7 @@ static const struct CutGrassTileMapping sCutGrassTileMap[] = {
 };
 
 
-// set map grid metatile depending on tile variant
+// set map grid metatile depending on sCutGrassTileMap
 static void SetCutGrassMetatile(s16 x, s16 y)
 {
     s32 metatileId = MapGridGetMetatileIdAt(x, y);
