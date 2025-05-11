@@ -659,6 +659,7 @@ static const u16 sGeodudeEggMoveLearnset[] = {
     MOVE_ENDURE,
     MOVE_AUTOTOMIZE,
     MOVE_WIDE_GUARD,
+	MOVE_RAPID_SPIN,
     MOVE_UNAVAILABLE,
 };
 #if P_ALOLAN_FORMS
@@ -2983,6 +2984,8 @@ static const u16 sSpindaEggMoveLearnset[] = {
     MOVE_PSYCHO_SHIFT,
     MOVE_GUARD_SPLIT,
     MOVE_SPOTLIGHT,
+	MOVE_SUPERPOWER,
+	MOVE_SLEEP_TALK,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_SPINDA

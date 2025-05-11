@@ -8399,7 +8399,8 @@
       "MOVE_GYRO_BALL",
       "MOVE_DOUBLE_EDGE",
       "MOVE_ELECTROWEB",
-      "MOVE_METAL_SOUND"
+      "MOVE_METAL_SOUND",
+      "MOVE_WATERFALL"
     ],
     "EggMoves": [
       "MOVE_METAL_SOUND",
@@ -20378,7 +20379,17 @@
       "MOVE_DUAL_WINGBEAT",
       "MOVE_ENDEAVOR",
       "MOVE_TRIPLE_AXEL",
-      "MOVE_FEATHER_DANCE"
+      "MOVE_FEATHER_DANCE",
+      "MOVE_LIGHT_SCREEN",
+      "MOVE_REFLECT",
+      "MOVE_STEEL_WING",
+      "MOVE_FROST_BREATH",
+      "MOVE_ACROBATICS",
+      "MOVE_BULK_UP",
+      "MOVE_DEFOG",
+      "MOVE_U_TURN",
+      "MOVE_BODY_PRESS",
+      "MOVE_ALLY_SWITCH"
     ],
     "EggMoves": [
       "MOVE_AURORA_BEAM",
@@ -21372,7 +21383,8 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_FUTURE_SIGHT",
       "MOVE_THROAT_CHOP",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+      "MOVE_DAZZLING_GLEAM"
     ],
     "EggMoves": [
       "MOVE_BITE",
@@ -23454,7 +23466,8 @@
       "MOVE_THROAT_CHOP",
       "MOVE_BREAKING_SWIPE",
       "MOVE_DRAGON_CHEER",
-      "MOVE_UPPER_HAND"
+      "MOVE_UPPER_HAND",
+      "MOVE_DRACO_METEOR"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -74401,7 +74414,8 @@
       "MOVE_EXPANDING_FORCE",
       "MOVE_THROAT_CHOP",
       "MOVE_CURSE",
-      "MOVE_PSYCHIC_NOISE"
+      "MOVE_PSYCHIC_NOISE",
+      "MOVE_DAZZLING_GLEAM"
     ],
     "EggMoves": [
       "MOVE_BITE",
