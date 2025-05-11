@@ -3314,14 +3314,18 @@
   "PARAS": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+      "MOVE_SEA_STRIDE"
+	],
     "EggMoves": [],
     "TutorMoves": []
   },
   "PARASECT": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+      "MOVE_SEA_STRIDE"
+	],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -8286,14 +8290,18 @@
   "KRABBY": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	"MOVE_SEA_STRIDE"
+	],
     "EggMoves": [],
     "TutorMoves": []
   },
   "KINGLER": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	"MOVE_SEA_STRIDE"
+	],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -9927,14 +9935,18 @@
   "STARYU": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "STARMIE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -10041,7 +10053,8 @@
       "MOVE_VACUUM_WAVE",
       "MOVE_LUNGE",
       "MOVE_DUAL_WINGBEAT",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COUNTER",
@@ -11397,28 +11410,36 @@
   "OMANYTE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "OMASTAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "KABUTO": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "KABUTOPS": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -12796,7 +12817,8 @@
       "MOVE_DRAGON_CHEER",
       "MOVE_ALLURING_VOICE",
       "MOVE_PSYCHIC_NOISE",
-      "MOVE_UPPER_HAND"
+      "MOVE_UPPER_HAND",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -14362,14 +14384,18 @@
   "LEDYBA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "LEDIAN": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -14617,7 +14643,8 @@
       "MOVE_ELECTROWEB",
       "MOVE_SLUDGE_WAVE",
       "MOVE_SKITTER_SMACK",
-      "MOVE_THROAT_CHOP"
+      "MOVE_THROAT_CHOP",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_DISABLE",
@@ -16440,7 +16467,8 @@
       "MOVE_LUNGE",
       "MOVE_RAIN_DANCE",
       "MOVE_DOUBLE_EDGE",
-      "MOVE_ENDEAVOR"
+      "MOVE_ENDEAVOR",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COTTON_GUARD",
@@ -16570,7 +16598,8 @@
       "MOVE_TERA_BLAST",
       "MOVE_LUNGE",
       "MOVE_DOUBLE_EDGE",
-      "MOVE_ENDEAVOR"
+      "MOVE_ENDEAVOR",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COTTON_GUARD",
@@ -17023,7 +17052,8 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_SKITTER_SMACK",
-      "MOVE_PSYCHIC_NOISE"
+      "MOVE_PSYCHIC_NOISE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_DOUBLE_EDGE",
@@ -18709,7 +18739,8 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_SKITTER_SMACK",
       "MOVE_THROAT_CHOP",
-      "MOVE_BREAKING_SWIPE"
+      "MOVE_BREAKING_SWIPE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COUNTER",
@@ -19281,7 +19312,8 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_SKITTER_SMACK",
       "MOVE_CURSE",
-      "MOVE_HARD_PRESS"
+      "MOVE_HARD_PRESS",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COUNTER",
@@ -20299,7 +20331,8 @@
   "CORSOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -26141,7 +26174,8 @@
       "MOVE_BUG_BITE",
       "MOVE_LUNGE",
       "MOVE_PSYCH_UP",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_AQUA_JET",
@@ -26264,7 +26298,8 @@
       "MOVE_WEATHER_BALL",
       "MOVE_DUAL_WINGBEAT",
       "MOVE_PSYCH_UP",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_AQUA_JET",
@@ -26924,7 +26959,9 @@
   "NINJASK": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -28319,7 +28356,8 @@
       "MOVE_FOCUS_PUNCH",
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COUNTER",
@@ -28448,7 +28486,8 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ATTRACT",
@@ -29513,7 +29552,8 @@
       "MOVE_TERA_BLAST",
       "MOVE_SAND_TOMB",
       "MOVE_BUG_BITE",
-      "MOVE_SCORCHING_SANDS"
+      "MOVE_SCORCHING_SANDS",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_GUST",
@@ -29661,7 +29701,8 @@
       "MOVE_UPROAR",
       "MOVE_DUAL_WINGBEAT",
       "MOVE_SCORCHING_SANDS",
-      "MOVE_THROAT_CHOP"
+      "MOVE_THROAT_CHOP",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -29828,7 +29869,8 @@
       "MOVE_BREAKING_SWIPE",
       "MOVE_DRAGON_CHEER",
       "MOVE_ALLURING_VOICE",
-      "MOVE_PSYCHIC_NOISE"
+      "MOVE_PSYCHIC_NOISE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -30688,14 +30730,16 @@
   "LUNATONE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"],
     "EggMoves": [],
     "TutorMoves": []
   },
   "SOLROCK": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -31025,7 +31069,8 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
-      "MOVE_MUDDY_WATER"
+      "MOVE_MUDDY_WATER",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ANCIENT_POWER",
@@ -31158,7 +31203,8 @@
       "MOVE_WHIRLPOOL",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
-      "MOVE_HARD_PRESS"
+      "MOVE_HARD_PRESS",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ANCIENT_POWER",
@@ -31201,14 +31247,18 @@
   "ANORITH": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "ARMALDO": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -32012,7 +32062,8 @@
       "MOVE_DUAL_WINGBEAT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_PETAL_BLIZZARD",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_CURSE",
@@ -36021,7 +36072,8 @@
       "MOVE_UPROAR",
       "MOVE_ENDEAVOR",
       "MOVE_SKITTER_SMACK",
-      "MOVE_THROAT_CHOP"
+      "MOVE_THROAT_CHOP",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -37504,7 +37556,8 @@
       "MOVE_WHIRLPOOL",
       "MOVE_MUDDY_WATER",
       "MOVE_SKITTER_SMACK",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ACID_ARMOR",
@@ -37616,7 +37669,8 @@
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_SKITTER_SMACK",
-      "MOVE_CURSE"
+      "MOVE_CURSE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ACID_ARMOR",
@@ -40182,14 +40236,18 @@
   "SKORUPI": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "DRAPION": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -41716,7 +41774,8 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_SKITTER_SMACK",
-      "MOVE_PSYCHIC_NOISE"
+      "MOVE_PSYCHIC_NOISE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_DOUBLE_EDGE",
@@ -42168,7 +42227,8 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_SKITTER_SMACK",
       "MOVE_THROAT_CHOP",
-      "MOVE_BREAKING_SWIPE"
+      "MOVE_BREAKING_SWIPE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_COUNTER",
@@ -45027,7 +45087,8 @@
       "MOVE_SUPERCELL_SLAM",
       "MOVE_SCORCHING_SANDS",
       "MOVE_FUTURE_SIGHT",
-      "MOVE_METEOR_BEAM"
+      "MOVE_METEOR_BEAM",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -47350,21 +47411,27 @@
   "VENIPEDE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "WHIRLIPEDE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "SCOLIPEDE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -48367,7 +48434,9 @@
   "CRUSTLE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -48696,14 +48765,18 @@
   "TRUBBISH": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "GARBODOR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -50889,7 +50962,8 @@
       "MOVE_LUNGE",
       "MOVE_ELECTROWEB",
       "MOVE_SKITTER_SMACK",
-      "MOVE_THROAT_CHOP"
+      "MOVE_THROAT_CHOP",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -55598,7 +55672,9 @@
   "GENESECT": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -58572,7 +58648,9 @@
   "BARBARACLE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -58891,7 +58969,8 @@
       "MOVE_WEATHER_BALL",
       "MOVE_FLIP_TURN",
       "MOVE_MUDDY_WATER",
-      "MOVE_SLUDGE_WAVE"
+      "MOVE_SLUDGE_WAVE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_AQUA_TAIL",
@@ -59011,7 +59090,8 @@
       "MOVE_WEATHER_BALL",
       "MOVE_FLIP_TURN",
       "MOVE_MUDDY_WATER",
-      "MOVE_SLUDGE_WAVE"
+      "MOVE_SLUDGE_WAVE",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_AQUA_TAIL",
@@ -63177,7 +63257,8 @@
       "MOVE_FOCUS_PUNCH",
       "MOVE_ENDEAVOR",
       "MOVE_COACHING",
-      "MOVE_UPPER_HAND"
+      "MOVE_UPPER_HAND",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ENDEAVOR",
@@ -63297,7 +63378,8 @@
       "MOVE_ENDEAVOR",
       "MOVE_COACHING",
       "MOVE_HARD_PRESS",
-      "MOVE_UPPER_HAND"
+      "MOVE_UPPER_HAND",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [
       "MOVE_ENDEAVOR",
@@ -64475,7 +64557,8 @@
       "MOVE_BUG_BITE",
       "MOVE_LUNGE",
       "MOVE_ENDEAVOR",
-      "MOVE_SKITTER_SMACK"
+      "MOVE_SKITTER_SMACK",
+	  "MOVE_SEA_STRIDE"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -65641,14 +65724,18 @@
   "WIMPOD": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "GOLISOPOD": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -67083,14 +67170,18 @@
   "BUZZWOLE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
   "PHEROMOSA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
@@ -68910,7 +69001,9 @@
   "ORBEETLE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
-    "TMMoves": [],
+    "TMMoves": [
+	  "MOVE_SEA_STRIDE"
+	  ],
     "EggMoves": [],
     "TutorMoves": []
   },
