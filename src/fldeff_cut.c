@@ -968,140 +968,136 @@ bool8 FldEff_CutGrass(void)
     return FALSE;
 }
 
-// set map grid metatile depending on x, y
+struct CutGrassTileMapping {	
+    u16 tallGrassTile;
+    u16 cutTile;
+};
+
+// Map Tall Grass tiles to Cut tiles
+static const struct CutGrassTileMapping sCutGrassTileMap[] = {
+    { METATILE_Fortree_LongGrass_Root, 								METATILE_General_Grass },
+    { METATILE_General_LongGrass, 									METATILE_General_Grass },
+    { METATILE_General_TallGrass, 									METATILE_General_Grass },
+
+    // Tall Grass Grid
+    { METATILE_General_TallGrass_TopLeft, 							METATILE_General_Grass },
+    { METATILE_General_TallGrass_TopCenter, 						METATILE_General_Grass },
+    { METATILE_General_TallGrass_TopRight, 							METATILE_General_Grass },
+    { METATILE_General_TallGrass_MidLeft, 							METATILE_General_Grass },
+    { METATILE_General_TallGrass_MidCenter, 						METATILE_General_Grass },
+    { METATILE_General_TallGrass_MidRight, 							METATILE_General_Grass },
+    { METATILE_General_TallGrass_BottomLeft, 						METATILE_General_Grass },
+    { METATILE_General_TallGrass_BottomCenter, 						METATILE_General_Grass },
+    { METATILE_General_TallGrass_BottomRight, 						METATILE_General_Grass },
+    { METATILE_General_TallGrass_InnerCornerTL, 					METATILE_General_Grass },
+    { METATILE_General_TallGrass_InnerCornerTR, 					METATILE_General_Grass },
+    { METATILE_General_TallGrass_InnerCornerBL, 					METATILE_General_Grass },
+    { METATILE_General_TallGrass_InnerCornerBR, 					METATILE_General_Grass },
+    { METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR, 				METATILE_General_Grass },
+    { METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL, 				METATILE_General_Grass },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeRight, 			METATILE_General_Grass_TreeRight },
+    { METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeRight, 			METATILE_General_Grass_TreeRight },
+    { METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeRight, 			METATILE_General_Grass_TreeRight },
+    { METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right, 		METATILE_General_Grass_TreeRight },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeLeft, 			METATILE_General_Grass_TreeLeft },
+    { METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft, 			METATILE_General_Grass_TreeLeft },
+    { METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeLeft, 			METATILE_General_Grass_TreeLeft },
+    { METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left, 		METATILE_General_Grass_TreeLeft },
+
+    // Tall Grass Blue Tree
+    { METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeLeft, 				METATILE_Hoenn_Summer_Blue_TreeLeft },
+    { METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft, 				METATILE_Hoenn_Summer_Blue_TreeLeft },
+    { METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeLeft, 				METATILE_Hoenn_Summer_Blue_TreeLeft },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeRight, 			METATILE_Hoenn_Summer_Blue_TreeRight },
+    { METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight, 			METATILE_Hoenn_Summer_Blue_TreeRight },
+    { METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight, 			METATILE_Hoenn_Summer_Blue_TreeRight },
+
+    // Small Trees / Shrubs
+    { METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeGreen, 			METATILE_Hoenn_Summer_SmallGreenTree },
+    { METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeGreen, 			METATILE_Hoenn_Summer_SmallGreenTree },
+    { METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeGreen, 			METATILE_Hoenn_Summer_SmallGreenTree },
+    { METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree, 		METATILE_Hoenn_Summer_SmallGreenTree },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue, 			METATILE_Hoenn_Summer_SmallBlueTree },
+    { METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue, 			METATILE_Hoenn_Summer_SmallBlueTree },
+    { METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue, 			METATILE_Hoenn_Summer_SmallBlueTree },
+    { METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree, 		METATILE_Hoenn_Summer_SmallBlueTree },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue, 				METATILE_Hoenn_Summer_BlueShrub },
+    { METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue, 				METATILE_Hoenn_Summer_BlueShrub },
+    { METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue, 				METATILE_Hoenn_Summer_BlueShrub },
+    { METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub, 		METATILE_Hoenn_Summer_BlueShrub },
+
+    { METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen, 				METATILE_Hoenn_Summer_GreenShrub },
+    { METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen, 				METATILE_Hoenn_Summer_GreenShrub },
+    { METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen, 				METATILE_Hoenn_Summer_GreenShrub },
+    { METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub, 		METATILE_Hoenn_Summer_GreenShrub },
+
+    // Other
+    { METATILE_Fortree_SecretBase_LongGrass_BottomLeft, 			METATILE_Fortree_SecretBase_LongGrass_TopLeft },
+    { METATILE_Fortree_SecretBase_LongGrass_BottomMid, 				METATILE_Fortree_SecretBase_LongGrass_TopMid },
+    { METATILE_Fortree_SecretBase_LongGrass_BottomRight, 			METATILE_Fortree_SecretBase_LongGrass_TopRight },
+
+    { METATILE_Lavaridge_NormalGrass, 								METATILE_Lavaridge_LavaField },
+    { METATILE_Lavaridge_AshGrass, 									METATILE_Lavaridge_LavaField },
+
+    { METATILE_Fallarbor_NormalGrass, 								METATILE_Fallarbor_AshField },
+    { METATILE_Fallarbor_AshGrass, 									METATILE_Fallarbor_AshField },
+
+    { METATILE_Fallarbor_Summer_TallGrass_Ash, 						METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear, 				METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR, METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR, 	METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL, METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight, 		METATILE_Fallarbor_Summer_AshField },
+
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft, 			METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight, 			METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL, 		METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter, 			METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft, 				METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight, 			METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter, 			METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft, 				METATILE_Fallarbor_Summer_AshField },
+    { METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight, 			METATILE_Fallarbor_Summer_AshField },
+
+    { METATILE_General_TallGrass_TreeUp, 							METATILE_General_Grass_TreeUp },
+};
+
+
+// set map grid metatile depending on tile variant
 static void SetCutGrassMetatile(s16 x, s16 y)
 {
     s32 metatileId = MapGridGetMetatileIdAt(x, y);
 
-    switch (metatileId)
-    {
-    case METATILE_Fortree_LongGrass_Root:
-    case METATILE_General_LongGrass:
-    case METATILE_General_TallGrass:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
-		//Tall Grass Grid
-    case METATILE_General_TallGrass_TopLeft:
-    case METATILE_General_TallGrass_TopCenter:
-    case METATILE_General_TallGrass_TopRight:
-    case METATILE_General_TallGrass_MidLeft:
-    case METATILE_General_TallGrass_MidCenter:
-    case METATILE_General_TallGrass_MidRight:
-    case METATILE_General_TallGrass_BottomLeft:
-    case METATILE_General_TallGrass_BottomCenter:
-    case METATILE_General_TallGrass_BottomRight:
-    case METATILE_General_TallGrass_InnerCornerTL:
-    case METATILE_General_TallGrass_InnerCornerTR:
-    case METATILE_General_TallGrass_InnerCornerBL:
-    case METATILE_General_TallGrass_InnerCornerBR:
-	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTLBR:
-	case METATILE_Hoenn_Summer_TallGrass_InnerCornerTRBL:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeRight:
-    case METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeRight:
-    case METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeRight:
-    case METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Right:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeRight);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_GreenTreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BC_GreenTreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BR_GreenTreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_Single_GreenTree_Left:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);
-        break;
-		//Tall Grass Blue Tree
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeLeft:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_Blue_TreeLeft);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_BlueTreeRight:
-    case METATILE_Hoenn_Summer_TallGrass_BC_BlueTreeRight:
-    case METATILE_Hoenn_Summer_TallGrass_BR_BlueTreeRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_Blue_TreeRight);
-        break;
-		//Small Trees/Shrubs
-    case METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeGreen:
-    case METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeGreen:
-    case METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeGreen:
-    case METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_SmallGreenTree);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_SmallTreeBlue:
-    case METATILE_Hoenn_Summer_TallGrass_BC_SmallTreeBlue:
-    case METATILE_Hoenn_Summer_TallGrass_BR_SmallTreeBlue:
-    case METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_SmallBlueTree);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_ShrubBlue:
-    case METATILE_Hoenn_Summer_TallGrass_BC_ShrubBlue:
-    case METATILE_Hoenn_Summer_TallGrass_BR_ShrubBlue:
-    case METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueShrub:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_BlueShrub);
-        break;
-    case METATILE_Hoenn_Summer_TallGrass_BL_ShrubGreen:
-    case METATILE_Hoenn_Summer_TallGrass_BC_ShrubGreen:
-    case METATILE_Hoenn_Summer_TallGrass_BR_ShrubGreen:
-    case METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub:
-        MapGridSetMetatileIdAt(x, y, METATILE_Hoenn_Summer_GreenShrub);
-        break;
-		//Other
-    case METATILE_Fortree_SecretBase_LongGrass_BottomLeft:
-        MapGridSetMetatileIdAt(x, y, METATILE_Fortree_SecretBase_LongGrass_TopLeft);
-        break;
-    case METATILE_Fortree_SecretBase_LongGrass_BottomMid:
-        MapGridSetMetatileIdAt(x, y, METATILE_Fortree_SecretBase_LongGrass_TopMid);
-        break;
-    case METATILE_Fortree_SecretBase_LongGrass_BottomRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_Fortree_SecretBase_LongGrass_TopRight);
-        break;
-    case METATILE_Lavaridge_NormalGrass:
-    case METATILE_Lavaridge_AshGrass:
-        MapGridSetMetatileIdAt(x, y, METATILE_Lavaridge_LavaField);
-        break;
-    case METATILE_Fallarbor_NormalGrass:
-    case METATILE_Fallarbor_AshGrass:
-        MapGridSetMetatileIdAt(x, y, METATILE_Fallarbor_AshField);
-        break;
-    case METATILE_Fallarbor_Summer_TallGrass_Ash:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_BottomRight:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBL:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerBR:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTL:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTLBR:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTR:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_InnerCornerTRBL:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_MidRight:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_AshClear_TopRight:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_BottomRight:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBL:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerBR:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTL:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTLBR:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTR:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_InnerCornerTRBL:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_MidRight:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopCenter:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopLeft:
-    case METATILE_Fallarbor_Summer_TallGrass_Ash_TopRight:
-        MapGridSetMetatileIdAt(x, y, METATILE_Fallarbor_Summer_AshField);
-        break;
-    case METATILE_General_TallGrass_TreeUp:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeUp);
-        break;
-    }
+    for (int i = 0; i < ARRAY_COUNT(sCutGrassTileMap); i++)
+	{
+		if (metatileId == sCutGrassTileMap[i].tallGrassTile)
+		{
+			MapGridSetMetatileIdAt(x, y, sCutGrassTileMap[i].cutTile);
+			break;
+		}
+	}
 }
 
 enum

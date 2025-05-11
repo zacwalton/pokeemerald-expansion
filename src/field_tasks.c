@@ -789,7 +789,7 @@ struct AshTileMapping {
     u16 clearTile;
 };
 
-// You can put this at the top of the file, or in a static const block
+// Map Ash tiles to Cleared Ash Tiles
 static const struct AshTileMapping sAshGrassTileMap[] = {
     { METATILE_Fallarbor_AshGrass,                             METATILE_Fallarbor_NormalGrass },
     { METATILE_Fallarbor_Summer_TallGrass_Ash,                 METATILE_Fallarbor_Summer_TallGrass_AshClear },
