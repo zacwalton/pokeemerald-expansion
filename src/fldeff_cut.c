@@ -873,8 +873,9 @@ bool8 FldEff_CutGrass(void)
 {
     s16 x, y;
     u8 i = 0;
-	u8 itemCount = 0;
+	u8 yieldCount = 0;
 	u8 itemChance = 0;
+    u16 *ashGatherCount;
 	u16 userAbility = VarGet(VAR_0x8007);
 
     PlaySE(SE_M_CUT);
@@ -891,7 +892,7 @@ bool8 FldEff_CutGrass(void)
 
 			if (IsTileTallGrass(x, y) == TRUE)
 			{
-				itemCount += Random() % 2;
+				yieldCount += Random() % 2;
 				if ((userAbility == ABILITY_KEEN_EYE)
 					|| (userAbility == ABILITY_ILLUMINATE)
 					|| (userAbility == ABILITY_PICKUP)
@@ -909,14 +910,26 @@ bool8 FldEff_CutGrass(void)
 				else
 				itemChance += 2;
 			}
+			
+			if (MetatileBehavior_IsAshGrass(MapGridGetMetatileBehaviorAt(x, y)))
+			{
+				// Try to gather ash
+				if (CheckBagHasItem(ITEM_SOOT_SACK, 1))
+				{
+					ashGatherCount = GetVarPointer(VAR_ASH_GATHER_COUNT);
+					if (*ashGatherCount < 9999)
+						(*ashGatherCount)++;
+				}
+			}
+			
             SetCutGrassMetatile(x, y);
             AllowObjectAtPosTriggerGroundEffects(x, y);
         }
     }
 
-	if (itemCount > 0)
+	if (yieldCount > 0)
 	{
-		VarSet(VAR_0x8008, itemCount);
+		VarSet(VAR_0x8008, yieldCount);
 		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript);
 	}
 	if ((Random() % 100) < itemChance)

@@ -39,6 +39,7 @@ Route113_EventScript_RouteSignFallarbor::
 	end
 
 Route113_EventScript_GlassWorkshopSign::
+	buffernumberstring STR_VAR_1, VAR_ASH_GATHER_COUNT
 	msgbox Route113_Text_GlassWorkshopSign, MSGBOX_SIGN
 	end
 
@@ -162,5 +163,6 @@ Route113_Text_TrainerTipsRegisterKeyItems:
 
 Route113_Text_GlassWorkshopSign:
 	.string "GLASS WORKSHOP\n"
+	.string "You have {STR_VAR_1} Ash.\p"
 	.string "“Turning Volcanic Ash into Glass Items”$"
 
