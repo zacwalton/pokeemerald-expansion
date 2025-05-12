@@ -1093,10 +1093,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
     [SPECIES_LEDIAN] =
     {
         .baseHP        = 55,
-        .baseAttack    = 35,
+        .baseAttack    = 45,
         .baseDefense   = 50,
-        .baseSpeed     = 85,
-        .baseSpAttack  = 65,
+        .baseSpeed     = 95,
+        .baseSpAttack  = 55,
         .baseSpDefense = 110,
         .types = MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 90,

@@ -5048,12 +5048,12 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
 #if P_FAMILY_SNOM
     [SPECIES_SNOM] =
     {
-        .baseHP        = 30,
+        .baseHP        = 40,
         .baseAttack    = 25,
-        .baseDefense   = 35,
+        .baseDefense   = 45,
         .baseSpeed     = 20,
         .baseSpAttack  = 45,
-        .baseSpDefense = 30,
+        .baseSpDefense = 50,
         .types = MON_TYPES(TYPE_ICE, TYPE_BUG),
         .catchRate = 190,
         .expYield = 37,
@@ -5115,8 +5115,8 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
     {
         .baseHP        = 70,
         .baseAttack    = 65,
-        .baseDefense   = 60,
-        .baseSpeed     = 65,
+        .baseDefense   = 80,
+        .baseSpeed     = 75,
         .baseSpAttack  = 125,
         .baseSpDefense = 90,
         .types = MON_TYPES(TYPE_ICE, TYPE_BUG),
