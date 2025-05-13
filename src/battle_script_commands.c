@@ -15600,6 +15600,13 @@ static void Cmd_pickup(void)
                 heldItem = ITEM_BERRY_JUICE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
             }
+            else if (species == SPECIES_LUVDISC
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+            {
+                heldItem = ITEM_HEART_SCALE;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
         }
     }
 
