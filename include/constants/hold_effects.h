@@ -171,6 +171,7 @@ enum ItemHoldEffect
 	HOLD_EFFECT_PETRIFIED_LOG,		//Sudowoodo Atk boost
 	HOLD_EFFECT_NEON_SCALE,			//Finneon + Lumineon 20% chance to flinch
 	HOLD_EFFECT_HEART_SCALE,		//Luvdisc Fairy dmg buff?
+	HOLD_EFFECT_NANAB_BERRY,		//Tropius 1/3 Health Recovery
 };
 
 #define HOLD_EFFECT_CHOICE(holdEffect) ((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))

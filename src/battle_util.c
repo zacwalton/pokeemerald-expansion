@@ -7669,6 +7669,20 @@ static u8 ItemEffectMoveEnd(u32 battler, u16 holdEffect)
         if (B_HP_BERRIES >= GEN_4)
             effect = ItemHealHp(battler, gLastUsedItem, ITEMEFFECT_NONE, FALSE);
         break;
+    case HOLD_EFFECT_NANAB_BERRY:
+        if ((gBattleMons[battler].species == SPECIES_TROPIUS))
+		{			
+			BufferStatChange(battler, STAT_SPEED, STRINGID_STATFELL);
+			gEffectBattler = gBattleScripting.battler = battler;
+			SET_STATCHANGER(STAT_SPEED, 1, TRUE);
+			gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
+			gBattleScripting.animArg2 = 0;
+			gLastUsedItem = gBattleMons[battler].item;
+			
+            BattleScriptExecute(BattleScript_BerryStatRaiseEnd2);
+            effect = ItemHealHp(battler, gLastUsedItem, ITEMEFFECT_STATS_CHANGED, FALSE);
+		}
+        break;
     }
 
     return effect;
@@ -9727,7 +9741,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
             modifier = uq4_12_multiply(modifier, holdEffectModifier);
         break;
     case HOLD_EFFECT_HEART_SCALE:
-        if (GET_BASE_SPECIES_ID(gBattleMons[battlerAtk].species) == SPECIES_LUVDISC && moveType TYPE_FAIRY)
+        if (GET_BASE_SPECIES_ID(gBattleMons[battlerAtk].species) == SPECIES_LUVDISC && moveType == TYPE_FAIRY)
             modifier = uq4_12_multiply(modifier, UQ_4_12(2.0));
         break;
     case HOLD_EFFECT_BUG_POWER:
@@ -11889,6 +11903,7 @@ bool32 TryRoomService(u32 battler)
         return FALSE;
     }
 }
+
 
 bool32 BlocksPrankster(u16 move, u32 battlerPrankster, u32 battlerDef, bool32 checkTarget)
 {

@@ -15581,6 +15581,7 @@ static void Cmd_pickup(void)
                     }
                 }
             }
+			//Honey Gather
             else if (ability == ABILITY_HONEY_GATHER
                 && species != 0
                 && species != SPECIES_EGG
@@ -15592,6 +15593,7 @@ static void Cmd_pickup(void)
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
                 }
             }
+			//Shuckle Berry Juice
             else if (P_SHUCKLE_BERRY_JUICE == GEN_2
                 && species == SPECIES_SHUCKLE
                 && heldItem == ITEM_ORAN_BERRY
@@ -15600,6 +15602,7 @@ static void Cmd_pickup(void)
                 heldItem = ITEM_BERRY_JUICE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
             }
+			//Luvdisc Heart Scale
             else if (species == SPECIES_LUVDISC
                 && heldItem == ITEM_NONE
                 && (Random() % 16) == 0)
@@ -15607,6 +15610,83 @@ static void Cmd_pickup(void)
                 heldItem = ITEM_HEART_SCALE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
             }
+			//Miltank Moomoo Milk
+            else if (species == SPECIES_MILTANK
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+            {
+                heldItem = ITEM_MOOMOO_MILK;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+			//Chansey Lucky Egg
+            else if (species == SPECIES_CHANSEY
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+            {
+                heldItem = ITEM_LUCKY_EGG;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+			//Nevermeltice
+            else if (species == SPECIES_CRYOGONAL
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+            {
+                heldItem = ITEM_NEVER_MELT_ICE;
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+			//Pearls
+            else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+				{
+						heldItem = ITEM_PEARL;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+				}
+			//Big Pearls
+            else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
+                && heldItem == ITEM_PEARL
+                && (Random() % 16) == 0)
+				{
+						heldItem = ITEM_BIG_PEARL;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+				}
+			//Paras mushrooms
+            else if (species == (SPECIES_PARAS || SPECIES_PARASECT)
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+				{
+						heldItem = ITEM_TINY_MUSHROOM;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+				}
+			//Parasect mushrooms
+            else if (species == SPECIES_PARASECT
+                && heldItem == ITEM_TINY_MUSHROOM
+                && (Random() % 16) == 0)
+				{
+						heldItem = ITEM_BIG_MUSHROOM;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+				}
+				//Tropius fruit
+            else if (species == SPECIES_TROPIUS
+                && heldItem == ITEM_NONE
+                && (Random() % 16) == 0)
+				{
+					if ((Random() % 8) == 0)
+					{
+						heldItem = ITEM_SWEET_FRUIT;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+					}
+					else if ((Random() % 4) == 0)
+					{
+						heldItem = ITEM_HARD_FRUIT;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+					}
+					else 
+					{
+						heldItem = ITEM_NANAB_BERRY;
+						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+					}
+				}
         }
     }
 

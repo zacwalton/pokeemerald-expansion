@@ -9480,6 +9480,8 @@ const struct Item gItemsInfo[] =
         .name = _("Nanab Berry"),
         .pluralName = _("Nanab Berries"),
         .price = (I_BERRY_PRICE >= GEN_8) ? 80 : 20,
+        .holdEffect = HOLD_EFFECT_NANAB_BERRY,
+            .holdEffectParam = 33,
         .description = COMPOUND_STRING(
             "{POKEBLOCK} ingredient.\n"
             "Plant in loamy soil\n"
