@@ -604,6 +604,7 @@ LittlerootTown_EventScript_TownSign::
 	end
 
 LittlerootTown_EventScript_TestTownSign::
+	setflag FLAG_EXP_SHARE_ACTIVE
 	msgbox LittlerootTown_Text_TestTownSign, MSGBOX_SIGN
 	end
 	

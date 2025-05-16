@@ -5004,7 +5004,7 @@ static void Cmd_jumpbasedontype(void)
     }
 }
 
-FEATURE_FLAG_ASSERT(I_EXP_SHARE_FLAG, YouNeedToSetTheExpShareFlagToAnUnusedFlag);
+FEATURE_FLAG_ASSERT(FLAG_EXP_SHARE_ACTIVE, YouNeedToSetTheExpShareFlagToAnUnusedFlag);
 
 static bool32 BattleTypeAllowsExp(void)
 {
@@ -17174,9 +17174,29 @@ u8 GetFirstFaintedPartyIndex(u8 battler)
     return PARTY_SIZE;
 }
 
+static s32 GetPartyAverageLevel(void)
+{
+	s32 i;
+	u8 partyCount = CalculatePlayerPartyCount();
+	u8 level = 0;
+	s32 avgLevel;
+	
+	for (i = 0; i < partyCount; i++)
+	{
+		level += GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+		//friendship = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+	}
+	
+	avgLevel = (level / partyCount);
+	return avgLevel;
+}
+
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler)
 {
     u32 holdEffect = GetMonHoldEffect(&gPlayerParty[expGetterMonId]);
+	s32 avgLevel = GetPartyAverageLevel();
+	s32 level = GetMonData(&gPlayerParty[expGetterMonId], MON_DATA_LEVEL, NULL);
+	u64 value;
 
     if (IsTradedMon(&gPlayerParty[expGetterMonId]))
         *expAmount = (*expAmount * 150) / 100;
@@ -17188,12 +17208,12 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
         *expAmount = (*expAmount * 4915) / 4096;
     if (CheckBagHasItem(ITEM_EXP_CHARM, 1)) //is also for other exp boosting Powers if/when implemented
         *expAmount = (*expAmount * 150) / 100;
-
+/*
     if (B_SCALED_EXP >= GEN_5 && B_SCALED_EXP != GEN_6)
     {
         // Note: There is an edge case where if a pokemon receives a large amount of exp, it wouldn't be properly calculated
         //       because of multiplying by scaling factor(the value would simply be larger than an u32 can hold). Hence u64 is needed.
-        u64 value = *expAmount;
+        value = *expAmount;
         u8 faintedLevel = gBattleMons[faintedBattler].level;
         u8 expGetterLevel = GetMonData(&gPlayerParty[expGetterMonId], MON_DATA_LEVEL);
 
@@ -17202,6 +17222,11 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
 
         *expAmount = value + 1;
     }
+	*/
+	s32 levelDifference = avgLevel - level;
+	value = ((levelDifference + 100) * 1024) / 100;			//Multiplied to prevent truncation
+	value = (value * value * value) / (1024 * 1024);
+	*expAmount = ((*expAmount * value) / 1024) + 1;
 }
 
 void BS_ItemRestoreHP(void)
