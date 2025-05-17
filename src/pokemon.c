@@ -7400,3 +7400,33 @@ bool32 IsSpeciesForeignRegionalForm(u32 species, u32 currentRegion)
     return FALSE;
 }
 
+u8 GetDisobedienceRateFromMon(struct Pokemon *mon)
+{
+   u8 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
+   u8 level      = GetMonData(mon, MON_DATA_LEVEL, NULL);
+   
+   s16 disobedienceRate = ((level * 2) - (friendship)) / 2;
+   
+   if (disobedienceRate < 0)
+		disobedienceRate = 0;
+   if (disobedienceRate > 99)
+		disobedienceRate = 99;
+	
+   return disobedienceRate;
+}
+
+u8 GetDisobedienceRate(u32 battler)
+{
+   u8 friendship = gBattleMons[battler].friendship;
+   u8 level = gBattleMons[battler].level;
+   
+	s16 disobedienceRate = ((level * 2) - (friendship)) / 2;
+   
+	if (disobedienceRate < 0)
+		disobedienceRate = 0;
+	if (disobedienceRate > 99)
+		disobedienceRate = 99;
+	
+	return disobedienceRate;
+}
+

@@ -41,6 +41,7 @@
 #include "battle_pike.h"
 #include "battle_pyramid.h"
 #include "field_specials.h"
+#include "pokemon.h"
 #include "pokemon_summary_screen.h"
 #include "pokenav.h"
 #include "menu_specialized.h"
@@ -17174,27 +17175,35 @@ u8 GetFirstFaintedPartyIndex(u8 battler)
     return PARTY_SIZE;
 }
 
-static s32 GetPartyAverageLevel(void)
+static s32 GetPartyWeightedAverageLevel(void)
 {
 	s32 i;
 	u8 partyCount = CalculatePlayerPartyCount();
-	u8 level = 0;
+	u8 validPartyCount = 0;
+	u32 weightedLevelTotal = 0;
+	u8 disobedience;
 	s32 avgLevel;
 	
 	for (i = 0; i < partyCount; i++)
 	{
-		level += GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
-		//friendship = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+		u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+	
+		if ((species != SPECIES_NONE && species != SPECIES_EGG))
+		{
+		disobedience = 100 - GetDisobedienceRateFromMon(&gPlayerParty[i]);
+		weightedLevelTotal += disobedience * GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+		validPartyCount++;
+		}
 	}
 	
-	avgLevel = (level / partyCount);
-	return avgLevel;
+	avgLevel = (weightedLevelTotal / validPartyCount);
+	return (avgLevel / 100);
 }
 
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler)
 {
     u32 holdEffect = GetMonHoldEffect(&gPlayerParty[expGetterMonId]);
-	s32 avgLevel = GetPartyAverageLevel();
+	s32 avgLevel = GetPartyWeightedAverageLevel();
 	s32 level = GetMonData(&gPlayerParty[expGetterMonId], MON_DATA_LEVEL, NULL);
 	u64 value;
 

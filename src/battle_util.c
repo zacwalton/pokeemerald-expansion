@@ -8748,6 +8748,15 @@ u8 GetAttackerObedienceForAction()
     if (FlagGet(FLAG_BADGE08_GET)) // Rain Badge, ignore obedience altogether
         return OBEYS;
 
+	u8 disobedience = GetDisobedienceRate(gBattlerAttacker);
+	rnd = Random() % 100;
+	
+	if (rnd >= disobedience)
+		return OBEYS;
+	
+	obedienceLevel = disobedience;
+	levelReferenced = Random() % 100;
+/*
     obedienceLevel = 10;
 
     if (FlagGet(FLAG_BADGE01_GET)) // Stone Badge
@@ -8778,7 +8787,7 @@ u8 GetAttackerObedienceForAction()
     calc = (levelReferenced + obedienceLevel) * (rnd & 255) >> 8;
     if (calc < obedienceLevel)
         return OBEYS;
-
+*/
     //  Clear the Z-Move flags if the battler is disobedient as to not waste the Z-Move
     if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_Z_MOVE)
     {
