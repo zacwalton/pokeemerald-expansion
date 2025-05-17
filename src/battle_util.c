@@ -8729,8 +8729,8 @@ u8 GetAttackerObedienceForAction()
 {
     s32 rnd;
     s32 calc;
-    u8 obedienceLevel = 0;
-    u8 levelReferenced;
+    u32 obedienceLevel = 0;
+    u32 levelReferenced;
 
     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
         return OBEYS;
@@ -8748,7 +8748,7 @@ u8 GetAttackerObedienceForAction()
     if (FlagGet(FLAG_BADGE08_GET)) // Rain Badge, ignore obedience altogether
         return OBEYS;
 
-	u8 disobedience = GetDisobedienceRate(gBattlerAttacker);
+	u32 disobedience = GetDisobedienceRateFromBattler(gBattlerAttacker);
 	rnd = Random() % 100;
 	
 	if (rnd >= disobedience)

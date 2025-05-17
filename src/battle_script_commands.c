@@ -17178,10 +17178,10 @@ u8 GetFirstFaintedPartyIndex(u8 battler)
 static s32 GetPartyWeightedAverageLevel(void)
 {
 	s32 i;
-	u8 partyCount = CalculatePlayerPartyCount();
-	u8 validPartyCount = 0;
+	u32 partyCount = CalculatePlayerPartyCount();
+	u32 validPartyCount = 0;
 	u32 weightedLevelTotal = 0;
-	u8 disobedience;
+	u32 disobedience;
 	s32 avgLevel;
 	
 	for (i = 0; i < partyCount; i++)
