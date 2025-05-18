@@ -11168,6 +11168,10 @@ bool32 CanMegaEvolve(u32 battler)
     // Check if battler is holding a Z-Crystal.
     if (holdEffect == HOLD_EFFECT_Z_CRYSTAL)
         return FALSE;
+	
+	//ZETA - Check if friendship is above threshold
+	if (gBattleMons[battler].friendship < 250)
+		return FALSE;
 
     // Check if there is an entry in the form change table for regular Mega Evolution and battler is holding Mega Stone.
     if (GetBattleFormChangeTargetSpecies(battler, FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM) != gBattleMons[battler].species && holdEffect == HOLD_EFFECT_MEGA_STONE)
