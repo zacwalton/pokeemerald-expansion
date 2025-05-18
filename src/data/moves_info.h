@@ -21257,7 +21257,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestCategory = CONTEST_CATEGORY_CUTE,
         .contestComboStarterId = COMBO_STARTER_WATER_SPORT,
         .contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_RAIN_DANCE},
-        .battleAnimScript = gBattleAnimMove_IceBlitz,
+        .battleAnimScript = gBattleAnimMove_Apotropaism,
     },
 
 	// Flying Press Variant (Surf)
@@ -21275,6 +21275,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
         .zMove = { .powerOverride = 170 },
         .argument = { .type = TYPE_WATER },
         .minimizeDoubleDamage = TRUE,
