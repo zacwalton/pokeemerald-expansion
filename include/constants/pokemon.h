@@ -176,15 +176,19 @@
 #define MON_GENDERLESS 0xFF
 
 // Constants for AdjustFriendship
-#define FRIENDSHIP_EVENT_GROW_LEVEL       0
-#define FRIENDSHIP_EVENT_VITAMIN          1 // unused, handled by PokemonUseItemEffects
-#define FRIENDSHIP_EVENT_BATTLE_ITEM      2 // unused, handled by PokemonUseItemEffects
-#define FRIENDSHIP_EVENT_LEAGUE_BATTLE    3
-#define FRIENDSHIP_EVENT_LEARN_TMHM       4
-#define FRIENDSHIP_EVENT_WALKING          5
-#define FRIENDSHIP_EVENT_FAINT_SMALL      6
-#define FRIENDSHIP_EVENT_FAINT_FIELD_PSN  7
-#define FRIENDSHIP_EVENT_FAINT_LARGE      8 // If opponent was >= 30 levels higher. See AdjustFriendshipOnBattleFaint
+#define FRIENDSHIP_EVENT_GROW_LEVEL       	0
+#define FRIENDSHIP_EVENT_VITAMIN          	1 // unused, handled by PokemonUseItemEffects
+#define FRIENDSHIP_EVENT_BATTLE_ITEM      	2 // unused, handled by PokemonUseItemEffects
+#define FRIENDSHIP_EVENT_LEAGUE_BATTLE    	3
+#define FRIENDSHIP_EVENT_LEARN_TMHM       	4
+#define FRIENDSHIP_EVENT_WALKING          	5
+#define FRIENDSHIP_EVENT_FAINT_SMALL      	6
+#define FRIENDSHIP_EVENT_FAINT_FIELD_STATUS 7
+#define FRIENDSHIP_EVENT_FAINT_LARGE	    8 // If opponent was >= 30 levels higher. See AdjustFriendshipOnBattleFaint
+#define FRIENDSHIP_EVENT_FIELD_MOVE         9 // ZETA- Using field move
+#define FRIENDSHIP_EVENT_WALKING_HATE      	10 //ZETA- walking when uncomfortable
+#define FRIENDSHIP_EVENT_MEGA_EVOLVE    	11 //ZETA- Mega evolving
+#define FRIENDSHIP_EVENT_WIN_BATTLE     	12 //ZETA- winning a battle
 
 // Constants for GetLeadMonFriendshipScore
 #define FRIENDSHIP_NONE        0

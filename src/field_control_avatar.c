@@ -23,7 +23,9 @@
 #include "match_call.h"
 #include "metatile_behavior.h"
 #include "overworld.h"
+#include "party_menu.h"
 #include "pokemon.h"
+#include "random.h"
 #include "safari_zone.h"
 #include "script.h"
 #include "secret_base.h"
@@ -33,11 +35,13 @@
 #include "trainer_hill.h"
 #include "vs_seeker.h"
 #include "wild_encounter.h"
+#include "constants/abilities.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
 #include "constants/map_types.h"
 #include "constants/metatile_behaviors.h"
+#include "constants/party_menu.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
 
@@ -767,14 +771,25 @@ static void UpdateFriendshipStepCounter(void)
     int i;
 
     (*ptr)++;
-    (*ptr) %= 128;
+    (*ptr) %= 255;
     if (*ptr == 0)
     {
         struct Pokemon *mon = gPlayerParty;
         for (i = 0; i < PARTY_SIZE; i++)
         {
-            AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
-            mon++;
+			if (((Random() % 2) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
+			{
+				if ((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
+				{
+				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
+				mon++;
+				}
+				else 
+				{
+				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
+				mon++;
+				}
+			}
         }
     }
 }
