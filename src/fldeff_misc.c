@@ -1531,3 +1531,42 @@ static void FieldCallback_Sludge(void)
     FieldEffectStart(FLDEFF_USE_SLUDGE);
 }
 
+#define tState  data[0]
+#define tMosaic data[1]
+
+static void Task_FieldBurnEffect(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    switch (tState)
+    {
+    case 0:
+        tMosaic += 2;
+        if (tMosaic > 8)
+            tState++;
+        break;
+    case 1:
+        tMosaic -= 2;
+        if (tMosaic == 0)
+            tState++;
+        break;
+    case 2:
+        DestroyTask(taskId);
+        return;
+    }
+    SetGpuReg(REG_OFFSET_MOSAIC, (tMosaic << 4) | tMosaic);
+}
+
+#undef tState
+#undef tMosaic
+
+void FldEffBurn_Start(void)
+{
+    PlaySE(SE_M_EMBER);
+    CreateTask(Task_FieldBurnEffect, 81);
+}
+
+bool32 FldEffBurn_IsActive(void)
+{
+    return FuncIsActiveTask(Task_FieldBurnEffect);
+}

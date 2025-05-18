@@ -33,5 +33,7 @@ extern const struct SpritePalette gSpritePalette_SecretPower_Cave;
 extern const struct SpritePalette gSpritePalette_SecretPower_Plant;
 extern const struct SpritePalette gFieldEffectObjectPaletteInfo9;
 extern const u16 gTilesetPalettes_SecretBase[][16];
+void FldEffBurn_Start(void);
+bool32 FldEffBurn_IsActive(void);
 
 #endif //GUARD_FLDEFF_MISC_H

@@ -15,6 +15,7 @@
 #include "field_message_box.h"
 #include "field_player_avatar.h"
 #include "field_poison.h"
+#include "field_burn.h"
 #include "field_screen_effect.h"
 #include "field_specials.h"
 #include "fldeff_misc.h"
@@ -39,6 +40,7 @@
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
+#include "constants/field_burn.h"
 #include "constants/map_types.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/party_menu.h"
@@ -82,6 +84,7 @@ static void UpdateFriendshipStepCounter(void);
 static void UpdateFollowerStepCounter(void);
 #if OW_POISON_DAMAGE < GEN_5
 static bool8 UpdatePoisonStepCounter(void);
+static bool8 UpdateBurnStepCounter(void);
 #endif // OW_POISON_DAMAGE
 static bool32 TrySetUpWalkIntoSignpostScript(struct MapPosition * position, u32 metatileBehavior, u32 playerDirection);
 static void SetMsgSignPostAndVarFacing(u32 playerDirection);
@@ -699,6 +702,11 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
             ScriptContext_SetupScript(EventScript_FieldPoison);
             return TRUE;
         }
+        if (UpdateBurnStepCounter() == TRUE)
+        {
+            ScriptContext_SetupScript(EventScript_FieldBurn);
+            return TRUE;
+        }
     #endif
         if (ShouldEggHatch())
         {
@@ -778,7 +786,8 @@ static void UpdateFriendshipStepCounter(void)
         for (i = 0; i < PARTY_SIZE; i++)
         {
 			
-			if ((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
+			if (((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
+				|| (GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_BRN))
 			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
 				mon++;
@@ -803,6 +812,11 @@ void ClearPoisonStepCounter(void)
     VarSet(VAR_POISON_STEP_COUNTER, 0);
 }
 
+void ClearBurnStepCounter(void)
+{
+    VarSet(VAR_BURN_STEP_COUNTER, 0);
+}
+
 #if OW_POISON_DAMAGE < GEN_5
 static bool8 UpdatePoisonStepCounter(void)
 {
@@ -822,6 +836,31 @@ static bool8 UpdatePoisonStepCounter(void)
             case FLDPSN_PSN:
                 return FALSE;
             case FLDPSN_FNT:
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
+static bool8 UpdateBurnStepCounter(void)
+{
+    u16 *ptr;
+
+    if (gMapHeader.mapType != MAP_TYPE_SECRET_BASE)
+    {
+        ptr = GetVarPointer(VAR_BURN_STEP_COUNTER);
+        (*ptr)++;
+        (*ptr) %= 4;
+        if (*ptr == 0)
+        {
+            switch (DoBurnFieldEffect())
+            {
+            case FLDBRN_NONE:
+                return FALSE;
+            case FLDBRN_BRN:
+                return FALSE;
+            case FLDBRN_FNT:
                 return TRUE;
             }
         }

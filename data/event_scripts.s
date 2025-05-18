@@ -26,6 +26,7 @@
 #include "constants/event_object_movement.h"
 #include "constants/field_effects.h"
 #include "constants/field_poison.h"
+#include "constants/field_burn.h"
 #include "constants/field_specials.h"
 #include "constants/field_tasks.h"
 #include "constants/field_weather.h"
@@ -1052,6 +1053,7 @@ EventScript_SelectWithoutRegisteredItem::
 	end
 
 	.include "data/scripts/field_poison.inc"
+	.include "data/scripts/field_burn.inc"
 
 Common_EventScript_NopReturn::
 	return
