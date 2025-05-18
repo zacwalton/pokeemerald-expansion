@@ -304,6 +304,7 @@ bool8 FldEff_UseCutOnGrass(void)
 
     gTasks[taskId].data[8] = (u32)StartCutGrassFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartCutGrassFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     IncrementGameStat(GAME_STAT_USED_CUT);
     return FALSE;
 }

@@ -11219,6 +11219,7 @@ void ActivateMegaEvolution(u32 battler)
 {
     gLastUsedItem = gBattleMons[battler].item;
     SetActiveGimmick(battler, GIMMICK_MEGA);
+	AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[battler]], FRIENDSHIP_EVENT_MEGA_EVOLVE);
     if (GetBattleFormChangeTargetSpecies(battler, FORM_CHANGE_BATTLE_MEGA_EVOLUTION_MOVE) != gBattleMons[battler].species)
         BattleScriptExecute(BattleScript_WishMegaEvolution);
     else

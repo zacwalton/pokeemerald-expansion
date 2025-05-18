@@ -224,7 +224,7 @@ void ItemUseOutOfBattle_Mail(u8 taskId)
     Task_FadeAndCloseBagMenu(taskId);
 }
 
-STATIC_ASSERT(I_EXP_SHARE_ITEM < GEN_6 || I_EXP_SHARE_FLAG > TEMP_FLAGS_END, YouNeedToSetAFlagToUseGen6ExpShare);
+STATIC_ASSERT(I_EXP_SHARE_ITEM < GEN_6 || FLAG_EXP_SHARE_ACTIVE > TEMP_FLAGS_END, YouNeedToSetAFlagToUseGen6ExpShare);
 
 void ItemUseOutOfBattle_ExpShare(u8 taskId)
 {
@@ -245,7 +245,7 @@ void ItemUseOutOfBattle_ExpShare(u8 taskId)
         else
             DisplayItemMessage(taskId, FONT_NORMAL, gText_ExpShareOn, CloseItemMessage);
     }
-    FlagToggle(I_EXP_SHARE_FLAG);
+    FlagToggle(FLAG_EXP_SHARE_ACTIVE);
 #else
     DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
 #endif

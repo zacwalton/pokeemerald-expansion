@@ -777,18 +777,16 @@ static void UpdateFriendshipStepCounter(void)
         struct Pokemon *mon = gPlayerParty;
         for (i = 0; i < PARTY_SIZE; i++)
         {
-			if (((Random() % 2) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
+			
+			if ((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
 			{
-				if ((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
-				{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
 				mon++;
-				}
-				else 
-				{
+			}
+			else if (((Random() % 2) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
+			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
 				mon++;
-				}
 			}
         }
     }

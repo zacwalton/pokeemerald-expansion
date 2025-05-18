@@ -56,6 +56,7 @@ bool8 FldEff_UseDouse(void)
 
     gTasks[taskId].data[8] = (u32)StartDouseFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartDouseFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     IncrementGameStat(GAME_STAT_USED_DOUSE);
     return FALSE;
 }

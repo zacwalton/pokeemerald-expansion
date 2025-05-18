@@ -24,6 +24,7 @@
 #include "party_menu.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
+#include "random.h"
 #include "script.h"
 #include "sound.h"
 #include "sprite.h"
@@ -1900,11 +1901,18 @@ static bool8 EscalatorWarpIn_End(struct Task *task)
 #define tState data[0]
 #define tMonId data[1]
 
+void DoFieldMoveFriendshipChance(struct Pokemon *mon)
+{
+	if ((Random() % 4) == 0)
+		AdjustFriendship(mon, FRIENDSHIP_EVENT_FIELD_MOVE);																																																						
+}
+
 bool8 FldEff_UseWaterfall(void)
 {
     u8 taskId;
     taskId = CreateTask(Task_UseWaterfall, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Task_UseWaterfall(taskId);
     return FALSE;
 }
@@ -1980,6 +1988,7 @@ bool8 FldEff_UseDive(void)
     taskId = CreateTask(Task_UseDive, 0xff);
     gTasks[taskId].data[15] = gFieldEffectArguments[0];
     gTasks[taskId].data[14] = gFieldEffectArguments[1];
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Task_UseDive(taskId);
     return FALSE;
 }
@@ -3067,6 +3076,7 @@ u8 FldEff_UseSurf(void)
     u8 taskId = CreateTask(Task_SurfFieldEffect, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
 	VarSet(VAR_SURF_MON_SLOT, gFieldEffectArguments[0]);
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Overworld_ClearSavedMusic();
     Overworld_ChangeMusicTo(MUS_SURF);
     return FALSE;
@@ -3255,6 +3265,7 @@ u8 FldEff_UseFly(void)
 {
     u8 taskId = CreateTask(Task_FlyOut, 254);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     return 0;
 }
 
@@ -4148,6 +4159,7 @@ bool8 FldEff_UseRockClimb(void)
     u8 taskId;
     taskId = CreateTask(Task_UseRockClimb, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Task_UseRockClimb(taskId);
     return FALSE;
 }
@@ -4352,6 +4364,7 @@ u8 FldEff_UseLava(void)
     u8 taskId = CreateTask(Task_SurfFieldEffect, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
 	VarSet(VAR_SURF_MON_SLOT, gFieldEffectArguments[0]);
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Overworld_ClearSavedMusic();
     Overworld_ChangeMusicTo(MUS_MT_PYRE);
     return FALSE;
@@ -4363,6 +4376,7 @@ u8 FldEff_UseSludge(void)
     u8 taskId = CreateTask(Task_SurfFieldEffect, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
 	VarSet(VAR_SURF_MON_SLOT, gFieldEffectArguments[0]);
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     Overworld_ClearSavedMusic();
     Overworld_ChangeMusicTo(MUS_MT_PYRE);
     return FALSE;

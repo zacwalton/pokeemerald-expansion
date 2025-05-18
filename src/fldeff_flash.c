@@ -102,6 +102,7 @@ static void FldEff_UseFlash(void)
 {
     PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     ScriptContext_SetupScript(EventScript_UseFlash);
 }
 

@@ -613,6 +613,7 @@ bool8 FldEff_UseSecretPowerCave(void)
 
     gTasks[taskId].data[8] = (u32)StartSecretBaseCaveFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartSecretBaseCaveFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
 
     return FALSE;
 }
@@ -673,6 +674,7 @@ bool8 FldEff_UseSecretPowerTree(void)
 
     gTasks[taskId].data[8] = (u32)StartSecretBaseTreeFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartSecretBaseTreeFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
 
     return FALSE;
 }
@@ -747,6 +749,7 @@ bool8 FldEff_UseSecretPowerShrub(void)
 
     gTasks[taskId].data[8] = (u32)StartSecretBaseShrubFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartSecretBaseShrubFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
 
     return FALSE;
 }
@@ -1358,6 +1361,7 @@ bool8 FldEff_UseHeadbutt(void)
     gTasks[taskId].data[8] = (u32)FieldMove_Headbutt >> 16;
     gTasks[taskId].data[9] = (u32)FieldMove_Headbutt;
     IncrementGameStat(GAME_STAT_USED_HEADBUTT);
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     return FALSE;
 }
 
@@ -1398,6 +1402,7 @@ bool8 FldEff_UseWhirlpool(void)
 
     gTasks[taskId].data[8] = (u32)FieldMove_Whirlpool >> 16;
     gTasks[taskId].data[9] = (u32)FieldMove_Whirlpool;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     return FALSE;
 }
 
@@ -1442,6 +1447,7 @@ bool8 FldEff_UseDefog(void)
 
     gTasks[taskId].data[8] = (u32)FieldMove_Defog >> 16;
     gTasks[taskId].data[9] = (u32)FieldMove_Defog;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     return FALSE;
 }
 

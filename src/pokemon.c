@@ -933,7 +933,7 @@ static const s8 sFriendshipEventModifiers[][3] =
     [FRIENDSHIP_EVENT_FAINT_LARGE]     		= {-5, -5, -10},
     [FRIENDSHIP_EVENT_FIELD_MOVE]      		= { 1,  1,  1},
     [FRIENDSHIP_EVENT_WALKING_HATE]    		= {-3, -2, -1},
-    [FRIENDSHIP_EVENT_MEGA_EVOLVE]     		= {-10, -5, -1},
+    [FRIENDSHIP_EVENT_MEGA_EVOLVE]     		= {-10, -5, -2},
     [FRIENDSHIP_EVENT_WIN_BATTLE]     		= {1, 1, 1},
 };
 
@@ -7425,4 +7425,3 @@ u32 GetDisobedienceRateFromBattler(u32 battler)
 {
 	return GetDisobedienceRate (gBattleMons[battler].friendship, gBattleMons[battler].level);
 }
-
