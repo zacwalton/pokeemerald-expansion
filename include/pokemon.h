@@ -11,6 +11,13 @@
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
 
+#define AFFECTION_THRESHOLD_ONE_HEART 80
+#define AFFECTION_THRESHOLD_TWO_HEARTS 130
+#define AFFECTION_THRESHOLD_THREE_HEARTS 180
+#define AFFECTION_THRESHOLD_FOUR_HEARTS 220
+#define AFFECTION_THRESHOLD_FIVE_HEARTS 250
+
+
 // Property labels for Get(Box)MonData / Set(Box)MonData
 enum {
     MON_DATA_PERSONALITY,

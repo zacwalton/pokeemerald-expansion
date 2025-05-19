@@ -6849,15 +6849,15 @@ u32 GetMonAffectionHearts(struct Pokemon *pokemon)
 {
     u32 friendship = GetMonData(pokemon, MON_DATA_FRIENDSHIP, NULL);
 
-    if (friendship == MAX_FRIENDSHIP)
+    if (friendship == AFFECTION_THRESHOLD_FIVE_HEARTS)
         return AFFECTION_FIVE_HEARTS;
-    if (friendship >= 220)
+    if (friendship >= AFFECTION_THRESHOLD_FOUR_HEARTS)
         return AFFECTION_FOUR_HEARTS;
-    if (friendship >= 180)
+    if (friendship >= AFFECTION_THRESHOLD_THREE_HEARTS)
         return AFFECTION_THREE_HEARTS;
-    if (friendship >= 130)
+    if (friendship >= AFFECTION_THRESHOLD_TWO_HEARTS)
         return AFFECTION_TWO_HEARTS;
-    if (friendship >= 80)
+    if (friendship >= AFFECTION_THRESHOLD_ONE_HEART)
         return AFFECTION_ONE_HEART;
 
     return AFFECTION_NO_HEARTS;

@@ -10631,6 +10631,13 @@ static inline s32 DoMoveDamageCalcVars(struct DamageCalculationData *damageCalcD
 
     if (damageCalcData->randomFactor)
     {
+        if ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) >= AFFECTION_FOUR_HEARTS))
+        {
+            
+        dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO_AFFECTION);
+        dmg /= 100;
+        }
+        else
         dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
         dmg /= 100;
     }
@@ -10693,6 +10700,13 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct DamageCalculationData
 
     if (damageCalcData->randomFactor)
     {
+        if ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) >= AFFECTION_FOUR_HEARTS))
+        {
+            
+        dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO_AFFECTION);
+        dmg /= 100;
+        }
+        else
         dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
         dmg /= 100;
     }

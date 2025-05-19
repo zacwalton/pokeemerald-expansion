@@ -96,6 +96,7 @@ enum ItemEffect
 // Lowest and highest percentages used for damage roll calculations
 #define DMG_ROLL_PERCENT_LO 85
 #define DMG_ROLL_PERCENT_HI 100
+#define DMG_ROLL_PERCENT_LO_AFFECTION 90
 
 // for Natural Gift and Fling
 struct TypePower

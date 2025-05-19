@@ -1597,7 +1597,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         calc = (calc * 5) / 3; // 1.66 Gravity acc boost
 
     if (B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerDef) == AFFECTION_FIVE_HEARTS)
-        calc = (calc * 90) / 100;
+        calc = (calc * 95) / 100;
 
     if ((HasWeatherEffect() && gBattleWeather & B_WEATHER_FOG) 
 		&& !((IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
@@ -1874,7 +1874,7 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
                     + 1 * (HasWeatherEffect() && gBattleWeather & B_WEATHER_FOG)
                     + GetMoveCriticalHitStage(move)
                     + GetHoldEffectCritChanceIncrease(battlerAtk, holdEffectAtk)
-                    + 2 * (B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) == AFFECTION_FIVE_HEARTS)
+//                    + 1 * (B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) >= AFFECTION_FOUR_HEARTS) //ZETA-removed, to move effect to move mastery
                     + (abilityAtk == ABILITY_SUPER_LUCK)
                     + gBattleStruct->bonusCritStages[gBattlerAttacker];
 
@@ -2160,9 +2160,9 @@ static void Cmd_adjustdamage(void)
         }
         else if (B_AFFECTION_MECHANICS == TRUE && GetBattlerSide(battlerDef) == B_SIDE_PLAYER && affectionScore >= AFFECTION_THREE_HEARTS)
         {
-            if ((affectionScore == AFFECTION_FIVE_HEARTS && rand < 20)
-             || (affectionScore == AFFECTION_FOUR_HEARTS && rand < 15)
-             || (affectionScore == AFFECTION_THREE_HEARTS && rand < 10))
+            if ((affectionScore == AFFECTION_FIVE_HEARTS && rand < 10)
+             || (affectionScore == AFFECTION_FOUR_HEARTS && rand < 5)
+             || (affectionScore == AFFECTION_THREE_HEARTS && rand < 1))
                 gSpecialStatuses[battlerDef].affectionEndured = TRUE;
         }
 
@@ -17213,8 +17213,9 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
         *expAmount = (*expAmount * 150) / 100;
     if (B_UNEVOLVED_EXP_MULTIPLIER >= GEN_6 && IsMonPastEvolutionLevel(&gPlayerParty[expGetterMonId]))
         *expAmount = (*expAmount * 4915) / 4096;
-    if (B_AFFECTION_MECHANICS == TRUE && GetMonAffectionHearts(&gPlayerParty[expGetterMonId]) >= AFFECTION_FOUR_HEARTS)
-        *expAmount = (*expAmount * 4915) / 4096;
+    //ZETA- Converts affection bonus to sliding scale (1x-1.2x, technically 1.205...x). Zeroes out threshold for 3 hearts, then scales the additional friendship to the boost. Functionally the same at max friendship.
+    if (B_AFFECTION_MECHANICS == TRUE && GetMonAffectionHearts(&gPlayerParty[expGetterMonId]) >= AFFECTION_THREE_HEARTS)
+        *expAmount = (*expAmount * (4096 - AFFECTION_THRESHOLD_THREE_HEARTS + (GetMonData(&gPlayerParty[expGetterMonId], MON_DATA_FRIENDSHIP, NULL) * 4))) / 4096;
     if (CheckBagHasItem(ITEM_EXP_CHARM, 1)) //is also for other exp boosting Powers if/when implemented
         *expAmount = (*expAmount * 150) / 100;
 /*
