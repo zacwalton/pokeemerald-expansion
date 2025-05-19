@@ -2268,12 +2268,6 @@
 	callnative PlayFirstMonCry, requests_effects=1
 	.endm
 
-	@ Buffers the nickname of the first alive party member.
-	.macro bufferlivemonnickname out:req
-	callnative BufferFirstLiveMonNickname, requests_effects=1
-	.byte \out
-	.endm
-
 	@ Executes Follower actions
 	.macro getfolloweraction
 	callnative GetFollowerAction
@@ -2697,3 +2691,10 @@
     subquestmenu QUEST_MENU_CHECK_COMPLETE \parent \child
     call_if_eq VAR_RESULT, FALSE, \dest
     .endm
+	
+	@ Writes the nickname of the Pokemon in 'slot' (zero-indexed) of the player's party to the specified buffer.
+	@ If an empty or invalid slot is specified, ten spaces ("") are written to the buffer.
+	.macro bufferlivemonnickname stringVarId:req
+	.byte SCR_OP_BUFFERFIRSTLIVEMONNICKNAME
+	stringvar \stringVarId
+	.endm

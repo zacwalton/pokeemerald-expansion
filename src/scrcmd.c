@@ -2088,16 +2088,6 @@ bool8 ScrCmd_bufferleadmonspeciesname(struct ScriptContext *ctx)
     return FALSE;
 }
 
-void BufferFirstLiveMonNickname(struct ScriptContext *ctx)
-{
-    u8 stringVarIndex = ScriptReadByte(ctx);
-
-    Script_RequestEffects(SCREFF_V1);
-
-    GetMonData(GetFirstLiveMon(), MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
-    StringGet_Nickname(sScriptStringVars[stringVarIndex]);
-}
-
 bool8 ScrCmd_bufferpartymonnick(struct ScriptContext *ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
@@ -3512,3 +3502,14 @@ bool8 ScrCmd_subquestmenu(struct ScriptContext *ctx)
     return TRUE;
 }
 
+bool8 ScrCmd_bufferfirstlivemonnickname(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+	u16 partyIndex = GetFollowerMonIndex();
+
+    Script_RequestEffects(SCREFF_V1);
+
+    GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
+    StringGet_Nickname(sScriptStringVars[stringVarIndex]);
+    return FALSE;
+}

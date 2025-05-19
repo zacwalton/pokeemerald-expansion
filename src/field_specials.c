@@ -4350,7 +4350,7 @@ void UseBlankMessageToCancelPokemonPic(void)
 bool32 CheckLeadMonSpecies(u32 givenSpecies)
 {
 
-        if (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) == givenSpecies)
+        if (GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES) == givenSpecies)
 		{
             return TRUE;
 		}

@@ -266,7 +266,7 @@ RustboroCity_Museum_1F_Text_FossilShell:
 
 RustboroCity_Museum_1F_EventScript_FossilSkulls::
 	checkleadspecies SPECIES_ARON
-	bufferpartymonnick STR_VAR_1, 0
+	bufferlivemonnickname STR_VAR_1
 	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Museum_1F_EventScript_FossilSkullsAron
 	msgbox RustboroCity_Museum_1F_Text_FossilSkulls, MSGBOX_SIGN
 	end
