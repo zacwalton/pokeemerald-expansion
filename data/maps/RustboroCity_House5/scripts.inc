@@ -6,8 +6,8 @@ RustboroCity_House5_EventScript_Camper::
 	end
 
 RustboroCity_House5_Text_Camper:
-	.string "This place used to be a forest.\n"
-	.string "Now it's concrete houses.\p"
+	.string "This area used to be woodland.\n"
+	.string "Now it's a concrete jungle.\p"
 	.string "What people gain, wildlife often lose...\n"
 	.string "Yet here I am living here. Go figure.$"
 

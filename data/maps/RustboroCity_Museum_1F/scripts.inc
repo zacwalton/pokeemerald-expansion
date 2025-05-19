@@ -340,7 +340,7 @@ RustboroCity_Museum_1F_EventScript_AurorusFossil::
 	end
 
 RustboroCity_Museum_1F_Text_AurorusFossil:
-	.string "“Deep scores found in the neck bones\n"
+	.string "“Deep grooves found in the neck bones\n"
 	.string "of Aurorus were once attributed to\p"
 	.string "Tyrantrum attacks. We now know them\n"
 	.string "to be achor points for gigantic sails!”$"
@@ -352,8 +352,8 @@ RustboroCity_Museum_1F_EventScript_PoseFossil::
 RustboroCity_Museum_1F_Text_PoseFossil:
 	.string "“Many bipedal pokémon use their heavy\n"
 	.string "tails as a counter-balance. \p"
-	.string "Thick tendons running from head to\n"
-	.string "the tail  keep the pokémon upright.\p"
+	.string "Thick tendons running from the head to\n"
+	.string "to the tail keep the pokémon upright.\p"
 	.string "When the pokémon dies, these tendons\n"
 	.string "dry out, shrinking in the process.\p"
 	.string "This pulls the head and tail together,\n"
