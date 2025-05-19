@@ -6,6 +6,7 @@
 #include "event_object_movement.h"
 #include "field_message_box.h"
 #include "field_poison.h"
+#include "field_specials.h"
 #include "fldeff_misc.h"
 #include "frontier_util.h"
 #include "party_menu.h"
@@ -43,7 +44,7 @@ static bool32 AllMonsFainted(void)
 
 static void FaintFromFieldPoison(u8 partyIdx)
 {
-    struct Pokemon *pokemon = &gPlayerParty[partyIdx];
+    struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
     u32 status = STATUS1_NONE;
 
     if (OW_POISON_DAMAGE < GEN_4)
@@ -56,7 +57,7 @@ static void FaintFromFieldPoison(u8 partyIdx)
 
 static bool32 MonFaintedFromPoison(u8 partyIdx)
 {
-    struct Pokemon *pokemon = &gPlayerParty[partyIdx];
+    struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
     if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == ((OW_POISON_DAMAGE < GEN_4) ? 0 : 1) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         return TRUE;
 
@@ -69,19 +70,17 @@ static bool32 MonFaintedFromPoison(u8 partyIdx)
 static void Task_TryFieldPoisonWhiteOut(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+	int i = GetFollowerMonIndex();
     switch (tState)
     {
     case 0:
-        for (; tPartyIdx < PARTY_SIZE; tPartyIdx++)
-        {
-            if (MonFaintedFromPoison(tPartyIdx))
+            if (MonFaintedFromPoison(i))
             {
-                FaintFromFieldPoison(tPartyIdx);
+                FaintFromFieldPoison(i);
                 ShowFieldMessage(gText_PkmnFainted_FldPsn);
                 tState++;
                 return;
             }
-        }
         tState = 2; // Finished checking party
         break;
     case 1:
@@ -124,14 +123,12 @@ void TryFieldPoisonWhiteOut(void)
 
 s32 DoPoisonFieldEffect(void)
 {
-    int i;
+    int i = GetFollowerMonIndex();
     u32 hp;
-    struct Pokemon *pokemon = gPlayerParty;
+    struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
     u32 numPoisoned = 0;
     u32 numFainted = 0;
 
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
         if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         {
             // Apply poison damage
@@ -148,7 +145,6 @@ s32 DoPoisonFieldEffect(void)
             numPoisoned++;
         }
         pokemon++;
-    }
 
     // Do screen flash effect
     if (numFainted != 0 || numPoisoned != 0)

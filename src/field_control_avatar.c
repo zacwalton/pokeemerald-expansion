@@ -776,28 +776,22 @@ static void UNUSED ClearFriendshipStepCounter(void)
 static void UpdateFriendshipStepCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_FRIENDSHIP_STEP_COUNTER);
-    int i;
 
     (*ptr)++;
     (*ptr) %= 255;
     if (*ptr == 0)
     {
-        struct Pokemon *mon = gPlayerParty;
-        for (i = 0; i < PARTY_SIZE; i++)
-        {
+        struct Pokemon *mon = &gPlayerParty[GetFollowerMonIndex()];
 			
 			if (((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
 				|| (GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_BRN))
 			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
-				mon++;
 			}
 			else if (((Random() % 2) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
 			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
-				mon++;
 			}
-        }
     }
 }
 

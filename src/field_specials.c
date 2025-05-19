@@ -4386,3 +4386,16 @@ void GetCodeFeedback(void)
         gSpecialVar_Result = 0;
 }
 
+u8 GetFollowerMonIndex(void)
+{
+    u8 i;
+    u8 partyCount = CalculatePlayerPartyCount();
+    for (i = 0; i < partyCount; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG
+         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_NONE
+		 && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) > 0)
+            return i;
+    }
+    return 0;
+}
