@@ -5297,7 +5297,7 @@ static void PrintStatsScreen_Moves_Bottom(u8 taskId)
         DestroyCategoryIcon();
         ShowCategoryIcon(GetBattleMoveCategory(move));
         //Accuracy
-        u32 accuracy = GetMoveAccuracy(move);
+        u32 accuracy = GetMoveBaseAccuracy(move);
         if (accuracy == 0)
             StringCopy(gStringVar1, gText_ThreeDashes);
         else

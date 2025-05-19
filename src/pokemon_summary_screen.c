@@ -4024,7 +4024,7 @@ static void PrintMovePowerAndAccuracy(u16 moveIndex)
 
         PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, text, 53, 1, 0, 0);
 
-        u32 accuracy = GetMoveAccuracy(moveIndex);
+        u32 accuracy = GetMoveBaseAccuracy(moveIndex);
         if (accuracy == 0)
         {
             text = gText_ThreeDashes;

@@ -2619,7 +2619,7 @@ static void PrintTMHMMoveData(u16 itemId)
         }
         BagMenu_Print(WIN_TMHM_INFO, FONT_NORMAL, text, 7, 12, 0, 0, TEXT_SKIP_DRAW, COLORID_TMHM_INFO);
 
-        u32 accuracy = GetMoveAccuracy(moveId);
+        u32 accuracy = GetMoveBaseAccuracy(moveId);
         // Print TMHM accuracy
         if (accuracy == 0)
         {

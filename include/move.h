@@ -210,9 +210,19 @@ static inline u32 GetMovePower(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].power;
 }
 
-static inline u32 GetMoveAccuracy(u32 moveId)
+static inline u32 GetMoveBaseAccuracy(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].accuracy;
+}
+
+static inline u32 GetMoveAccuracy(u32 moveId)
+{
+    u16 moveAccuracy = gMovesInfo[SanitizeMoveId(moveId)].accuracy;
+
+    if (moveAccuracy > 30 && moveAccuracy <= 97 )
+        return moveAccuracy + 3;
+        
+    return moveAccuracy;
 }
 
 static inline u32 GetMoveTarget(u32 moveId)
