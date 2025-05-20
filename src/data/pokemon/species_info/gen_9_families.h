@@ -448,6 +448,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sQuaxlyTeachableLearnset,
         .eggMoveLearnset = sQuaxlyEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_QUAXWELL}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_QUAXWELL] =
@@ -511,6 +512,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sQuaxwellLevelUpLearnset,
         .teachableLearnset = sQuaxwellTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_QUAQUAVAL}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_QUAQUAVAL] =
@@ -573,6 +575,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sQuaquavalLevelUpLearnset,
         .teachableLearnset = sQuaquavalTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_QUAXLY
 
@@ -3841,6 +3844,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sWiglettTeachableLearnset,
         .eggMoveLearnset = sWiglettEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, SPECIES_WUGTRIO}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_WUGTRIO] =
@@ -3902,6 +3907,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sWugtrioLevelUpLearnset,
         .teachableLearnset = sWugtrioTeachableLearnset,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_WIGLETT
 
@@ -4033,6 +4040,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sFinizenTeachableLearnset,
         .eggMoveLearnset = sFinizenEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_PALAFIN_ZERO}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_PALAFIN_ZERO] =
@@ -4097,6 +4105,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sPalafinTeachableLearnset,
         .formSpeciesIdTable = sPalafinFormSpeciesIdTable,
         .formChangeTable = sPalafinZeroFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_PALAFIN_HERO] =
@@ -4161,6 +4170,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sPalafinTeachableLearnset,
         .formSpeciesIdTable = sPalafinFormSpeciesIdTable,
         .formChangeTable = sPalafinZeroFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_FINIZEN
 
@@ -4936,6 +4946,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sVeluzaLevelUpLearnset,
         .teachableLearnset = sVeluzaTeachableLearnset,
         .eggMoveLearnset = sVeluzaEggMoveLearnset,
+        .surfSpeed = 3,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_VELUZA
 
@@ -5068,6 +5080,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sTatsugiriTeachableLearnset,
         .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_TATSUGIRI_DROOPY] =
@@ -5131,6 +5145,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sTatsugiriTeachableLearnset,
         .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_TATSUGIRI_STRETCHY] =
@@ -5194,6 +5210,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sTatsugiriTeachableLearnset,
         .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_TATSUGIRI
 
@@ -7893,6 +7911,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sTerapagosTeachableLearnset,
         .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         .formChangeTable = sTerapagosFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_TERAPAGOS_TERASTAL] =

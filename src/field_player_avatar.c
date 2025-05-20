@@ -20,6 +20,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "strings.h"
+#include "surfable.h"
 #include "task.h"
 #include "tv.h"
 #include "wild_encounter.h"
@@ -31,6 +32,7 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
+#include "constants/vars.h"
 
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5
@@ -684,6 +686,9 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
     gPlayerAvatar.creeping = FALSE;
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
     {
+    u8 surfMon = VarGet(VAR_SURF_MON_SLOT);
+    u8 surfSpeed = gSpeciesInfo[GetMonData(&gPlayerParty[surfMon], MON_DATA_SPECIES)].surfSpeed;
+
 	if (FlagGet(DN_FLAG_SEARCHING) && (heldKeys & A_BUTTON))
         {
             gPlayerAvatar.creeping = TRUE;
@@ -692,7 +697,7 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
     else if ((MetatileBehavior_IsLava(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)) 
         || (MetatileBehavior_IsSludge(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)))
 	{
-				PlayerWalkSlow(direction);
+				PlayerWalkNormal(direction);
 	}
 	else if (((MetatileBehavior_IsNorthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
 		|| (MetatileBehavior_IsSouthwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
@@ -700,11 +705,31 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
 		|| (MetatileBehavior_IsEastwardCurrent(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)))
 		&& (FlagGet(FLAG_SYS_USE_WHIRLPOOL))
 		&& (heldKeys & B_BUTTON))
-			PlayerWalkSlow(direction);
+			PlayerWalkNormal(direction);
         // same speed as running
 		else if (heldKeys & B_BUTTON)
-			PlayerWalkFaster(direction);
+                switch (surfSpeed)
+                {
+                    case 1:
+                        PlayerWalkNormal(direction);
+                        break;
+                    case 3:
+                        PlayerWalkFaster(direction);
+                        break;
+                    default:
+                        PlayerWalkFast(direction);
+                        break;
+                }
 		else
+                switch (surfSpeed)
+                {
+                    case 1:
+                        PlayerWalkSlow(direction);
+                        break;
+                    default:
+                        PlayerWalkNormal(direction);
+                        break;
+                }
 			PlayerWalkFast(direction);
         return;
     }

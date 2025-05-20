@@ -485,6 +485,9 @@ struct SpeciesInfo /*0xC4*/
 #endif //P_GENDER_DIFFERENCES
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
+    u8 surfSpeed;
+    bool8 surfApplyWet;
+    bool8 surfBlockFishing;
 };
 
 struct Ability

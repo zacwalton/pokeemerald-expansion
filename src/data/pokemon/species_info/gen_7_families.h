@@ -526,6 +526,7 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .teachableLearnset = sPopplioTeachableLearnset,
         .eggMoveLearnset = sPopplioEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 17, SPECIES_BRIONNE}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_BRIONNE] =
@@ -589,6 +590,7 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .levelUpLearnset = sBrionneLevelUpLearnset,
         .teachableLearnset = sBrionneTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 34, SPECIES_PRIMARINA}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_PRIMARINA] =
@@ -2326,6 +2328,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .eggMoveLearnset = sWishiwashiEggMoveLearnset,
         .formSpeciesIdTable = sWishiwashiFormSpeciesIdTable,
         .formChangeTable = sWishiwashiFormChangeTable,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_WISHIWASHI_SCHOOL] =
@@ -2449,6 +2453,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .teachableLearnset = sMareanieTeachableLearnset,
         .eggMoveLearnset = sMareanieEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_TOXAPEX}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_TOXAPEX] =
@@ -2512,6 +2518,7 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         )
         .levelUpLearnset = sToxapexLevelUpLearnset,
         .teachableLearnset = sToxapexTeachableLearnset,
+        .surfSpeed = 1,
     },
 #endif //P_FAMILY_MAREANIE
 
@@ -2717,6 +2724,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .eggMoveLearnset = sDewpiderEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 22, SPECIES_ARAQUANID},
                                 {EVO_NONE, 0, SPECIES_ARAQUANID_TOTEM}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_ARAQUANID] =
@@ -3961,6 +3970,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .teachableLearnset = sWimpodTeachableLearnset,
         .eggMoveLearnset = sWimpodEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_GOLISOPOD}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_GOLISOPOD] =
@@ -5052,6 +5063,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .levelUpLearnset = sBruxishLevelUpLearnset,
         .teachableLearnset = sBruxishTeachableLearnset,
         .eggMoveLearnset = sBruxishEggMoveLearnset,
+        .surfSpeed = 3,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_BRUXISH
 
@@ -5187,6 +5200,7 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         )
         .levelUpLearnset = sDhelmiseLevelUpLearnset,
         .teachableLearnset = sDhelmiseTeachableLearnset,
+        .surfSpeed = 1,
     },
 #endif //P_FAMILY_DHELMISE
 

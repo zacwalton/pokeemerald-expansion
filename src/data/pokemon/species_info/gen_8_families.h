@@ -565,6 +565,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sSobbleTeachableLearnset,
         .eggMoveLearnset = sSobbleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_DRIZZILE}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_DRIZZILE] =
@@ -627,6 +628,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .levelUpLearnset = sDrizzileLevelUpLearnset,
         .teachableLearnset = sDrizzileTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_INTELEON}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_INTELEON] =
@@ -691,6 +693,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sInteleonTeachableLearnset,
         .formSpeciesIdTable = sInteleonFormSpeciesIdTable,
         .formChangeTable = sInteleonFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3052,6 +3055,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .eggMoveLearnset = sCramorantEggMoveLearnset,
         .formSpeciesIdTable = sCramorantFormSpeciesIdTable,
         .formChangeTable = sCramorantFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_CRAMORANT_GULPING] =
@@ -3230,6 +3234,8 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sArrokudaTeachableLearnset,
         .eggMoveLearnset = sArrokudaEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, SPECIES_BARRASKEWDA}),
+        .surfSpeed = 3,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_BARRASKEWDA] =
@@ -3292,6 +3298,8 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         )
         .levelUpLearnset = sBarraskewdaLevelUpLearnset,
         .teachableLearnset = sBarraskewdaTeachableLearnset,
+        .surfSpeed = 3,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_ARROKUDA
 
@@ -3916,6 +3924,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         )
         .levelUpLearnset = sGrapploctLevelUpLearnset,
         .teachableLearnset = sGrapploctTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_CLOBBOPUS
 
@@ -5042,6 +5051,8 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .levelUpLearnset = sPincurchinLevelUpLearnset,
         .teachableLearnset = sPincurchinTeachableLearnset,
         .eggMoveLearnset = sPincurchinEggMoveLearnset,
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_PINCURCHIN
 
@@ -5304,6 +5315,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .eggMoveLearnset = sEiscueEggMoveLearnset,
         .formSpeciesIdTable = sEiscueFormSpeciesIdTable,
         .formChangeTable = sEiscueFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_EISCUE_NOICE] =
@@ -5360,6 +5372,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .eggMoveLearnset = sEiscueEggMoveLearnset,
         .formSpeciesIdTable = sEiscueFormSpeciesIdTable,
         .formChangeTable = sEiscueFormChangeTable,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_EISCUE
 
@@ -6381,6 +6394,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .levelUpLearnset = sDrakloakLevelUpLearnset,
         .teachableLearnset = sDrakloakTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 60, SPECIES_DRAGAPULT}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_DRAGAPULT] =
@@ -6444,6 +6458,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         )
         .levelUpLearnset = sDragapultLevelUpLearnset,
         .teachableLearnset = sDragapultTeachableLearnset,
+        .surfSpeed = 3,
     },
 #endif //P_FAMILY_DREEPY
 

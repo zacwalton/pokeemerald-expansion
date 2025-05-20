@@ -504,6 +504,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sPiplupTeachableLearnset,
         .eggMoveLearnset = sPiplupEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_PRINPLUP}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_PRINPLUP] =
@@ -581,6 +583,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .levelUpLearnset = sPrinplupLevelUpLearnset,
         .teachableLearnset = sPrinplupTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_EMPOLEON}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_EMPOLEON] =
@@ -657,6 +660,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sEmpoleonLevelUpLearnset,
         .teachableLearnset = sEmpoleonTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_PIPLUP
 
@@ -1075,6 +1079,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sBibarelLevelUpLearnset,
         .teachableLearnset = sBibarelTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_BIDOOF
 
@@ -2575,6 +2580,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sBuizelTeachableLearnset,
         .eggMoveLearnset = sBuizelEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, SPECIES_FLOATZEL}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_FLOATZEL] =
@@ -2655,6 +2661,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sFloatzelLevelUpLearnset,
         .teachableLearnset = sFloatzelTeachableLearnset,
+        .surfSpeed = 3,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_BUIZEL
 
@@ -2933,6 +2941,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .eggMoveLearnset = sShellosEggMoveLearnset,
         .formSpeciesIdTable = sShellosFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_GASTRODON_WEST}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_SHELLOS_EAST] =
@@ -2998,6 +3008,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .eggMoveLearnset = sShellosEggMoveLearnset,
         .formSpeciesIdTable = sShellosFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_GASTRODON_EAST}),
+        .surfSpeed = 1,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_GASTRODON_WEST] =
@@ -5232,6 +5244,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sFinneonTeachableLearnset,
         .eggMoveLearnset = sFinneonEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 31, SPECIES_LUMINEON}),
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_LUMINEON] =
@@ -5315,6 +5328,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sLumineonLevelUpLearnset,
         .teachableLearnset = sLumineonTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 #endif //P_FAMILY_FINNEON
 
@@ -7007,6 +7021,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sPhioneLevelUpLearnset,
         .teachableLearnset = sPhioneTeachableLearnset,
+        .surfApplyWet = TRUE,
     },
 
     [SPECIES_MANAPHY] =
@@ -7083,6 +7098,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sManaphyLevelUpLearnset,
         .teachableLearnset = sManaphyTeachableLearnset,
+        .surfSpeed = 3,
     },
 #endif //P_FAMILY_MANAPHY
 
