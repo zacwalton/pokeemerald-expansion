@@ -2614,6 +2614,7 @@ extern const u8 gText_PlantBerry[];
 
 extern const u8 gText_NameRater[];
 extern const u8 gText_MoveDeleter[];
+extern const u8 gText_MoveRelearner[];
 
 
 

@@ -782,6 +782,7 @@ static const struct MenuAction MultichoiceList_PokemonCenterService[] =
 {
     {gText_NameRater},
     {gText_MoveDeleter},
+    {gText_MoveRelearner},
     {gText_Exit},
 };
 

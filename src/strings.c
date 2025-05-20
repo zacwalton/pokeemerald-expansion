@@ -1299,6 +1299,7 @@ const u8 gText_Rename[] = _("RENAME");
 
 const u8 gText_NameRater[] = _("Name Rater");
 const u8 gText_MoveDeleter[] = _("Move Deleter");
+const u8 gText_MoveRelearner[] = _("Move Relearner");
 
 const u8 gText_CannotSendMonToBoxHM[] = _("Cannot send that mon to the box,\nbecause it knows a HM move.{PAUSE_UNTIL_PRESS}");
 
