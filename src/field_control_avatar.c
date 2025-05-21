@@ -712,7 +712,10 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
 		{
 			u16 wetCounter = VarGet(VAR_WET_STEP_COUNTER);
 			if (wetCounter > 0)
+			{
 				VarSet(VAR_WET_STEP_COUNTER, (wetCounter - 1));
+				PlaySE(SE_PUDDLE);
+			}
 		}
         if (ShouldEggHatch())
         {
