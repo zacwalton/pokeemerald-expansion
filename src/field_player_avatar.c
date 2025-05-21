@@ -740,7 +740,10 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
             PlayerRunSlow(direction);
         else
-            PlayerRun(direction);
+			if (VarGet(VAR_WET_STEP_COUNTER) > 0)		//ZETA- Apply Wet speed debuff while running
+				PlayerWalkNormal(direction);
+			else
+				PlayerRun(direction);
 
         gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
         return;
@@ -755,6 +758,9 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
             PlayerWalkSlowStairs(direction);
         else
+			if (VarGet(VAR_WET_STEP_COUNTER) > 0)		//ZETA- Apply Wet speed debuff while walking
+				PlayerWalkSlow(direction);
+			else
             PlayerWalkNormal(direction);
     }
 }

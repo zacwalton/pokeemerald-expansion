@@ -3151,9 +3151,13 @@ static void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
 }
 
 static void SurfFieldEffect_End(struct Task *task)
-{
+{	
     struct ObjectEvent *objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
     struct ObjectEvent *followerObject = GetFollowerObject();
+	
+	if (gSpeciesInfo[GetMonData(&gPlayerParty[VarGet(VAR_SURF_MON_SLOT)], MON_DATA_SPECIES)].surfApplyWet)
+		VarSet(VAR_WET_STEP_COUNTER, 25);
+	
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
         gPlayerAvatar.preventStep = FALSE;
