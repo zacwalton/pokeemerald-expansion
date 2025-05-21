@@ -10638,8 +10638,10 @@ static inline s32 DoMoveDamageCalcVars(struct DamageCalculationData *damageCalcD
         dmg /= 100;
         }
         else
+		{
         dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
         dmg /= 100;
+		}
     }
 
     if (GetActiveGimmick(battlerAtk) == GIMMICK_TERA)
@@ -10707,8 +10709,10 @@ static inline s32 DoFutureSightAttackDamageCalcVars(struct DamageCalculationData
         dmg /= 100;
         }
         else
+		{
         dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO);
         dmg /= 100;
+		}
     }
 
     // Same type attack bonus
