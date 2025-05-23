@@ -172,22 +172,20 @@
 #define METATILE_Facility_NewMauvilleDoor_Open_Tile5    0x8CD
 
 // gTileset_Fallarbor
-#define METATILE_Fallarbor_AshField                  0x818
-#define METATILE_Fallarbor_AshGrass                  0x80A
-#define METATILE_Fallarbor_BrownCaveEntrance_Bottom  0x861
-#define METATILE_Fallarbor_BrownCaveEntrance_Top     0x859
-#define METATILE_Fallarbor_BrownCaveIndent           0x808
-#define METATILE_Fallarbor_BrownCaveOpen             0x810
-#define METATILE_Fallarbor_BrownRockWall             0x865
-#define METATILE_Fallarbor_Door_BattleTent           0x96C
-#define METATILE_Fallarbor_Door_DarkRoof             0x8F7
-#define METATILE_Fallarbor_Door_LightRoof            0x8A5
-#define METATILE_Fallarbor_NormalGrass               0x812
-#define METATILE_Fallarbor_RedCaveEntrance_Bottom    0x94F
-#define METATILE_Fallarbor_RedCaveEntrance_Top       0x947
-#define METATILE_Fallarbor_RedRockWall               0x869
-
-// gTileset_Fallarbor_Summer
+#define METATILE_Fallarbor_AshField                                   0x818
+#define METATILE_Fallarbor_AshGrass                                   0x80A
+#define METATILE_Fallarbor_BrownCaveEntrance_Bottom                   0x861
+#define METATILE_Fallarbor_BrownCaveEntrance_Top                      0x859
+#define METATILE_Fallarbor_BrownCaveIndent                            0x808
+#define METATILE_Fallarbor_BrownCaveOpen                              0x810
+#define METATILE_Fallarbor_BrownRockWall                              0x865
+#define METATILE_Fallarbor_Door_BattleTent                            0x96C
+#define METATILE_Fallarbor_Door_DarkRoof                              0x8F7
+#define METATILE_Fallarbor_Door_LightRoof                             0x8A5
+#define METATILE_Fallarbor_NormalGrass                                0x812
+#define METATILE_Fallarbor_RedCaveEntrance_Bottom                     0x94F
+#define METATILE_Fallarbor_RedCaveEntrance_Top                        0x947
+#define METATILE_Fallarbor_RedRockWall                                0x869
 #define METATILE_Fallarbor_Summer_AshField                            0x9F6
 #define METATILE_Fallarbor_Summer_TallGrass_Ash                       0x9DD
 #define METATILE_Fallarbor_Summer_TallGrass_AshClear                  0x9E5
@@ -368,12 +366,16 @@
 #define METATILE_Hoenn_Summer_KINGSLEAF_TOPRIGHT                  0x3DF
 #define METATILE_Hoenn_Summer_KINGSLEAF_VOLCANIC                  0x37B
 #define METATILE_Hoenn_Summer_KINGSLEAF_WATER                     0x46C
+#define METATILE_Hoenn_Summer_LEEK_CHALK                          0x490
+#define METATILE_Hoenn_Summer_LEEK_EMERALD                        0x494
+#define METATILE_Hoenn_Summer_LEEK_GOLD                           0x496
 #define METATILE_Hoenn_Summer_LEEK_GRASS                          0x1FB
 #define METATILE_Hoenn_Summer_LEEK_ROCK                           0x3EE
 #define METATILE_Hoenn_Summer_LEEK_SAND                           0x3DA
 #define METATILE_Hoenn_Summer_LEEK_TOP                            0x3D5
 #define METATILE_Hoenn_Summer_LEEK_TOPLEFT                        0x3C4
 #define METATILE_Hoenn_Summer_LEEK_TOPRIGHT                       0x3C5
+#define METATILE_Hoenn_Summer_LEEK_VOLCANIC                       0x492
 #define METATILE_Hoenn_Summer_LEEK_WATER                          0x46A
 #define METATILE_Hoenn_Summer_LIMESTONE_CHALK                     0x361
 #define METATILE_Hoenn_Summer_LIMESTONE_GRASS                     0x381
@@ -465,12 +467,16 @@
 #define METATILE_Hoenn_Summer_TallGrass_Single_SmallBlueTree      0x485
 #define METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenShrub    0x486
 #define METATILE_Hoenn_Summer_TallGrass_Single_SmallGreenTree     0x484
+#define METATILE_Hoenn_Summer_VIVICHOKE_CHALK                     0x491
+#define METATILE_Hoenn_Summer_VIVICHOKE_EMERALD                   0x495
+#define METATILE_Hoenn_Summer_VIVICHOKE_GOLD                      0x497
 #define METATILE_Hoenn_Summer_VIVICHOKE_GRASS                     0x021
 #define METATILE_Hoenn_Summer_VIVICHOKE_ROCK                      0x3F9
 #define METATILE_Hoenn_Summer_VIVICHOKE_SAND                      0x3DB
 #define METATILE_Hoenn_Summer_VIVICHOKE_TOP                       0x3D6
 #define METATILE_Hoenn_Summer_VIVICHOKE_TOPLEFT                   0x3C6
 #define METATILE_Hoenn_Summer_VIVICHOKE_TOPRIGHT                  0x3C7
+#define METATILE_Hoenn_Summer_VIVICHOKE_VOLCANIC                  0x493
 #define METATILE_Hoenn_Summer_VIVICHOKE_WATER                     0x46B
 #define METATILE_Hoenn_Summer_VolcanicCliff_Walkable              0x332
 #define METATILE_Hoenn_Summer_WOOD_CHALK                          0x378
