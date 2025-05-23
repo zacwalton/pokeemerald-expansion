@@ -2698,3 +2698,12 @@
 	.byte SCR_OP_BUFFERFIRSTLIVEMONNICKNAME
 	stringvar \stringVarId
 	.endm
+
+	@ If the result of the last comparison matches condition (flag), jumps to destination and continues script execution from there.
+	.macro goto_if_flag var:req, destination:req
+	.byte SCR_OP_GOTO_IF_FLAG
+	.2byte \var
+	.4byte \destination
+	.endm
+	
+	

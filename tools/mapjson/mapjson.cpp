@@ -289,12 +289,22 @@ string generate_map_events_text(Json map_data) {
         for (auto &bg_event : map_data["bg_events"].array_items()) {
             string type = json_to_string(bg_event, "type");
             if (type == "sign") {
+                string facing = json_to_string(bg_event, "player_facing_dir");
+                if (facing == "BG_EVENT_HARVESTABLE_ITEM") {
+                    text << "\tbg_harvestable_item_event "
+                         << json_to_string(bg_event, "x") << ", "
+                         << json_to_string(bg_event, "y") << ", "
+                         << json_to_string(bg_event, "elevation") << ", "
+                         << json_to_string(bg_event, "script") << ", "
+                         << json_to_string(bg_event, "flag") << "\n";
+                    } else {
                 text << "\tbg_sign_event "
                      << json_to_string(bg_event, "x") << ", "
                      << json_to_string(bg_event, "y") << ", "
                      << json_to_string(bg_event, "elevation") << ", "
                      << json_to_string(bg_event, "player_facing_dir") << ", "
                      << json_to_string(bg_event, "script") << "\n";
+                    }
             }
             else if (type == "hidden_item") {
                 text << "\tbg_hidden_item_event "

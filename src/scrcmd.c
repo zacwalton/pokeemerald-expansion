@@ -3322,5 +3322,14 @@ bool8 ScrCmd_bufferfirstlivemonnickname(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_goto_if_flag(struct ScriptContext *ctx)
+{
+    u16 var = ScriptReadHalfword(ctx);
+    const u8 *ptr = (const u8 *)ScriptReadWord(ctx);
 
+    u16 flag = VarGet(var);
+    if (FlagGet(flag))
+        ScriptJump(ctx, ptr);
+    return FALSE;
+}
 

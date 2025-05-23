@@ -10,4 +10,5 @@
 #define BG_EVENT_HIDDEN_ITEM         7
 #define BG_EVENT_SECRET_BASE         8
 
+#define BG_EVENT_HARVESTABLE_ITEM    9  //ZETA- Add bg event type for harvestable items
 #endif // GUARD_CONSTANTS_EVENT_BG_H

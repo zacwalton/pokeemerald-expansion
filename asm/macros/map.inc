@@ -116,6 +116,11 @@
 	bg_event \x, \y, \elevation, BG_EVENT_SECRET_BASE, \secret_base_id
 	.endm
 
+    @ Defines a background harvestable item event for map data
+    .macro bg_harvestable_item_event x:req, y:req, elevation:req, script:req, flag:req
+    bg_event \x, \y, \elevation, BG_EVENT_HARVESTABLE_ITEM, \script, ((\flag) - FLAG_HIDDEN_ITEMS_START)
+    .endm
+
 	@ Defines the table of event data for a map. Mirrors the struct layout of MapEvents in include/global.fieldmap.h
 	.macro map_events npcs:req, warps:req, traps:req, signs:req
 	.byte _num_npcs, _num_warps, _num_traps, _num_signs

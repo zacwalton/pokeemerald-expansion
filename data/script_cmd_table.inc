@@ -258,6 +258,7 @@ gScriptCmdTable::
     script_cmd_table_entry SCR_OP_SUBQUESTMENU                  ScrCmd_subquestmenu,                requests_effects=0  @ 0xe8
     script_cmd_table_entry SCR_OP_RETURNQUESTSTATE              ScrCmd_returnqueststate,            requests_effects=0  @ 0xe9
 	script_cmd_table_entry SCR_OP_BUFFERFIRSTLIVEMONNICKNAME    ScrCmd_bufferfirstlivemonnickname  	requests_effects=0  @ 0xeA
+	script_cmd_table_entry SCR_OP_GOTO_IF_FLAG				    ScrCmd_goto_if_flag  				requests_effects=0  @ 0xeB
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::

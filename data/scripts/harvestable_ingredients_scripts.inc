@@ -1,3 +1,14 @@
+
+Eventscript_Harvest_Leek::
+	goto_if_flag VAR_0x8004, Harvest_Resource_Collected
+	call Route101_Resource_leek1
+	special SetHiddenItemFlag
+	special DrawWholeMapView
+	call Harvest_LeekScript
+	releaseall
+	end
+
+
 Harvest_WoodScript::
 	random 2
     addvar VAR_RESULT, 1
