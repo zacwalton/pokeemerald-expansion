@@ -3,6 +3,7 @@
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/flags.h"
+#include "constants/harvestable_item.h"
 #include "constants/items.h"
 #include "constants/map_scripts.h"
 #include "constants/maps.h"

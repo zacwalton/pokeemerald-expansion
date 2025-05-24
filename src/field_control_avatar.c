@@ -41,6 +41,7 @@
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
 #include "constants/field_burn.h"
+#include "constants/harvestable_item.h"
 #include "constants/map_types.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/party_menu.h"

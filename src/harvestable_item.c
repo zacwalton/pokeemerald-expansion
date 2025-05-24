@@ -33,6 +33,7 @@
 #include "constants/event_objects.h"
 #include "constants/flags.h"
 #include "constants/event_bg.h"
+#include "constants/harvestable_item.h"
 #include "constants/metatile_labels.h"
 #include "constants/songs.h"
 
