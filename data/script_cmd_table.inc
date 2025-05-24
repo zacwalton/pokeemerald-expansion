@@ -259,6 +259,7 @@ gScriptCmdTable::
     script_cmd_table_entry SCR_OP_RETURNQUESTSTATE              ScrCmd_returnqueststate,            requests_effects=0  @ 0xe9
 	script_cmd_table_entry SCR_OP_BUFFERFIRSTLIVEMONNICKNAME    ScrCmd_bufferfirstlivemonnickname  	requests_effects=0  @ 0xeA
 	script_cmd_table_entry SCR_OP_GOTO_IF_FLAG				    ScrCmd_goto_if_flag  				requests_effects=0  @ 0xeB
+	script_cmd_table_entry SCR_OP_SETALLHARVESTABLEMETATILES    ScrCmd_setallharvestablemetatiles  	requests_effects=0  @ 0xeC
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::

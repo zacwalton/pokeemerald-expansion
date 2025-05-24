@@ -1,8 +1,8 @@
 
 Eventscript_Harvest_Leek::
 	goto_if_flag VAR_0x8004, Harvest_Resource_Collected
-	call Route101_Resource_leek1
 	special SetHiddenItemFlag
+	setallharvestablemetatiles
 	special DrawWholeMapView
 	call Harvest_LeekScript
 	releaseall

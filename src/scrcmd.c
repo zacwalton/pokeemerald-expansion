@@ -59,6 +59,7 @@
 #include "quests.h"
 #include "constants/event_objects.h"
 #include "constants/metatile_labels.h"
+#include "constants/songs.h"
 
 typedef u16 (*SpecialFunc)(void);
 typedef void (*NativeFunc)(struct ScriptContext *ctx);
@@ -3155,9 +3156,6 @@ bool8 ScrCmd_setmetatileateatbgeventid(struct ScriptContext *ctx)
 	u16 localId = VarGet(ScriptReadHalfword(ctx));
     u16 x, y;
 	GetBgEventPosition(&x, &y, localId);
-    u16 metatileId;
-    bool16 isImpassable;
-	s32 previousMetatileId = MapGridGetMetatileIdAt(x, y);
 
     x += MAP_OFFSET;
     y += MAP_OFFSET;
@@ -3333,3 +3331,8 @@ bool8 ScrCmd_goto_if_flag(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_setallharvestablemetatiles(struct ScriptContext *ctx)
+{
+	SetHarvestableItemPresentAtCoords(gMapHeader.events);
+    return FALSE;
+}

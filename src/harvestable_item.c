@@ -27,11 +27,14 @@
 #include "script_menu.h"
 #include "script_movement.h"
 #include "script_pokemon_util.h"
+#include "sound.h"
 #include "malloc.h"
+#include "gba/isagbprint.h"
 #include "constants/event_objects.h"
 #include "constants/flags.h"
 #include "constants/event_bg.h"
 #include "constants/metatile_labels.h"
+#include "constants/songs.h"
 
 struct HarvestableTileMapping
 {
@@ -212,22 +215,84 @@ void SetHarvestedMetatile(u16 x, u16 y, u16 metatileId)
 		}
 	}
 }
-/*
-static bool8 IsHarvestableItemPresentAtCoords(const struct MapEvents *events, s16 x, s16 y)
+
+void SetHarvestableItemPresentAtCoords(const struct MapEvents *events)
 {
     u8 bgEventCount = events->bgEventCount;
     const struct BgEvent *bgEvent = events->bgEvents;
     int i;
-
+int found = 0;
     for (i = 0; i < bgEventCount; i++)
     {
-        if (bgEvent[i].kind == BG_EVENT_HARVESTABLE_ITEM && x == (u16)bgEvent[i].x && y == (u16)bgEvent[i].y) // hidden item and coordinates matches x and y passed?
+        if (bgEvent[i].kind == BG_EVENT_HARVESTABLE_ITEM)
         {
-            if (!FlagGet(bgEvent[i].bgUnion.hiddenItem.hiddenItemId + DAILY_FLAGS_START))
-                return TRUE;
-            else
-                return FALSE;
+			u16 x = bgEvent[i].x + MAP_OFFSET;
+			u16 y = bgEvent[i].y + MAP_OFFSET;
+            if (FlagGet((u32)bgEvent[i].bgUnion.script))
+			{
+                SetHarvestedMetatile(x, y, MapGridGetMetatileIdAt(x, y));
+				found++;
+			}
         }
-    }
+    };
+	if (found > 0)
+		PlaySE(SE_M_EARTHQUAKE);
+}
+
+/*
+bool8 ScrCmd_setmetatileateatbgeventid(struct ScriptContext *ctx)
+{
+	u16 localId = VarGet(ScriptReadHalfword(ctx));
+    u16 x, y;
+	GetBgEventPosition(&x, &y, localId);
+    u16 metatileId;
+    bool16 isImpassable;
+	s32 previousMetatileId = MapGridGetMetatileIdAt(x, y);
+
+    x += MAP_OFFSET;
+    y += MAP_OFFSET;
+	
+	SetHarvestedMetatile(x, y, MapGridGetMetatileIdAt(x, y));
     return FALSE;
-}*/
+}
+
+
+static bool8 IsHiddenItemPresentInConnection(const struct MapConnection *connection, int x, int y)
+{
+    s16 connectionX, connectionY;
+    struct MapHeader const *const connectionHeader = GetMapHeaderFromConnection(connection);
+
+// To convert our x/y into coordinates that are relative to the connected map, we must:
+//  - Subtract the virtual offset used for the border buffer (MAP_OFFSET).
+//  - Subtract the horizontal offset between North/South connections, or the vertical offset for East/West
+//  - Account for map size. (0,0) is in the NW corner of our map, so when looking North/West we have to add the height/width of the connected map,
+//     and when looking South/East we have to subtract the height/width of our current map.
+#define localX (x - MAP_OFFSET)
+#define localY (y - MAP_OFFSET)
+    switch (connection->direction)
+    {
+    case CONNECTION_NORTH:
+        connectionX = localX - connection->offset;
+        connectionY = connectionHeader->mapLayout->height + localY;
+        break;
+    case CONNECTION_SOUTH:
+        connectionX = localX - connection->offset;
+        connectionY = localY - gMapHeader.mapLayout->height;
+        break;
+    case CONNECTION_WEST:
+        connectionX = connectionHeader->mapLayout->width + localX;
+        connectionY = localY - connection->offset;
+        break;
+    case CONNECTION_EAST:
+        connectionX = localX - gMapHeader.mapLayout->width;
+        connectionY = localY - connection->offset;
+        break;
+    default:
+        return FALSE;
+    }
+    return IsHiddenItemPresentAtCoords(connectionHeader->events, connectionX, connectionY);
+}
+
+#undef localX
+#undef localY
+*/

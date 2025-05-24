@@ -25,7 +25,8 @@ Route101_OnLoad:
 	end
 	
 Route101_OnResume:
-	call_if_Set FLAG_ROUTE101_LEEK1, Route101_Resource_leek1
+	setallharvestablemetatiles
+	//call_if_Set FLAG_ROUTE101_LEEK1, Route101_Resource_leek1
 	call_if_Set FLAG_ROUTE101_LEEK2, Route101_Resource_leek2
 	call_if_Set FLAG_ROUTE101_LEEK3, Route101_Resource_leek3
 	call_if_Set FLAG_ROUTE101_MUSHROOM1, Route101_Resource_Mushroom1

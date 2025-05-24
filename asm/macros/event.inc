@@ -2705,5 +2705,11 @@
 	.2byte \var
 	.4byte \destination
 	.endm
+
+	@ Sets all harvestable metatiles on the map that have their flags set
+	.macro setallharvestablemetatiles
+	.byte SCR_OP_SETALLHARVESTABLEMETATILES
+	callnative ScrCmd_setallharvestablemetatiles
+	.endm
 	
 	
