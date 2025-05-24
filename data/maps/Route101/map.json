@@ -210,7 +210,7 @@
       "y": 23,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_leek3Harvest"
+      "script": "Route101_Resource_leek2Harvest"
     },
     {
       "type": "sign",
@@ -218,8 +218,8 @@
       "y": 4,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
-      "script": "FLAG_ROUTE101_LEEK2",
-      "flag": "FLAG_ROUTE101_LEEK2"
+      "script": "FLAG_ROUTE101_LEEK1",
+      "flag": "FLAG_ROUTE101_LEEK1"
     },
     {
       "type": "sign",
@@ -292,6 +292,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route101_Resource_KingsLeaf1Harvest"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 18,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Route101_Resource_leek3Harvest"
     }
   ]
 }
