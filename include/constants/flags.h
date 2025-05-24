@@ -4,6 +4,9 @@
 #include "constants/opponents.h"
 #include "constants/rematches.h"
 
+
+#define FLAGS_BASE 0x920  //ZETA- this just defines the first flag offset for calculating harvestable BgEvent flags. Fallback in case FLAG_UNUSED_0x020 is renamed.
+
 // Temporary Flags
 // These temporary flags are are cleared every time a map is loaded. They are used
 // for things like shortening an NPCs introduction text if the player already spoke

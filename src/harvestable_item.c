@@ -221,22 +221,19 @@ void SetHarvestableItemPresentAtCoords(const struct MapEvents *events)
     u8 bgEventCount = events->bgEventCount;
     const struct BgEvent *bgEvent = events->bgEvents;
     int i;
-int found = 0;
+	
     for (i = 0; i < bgEventCount; i++)
     {
         if (bgEvent[i].kind == BG_EVENT_HARVESTABLE_ITEM)
         {
 			u16 x = bgEvent[i].x + MAP_OFFSET;
 			u16 y = bgEvent[i].y + MAP_OFFSET;
-            if (FlagGet((u32)bgEvent[i].bgUnion.script))
+            if (FlagGet(bgEvent[i].bgUnion.harvestableItem.harvestFlag + FLAGS_BASE))
 			{
                 SetHarvestedMetatile(x, y, MapGridGetMetatileIdAt(x, y));
-				found++;
 			}
         }
     };
-	if (found > 0)
-		PlaySE(SE_M_EARTHQUAKE);
 }
 
 /*

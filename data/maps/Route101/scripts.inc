@@ -1,9 +1,6 @@
 .set LOCALID_BIRCH, 2
 .set LOCALID_ZIGZAGOON, 4
 
-.set LOCALID_LEEK1, 3
-.set LOCALID_LEEK2, 2
-.set LOCALID_LEEK3, 13
 .set LOCALID_MUSHROOM1, 4
 .set LOCALID_MUSHROOM2, 5
 .set LOCALID_BALM1, 6
@@ -27,8 +24,8 @@ Route101_OnLoad:
 Route101_OnResume:
 	setallharvestablemetatiles
 	//call_if_Set FLAG_ROUTE101_LEEK1, Route101_Resource_leek1
-	call_if_Set FLAG_ROUTE101_LEEK2, Route101_Resource_leek2
-	call_if_Set FLAG_ROUTE101_LEEK3, Route101_Resource_leek3
+	//call_if_Set FLAG_ROUTE101_LEEK2, Route101_Resource_leek2
+	//call_if_Set FLAG_ROUTE101_LEEK3, Route101_Resource_leek3
 	call_if_Set FLAG_ROUTE101_MUSHROOM1, Route101_Resource_Mushroom1
 	call_if_Set FLAG_ROUTE101_MUSHROOM2, Route101_Resource_Mushroom2
 	call_if_Set FLAG_ROUTE101_BALM1, Route101_Resource_Balm1
@@ -41,15 +38,15 @@ Route101_OnResume:
 	end
 
 Route101_Resource_leek1::
-	setmetatileateatbgeventid LOCALID_LEEK1
+//	setmetatileateatbgeventid LOCALID_LEEK1
 	return
 
 Route101_Resource_leek2::
-	setmetatileateatbgeventid LOCALID_LEEK2
+//	setmetatileateatbgeventid LOCALID_LEEK2
 	return
 
 Route101_Resource_leek3::
-	setmetatileateatbgeventid LOCALID_LEEK3
+//	setmetatileateatbgeventid LOCALID_LEEK3
 	return
 
 Route101_Resource_Mushroom1::

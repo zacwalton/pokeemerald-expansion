@@ -111,11 +111,11 @@ struct BgEvent
             u16 item;
             u16 hiddenItemId;
         } hiddenItem;
-        u32 secretBaseId;/*
+        u32 secretBaseId;
         struct {
-            const u8 *script;
-            u16 harvestableFlag;
-        } harvestableItem;*/
+            u16 harvestScript;
+            u16 harvestFlag;
+        } harvestableItem;
     } bgUnion;
 };
 

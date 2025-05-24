@@ -92,7 +92,7 @@
 	.byte \elevation
 	.byte \kind
 	.space 2  @ Padding
-	.if \kind != BG_EVENT_HIDDEN_ITEM
+	.if (\kind != BG_EVENT_HIDDEN_ITEM) && (\kind != BG_EVENT_HARVESTABLE_ITEM)
 		.4byte \arg6
 	.else
 		.2byte \arg6
@@ -118,7 +118,7 @@
 
     @ Defines a background harvestable item event for map data
     .macro bg_harvestable_item_event x:req, y:req, elevation:req, script:req, flag:req
-    bg_event \x, \y, \elevation, BG_EVENT_HARVESTABLE_ITEM, \script, ((\flag) - FLAG_HIDDEN_ITEMS_START)
+    bg_event \x, \y, \elevation, BG_EVENT_HARVESTABLE_ITEM, \script, ((\flag) - FLAGS_BASE)
     .endm
 
 	@ Defines the table of event data for a map. Mirrors the struct layout of MapEvents in include/global.fieldmap.h

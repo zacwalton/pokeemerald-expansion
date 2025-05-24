@@ -295,7 +295,7 @@ static bool8 TryStartInteractionScript(struct MapPosition *position, u16 metatil
      && script != SecretBase_EventScript_RecordMixingPC
      && script != SecretBase_EventScript_DollInteract
      && script != SecretBase_EventScript_CushionInteract
-     && script != Eventscript_Harvest_Leek
+     && script != Eventscript_Harvest_Tile
      && script != EventScript_PC)
         PlaySE(SE_SELECT);
 
@@ -468,10 +468,11 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *position
         }
         return NULL;
     case BG_EVENT_HARVESTABLE_ITEM:
-        gSpecialVar_0x8004 = (u32)bgEvent->bgUnion.script;
+        gSpecialVar_0x8004 = ((u32)bgEvent->bgUnion.script >> 16) + FLAGS_BASE;
+        gSpecialVar_0x8005 = (u32)bgEvent->bgUnion.script;
         if (FlagGet(gSpecialVar_0x8004) == TRUE)
             return NULL;
-        return Eventscript_Harvest_Leek;
+        return Eventscript_Harvest_Tile;
     }
 
     return bgEvent->bgUnion.script;

@@ -1,10 +1,10 @@
-
-Eventscript_Harvest_Leek::
+Eventscript_Harvest_Tile::
 	goto_if_flag VAR_0x8004, Harvest_Resource_Collected
 	special SetHiddenItemFlag
 	setallharvestablemetatiles
 	special DrawWholeMapView
-	call Harvest_LeekScript
+	switch VAR_0x8005
+	case 2, Harvest_LeekScript
 	releaseall
 	end
 
