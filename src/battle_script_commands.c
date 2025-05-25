@@ -15598,7 +15598,7 @@ static void Cmd_pickup(void)
             else if (P_SHUCKLE_BERRY_JUICE == GEN_2
                 && species == SPECIES_SHUCKLE
                 && heldItem == ITEM_ORAN_BERRY
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
             {
                 heldItem = ITEM_BERRY_JUICE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15606,7 +15606,7 @@ static void Cmd_pickup(void)
 			//Luvdisc Heart Scale
             else if (species == SPECIES_LUVDISC
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
             {
                 heldItem = ITEM_HEART_SCALE;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15614,7 +15614,7 @@ static void Cmd_pickup(void)
 			//Miltank Moomoo Milk
             else if (species == SPECIES_MILTANK
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
             {
                 heldItem = ITEM_MOOMOO_MILK;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15622,7 +15622,7 @@ static void Cmd_pickup(void)
 			//Chansey Lucky Egg
             else if (species == SPECIES_CHANSEY
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
             {
                 heldItem = ITEM_LUCKY_EGG;
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15638,7 +15638,7 @@ static void Cmd_pickup(void)
 			//Pearls
             else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
 				{
 						heldItem = ITEM_PEARL;
 						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15646,7 +15646,7 @@ static void Cmd_pickup(void)
 			//Big Pearls
             else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
                 && heldItem == ITEM_PEARL
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
 				{
 						heldItem = ITEM_BIG_PEARL;
 						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15654,7 +15654,7 @@ static void Cmd_pickup(void)
 			//Paras mushrooms
             else if (species == (SPECIES_PARAS || SPECIES_PARASECT)
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
 				{
 						heldItem = ITEM_TINY_MUSHROOM;
 						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15662,7 +15662,7 @@ static void Cmd_pickup(void)
 			//Parasect mushrooms
             else if (species == SPECIES_PARASECT
                 && heldItem == ITEM_TINY_MUSHROOM
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
 				{
 						heldItem = ITEM_BIG_MUSHROOM;
 						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
@@ -15670,7 +15670,7 @@ static void Cmd_pickup(void)
 				//Tropius fruit
             else if (species == SPECIES_TROPIUS
                 && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
+                && (Random() % 10) == 0)
 				{
 					if ((Random() % 8) == 0)
 					{
