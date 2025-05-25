@@ -745,24 +745,27 @@
       "x": 14,
       "y": 8,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Resource_Wood1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_RUSTBOROCITY_WOOD1"
     },
     {
       "type": "sign",
       "x": 28,
       "y": 10,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Resource_Wood2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_RUSTBOROCITY_WOOD2"
     },
     {
       "type": "sign",
       "x": 27,
       "y": 2,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "RustboroCity_Resource_Wood3Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_RUSTBOROCITY_WOOD3"
     },
     {
       "type": "sign",

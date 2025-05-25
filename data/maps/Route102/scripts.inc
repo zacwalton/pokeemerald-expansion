@@ -8,63 +8,9 @@ Route102_MapScripts::
 	.byte 0
 
 Route102_OnResume:
-	call_if_Set FLAG_ROUTE102_WOOD1, Route102_Resource_Wood1
-	call_if_Set FLAG_ROUTE102_WOOD2, Route102_Resource_Wood2
-	call_if_Set FLAG_ROUTE102_MUSHROOM1, Route102_Resource_Mushroom1
-	call_if_Set FLAG_ROUTE102_VIVICHOKE1, Route102_Resource_Vivichoke1
+	setallharvestablemetatiles
 	end
 
-Route102_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1 
-	return
-
-Route102_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2 
-	return
-
-Route102_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1 
-	return
-
-Route102_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
-	return
-
-Route102_Resource_Wood1Harvest::
-	goto_if_set FLAG_ROUTE102_WOOD1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE102_WOOD1
-	call Route102_Resource_Wood1
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-Route102_Resource_Wood2Harvest::
-	goto_if_set FLAG_ROUTE102_WOOD2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE102_WOOD2
-	call Route102_Resource_Wood2
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-Route102_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_ROUTE102_MUSHROOM1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE102_MUSHROOM1
-	call Route102_Resource_Mushroom1
-	special DrawWholeMapView
-	call Harvest_MushroomSmallScript
-	releaseall
-	end
-
-Route102_Resource_Vivichoke1Harvest::
-	goto_if_set FLAG_ROUTE102_VIVICHOKE1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE102_VIVICHOKE1
-	call Route102_Resource_Vivichoke1
-	special DrawWholeMapView
-	call Harvest_VivichokeScript
-	releaseall
-	end
 
 Route102_EventScript_LittleBoy::
 	msgbox Route102_Text_ImNotVeryTall, MSGBOX_NPC

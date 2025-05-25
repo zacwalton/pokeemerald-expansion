@@ -380,88 +380,99 @@
       "x": 23,
       "y": 37,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD1"
     },
     {
       "type": "sign",
       "x": 40,
       "y": 28,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD2"
     },
     {
       "type": "sign",
       "x": 50,
       "y": 25,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood3Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD3"
     },
     {
       "type": "sign",
       "x": 53,
       "y": 43,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood4Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD4"
     },
     {
       "type": "sign",
       "x": 71,
       "y": 29,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood5Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD5"
     },
     {
       "type": "sign",
       "x": 69,
       "y": 52,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Wood6Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGWOODS_WOOD6"
     },
     {
       "type": "sign",
       "x": 83,
       "y": 33,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Balm1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_BalmSmall",
+      "flag": "FLAG_PETALBURGWOODS_BALM1"
     },
     {
       "type": "sign",
       "x": 31,
       "y": 41,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Mushroom1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomLarge",
+      "flag": "FLAG_PETALBURGWOODS_MUSHROOM1"
     },
     {
       "type": "sign",
       "x": 78,
       "y": 26,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_KingsLeaf1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_KingsLeaf",
+      "flag": "FLAG_PETALBURGWOODS_KINGSLEAF1"
     },
     {
       "type": "sign",
       "x": 73,
       "y": 32,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Stone1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_PETALBURGWOODS_STONE1"
     },
     {
       "type": "sign",
       "x": 50,
       "y": 55,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgWoods_Resource_Mushroom2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomLarge",
+      "flag": "FLAG_PETALBURGWOODS_MUSHROOM2"
     }
   ]
 }

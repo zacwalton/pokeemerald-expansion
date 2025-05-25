@@ -331,32 +331,36 @@
       "x": 19,
       "y": 19,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgCity_Resource_leek1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_PETALBURGCITY_LEEK1"
     },
     {
       "type": "sign",
       "x": 2,
       "y": 39,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgCity_Resource_leek2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_PETALBURGCITY_LEEK2"
     },
     {
       "type": "sign",
       "x": 31,
       "y": 41,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgCity_Resource_Wood1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_PETALBURGCITY_WOOD1"
     },
     {
       "type": "sign",
       "x": 22,
       "y": 24,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "PetalburgCity_Resource_Vivichoke1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Vivichoke",
+      "flag": "FLAG_PETALBURGCITY_VIVICHOKE1"
     }
   ]
 }

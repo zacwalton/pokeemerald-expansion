@@ -372,32 +372,36 @@
       "x": 57,
       "y": 12,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_Resource_Wood1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_ROUTE104_WOOD1"
     },
     {
       "type": "sign",
       "x": 62,
       "y": 9,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_Resource_Stone1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_ROUTE104_STONE1"
     },
     {
       "type": "sign",
       "x": 49,
       "y": 26,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_Resource_Stone2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_ROUTE104_STONE2"
     },
     {
       "type": "sign",
       "x": 52,
       "y": 32,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_Resource_Stone3Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_ROUTE104_STONE3"
     }
   ]
 }

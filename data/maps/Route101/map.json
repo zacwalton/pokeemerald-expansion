@@ -227,72 +227,81 @@
       "x": 36,
       "y": 23,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Mushroom1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_ROUTE101_MUSHROOM1"
     },
     {
       "type": "sign",
       "x": 11,
       "y": 12,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Mushroom2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_ROUTE101_MUSHROOM2"
     },
     {
       "type": "sign",
       "x": 37,
       "y": 21,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Balm1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_BalmSmall",
+      "flag": "FLAG_ROUTE101_BALM1"
     },
     {
       "type": "sign",
       "x": 8,
       "y": 7,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Stone1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_ROUTE101_STONE1"
     },
     {
       "type": "sign",
       "x": 7,
       "y": 17,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Stone2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_ROUTE101_STONE2"
     },
     {
       "type": "sign",
       "x": 5,
       "y": 12,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Wood1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_ROUTE101_WOOD1"
     },
     {
       "type": "sign",
       "x": 19,
       "y": 21,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Wood2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Wood",
+      "flag": "FLAG_ROUTE101_WOOD2"
     },
     {
       "type": "sign",
       "x": 29,
       "y": 17,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_Vivichoke1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Vivichoke",
+      "flag": "FLAG_ROUTE101_VIVICHOKE1"
     },
     {
       "type": "sign",
       "x": 23,
       "y": 21,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route101_Resource_KingsLeaf1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_KingsLeaf",
+      "flag": "FLAG_ROUTE101_KINGSLEAF1"
     },
     {
       "type": "sign",

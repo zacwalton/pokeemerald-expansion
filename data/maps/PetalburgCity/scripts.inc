@@ -4,11 +4,6 @@
 .set LOCALID_GYM_BOY, 8
 .set LOCALID_SCOTT, 9
 
-.set LOCALID_LEEK1, 9
-.set LOCALID_LEEK2, 10
-.set LOCALID_WOOD1, 11
-.set LOCALID_VIVICHOKE1, 12
-
 PetalburgCity_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, PetalburgCity_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, PetalburgCity_OnTransition
@@ -16,63 +11,9 @@ PetalburgCity_MapScripts::
 	.byte 0
 	
 PetalburgCity_OnResume:
-	call_if_Set FLAG_PETALBURGCITY_LEEK1, PetalburgCity_Resource_leek1
-	call_if_Set FLAG_PETALBURGCITY_LEEK2, PetalburgCity_Resource_leek2
-	call_if_Set FLAG_PETALBURGCITY_WOOD1, PetalburgCity_Resource_Wood1
-	call_if_Set FLAG_PETALBURGCITY_VIVICHOKE1, PetalburgCity_Resource_Vivichoke1
+	setallharvestablemetatiles
 	end
 
-PetalburgCity_Resource_leek1::
-	setmetatileateatbgeventid LOCALID_LEEK1 
-	return
-
-PetalburgCity_Resource_leek2::
-	setmetatileateatbgeventid LOCALID_LEEK2 
-	return
-
-PetalburgCity_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1 
-	return
-
-PetalburgCity_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
-	return
-
-PetalburgCity_Resource_leek1Harvest::
-	goto_if_set FLAG_PETALBURGCITY_LEEK1, Harvest_Resource_Collected
-	setflag FLAG_PETALBURGCITY_LEEK1
-	call PetalburgCity_Resource_leek1
-	special DrawWholeMapView
-	call Harvest_LeekScript
-	releaseall
-	end
-
-PetalburgCity_Resource_leek2Harvest::
-	goto_if_set FLAG_PETALBURGCITY_LEEK2, Harvest_Resource_Collected
-	setflag FLAG_PETALBURGCITY_LEEK2
-	call PetalburgCity_Resource_leek2
-	special DrawWholeMapView
-	call Harvest_LeekScript
-	releaseall
-	end
-
-PetalburgCity_Resource_Wood1Harvest::
-	goto_if_set FLAG_PETALBURGCITY_WOOD1, Harvest_Resource_Collected
-	setflag FLAG_PETALBURGCITY_WOOD1
-	call PetalburgCity_Resource_Wood1
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-PetalburgCity_Resource_Vivichoke1Harvest::
-	goto_if_set FLAG_PETALBURGCITY_VIVICHOKE1, Harvest_Resource_Collected
-	setflag FLAG_PETALBURGCITY_VIVICHOKE1
-	call PetalburgCity_Resource_Vivichoke1
-	special DrawWholeMapView
-	call Harvest_VivichokeScript
-	releaseall
-	end
 
 PetalburgCity_OnTransition:
 	setflag FLAG_VISITED_PETALBURG_CITY

@@ -4,26 +4,52 @@ Eventscript_Harvest_Tile::
 	setallharvestablemetatiles
 	special DrawWholeMapView
 	switch VAR_0x8005
-	case 2, Harvest_LeekScript
+	case 2, Harvest_Script_Leek
+	case 3, Harvest_Script_Wood
+	case 4, Harvest_Script_MushroomSmall
+	case 5, Harvest_Script_MushroomLarge
+	case 6, Harvest_Script_BalmSmall
+	case 7, Harvest_Script_BalmSmall
+	case 8, Harvest_Script_Vivichoke
+	case 9, Harvest_Script_KingsLeaf
+	case 10, Harvest_Script_Stone
 	releaseall
 	end
 
 
-Harvest_WoodScript::
+Harvest_Script_Leek::
+	random 20
+	compare VAR_RESULT, 19
+	goto_if_ge Harvest_Script_Leek_GiveHerb
+	call Harvest_Script_Leek_GiveLeek
+	releaseall
+	end
+
+Harvest_Script_Leek_GiveLeek::
+	giveitem ITEM_LEEK
+	releaseall
+	end
+	
+Harvest_Script_Leek_GiveHerb::
+	giveitem ITEM_REVIVAL_HERB
+	releaseall
+	end
+
+Harvest_Script_Wood::
 	random 2
     addvar VAR_RESULT, 1
     giveitem ITEM_WOOD, VAR_RESULT
 	releaseall
 	end
 
-Harvest_MushroomSmallScript::
+Harvest_Script_MushroomSmall::
     random 1
     addvar VAR_RESULT, 1
     giveitem ITEM_TINY_MUSHROOM, VAR_RESULT
 	releaseall
 	end
 
-Harvest_MushroomLargeScript::
+Harvest_Script_MushroomLarge::
 	giveitem ITEM_BIG_MUSHROOM
     random 1
     addvar VAR_RESULT, 1
@@ -31,55 +57,37 @@ Harvest_MushroomLargeScript::
 	releaseall
 	end
 	
-Harvest_MushroomBalmSmallScript::
+Harvest_Script_BalmSmall::
 	giveitem ITEM_BALM_MUSHROOM
 	releaseall
 	end
 
-Harvest_VivichokeScript::
+Harvest_Script_Vivichoke::
 	giveitem ITEM_VIVICHOKE
 	releaseall
 	end
 	
-Harvest_KingsLeafScript::
+Harvest_Script_KingsLeaf::
 	giveitem ITEM_KINGS_LEAF
 	releaseall
 	end
 
-Harvest_LeekScript::
-	random 20
-	compare VAR_RESULT, 19
-	goto_if_ge Harvest_LeekScript_GiveHerb
-	call Harvest_LeekScript_GiveLeek
-	releaseall
-	end
-
-Harvest_LeekScript_GiveLeek::
-	giveitem ITEM_LEEK
-	releaseall
-	end
-	
-Harvest_LeekScript_GiveHerb::
-	giveitem ITEM_REVIVAL_HERB
-	releaseall
-	end
-
-Harvest_StoneScript::
+Harvest_Script_Stone::
 	random 4
 	switch VAR_RESULT
-	case 0, Harvest_StoneScript_GiveMud
-	call Harvest_StoneScript_GiveStone
+	case 0, Harvest_Script_Stone_GiveMud
+	call Harvest_Script_Stone_GiveStone
 	releaseall
 	end
 
-Harvest_StoneScript_GiveStone::
+Harvest_Script_Stone_GiveStone::
 	random 2
     addvar VAR_RESULT, 1
     giveitem ITEM_STONE, VAR_RESULT
 	releaseall
 	end
 	
-Harvest_StoneScript_GiveMud::
+Harvest_Script_Stone_GiveMud::
 	random 2
     addvar VAR_RESULT, 1
     giveitem ITEM_MUD, VAR_RESULT

@@ -2,11 +2,6 @@
 @  These are labeled in DewfordTown/scripts.inc
 .set LOCALID_RIVAL, 34
 
-.set LOCALID_WOOD1, 6
-.set LOCALID_STONE1, 7
-.set LOCALID_STONE2, 8
-.set LOCALID_STONE3, 9
-
 Route104_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route104_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route104_OnFrame
@@ -14,27 +9,8 @@ Route104_MapScripts::
 	.byte 0
 
 Route104_OnResume:
-	call_if_Set FLAG_ROUTE104_WOOD1, Route104_Resource_Wood1
-	call_if_Set FLAG_ROUTE104_STONE1, Route104_Resource_Stone1
-	call_if_Set FLAG_ROUTE104_STONE2, Route104_Resource_Stone2
-	call_if_Set FLAG_ROUTE104_STONE3, Route104_Resource_Stone3
+	setallharvestablemetatiles
 	end
-
-Route104_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1 
-	return
-
-Route104_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1 
-	return
-
-Route104_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2 
-	return
-
-Route104_Resource_Stone3::
-	setmetatileateatbgeventid LOCALID_STONE3 
-	return
 
 Route104_OnFrame:
 	map_script_2 VAR_BOARD_BRINEY_BOAT_STATE, 1, Route104_EventScript_StartSailToDewford
@@ -50,42 +26,6 @@ Route104_OnTransition:
 	call Route104_EventScript_TrySetRivalPos
 	end
 
-Route104_Resource_Wood1Harvest::
-	goto_if_set FLAG_ROUTE104_WOOD1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE104_WOOD1
-	call Route104_Resource_Wood1
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-Route104_Resource_Stone1Harvest::
-	goto_if_set FLAG_ROUTE104_STONE1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE104_STONE1
-	call Route104_Resource_Stone1
-	special DrawWholeMapView
-	call Harvest_StoneScript
-	releaseall
-	end
-
-Route104_Resource_Stone2Harvest::
-	goto_if_set FLAG_ROUTE104_STONE2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE104_STONE2
-	call Route104_Resource_Stone2
-	special DrawWholeMapView
-	call Harvest_StoneScript
-	releaseall
-	end
-
-Route104_Resource_Stone3Harvest::
-	goto_if_set FLAG_ROUTE104_STONE3, Harvest_Resource_Collected
-	setflag FLAG_ROUTE104_STONE3
-	call Route104_Resource_Stone3
-	special DrawWholeMapView
-	call Harvest_StoneScript
-	releaseall
-	end
-	
 
 Route104_EventScript_TrySetRivalPos::
 	goto_if_ge VAR_BOARD_BRINEY_BOAT_STATE, 1, Route104_EventScript_DontSetRivalPos

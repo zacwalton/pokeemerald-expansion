@@ -300,80 +300,90 @@
       "x": 34,
       "y": 9,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_leek1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_LITTLEROOTTOWN_LEEK1"
     },
     {
       "type": "sign",
       "x": 39,
       "y": 21,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_leek2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_LITTLEROOTTOWN_LEEK2"
     },
     {
       "type": "sign",
       "x": 34,
       "y": 20,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Vivichoke1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Vivichoke",
+      "flag": "FLAG_LITTLEROOTTOWN_VIVICHOKE1"
     },
     {
       "type": "sign",
       "x": 36,
       "y": 5,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Balm1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_BalmSmall",
+      "flag": "FLAG_LITTLEROOTTOWN_BALM1"
     },
     {
       "type": "sign",
       "x": 37,
       "y": 26,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Mushroom1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_LITTLEROOTTOWN_MUSHROOM1"
     },
     {
       "type": "sign",
       "x": 12,
       "y": 27,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Mushroom2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_LITTLEROOTTOWN_MUSHROOM2"
     },
     {
       "type": "sign",
       "x": 40,
       "y": 29,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Mushroom3Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_LITTLEROOTTOWN_MUSHROOM3"
     },
     {
       "type": "sign",
       "x": 26,
       "y": 34,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_KingsLeaf1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_KingsLeaf",
+      "flag": "FLAG_LITTLEROOTTOWN_KINGSLEAF1"
     },
     {
       "type": "sign",
       "x": 22,
       "y": 33,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Stone1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_LITTLEROOTTOWN_STONE1"
     },
     {
       "type": "sign",
       "x": 19,
       "y": 41,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "LittlerootTown_Resource_Stone2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Stone",
+      "flag": "FLAG_LITTLEROOTTOWN_STONE2"
     }
   ]
 }

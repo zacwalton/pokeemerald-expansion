@@ -5,22 +5,8 @@ PetalburgWoods_Entrance_MapScripts::
 	.byte 0
 
 PetalburgWoods_Entrance_OnResume:
-	call_if_Set FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1, PetalburgWoods_Entrance_Resource_Mushroom1
+	setallharvestablemetatiles
 	end
-
-PetalburgWoods_Entrance_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1 
-	return
-
-PetalburgWoods_Entrance_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1, Harvest_Resource_Collected
-	setflag FLAG_PETALBURGWOODS_ENTRANCE_MUSHROOM1
-	call PetalburgWoods_Entrance_Resource_Mushroom1
-	special DrawWholeMapView
-	call Harvest_MushroomSmallScript
-	releaseall
-	end
-
 
 PetalburgWoods_EventScript_Sign1::
 	msgbox PetalburgWoods_Text_TrainerTipsExperience, MSGBOX_SIGN

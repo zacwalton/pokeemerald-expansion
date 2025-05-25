@@ -342,48 +342,54 @@
       "x": 40,
       "y": 21,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Leek1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_ROUTE104_LEEK1"
     },
     {
       "type": "sign",
       "x": 51,
       "y": 20,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Leek2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_ROUTE104_LEEK2"
     },
     {
       "type": "sign",
       "x": 63,
       "y": 4,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Leek3Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Leek",
+      "flag": "FLAG_ROUTE104_LEEK3"
     },
     {
       "type": "sign",
       "x": 48,
       "y": 5,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Vivichoke1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Vivichoke",
+      "flag": "FLAG_ROUTE104_VIVICHOKE1"
     },
     {
       "type": "sign",
       "x": 44,
       "y": 15,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Vivichoke2Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_Vivichoke",
+      "flag": "FLAG_ROUTE104_VIVICHOKE2"
     },
     {
       "type": "sign",
       "x": 38,
       "y": 17,
       "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_North_Resource_Mushroom1Harvest"
+      "player_facing_dir": "BG_EVENT_HARVESTABLE_ITEM",
+      "script": "Harvest_Script_MushroomSmall",
+      "flag": "FLAG_ROUTE104_MUSHROOM1"
     }
   ]
 }

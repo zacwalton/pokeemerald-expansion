@@ -1,16 +1,6 @@
 .set LOCALID_BIRCH, 2
 .set LOCALID_ZIGZAGOON, 4
 
-.set LOCALID_MUSHROOM1, 4
-.set LOCALID_MUSHROOM2, 5
-.set LOCALID_BALM1, 6
-.set LOCALID_STONE1, 7
-.set LOCALID_STONE2, 8
-.set LOCALID_WOOD1, 9
-.set LOCALID_WOOD2, 10
-.set LOCALID_VIVICHOKE1, 11
-.set LOCALID_KINGSLEAF1, 12
-
 Route101_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, Route101_OnLoad
 	map_script MAP_SCRIPT_ON_RESUME, Route101_OnResume
@@ -23,67 +13,7 @@ Route101_OnLoad:
 	
 Route101_OnResume:
 	setallharvestablemetatiles
-	//call_if_Set FLAG_ROUTE101_LEEK1, Route101_Resource_leek1
-	//call_if_Set FLAG_ROUTE101_LEEK2, Route101_Resource_leek2
-	//call_if_Set FLAG_ROUTE101_LEEK3, Route101_Resource_leek3
-	call_if_Set FLAG_ROUTE101_MUSHROOM1, Route101_Resource_Mushroom1
-	call_if_Set FLAG_ROUTE101_MUSHROOM2, Route101_Resource_Mushroom2
-	call_if_Set FLAG_ROUTE101_BALM1, Route101_Resource_Balm1
-	call_if_Set FLAG_ROUTE101_STONE1, Route101_Resource_Stone1
-	call_if_Set FLAG_ROUTE101_STONE2, Route101_Resource_Stone2
-	call_if_Set FLAG_ROUTE101_WOOD1, Route101_Resource_Wood1
-	call_if_Set FLAG_ROUTE101_WOOD2, Route101_Resource_Wood2
-	call_if_Set FLAG_ROUTE101_VIVICHOKE1, Route101_Resource_Vivichoke1
-	call_if_Set FLAG_ROUTE101_KINGSLEAF1, Route101_Resource_KingsLeaf1
 	end
-
-Route101_Resource_leek1::
-//	setmetatileateatbgeventid LOCALID_LEEK1
-	return
-
-Route101_Resource_leek2::
-//	setmetatileateatbgeventid LOCALID_LEEK2
-	return
-
-Route101_Resource_leek3::
-//	setmetatileateatbgeventid LOCALID_LEEK3
-	return
-
-Route101_Resource_Mushroom1::
-	setmetatileateatbgeventid LOCALID_MUSHROOM1
-	return
-
-Route101_Resource_Mushroom2::
-	setmetatileateatbgeventid LOCALID_MUSHROOM2 
-	return
-
-Route101_Resource_Balm1::
-	setmetatileateatbgeventid LOCALID_BALM1 
-	return
-	
-Route101_Resource_Stone1::
-	setmetatileateatbgeventid LOCALID_STONE1 
-	return
-
-Route101_Resource_Stone2::
-	setmetatileateatbgeventid LOCALID_STONE2 
-	return
-
-Route101_Resource_Wood1::
-	setmetatileateatbgeventid LOCALID_WOOD1 
-	return
-
-Route101_Resource_Wood2::
-	setmetatileateatbgeventid LOCALID_WOOD2 
-	return
-
-Route101_Resource_Vivichoke1::
-	setmetatileateatbgeventid LOCALID_VIVICHOKE1 
-	return
-
-Route101_Resource_KingsLeaf1::
-	setmetatileateatbgeventid LOCALID_KINGSLEAF1 
-	return
 
 Route101_OnTransition:
 	end
@@ -96,116 +26,6 @@ Route101_EventScript_HideMapNamePopup::
 	setflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_ROUTE101_STATE, 1
 	end
-
-Route101_Resource_leek1Harvest::
-	goto_if_set FLAG_ROUTE101_LEEK1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_LEEK1
-	call Route101_Resource_leek1
-	special DrawWholeMapView
-	call Harvest_LeekScript
-	releaseall
-	end
-
-Route101_Resource_leek2Harvest::
-	goto_if_set FLAG_ROUTE101_LEEK2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_LEEK2
-	call Route101_Resource_leek2
-	special DrawWholeMapView
-	call Harvest_LeekScript
-	releaseall
-	end
-
-Route101_Resource_leek3Harvest::
-	goto_if_set FLAG_ROUTE101_LEEK3, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_LEEK3
-	call Route101_Resource_leek3
-	special DrawWholeMapView
-	call Harvest_LeekScript
-	releaseall
-	end
-
-Route101_Resource_Mushroom1Harvest::
-	goto_if_set FLAG_ROUTE101_MUSHROOM1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_MUSHROOM1
-	call Route101_Resource_Mushroom1
-	special DrawWholeMapView
-	call Harvest_MushroomSmallScript
-	releaseall
-	end
-
-Route101_Resource_Mushroom2Harvest::
-	goto_if_set FLAG_ROUTE101_MUSHROOM2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_MUSHROOM2
-	call Route101_Resource_Mushroom2
-	special DrawWholeMapView
-	call Harvest_MushroomSmallScript
-	releaseall
-	end
-
-Route101_Resource_Balm1Harvest::
-	goto_if_set FLAG_ROUTE101_BALM1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_BALM1
-	call Route101_Resource_Balm1
-	special DrawWholeMapView
-	call Harvest_MushroomBalmSmallScript
-	releaseall
-	end
-
-Route101_Resource_Stone1Harvest::
-	goto_if_set FLAG_ROUTE101_STONE1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_STONE1
-	call Route101_Resource_Stone1
-	special DrawWholeMapView
-	call Harvest_StoneScript
-	releaseall
-	end
-
-Route101_Resource_Stone2Harvest::
-	goto_if_set FLAG_ROUTE101_STONE2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_STONE2
-	call Route101_Resource_Stone2
-	special DrawWholeMapView
-	call Harvest_StoneScript
-	releaseall
-	end
-
-Route101_Resource_Wood1Harvest::
-	goto_if_set FLAG_ROUTE101_WOOD1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_WOOD1
-	call Route101_Resource_Wood1
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-Route101_Resource_Wood2Harvest::
-	goto_if_set FLAG_ROUTE101_WOOD2, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_WOOD2
-	call Route101_Resource_Wood2
-	special DrawWholeMapView
-	call Harvest_WoodScript
-	releaseall
-	end
-
-Route101_Resource_Vivichoke1Harvest::
-	goto_if_set FLAG_ROUTE101_VIVICHOKE1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_VIVICHOKE1
-	call Route101_Resource_Vivichoke1
-	special DrawWholeMapView
-	call Harvest_VivichokeScript
-	releaseall
-	end
-
-Route101_Resource_KingsLeaf1Harvest::
-	goto_if_set FLAG_ROUTE101_KINGSLEAF1, Harvest_Resource_Collected
-	setflag FLAG_ROUTE101_KINGSLEAF1
-	call Route101_Resource_KingsLeaf1
-	special DrawWholeMapView
-	call Harvest_KingsLeafScript
-	releaseall
-	end
-
-
 
 Route101_EventScript_StartBirchRescue::
 	lockall

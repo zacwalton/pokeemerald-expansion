@@ -12,7 +12,7 @@ enum
     Harvest_Script_BalmSmall,
     Harvest_Script_BalmLarge,
     Harvest_Script_Vivichoke,
-    Harvest_Script_Kingsleaf,
+    Harvest_Script_KingsLeaf,
     Harvest_Script_Stone,
     Harvest_Script_Limestone,
     Harvest_Script_Redstone,
