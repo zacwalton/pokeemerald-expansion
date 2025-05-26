@@ -15559,7 +15559,7 @@ static void Cmd_pickup(void)
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
+                && (Random() % 10) >= 0)
             {
                 if (isInPyramid)
                 {
@@ -15594,100 +15594,125 @@ static void Cmd_pickup(void)
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
                 }
             }
-			//Shuckle Berry Juice
-            else if (P_SHUCKLE_BERRY_JUICE == GEN_2
-                && species == SPECIES_SHUCKLE
-                && heldItem == ITEM_ORAN_BERRY
-                && (Random() % 10) == 0)
+            
+            switch (species)
             {
-                heldItem = ITEM_BERRY_JUICE;
-                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            case SPECIES_SHUCKLE:                                                                   //Shuckle Berry Juice
+                if ((Random() % 10) == 0)
+                {
+                    if (heldItem == ITEM_ORAN_BERRY)            
+                    {
+                        heldItem = ITEM_BERRY_JUICE;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                        gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = ITEM_BERRY_JUICE;
+                    }
+                }
+                break;
+            case SPECIES_LUVDISC:                                                                   //Luvdisc Heart Scale
+                if ((Random() % 10) == 0)
+                {
+                    if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_HEART_SCALE;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }  
+                break;
+            case SPECIES_MILTANK:                                                                   //Miltank Moomoo Milk
+                if ((Random() % 16) == 0)
+                {
+                    if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_MOOMOO_MILK;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_CHANSEY:                                                                   //Chansey Lucky Egg
+                if ((Random() % 16) == 0)
+                {
+                    if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_LUCKY_EGG;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_CRYOGONAL:                                                                 //Nevermeltice
+                if ((Random() % 16) == 0)
+                {
+                    if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_NEVER_MELT_ICE;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_SHELLDER:                                                                  //Pearls + Big Pearls
+            case SPECIES_CLOYSTER:                                                                  //Pearls + Big Pearls
+            case SPECIES_CLAMPERL:                                                                  //Pearls + Big Pearls
+                if ((Random() % 16) >= 0)
+                {
+                    if (heldItem == ITEM_PEARL)            
+                    {
+                        heldItem = ITEM_BIG_PEARL;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                        gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = ITEM_BIG_PEARL;
+                    }
+                    else if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_PEARL;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_PARAS:                                                                     //Tiny Mushroom
+                if ((Random() % 16) == 0)
+                {
+                    if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_TINY_MUSHROOM;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_PARASECT:                                                                  //Tiny Mushroom + Big Mushroom
+                if ((Random() % 16) >= 0)
+                {
+                    if (heldItem == ITEM_TINY_MUSHROOM)            
+                    {
+                        heldItem = ITEM_BIG_MUSHROOM;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                        gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = ITEM_BIG_MUSHROOM;
+                    }
+                    else if (heldItem == ITEM_NONE)            
+                    {
+                        heldItem = ITEM_TINY_MUSHROOM;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    }
+                }   
+                break;
+            case SPECIES_TROPIUS:                                                                   //Tropius Fruit
+                if ((Random() % 16) >= 0)
+                {
+                    if (heldItem == ITEM_HARD_FRUIT)            
+                    {
+                        heldItem = ITEM_SWEET_FRUIT;
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                        gBattleStruct->itemLost[B_SIDE_PLAYER][i].originalItem = ITEM_SWEET_FRUIT;
+                    }
+                    else if (heldItem == ITEM_NONE)
+                    {
+                        if ((Random() % 4) == 0)
+                            heldItem = ITEM_HARD_FRUIT;
+                        else 
+                            heldItem = ITEM_NANAB_BERRY;
+
+                        SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    } 
+                }   
+                break;
             }
-			//Luvdisc Heart Scale
-            else if (species == SPECIES_LUVDISC
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-            {
-                heldItem = ITEM_HEART_SCALE;
-                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-            }
-			//Miltank Moomoo Milk
-            else if (species == SPECIES_MILTANK
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-            {
-                heldItem = ITEM_MOOMOO_MILK;
-                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-            }
-			//Chansey Lucky Egg
-            else if (species == SPECIES_CHANSEY
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-            {
-                heldItem = ITEM_LUCKY_EGG;
-                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-            }
-			//Nevermeltice
-            else if (species == SPECIES_CRYOGONAL
-                && heldItem == ITEM_NONE
-                && (Random() % 16) == 0)
-            {
-                heldItem = ITEM_NEVER_MELT_ICE;
-                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-            }
-			//Pearls
-            else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-				{
-						heldItem = ITEM_PEARL;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-				}
-			//Big Pearls
-            else if (species == (SPECIES_SHELLDER || SPECIES_CLOYSTER || SPECIES_CLAMPERL)
-                && heldItem == ITEM_PEARL
-                && (Random() % 10) == 0)
-				{
-						heldItem = ITEM_BIG_PEARL;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-				}
-			//Paras mushrooms
-            else if (species == (SPECIES_PARAS || SPECIES_PARASECT)
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-				{
-						heldItem = ITEM_TINY_MUSHROOM;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-				}
-			//Parasect mushrooms
-            else if (species == SPECIES_PARASECT
-                && heldItem == ITEM_TINY_MUSHROOM
-                && (Random() % 10) == 0)
-				{
-						heldItem = ITEM_BIG_MUSHROOM;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-				}
-				//Tropius fruit
-            else if (species == SPECIES_TROPIUS
-                && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
-				{
-					if ((Random() % 8) == 0)
-					{
-						heldItem = ITEM_SWEET_FRUIT;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-					}
-					else if ((Random() % 4) == 0)
-					{
-						heldItem = ITEM_HARD_FRUIT;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-					}
-					else 
-					{
-						heldItem = ITEM_NANAB_BERRY;
-						SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
-					}
-				}
         }
     }
 
