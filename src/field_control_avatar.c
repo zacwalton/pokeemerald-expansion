@@ -795,7 +795,7 @@ static void UpdateFriendshipStepCounter(void)
     u16 *ptr = GetVarPointer(VAR_FRIENDSHIP_STEP_COUNTER);
 
     (*ptr)++;
-    (*ptr) %= 255;
+    (*ptr) %= 128;
     if (*ptr == 0)
     {
         struct Pokemon *mon = &gPlayerParty[GetFollowerMonIndex()];
@@ -805,7 +805,7 @@ static void UpdateFriendshipStepCounter(void)
 			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
 			}
-			else if (((Random() % 2) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
+			else if (((Random() % 5) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
 			{
 				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
 			}
