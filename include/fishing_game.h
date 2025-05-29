@@ -173,6 +173,11 @@ enum {
 #define TAG_SCORE_BACKING       0x1006
 #define TAG_ITEM                0x1009
 
+// Game state bit flags
+#define FG_SEPARATE_SCREEN      (1 << 0)
+#define FG_PAUSED               (1 << 1)
+#define FG_GAME_ENDED           (1 << 2)
+
 // Fish state bit flags
 #define FG_IS_VAGUE_FISH        (1 << 0)
 #define FG_IS_MOVING            (1 << 1)
