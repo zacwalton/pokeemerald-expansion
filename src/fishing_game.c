@@ -662,7 +662,7 @@ static void VblankCB_FishingGame(void)
 #define tInitialFishSpeed   data[6]
 #define tScore              data[7]
 #define tScoreDirection     data[8]
-#define tFishIsMoving       data[9]
+
 #define tVagueFish          data[10]
 #define tMonIconPalNum      data[11]
 #define tPaused             data[12]
@@ -1110,6 +1110,7 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 
 static void Task_HandleFishingGameInput(u8 taskId)
 {
+    u8 spriteId = taskData.tFishIconSpriteId;
     RunTextPrinters();
     HandleScore(taskId);
     SetFishingBarPosition(taskId);
@@ -1121,7 +1122,7 @@ static void Task_HandleFishingGameInput(u8 taskId)
         taskData.func = Task_AskWantToQuit;
     }
 
-    if (!taskData.tFishIsMoving && taskData.tPaused == FALSE) // If the fish is not doing a movement and the game isn't paused.
+    if (!(spriteData.sFishStateBits & FG_IS_MOVING) && taskData.tPaused == FALSE) // If the fish is not doing a movement and the game isn't paused.
         taskData.tFrameCounter++; // The time until the next fish movement is decreased.
 }
 
@@ -1469,7 +1470,8 @@ static void SetFishingBarPosition(u8 taskId)
 
 static void SetMonIconPosition(u8 taskId)
 {
-    if (taskData.tFishIsMoving) // Fish is moving.
+    u8 spriteId = taskData.tFishIconSpriteId;
+    if (spriteData.sFishStateBits & FG_IS_MOVING) // Fish is moving.
     {
         if (sFishIconData.sFishStateBits & FG_DIR_RIGHT) // If the mon is moving to the right.
         {
@@ -1500,7 +1502,7 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sFishPosition = FISH_ICON_MAX_POS; // Cap the position at the right edge.
 
             if (sFishIconData.sFishPosition >= sFishIconData.sFishDestination)
-                taskData.tFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
+                spriteData.sFishStateBits &= ~FG_IS_MOVING; // Return to idle behavior if movement has completed.
         }
         else // If the mon is moving to the left.
         {
@@ -1531,7 +1533,7 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sFishPosition = FISH_ICON_MIN_POS; // Cap the position at the left edge.
 
             if (sFishIconData.sFishPosition <= sFishIconData.sFishDestination) // If movement has completed.
-                taskData.tFishIsMoving = FALSE; // Return to idle behavior.
+                spriteData.sFishStateBits &= ~FG_IS_MOVING; // Return to idle behavior.
         }
     }
     else // Fish is idle.
@@ -1542,7 +1544,7 @@ static void SetMonIconPosition(u8 taskId)
 
         if (taskData.tFrameCounter == sFishIconData.sTimeToNextMove) // Begin new movement.
         {
-            taskData.tFishIsMoving = TRUE;
+            spriteData.sFishStateBits |= FG_IS_MOVING;
             taskData.tFrameCounter = 0;
             taskData.tFishSpeedCounter = 0;
 
