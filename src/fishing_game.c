@@ -673,12 +673,15 @@ static void VblankCB_FishingGame(void)
 // Data for all sprites
 #define sTaskId             data[0]
 
-// Data for Fishing Bar sprite
+// Data for Fishing Bar left sprite
 #define sBarPosition        data[1]
 #define sBarSpeed           data[2]
 #define sBarDirection       data[3]
 #define sBarWidth           data[4]
 #define sTreasureItemId     data[5]
+
+// Data for Fishing Bar right sprite
+#define sAbility            data[1]
 
 // Data for Mon Icon sprite
 #define sFishPosition       data[1]
@@ -886,7 +889,8 @@ static void CreateMinigameSprites(u8 taskId)
     
     spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + (spriteData.sBarWidth - FISHING_BAR_SEGMENT_WIDTH)), y, 4);
     spriteData.sTaskId = taskId;
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    spriteData.sAbility = GetMonAbility(&gPlayerParty[0]);
+    taskData.tBarRightSpriteId = spriteId;
     if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
 
