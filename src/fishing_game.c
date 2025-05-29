@@ -663,7 +663,7 @@ static void VblankCB_FishingGame(void)
 #define tScore              data[7]
 #define tScoreDirection     data[8]
 
-#define tVagueFish          data[10]
+
 #define tMonIconPalNum      data[11]
 #define tPaused             data[12]
 #define tSeparateScreen     data[13]
@@ -902,7 +902,7 @@ static void CreateMinigameSprites(u8 taskId)
         {
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, y, 0);
-            taskData.tVagueFish = TRUE;
+            spriteData.sFishStateBits |= FG_IS_VAGUE_FISH;
             if (!taskData.tSeparateScreen)
                 spriteData.oam.priority--;
             spriteData.sTaskId = taskId;
@@ -1696,7 +1696,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
     if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
-        if (gTasks[sprite->sTaskId].tVagueFish)
+        if (sprite->sFishStateBits & FG_IS_VAGUE_FISH)
         {
             DestroySpriteAndFreeResources(sprite);
             return;
@@ -1709,7 +1709,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
     }
     else if (gTasks[sprite->sTaskId].tPaused == FALSE) // Don't do anything if paused.
     {
-        if (gTasks[sprite->sTaskId].tVagueFish == FALSE)
+        if (!(sprite->sFishStateBits & FG_IS_VAGUE_FISH))
             UpdateMonIconFrame(sprite); // Animate the mon icon.
         else if (sprite->animPaused)
             sprite->animPaused = FALSE;
@@ -1719,7 +1719,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
         if (gTasks[sprite->sTaskId].tQMarkSpriteId != 200) // If the Question Mark sprite exists.
             gSprites[gTasks[sprite->sTaskId].tQMarkSpriteId].x = sprite->x; // Move the Question Mark with the fish sprite. This occurs in the fish sprite CB to prevent desync between the sprites.
     }
-    else if (gTasks[sprite->sTaskId].tVagueFish == TRUE && gTasks[sprite->sTaskId].tPaused == TRUE)
+    else if (sprite->sFishStateBits & FG_IS_VAGUE_FISH && gTasks[sprite->sTaskId].tPaused == TRUE)
     {
         if (!sprite->animPaused)
             sprite->animPaused = TRUE;
