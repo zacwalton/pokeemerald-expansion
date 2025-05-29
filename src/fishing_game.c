@@ -686,7 +686,7 @@ static void VblankCB_FishingGame(void)
 #define sTimeToNextMove     data[3]
 #define sFishDestination    data[4]
 #define sFishDestInterval   data[5]
-#define sFishDirection      data[6]
+#define sFishStateBits      data[6]
 #define sFishSpecies        data[7]
 
 // Data for Score Meter sprites
@@ -1471,7 +1471,7 @@ static void SetMonIconPosition(u8 taskId)
 {
     if (taskData.tFishIsMoving) // Fish is moving.
     {
-        if (sFishIconData.sFishDirection == FISH_DIR_RIGHT) // If the mon is moving to the right.
+        if (sFishIconData.sFishStateBits & FG_DIR_RIGHT) // If the mon is moving to the right.
         {
             if (sFishIconData.sFishPosition >= s60PercentMovedRight && taskData.tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
             {
@@ -1502,7 +1502,7 @@ static void SetMonIconPosition(u8 taskId)
             if (sFishIconData.sFishPosition >= sFishIconData.sFishDestination)
                 taskData.tFishIsMoving = FALSE; // Return to idle behavior if movement has completed.
         }
-        else if (sFishIconData.sFishDirection == FISH_DIR_LEFT) // If the mon is moving to the left.
+        else // If the mon is moving to the left.
         {
             if (sFishIconData.sFishPosition <= s60PercentMovedLeft && taskData.tFishSpeedCounter == 0) // If the mon has traveled at least 60% of the total movement distance.
             {
@@ -1564,9 +1564,9 @@ static void SetMonIconPosition(u8 taskId)
             leftProbability = (sFishIconData.sFishPosition / (FISH_ICON_MAX_POS / 100));
             rand = (Random() % 100);
             if (rand < leftProbability)
-                sFishIconData.sFishDirection = FISH_DIR_LEFT;
+                sFishIconData.sFishStateBits &= ~FG_DIR_RIGHT;
             else
-                sFishIconData.sFishDirection = FISH_DIR_RIGHT;
+                sFishIconData.sFishStateBits |= FG_DIR_RIGHT;
 
             // Set fish destination and interval.
             rand = (Random() % ((sBehavior.distance.max - sBehavior.distance.min) + 1));
@@ -1574,19 +1574,19 @@ static void SetMonIconPosition(u8 taskId)
             if (distance < 1)
                 distance = 1;
             distance *= POSITION_ADJUSTMENT;
-            if (sFishIconData.sFishDirection == FISH_DIR_LEFT)
-            {
-                sFishIconData.sFishDestination = (sFishIconData.sFishPosition - distance);
-                if (sFishIconData.sFishDestination < FISH_ICON_MIN_POS)
-                    sFishIconData.sFishDestination = FISH_ICON_MIN_POS;
-                sFishIconData.sFishDestInterval = (sFishIconData.sFishPosition - sFishIconData.sFishDestination);
-            }
-            else
+            if (sFishIconData.sFishStateBits & FG_DIR_RIGHT)
             {
                 sFishIconData.sFishDestination = (sFishIconData.sFishPosition + distance);
                 if (sFishIconData.sFishDestination > FISH_ICON_MAX_POS)
                     sFishIconData.sFishDestination = FISH_ICON_MAX_POS;
                 sFishIconData.sFishDestInterval = (sFishIconData.sFishDestination - sFishIconData.sFishPosition);
+            }
+            else
+            {
+                sFishIconData.sFishDestination = (sFishIconData.sFishPosition - distance);
+                if (sFishIconData.sFishDestination < FISH_ICON_MIN_POS)
+                    sFishIconData.sFishDestination = FISH_ICON_MIN_POS;
+                sFishIconData.sFishDestInterval = (sFishIconData.sFishPosition - sFishIconData.sFishDestination);
             }
         }
 

@@ -173,6 +173,11 @@ enum {
 #define TAG_SCORE_BACKING       0x1006
 #define TAG_ITEM                0x1009
 
+// Fish state bit flags
+#define FG_IS_VAGUE_FISH        (1 << 0)
+#define FG_IS_MOVING            (1 << 1)
+#define FG_DIR_RIGHT            (1 << 2)
+
 struct FishValues
 {
     u8 min;
