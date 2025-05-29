@@ -656,14 +656,14 @@ static void VblankCB_FishingGame(void)
 #define tFrameCounter       data[0]
 #define tFishIconSpriteId   data[1]
 #define tBarLeftSpriteId    data[2]
-#define tScoreMeterSpriteId data[3]
-#define tQMarkSpriteId      data[4]
-#define tFishSpeedCounter   data[5]
-#define tInitialFishSpeed   data[6]
-#define tScore              data[7]
-#define tScoreDirection     data[8]
-#define tGameStates         data[9]
-
+#define tBarRightSpriteId   data[3]
+#define tScoreMeterSpriteId data[4]
+#define tQMarkSpriteId      data[5]
+#define tFishSpeedCounter   data[6]
+#define tInitialFishSpeed   data[7]
+#define tScore              data[8]
+#define tScoreDirection     data[9]
+#define tGameStateBits      data[10]
 #define tMonIconPalNum      data[11]
 
 
@@ -772,7 +772,7 @@ void CB2_InitFishingMinigame(void)
     if (oldTaskId == TASK_NONE)
         oldTaskId = FindTaskIdByFunc(Task_UnableToUseOW);
     taskId = CreateTask(Task_FishingGame, 0);
-    taskData.tGameStates |= FG_SEPARATE_SCREEN;
+    taskData.tGameStateBits |= FG_SEPARATE_SCREEN;
     taskData.tRodType = gTasks[oldTaskId].tRodType;
     DestroyTask(oldTaskId);
 
@@ -803,7 +803,7 @@ void Task_InitOWFishingMinigame(u8 taskId)
     LoadMessageBoxAndFrameGfx(0, TRUE);
     LoadFishingSpritesheets();
 
-    taskData.tGameStates &= ~FG_SEPARATE_SCREEN;
+    taskData.tGameStateBits &= ~FG_SEPARATE_SCREEN;
     CreateMinigameSprites(taskId);
 
     taskData.func = Task_FishingGame;
@@ -849,18 +849,18 @@ static void CreateMinigameSprites(u8 taskId)
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     u8 iconPalSlot = LoadMonIconPaletteGetIndex(species, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
 
-    taskData.tGameStates |= FG_PAUSED; // Pause the sprite animations/movements until the game starts.
+    taskData.tGameStateBits |= FG_PAUSED; // Pause the sprite animations/movements until the game starts.
     taskData.tScore = STARTING_SCORE; // Set the starting score.
     taskData.tScoreDirection = FISH_DIR_RIGHT;
 
     // Create fishing bar sprites.
     y = FISHING_BAR_Y;
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         y += SEPARATE_SCREEN_MODIFIER;
 
     spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, y, 4);
     spriteData.sTaskId = taskId;
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
     spriteData.sBarDirection = FISH_DIR_RIGHT;
     spriteData.sBarWidth = OLD_ROD_BAR_WIDTH;
@@ -887,11 +887,12 @@ static void CreateMinigameSprites(u8 taskId)
     spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + (spriteData.sBarWidth - FISHING_BAR_SEGMENT_WIDTH)), y, 4);
     spriteData.sTaskId = taskId;
     if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
 
     // Create mon icon sprite.
     y = FISH_ICON_Y;
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         y += SEPARATE_SCREEN_MODIFIER;
 
     taskData.tQMarkSpriteId = 200;
@@ -903,7 +904,7 @@ static void CreateMinigameSprites(u8 taskId)
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, y, 0);
             spriteData.sFishStateBits |= FG_IS_VAGUE_FISH;
-            if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+            if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
                 spriteData.oam.priority--;
             spriteData.sTaskId = taskId;
         }
@@ -913,7 +914,7 @@ static void CreateMinigameSprites(u8 taskId)
             FillPalette(RGB_BLACK, OBJ_PLTT_ID(iconPalSlot), PLTT_SIZE_4BPP);
             spriteId = CreateSprite(&sSpriteTemplate_QuestionMark, FISH_ICON_START_X, y, 0);
             taskData.tQMarkSpriteId = spriteId;
-            if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+            if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
                 spriteData.oam.priority--;
             spriteData.sTaskId = taskId;
             spriteId = CreateMonIcon(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY));
@@ -926,7 +927,7 @@ static void CreateMinigameSprites(u8 taskId)
     }
     spriteData.sTaskId = taskId;
     spriteData.oam.priority = 1;
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
     spriteData.subpriority = 1;
     spriteData.sFishPosition = FISH_ICON_START_X * POSITION_ADJUSTMENT;
@@ -937,12 +938,12 @@ static void CreateMinigameSprites(u8 taskId)
 
     // Create score meter sprite.
     y = SCORE_SECTION_Y;
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         y += SEPARATE_SCREEN_MODIFIER;
 
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, y, 0);
     spriteData.sTaskId = taskId;
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
     spriteData.sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
     spriteData.sScoreThird = (spriteData.sScorePosition / SCORE_THIRD_SIZE);
@@ -961,13 +962,13 @@ static void CreateMinigameSprites(u8 taskId)
             spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, (SCORE_SECTION_INIT_X - (SCORE_SECTION_WIDTH * i)), y, 0);
             spriteData.callback = SpriteCB_ScoreMeterAdditional;
             spriteData.sTaskId = taskId;
-            if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+            if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
                 spriteData.oam.priority--;
         }
     }
             
     // Create gray sprites as backing to score meter in OW.
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
     {
         for (i = 1; i <= (sections); i++)
         {
@@ -997,14 +998,14 @@ static void CreateTreasureSprite(u8 taskId)
     u8 y;
 
     y = FISH_ICON_Y;
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         y += SEPARATE_SCREEN_MODIFIER;
         
     spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_ICON_START_X, y, 2);
     spriteData.invisible = TRUE;
     spriteData.sTaskId = taskId;
     spriteData.sTreasurePosition = TREASURE_ICON_MIN_POS;
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         spriteData.oam.priority = 1;
     spriteData.sTreasScoreFrame = 0;
     spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
@@ -1080,7 +1081,7 @@ static void CB2_FishingGame(void)
 
 static void Task_FishingGame(u8 taskId)
 {
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
     else
         LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(14));
@@ -1093,15 +1094,15 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 {
     RunTextPrinters();
 
-    if (!gPaletteFade.active && taskData.tGameStates & FG_SEPARATE_SCREEN) // Keep the game paused until the screen has fully faded in.
+    if (!gPaletteFade.active && taskData.tGameStateBits & FG_SEPARATE_SCREEN) // Keep the game paused until the screen has fully faded in.
     {
-        taskData.tGameStates &= ~FG_PAUSED; // Unpause.
+        taskData.tGameStateBits &= ~FG_PAUSED; // Unpause.
         taskData.func = Task_HandleFishingGameInput;
         taskData.tFrameCounter = 0;
     }
-    else if (taskData.tFrameCounter == OW_PAUSE_BEFORE_START && !(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    else if (taskData.tFrameCounter == OW_PAUSE_BEFORE_START && !(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
     {
-        taskData.tGameStates &= ~FG_PAUSED; // Unpause.
+        taskData.tGameStateBits &= ~FG_PAUSED; // Unpause.
         taskData.func = Task_HandleFishingGameInput;
         taskData.tFrameCounter = 0;
     }
@@ -1118,23 +1119,23 @@ static void Task_HandleFishingGameInput(u8 taskId)
 
     if (JOY_NEW(B_BUTTON)) // If the B Button is pressed.
     {
-        taskData.tGameStates |= FG_PAUSED; // Pause the game.
+        taskData.tGameStateBits |= FG_PAUSED; // Pause the game.
         taskData.func = Task_AskWantToQuit;
     }
 
-    if (!(spriteData.sFishStateBits & FG_IS_MOVING) && !(taskData.tGameStates & FG_PAUSED)) // If the fish is not doing a movement and the game isn't paused.
+    if (!(spriteData.sFishStateBits & FG_IS_MOVING) && !(taskData.tGameStateBits & FG_PAUSED)) // If the fish is not doing a movement and the game isn't paused.
         taskData.tFrameCounter++; // The time until the next fish movement is decreased.
 }
 
 static void Task_AskWantToQuit(u8 taskId)
 {
-    if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+    if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         AlignFishingAnimationFrames();
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_FishingWantToQuit, 0, 1, 1, NULL); // Ask to quit the game.
     ScheduleBgCopyTilemapToVram(0);
     RunTextPrinters();
-    if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 13, 0); // Display the YES/NO option box.
     else
         CreateYesNoMenu(&sWindowTemplate_AskQuit, 0x2A8, 14, 0); // Display the YES/NO option box.
@@ -1147,7 +1148,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:  // YES
-        if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+        if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
         else
             ClearDialogWindowAndFrame(0, TRUE);
@@ -1159,7 +1160,7 @@ static void Task_HandleConfirmQuitInput(u8 taskId)
         PlaySE(SE_SELECT);
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
         AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the instructions again.
-        taskData.tGameStates &= ~FG_PAUSED; // Unpause the game.
+        taskData.tGameStateBits &= ~FG_PAUSED; // Unpause the game.
         taskData.func = Task_HandleFishingGameInput;
         break;
     }
@@ -1176,7 +1177,7 @@ static void Task_ReeledInFish(u8 taskId)
 
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
-            if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+            if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, SEPARATE_SCREEN_MODIFIER, 0);
             else
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 0);
@@ -1223,7 +1224,7 @@ static void Task_FishGotAway(u8 taskId)
     {
         if (!IsTextPrinterActive(0)) // If a button was pressed.
         {
-            if (taskData.tGameStates & FG_SEPARATE_SCREEN)
+            if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
                 BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK); // Fade the screen to black.
             else
                 ClearDialogWindowAndFrame(0, TRUE);
@@ -1238,13 +1239,13 @@ static void Task_QuitFishing(u8 taskId)
     if (!gPaletteFade.active) // If the screen has fully faded to black.
     {
         gFieldCallback2 = NULL;
-        if (!(taskData.tGameStates & FG_SEPARATE_SCREEN))
+        if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         {
             taskData.data[8] = TRUE; // Don't show any more text boxes.
             taskData.data[0] = 15; // Set Task_Fishing to run Fishing_GotAway.
             CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
             CopyBgTilemapBufferToVram(0);
-            taskData.tGameStates |= FG_GAME_ENDED;
+            taskData.tGameStateBits |= FG_GAME_ENDED;
             taskData.func = Task_Fishing;
         }
         else
@@ -1374,14 +1375,14 @@ static void HandleScore(u8 taskId)
 
     if (taskData.tScore >= SCORE_MAX) // If the score goal has been achieved.
     {
-        taskData.tGameStates |= FG_PAUSED; // Freeze all sprite animations/movements.
+        taskData.tGameStateBits |= FG_PAUSED; // Freeze all sprite animations/movements.
         taskData.tFrameCounter = 0; // Reset the frame counter.
         taskData.func = Task_ReeledInFish;
     }
 
     if (taskData.tScore <= 0) // If the score has hit 0.
     {
-        taskData.tGameStates |= FG_PAUSED; // Freeze all sprite animations/movements.
+        taskData.tGameStateBits |= FG_PAUSED; // Freeze all sprite animations/movements.
         taskData.tFrameCounter = 0; // Reset the frame counter.
         taskData.func = Task_FishGotAway;
     }
@@ -1655,12 +1656,12 @@ static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
 
 static void SpriteCB_FishingBar(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
     }
-    else if (gTasks[sprite->sTaskId].tGameStates & FG_PAUSED) // Don't do anything if paused.
+    else if (gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED) // Don't do anything if paused.
         return;
 
     // Does not exceed max speed.
@@ -1684,7 +1685,7 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
 
 static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1694,7 +1695,7 @@ static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         if (sprite->sFishStateBits & FG_IS_VAGUE_FISH)
         {
@@ -1707,7 +1708,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
             return;
         }
     }
-    else if (!(gTasks[sprite->sTaskId].tGameStates & FG_PAUSED)) // Don't do anything if paused.
+    else if (!(gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED)) // Don't do anything if paused.
     {
         if (!(sprite->sFishStateBits & FG_IS_VAGUE_FISH))
             UpdateMonIconFrame(sprite); // Animate the mon icon.
@@ -1719,7 +1720,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
         if (gTasks[sprite->sTaskId].tQMarkSpriteId != 200) // If the Question Mark sprite exists.
             gSprites[gTasks[sprite->sTaskId].tQMarkSpriteId].x = sprite->x; // Move the Question Mark with the fish sprite. This occurs in the fish sprite CB to prevent desync between the sprites.
     }
-    else if (sprite->sFishStateBits & FG_IS_VAGUE_FISH && gTasks[sprite->sTaskId].tGameStates & FG_PAUSED)
+    else if (sprite->sFishStateBits & FG_IS_VAGUE_FISH && gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED)
     {
         if (!sprite->animPaused)
             sprite->animPaused = TRUE;
@@ -1728,7 +1729,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1739,7 +1740,7 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
         sprite->x2--; // Move the score meter out of the score area.
     }
 
-    if (gTasks[sprite->sTaskId].tGameStates & FG_PAUSED) // Don't do anything else if paused.
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED) // Don't do anything else if paused.
         return;
 
     if (gTasks[sprite->sTaskId].tScore > (sprite->sScorePosition * SCORE_INTERVAL)) // If the current score has increased to a greater score interval.
@@ -1790,12 +1791,12 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
     }
-    if (!(gTasks[sprite->sTaskId].tGameStates & FG_PAUSED)) // Don't do anything if paused.
+    if (!(gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED)) // Don't do anything if paused.
     {
         sprite->x2 = (gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].x2); // Set the locations of the additional score meter sprites.
     }
@@ -1803,7 +1804,7 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 
 static void SpriteCB_Perfect(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1829,13 +1830,13 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
 {
     u8 taskId = sprite->sTaskId;
 
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
     }
 
-    if (gTasks[sprite->sTaskId].tGameStates & FG_PAUSED) // Don't do anything else if paused.
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_PAUSED) // Don't do anything else if paused.
         return;
 
     switch (sprite->sTreasureState)
@@ -1918,7 +1919,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             {
                 sprite->invisible = TRUE;
                 sprite->y = TREASURE_DEST_Y;
-                if (gTasks[sprite->sTaskId].tGameStates & FG_SEPARATE_SCREEN)
+                if (gTasks[sprite->sTaskId].tGameStateBits & FG_SEPARATE_SCREEN)
                     sprite->y += SEPARATE_SCREEN_MODIFIER;
                 sprite->x = TREASURE_DEST_X;
                 sprite->invisible = FALSE;
@@ -1946,7 +1947,7 @@ static void SpriteCB_TreasureSurfBobbing(struct Sprite *sprite)
 
 static void SpriteCB_Other(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tGameStates & FG_GAME_ENDED)
+    if (gTasks[sprite->sTaskId].tGameStateBits & FG_GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1969,8 +1970,8 @@ static void CB2_FishingBattleStart(void)
 
     if (IsBattleTransitionDone() == TRUE) // If the battle transition has fully completed.
     {
-        gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tGameStates |= FG_GAME_ENDED;
-        if (!(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tGameStates & FG_SEPARATE_SCREEN))
+        gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tGameStateBits |= FG_GAME_ENDED;
+        if (!(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tGameStateBits & FG_SEPARATE_SCREEN))
             ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
         gMain.savedCallback = CB2_ReturnToField;
         FreeAllWindowBuffers();
