@@ -716,6 +716,8 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
             return TRUE;
         }
     #endif
+		if (MetatileBehavior_IsHotSprings(metatileBehavior))
+			VarSet(VAR_WET_STEP_COUNTER, 25);
 		if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING))		//ZETA- Add wet speed debuff counter
 		{
 			u16 wetCounter = VarGet(VAR_WET_STEP_COUNTER);
