@@ -44,7 +44,7 @@
 #define SCORE_AREA_OFFSET               24   // Position of the left edge of the score area.
 #define SCORE_BAR_OFFSET                ((SCORE_SECTION_WIDTH / 2) - SCORE_AREA_OFFSET) // Sets the score position in relation to SCORE_AREA_OFFSET.
 #define SCORE_INTERVAL                  (SCORE_MAX / SCORE_AREA_WIDTH)
-#define SCORE_SECTION_INIT_X            ((STARTING_SCORE / SCORE_INTERVAL) - SCORE_BAR_OFFSET)
+#define SCORE_SECTION_INIT_X            ((taskData.tScore / SCORE_INTERVAL) - SCORE_BAR_OFFSET)
 #define SCORE_SECTION_Y                 0
 #define SCORE_SECTION_WIDTH             64   // The width of one score meter section sprite in number of pixels.
 #define NUM_SCORE_SECTIONS              (SCORE_AREA_WIDTH / SCORE_SECTION_WIDTH)
@@ -197,6 +197,44 @@ struct FishBehaviorData
     struct FishValues distance;
     struct FishValues delay;
     u8 idleMovement;
+};
+
+struct FishingAbilityModifier
+{
+    u16 ability;
+    s16 effectAmount;
+    u16 operand;
+    u16 effectType;
+    u16 happensWhen;
+    bool8 hasMoreEffects;
+};
+
+// Possible values for happensWhen
+enum {
+    FG_HAPPENS_ALWAYS,
+    FG_HAPPENS_WHEN_FISH_INSIDE_BAR,
+    FG_HAPPENS_WHEN_FISH_OUTSIDE_BAR,
+    FG_HAPPENS_WHEN_TREASURE_INSIDE_BAR,
+    FG_HAPPENS_WHEN_TREASURE_OUTSIDE_BAR
+};
+
+// Ability effect types
+enum {
+    FG_EFFECT_BAR_SIZE,             // Width of the fishing bar.
+    FG_EFFECT_FISH_SPEED,           // Speed a fish travels during a movement.
+    FG_EFFECT_FISH_MOVE_DELAY,      // Delay between fish movements.
+    FG_EFFECT_FISH_MOVE_DISTANCE,   // How far a fish will travel in a movement.
+    FG_EFFECT_SCORE_START,          // The score at the beginning of the game.
+    FG_EFFECT_SCORE_INCREASE,       // How much the score will increase by every frame.
+    FG_EFFECT_SCORE_DECREASE        // How much the score will decrease every frame.
+};
+
+// Operands for ability modifiers
+enum {
+    FG_ADD,
+    FG_SUBTRACT,
+    FG_MULTIPLY,
+    FG_DIVIDE
 };
 
 #define treasure_score_frame(ptr, frame) {.data = (u8 *)ptr + (TREASURE_TILE_SIZE * TREASURE_TILE_SIZE * frame * 64)/2, .size = (TREASURE_TILE_SIZE * TREASURE_TILE_SIZE * 64)/2}
