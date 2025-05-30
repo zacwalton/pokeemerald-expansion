@@ -1,5 +1,5 @@
-#ifndef GUARD_FISHING_GAME_ABILITY_MODIFIERS_H
-#define GUARD_FISHING_GAME_ABILITY_MODIFIERS_H
+#ifndef GUARD_FISHING_GAME_ABILITY_EFFECTS_H
+#define GUARD_FISHING_GAME_ABILITY_EFFECTS_H
 
 #include "constants/abilities.h"
 
@@ -50,4 +50,4 @@ static const struct FishingAbilityModifier sAbilityEffects[] =
     }
 };
 
-#endif // GUARD_FISHING_GAME_ABILITY_MODIFIERS_H
+#endif // GUARD_FISHING_GAME_ABILITY_EFFECTS_H

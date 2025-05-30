@@ -1,7 +1,7 @@
 #include "global.h"
 #include "config/fishing_game.h"
 #include "fishing_game.h"
-#include "fishing_game_ability_modifiers.h"
+#include "fishing_game_ability_effects.h"
 #include "fishing_game_species_behavior.h"
 #include "fishing_game_treasures.h"
 #include "battle.h"
