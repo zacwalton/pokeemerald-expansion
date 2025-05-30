@@ -88,6 +88,7 @@
 #define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts in the overworld.
 #define SEPARATE_SCREEN_MODIFIER        80   // Position offset for sprites if on separate screen.
 #define ICON_CENTER_OFFSET              1.5  // Multiplier for the icon width in order to calculate the icon center.
+#define MAX_ABILITY_EFFECTS             3    // Maximum number of effects an Ability can have.
 
 
 // Sprite sheet numbers.

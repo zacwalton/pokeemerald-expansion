@@ -1,6 +1,7 @@
 #include "global.h"
 #include "config/fishing_game.h"
 #include "fishing_game.h"
+#include "fishing_game_ability_modifiers.h"
 #include "fishing_game_species_behavior.h"
 #include "fishing_game_treasures.h"
 #include "battle.h"
@@ -44,6 +45,7 @@
 #include "util.h"
 #include "wild_encounter.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
@@ -52,6 +54,7 @@ static void Task_UnableToUseOW(u8 taskId);
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId);
 static void CreateTreasureSprite(u8 taskId);
+static void SetAbilityEffectData(u16 ability, u8 spriteId);
 static void SetFishingTreasureItem(u8 rod);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
@@ -67,6 +70,8 @@ static u8 CalculateInitialScoreMeterInterval(void);
 static void ChangeScoreMeterColor(u8 interval, u8 pal);
 static void UpdateHelpfulTextHigher(u8 taskId);
 static void UpdateHelpfulTextLower(u8 taskId);
+static u16 ApplyAbilityEffect(u16 value, u16 effectType, u8 taskId);
+static bool32 FishIsInsideBar(u8 taskId);
 static void HandleScore(u8 taskId);
 static void SetFishingBarPosition(u8 taskId);
 static void SetMonIconPosition(u8 taskId);
@@ -78,6 +83,7 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
 static void SpriteCB_Perfect(struct Sprite *sprite);
 static void SpriteCB_Treasure(struct Sprite *sprite);
 static void SpriteCB_Other(struct Sprite *sprite);
+static bool32 TreasureIsInsideBar(u8 taskId);
 static void CB2_FishingBattleTransition(void);
 static void CB2_FishingBattleStart(void);
 
@@ -656,32 +662,31 @@ static void VblankCB_FishingGame(void)
 #define tFrameCounter       data[0]
 #define tFishIconSpriteId   data[1]
 #define tBarLeftSpriteId    data[2]
-#define tBarRightSpriteId   data[3]
+
 #define tScoreMeterSpriteId data[4]
 #define tQMarkSpriteId      data[5]
-#define tFishSpeedCounter   data[6]
-#define tInitialFishSpeed   data[7]
-#define tScore              data[8]
-#define tScoreDirection     data[9]
-#define tGameStateBits      data[10]
-#define tMonIconPalNum      data[11]
-
-
+#define tTreasureSpriteId   data[6]
+#define tFishSpeedCounter   data[7]
+#define tInitialFishSpeed   data[8]
+#define tScore              data[9]
+#define tScoreDirection     data[10]
+#define tGameStateBits      data[11]
+#define tMonIconPalNum      data[12]
+#define tAbility            data[13]
 #define tPlayerGFXId        data[14]
 #define tRodType            data[15]
 
 // Data for all sprites
 #define sTaskId             data[0]
 
-// Data for Fishing Bar left sprite
-#define sBarPosition        data[1]
-#define sBarSpeed           data[2]
-#define sBarDirection       data[3]
-#define sBarWidth           data[4]
-#define sTreasureItemId     data[5]
-
-// Data for Fishing Bar right sprite
-#define sAbility            data[1]
+// Data for Fishing Bar sprite
+#define sEffect1            data[1]
+#define sEffect2            data[2]
+#define sEffect3            data[3]
+#define sBarPosition        data[4]
+#define sBarSpeed           data[5]
+#define sBarDirection       data[6]
+#define sBarWidth           data[7]
 
 // Data for Mon Icon sprite
 #define sFishPosition       data[1]
@@ -868,6 +873,8 @@ static void CreateMinigameSprites(u8 taskId)
     spriteData.sBarDirection = FISH_DIR_RIGHT;
     spriteData.sBarWidth = OLD_ROD_BAR_WIDTH;
     taskData.tBarLeftSpriteId = spriteId;
+    taskData.tAbility = GetMonAbility(&gPlayerParty[0]);
+    SetAbilityEffectData(taskData.tAbility, spriteId);
 
     // Set width of fishing bar.
     if (FG_BAR_WIDTH_FROM_ROD_TYPE == TRUE)
@@ -882,6 +889,7 @@ static void CreateMinigameSprites(u8 taskId)
             break;
         }
     }
+    spriteData.sBarWidth = ApplyAbilityEffect(spriteData.sBarWidth, FG_EFFECT_BAR_SIZE, taskId);
     if (spriteData.sBarWidth > FISHING_BAR_WIDTH_MAX)
         spriteData.sBarWidth = FISHING_BAR_WIDTH_MAX;
     else if (spriteData.sBarWidth < FISHING_BAR_WIDTH_MIN)
@@ -889,8 +897,6 @@ static void CreateMinigameSprites(u8 taskId)
     
     spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + (spriteData.sBarWidth - FISHING_BAR_SEGMENT_WIDTH)), y, 4);
     spriteData.sTaskId = taskId;
-    spriteData.sAbility = GetMonAbility(&gPlayerParty[0]);
-    taskData.tBarRightSpriteId = spriteId;
     if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
 
@@ -1014,7 +1020,45 @@ static void CreateTreasureSprite(u8 taskId)
     spriteData.sTreasScoreFrame = 0;
     spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
     spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
+    taskData.tTreasureSpriteId = spriteId;
     SetFishingTreasureItem((u8)taskData.tRodType);
+}
+
+static void SetAbilityEffectData(u16 ability, u8 spriteId)
+{
+    u32 i;
+    u32 effectsCount = 0;
+
+    spriteData.sEffect1 = 0;
+    spriteData.sEffect2 = 0;
+    spriteData.sEffect3 = 0;
+
+    for (i = 0; i < ARRAY_COUNT(sAbilityEffects); i++)
+    {
+        if (effectsCount >= 3)
+            return;
+            
+        if (ability == sAbilityEffects[i].ability)
+        {
+            switch (effectsCount)
+            {
+            case 0:
+                spriteData.sEffect1 = i;
+                break;
+            case 1:
+                spriteData.sEffect2 = i;
+                break;
+            case 2:
+                spriteData.sEffect3 = i;
+                break;
+            }
+
+            if (sAbilityEffects[i].hasMoreEffects == FALSE)
+                return;
+
+            effectsCount++;
+        }
+    }
 }
 
 static void SetFishingTreasureItem(u8 rod)
@@ -1328,6 +1372,68 @@ static void UpdateHelpfulTextLower(u8 taskId)
     scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
+    u32 i;
+    u32 doEffect = FALSE;
+    u32 newValue = value;
+    u32 effectArrayNum;
+
+    for (i = 1; i <= MAX_ABILITY_EFFECTS; i++)
+    {
+        effectArrayNum = gSprites[taskData.tBarLeftSpriteId].data[i];
+
+        if (sAbilityEffects[effectArrayNum].effectType != effectType || effectArrayNum == 0)
+            continue;
+
+        switch (sAbilityEffects[effectArrayNum].happensWhen)
+        {
+        case FG_HAPPENS_ALWAYS:
+        case FG_HAPPENS_ON_START:
+            doEffect = TRUE;
+            break;
+        case FG_HAPPENS_WHEN_FISH_INSIDE_BAR:
+            if (FishIsInsideBar(taskId))
+                doEffect = TRUE;
+            break;
+        case FG_HAPPENS_WHEN_FISH_OUTSIDE_BAR:
+            if (!FishIsInsideBar(taskId))
+                doEffect = TRUE;
+            break;
+        case FG_HAPPENS_WHEN_TREASURE_INSIDE_BAR:
+            if (TreasureIsInsideBar(taskId))
+                doEffect = TRUE;
+            break;
+        case FG_HAPPENS_WHEN_TREASURE_OUTSIDE_BAR:
+            if (!TreasureIsInsideBar(taskId))
+                doEffect = TRUE;
+            break;
+        }
+
+        if (doEffect == TRUE)
+            break;
+    }
+
+    if (doEffect == TRUE)
+    {
+        switch (sAbilityEffects[effectArrayNum].operand)
+        {
+        case FG_ADD:
+            newValue += sAbilityEffects[effectArrayNum].effectAmount;
+            break;
+        case FG_SUBTRACT:
+            newValue -= sAbilityEffects[effectArrayNum].effectAmount;
+            break;
+        case FG_MULTIPLY:
+            newValue *= sAbilityEffects[effectArrayNum].effectAmount;
+            break;
+        case FG_DIVIDE:
+            newValue /= sAbilityEffects[effectArrayNum].effectAmount;
+            break;
+        }
+    }
+
+    return newValue;
+}
+
 #define barData         gSprites[taskData.tBarLeftSpriteId]
 #define fishData        gSprites[taskData.tFishIconSpriteId]
 #define fishCenter      (fishData.sFishPosition - ((FISH_ICON_HITBOX_WIDTH * ICON_CENTER_OFFSET) * POSITION_ADJUSTMENT))
@@ -1337,9 +1443,17 @@ static void UpdateHelpfulTextLower(u8 taskId)
 #define fishHBLeftEdge  (fishCenter - ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define fishHBRightEdge (fishCenter + ((FISH_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
+static bool32 FishIsInsideBar(u8 taskId)
+{
+    if (fishHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge)
+        return TRUE;
+
+    return FALSE;
+}
+
 static void HandleScore(u8 taskId)
 {
-    if (fishHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge) // If the fish hitbox is within the fishing bar.
+    if (FishIsInsideBar(taskId)) // If the fish hitbox is within the fishing bar.
     {
         taskData.tScore += SCORE_INCREASE; // Increase the score.
 
@@ -1557,6 +1671,7 @@ static void SetMonIconPosition(u8 taskId)
             rand = (Random() % ((sBehavior.speed.max - sBehavior.speed.min) + 1));
             sFishIconData.sFishSpeed = sBehavior.speed.min + rand;
             sFishIconData.sFishSpeed = ((sFishIconData.sFishSpeed * FISH_SPEED_MULTIPLIER) / 100);
+            sFishIconData.sFishSpeed = ApplyAbilityEffect(sFishIconData.sFishSpeed, FG_EFFECT_FISH_SPEED, taskId);
             if (sFishIconData.sFishSpeed < 1)
                 sFishIconData.sFishSpeed = 1;
             taskData.tInitialFishSpeed = sFishIconData.sFishSpeed;
@@ -1826,7 +1941,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     sprite->sPerfectMoveFrames++;
 }
 
-#define treasureCenter      (sprite->sTreasurePosition - ((TREASURE_ICON_HITBOX_WIDTH * ICON_CENTER_OFFSET) * POSITION_ADJUSTMENT))
+#define treasureCenter      (gSprites[taskData.tTreasureSpriteId].sTreasurePosition - ((TREASURE_ICON_HITBOX_WIDTH * ICON_CENTER_OFFSET) * POSITION_ADJUSTMENT))
 #define treasureHBLeftEdge  (treasureCenter - ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define treasureHBRightEdge (treasureCenter + ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
@@ -1892,7 +2007,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 ChangeScoreMeterColor(sprite->sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
             }
 
-            if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
+            if (TreasureIsInsideBar(taskId)) // If the treasure hitbox is within the fishing bar.
             {
                 if (DEFAULT_TREASURE_SCORE_PAUSE || (FG_FLAG_TREASURE_SCORE_PAUSE && FlagGet(FG_FLAG_TREASURE_SCORE_PAUSE)))
                     gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].sTreasurePause = TRUE;
@@ -1956,6 +2071,14 @@ static void SpriteCB_Other(struct Sprite *sprite)
         DestroySpriteAndFreeResources(sprite);
         return;
     }
+}
+
+static bool32 TreasureIsInsideBar(u8 taskId)
+{
+    if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge)
+        return TRUE;
+
+    return FALSE;
 }
 
 static void CB2_FishingBattleTransition(void)
