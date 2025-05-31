@@ -25,8 +25,8 @@ EventScript_CutTreeDown:: @ fallthrough
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
-		random 3
-    addvar VAR_RESULT, 3
+		random 5
+    addvar VAR_RESULT, 1
     giveitem ITEM_WOOD, VAR_RESULT
 	releaseall
 	end
@@ -83,6 +83,7 @@ EventScript_RockSmash::
 	checkmovefieldeffectflag 0x0002
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
 	setfieldeffectargument 0, VAR_RESULT
+	copyvar VAR_0x8008, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8005
 	goto EventScript_RockSmashSuccess
@@ -105,9 +106,9 @@ EventScript_SmashRock:: @ fallthrough
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
 	specialvar VAR_RESULT, TryUpdateRusturfTunnelState
-	goto_if_eq VAR_RESULT, TRUE, EventScript_EndSmash
+	goto_if_eq VAR_RESULT, TRUE, EventScript_SmashRockEndNoItem
 	special RockSmashWildEncounter
-	goto_if_eq VAR_RESULT, FALSE, EventScript_EndSmash
+	goto_if_eq VAR_RESULT, FALSE, EventScript_RockSmashCheckforItem
 	waitstate
 	releaseall
 	end
@@ -183,12 +184,16 @@ EventScript_FollowerJumpWest:
 	waitmovement 0
 	return
 
+EventScript_RockSmashCheckforItem::
+	special RockSmashFindItem
+	goto_if_eq VAR_RESULT, TRUE, EventScript_SmashRockItem
 EventScript_EndSmash::
-	random 3
-    addvar VAR_RESULT, 3
-    giveitem ITEM_STONE, VAR_RESULT
-	random 2
-	goto_if_eq VAR_RESULT, 1, EventScript_SmashRockItem
+	goto_if_eq VAR_0x8009, 0, EventScript_SmashRockEndNoItem
+    giveitem ITEM_STONE, VAR_0x8009
+	releaseall
+	end
+	
+EventScript_SmashRockEndNoItem::
 	releaseall
 	end
 	
@@ -215,21 +220,25 @@ random 20
 	case 17, EventScript_SmashRockItem_StarPiece
 	case 18, EventScript_SmashRockItem_MaxEther
 	case 19, EventScript_SmashRockItem_RareBone
+	goto EventScript_EndSmash
 	releaseall
 	end
 	
 EventScript_SmashRockItem_HardStone::
     giveitem ITEM_HARD_STONE
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_Revive::
     giveitem ITEM_REVIVE
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_SoftSand::
     giveitem ITEM_SOFT_SAND
+	goto EventScript_EndSmash
 	releaseall
 	end
 
@@ -237,56 +246,67 @@ EventScript_SmashRockItem_MetalAlloy::
 	random 3
     addvar VAR_RESULT, 1
     giveitem ITEM_METAL_ALLOY, VAR_RESULT
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_Ether::
     giveitem ITEM_ETHER
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_Nugget::
     giveitem ITEM_NUGGET
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_RedShard::
     giveitem ITEM_RED_SHARD
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_BlueShard::
     giveitem ITEM_BLUE_SHARD
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_YellowShard::
     giveitem ITEM_YELLOW_SHARD
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_GreenShard::
     giveitem ITEM_GREEN_SHARD
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_MaxRevive::
     giveitem ITEM_MAX_REVIVE
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_StarPiece::
     giveitem ITEM_STAR_PIECE
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_MaxEther::
     giveitem ITEM_MAX_ETHER
+	goto EventScript_EndSmash
 	releaseall
 	end
 
 EventScript_SmashRockItem_RareBone::
     giveitem ITEM_RARE_BONE
+	goto EventScript_EndSmash
 	releaseall
 	end
 

@@ -9,6 +9,7 @@
 #include "diploma.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "fieldmap.h"
 #include "field_camera.h"
 #include "field_effect.h"
@@ -49,6 +50,7 @@
 #include "tv.h"
 #include "wallclock.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_pyramid.h"
 #include "constants/battle_tower.h"
@@ -4398,4 +4400,47 @@ u8 GetFollowerMonIndex(void)
             return i;
     }
     return 0;
+}
+
+void RockSmashFindItem(void)
+{
+	u8 i = gSpecialVar_0x8008;
+	u16 userAbility;
+	u8 itemChance = 25;
+	u8 yieldCount = 1 + (Random() % 3);
+	
+	userAbility = GetMonAbility(&gPlayerParty[i]);
+		
+		if ((userAbility == ABILITY_SUPER_LUCK)
+			|| (userAbility == ABILITY_FRISK)
+			|| (userAbility == ABILITY_PICKUP)
+			|| (userAbility == ABILITY_ILLUMINATE)
+			|| (userAbility == ABILITY_MAGNET_PULL)
+			|| (userAbility == ABILITY_SUCTION_CUPS)
+			|| (userAbility == ABILITY_KEEN_EYE))
+			{ 
+			itemChance += 10; 
+			}
+		else if ((userAbility == ABILITY_OBLIVIOUS)
+				|| (userAbility == ABILITY_UNAWARE))
+				{
+					itemChance -= 10;
+				}
+		if ((userAbility == ABILITY_ANGER_POINT)
+			|| (userAbility == ABILITY_TINTED_LENS)
+			|| (userAbility == ABILITY_SHEER_FORCE)
+			|| (userAbility == ABILITY_RECKLESS)
+			|| (userAbility == ABILITY_TECHNICIAN))
+				{ 
+					yieldCount += (Random() % 4);
+				}
+				
+		VarSet(VAR_0x8009, yieldCount);
+		
+		if ((Random() % 100) < itemChance)
+		{
+			gSpecialVar_Result = TRUE;
+		}
+		else
+			gSpecialVar_Result = FALSE;
 }

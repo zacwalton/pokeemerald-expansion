@@ -900,6 +900,8 @@ bool8 FldEff_CutGrass(void)
 					|| (userAbility == ABILITY_PICKUP)
 					|| (userAbility == ABILITY_SUPER_LUCK)
 					|| (userAbility == ABILITY_FRISK)
+					|| (userAbility == ABILITY_MAGNET_PULL)
+					|| (userAbility == ABILITY_SUCTION_CUPS)
 					|| (userAbility == ABILITY_HARVEST))
 					{
 						itemChance += 4;
