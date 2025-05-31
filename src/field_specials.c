@@ -4407,7 +4407,7 @@ void RockSmashFindItem(void)
 	u8 i = gSpecialVar_0x8008;
 	u16 userAbility;
 	u8 itemChance = 25;
-	u8 yieldCount = 1 + (Random() % 3);
+	u8 yieldCount = (Random() % 5);
 	
 	userAbility = GetMonAbility(&gPlayerParty[i]);
 		
@@ -4432,7 +4432,7 @@ void RockSmashFindItem(void)
 			|| (userAbility == ABILITY_RECKLESS)
 			|| (userAbility == ABILITY_TECHNICIAN))
 				{ 
-					yieldCount += (Random() % 4);
+					yieldCount += ((Random() % 2) + (Random() % 3));
 				}
 				
 		VarSet(VAR_0x8009, yieldCount);

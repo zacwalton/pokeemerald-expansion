@@ -499,3 +499,300 @@ EventScript_GiveRandomBerry_Maranga::
 	releaseall
 	end
 
+
+EventScript_Harvest_RockSmash::
+	random 10
+	switch VAR_RESULT
+	case 0, EventScript_Harvest_RockSmash_Common
+	case 1, EventScript_Harvest_RockSmash_Common
+	case 2, EventScript_Harvest_RockSmash_Common
+	case 3, EventScript_Harvest_RockSmash_Common
+	case 4, EventScript_Harvest_RockSmash_Common
+	case 5, EventScript_Harvest_RockSmash_Common
+	case 6, EventScript_Harvest_RockSmash_Uncommon
+	case 7, EventScript_Harvest_RockSmash_Uncommon
+	case 8, EventScript_Harvest_RockSmash_Uncommon
+	case 9, EventScript_Harvest_RockSmash_Rare
+	releaseall
+	end
+	
+EventScript_Harvest_RockSmash_Common::
+	random 6
+	switch VAR_RESULT
+	case 0, EventScript_SmashRockItem_HardStone
+	case 1, EventScript_SmashRockItem_Revive
+	case 2, EventScript_SmashRockItem_SoftSand
+	case 3, EventScript_SmashRockItem_Ether
+	case 4, EventScript_SmashRockItem_MetalAlloy
+	case 5, EventScript_SmashRockItem_MetalAlloy
+	releaseall
+	end
+
+EventScript_Harvest_RockSmash_Uncommon::
+	random 8
+	switch VAR_RESULT
+	case 0, EventScript_SmashRockItem_Nugget
+	case 1, Eventscript_GiveRandomShard
+	case 2, Eventscript_GiveRandomShard
+	case 3, EventScript_SmashRockItem_MaxEther
+	case 4, EventScript_SmashRockItem_MetalAlloy
+	case 5, EventScript_SmashRockItem_HeartScale
+	case 6, EventScript_SmashRockItem_FloatStone
+	case 7, EventScript_SmashRockItem_Everstone
+	releaseall
+	end
+	
+EventScript_Harvest_RockSmash_Rare::
+	random 5
+	switch VAR_RESULT
+	case 0, EventScript_SmashRockItem_RareBone
+	case 1, EventScript_SmashRockItem_StarPiece
+	case 2, EventScript_SmashRockItem_MaxRevive
+	case 3, Eventscript_GiveRandomGem
+	case 4, Eventscript_GiveRandomFossil_Hoenn
+	releaseall
+	end
+
+Eventscript_GiveRandomFossil_Hoenn::
+	goto_if_set FLAG_SYS_NATIONAL_DEX, Eventscript_GiveRandomFossil_Hoenn_National
+	random 2
+	switch VAR_RESULT
+	case 0, Eventscript_GiveRandomFossil_Claw
+	case 1, Eventscript_GiveRandomFossil_Root
+	releaseall
+	end
+	
+Eventscript_GiveRandomFossil_Hoenn_National::
+	random 5
+	switch VAR_RESULT
+	case 0, Eventscript_GiveRandomFossil_Claw
+	case 1, Eventscript_GiveRandomFossil_Root
+	case 2, Eventscript_GiveRandomFossil_Amber
+	case 3, Eventscript_GiveRandomFossil_Dome
+	case 4, Eventscript_GiveRandomFossil_Helix
+	releaseall
+	end
+
+EventScript_SmashRockItem_HardStone::
+	giveitem ITEM_HARD_STONE
+	releaseall
+	end
+EventScript_SmashRockItem_Revive::
+	giveitem ITEM_REVIVE
+	releaseall
+	end
+EventScript_SmashRockItem_SoftSand::
+	giveitem ITEM_SOFT_SAND
+	releaseall
+	end
+EventScript_SmashRockItem_Ether::
+	giveitem ITEM_ETHER
+	releaseall
+	end
+EventScript_SmashRockItem_MetalAlloy::
+	giveitem ITEM_METAL_ALLOY
+	releaseall
+	end
+EventScript_SmashRockItem_Nugget::
+	giveitem ITEM_NUGGET
+	releaseall
+	end
+EventScript_SmashRockItem_MaxEther::
+	giveitem ITEM_MAX_ETHER
+	releaseall
+	end
+EventScript_SmashRockItem_HeartScale::
+	giveitem ITEM_HEART_SCALE
+	releaseall
+	end
+EventScript_SmashRockItem_FloatStone::
+	giveitem ITEM_FLOAT_STONE
+	releaseall
+	end
+EventScript_SmashRockItem_Everstone::
+	giveitem ITEM_EVERSTONE
+	releaseall
+	end
+EventScript_SmashRockItem_RareBone::
+	giveitem ITEM_RARE_BONE
+	releaseall
+	end
+EventScript_SmashRockItem_StarPiece::
+	giveitem ITEM_STAR_PIECE
+	releaseall
+	end
+EventScript_SmashRockItem_MaxRevive::
+	giveitem ITEM_MAX_REVIVE
+	releaseall
+	end
+
+Eventscript_GiveRandomFossil_Claw::
+	giveitem ITEM_CLAW_FOSSIL
+	releaseall
+	end
+
+Eventscript_GiveRandomFossil_Root::
+	giveitem ITEM_ROOT_FOSSIL
+	releaseall
+	end
+
+Eventscript_GiveRandomFossil_Amber::
+	giveitem ITEM_OLD_AMBER
+	releaseall
+	end
+	
+Eventscript_GiveRandomFossil_Dome::
+	giveitem ITEM_DOME_FOSSIL
+	releaseall
+	end
+
+Eventscript_GiveRandomFossil_Helix::
+	giveitem ITEM_HELIX_FOSSIL
+	releaseall
+	end
+
+Eventscript_GiveRandomShard::
+	random 4
+	switch VAR_RESULT
+	case 0, Eventscript_GiveRandomShard_Red
+	case 1, Eventscript_GiveRandomShard_Green
+	case 2, Eventscript_GiveRandomShard_Blue
+	case 3, Eventscript_GiveRandomShard_Yellow
+	releaseall
+	end
+
+Eventscript_GiveRandomShard_Red::
+	giveitem ITEM_RED_SHARD
+	releaseall
+	end
+
+Eventscript_GiveRandomShard_Green::
+	giveitem ITEM_GREEN_SHARD
+	releaseall
+	end
+
+Eventscript_GiveRandomShard_Blue::
+	giveitem ITEM_BLUE_SHARD
+	releaseall
+	end
+
+Eventscript_GiveRandomShard_Yellow::
+	giveitem ITEM_YELLOW_SHARD
+	releaseall
+	end
+
+Eventscript_GiveRandomGem::
+	random 19
+	switch VAR_RESULT
+	case 0, Eventscript_GiveRandomGem_Fire
+	case 1, Eventscript_GiveRandomGem_Water
+	case 2, Eventscript_GiveRandomGem_Electric
+	case 3, Eventscript_GiveRandomGem_Grass
+	case 4, Eventscript_GiveRandomGem_Ice
+	case 5, Eventscript_GiveRandomGem_Fighting
+	case 6, Eventscript_GiveRandomGem_Poison
+	case 7, Eventscript_GiveRandomGem_Ground
+	case 8, Eventscript_GiveRandomGem_Flying
+	case 9, Eventscript_GiveRandomGem_Psychic
+	case 10, Eventscript_GiveRandomGem_Bug
+	case 11, Eventscript_GiveRandomGem_Rock
+	case 12, Eventscript_GiveRandomGem_Ghost
+	case 13, Eventscript_GiveRandomGem_Dragon
+	case 14, Eventscript_GiveRandomGem_Dark
+	case 15, Eventscript_GiveRandomGem_Steel
+	case 16, Eventscript_GiveRandomGem_Normal
+	case 17, Eventscript_GiveRandomGem_Fairy
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Fire::
+	giveitem ITEM_FIRE_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Water::
+	giveitem ITEM_WATER_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Electric::
+	giveitem ITEM_ELECTRIC_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Grass::
+	giveitem ITEM_GRASS_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Ice::
+	giveitem ITEM_ICE_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Fighting::
+	giveitem ITEM_FIGHTING_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Poison::
+	giveitem ITEM_POISON_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Ground::
+	giveitem ITEM_GROUND_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Flying::
+	giveitem ITEM_FLYING_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Psychic::
+	giveitem ITEM_PSYCHIC_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Bug::
+	giveitem ITEM_BUG_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Rock::
+	giveitem ITEM_ROCK_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Ghost::
+	giveitem ITEM_GHOST_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Dragon::
+	giveitem ITEM_DRAGON_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Dark::
+	giveitem ITEM_DARK_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Steel::
+	giveitem ITEM_STEEL_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Normal::
+	giveitem ITEM_NORMAL_GEM
+	releaseall
+	end
+
+Eventscript_GiveRandomGem_Fairy::
+	giveitem ITEM_FAIRY_GEM
+	releaseall
+	end
+
+
