@@ -1036,7 +1036,8 @@ void AnimateFlash(u8 newFlashLevel)
     bool8 fullBrightness = FALSE;
     if (newFlashLevel == 0)
         fullBrightness = TRUE;
-    PlaySE(SE_M_REFLECT);
+	if (GetFlashLevel() > 0)
+		PlaySE(SE_M_REFLECT);
     StartUpdateFlashLevelEffect(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sFlashLevelToRadius[curFlashLevel], sFlashLevelToRadius[newFlashLevel], fullBrightness, 1);
 	if (FlagGet(FLAG_SYS_USE_FLASH))	//ZETA- Do not lock controls when updating flash radius from switching followers, only when activating field move
 	{
