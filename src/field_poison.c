@@ -16,6 +16,7 @@
 #include "strings.h"
 #include "task.h"
 #include "trainer_hill.h"
+#include "constants/abilities.h"
 #include "constants/field_poison.h"
 #include "constants/form_change_types.h"
 #include "constants/party_menu.h"
@@ -44,10 +45,10 @@ static bool32 AllMonsFainted(void)
 
 static void FaintFromFieldPoison(u8 partyIdx)
 {
-    struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
+    struct Pokemon *pokemon = &gPlayerParty[partyIdx];
     u32 status = STATUS1_NONE;
 
-    if (OW_POISON_DAMAGE < GEN_4)
+    if ((OW_POISON_DAMAGE < GEN_4) && (GetMonAbility(pokemon) != ABILITY_GUTS))
         AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_STATUS);
 
     SetMonData(pokemon, MON_DATA_STATUS, &status);
@@ -57,7 +58,7 @@ static void FaintFromFieldPoison(u8 partyIdx)
 
 static bool32 MonFaintedFromPoison(u8 partyIdx)
 {
-    struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
+    struct Pokemon *pokemon = &gPlayerParty[partyIdx];
     if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == ((OW_POISON_DAMAGE < GEN_4) ? 0 : 1) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         return TRUE;
 
@@ -70,17 +71,19 @@ static bool32 MonFaintedFromPoison(u8 partyIdx)
 static void Task_TryFieldPoisonWhiteOut(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-	int i = GetFollowerMonIndex();
     switch (tState)
     {
     case 0:
-            if (MonFaintedFromPoison(i))
+        for (; tPartyIdx < PARTY_SIZE; tPartyIdx++)
+        {
+            if (MonFaintedFromPoison(tPartyIdx))
             {
-                FaintFromFieldPoison(i);
+                FaintFromFieldPoison(tPartyIdx);
                 ShowFieldMessage(gText_PkmnFainted_FldPsn);
                 tState++;
                 return;
             }
+        }
         tState = 2; // Finished checking party
         break;
     case 1:
@@ -124,27 +127,41 @@ void TryFieldPoisonWhiteOut(void)
 s32 DoPoisonFieldEffect(void)
 {
     int i = GetFollowerMonIndex();
-    u32 hp;
     struct Pokemon *pokemon = &gPlayerParty[GetFollowerMonIndex()];
+    u32 hp = GetMonData(pokemon, MON_DATA_HP);
+	u32 maxHp = GetMonData(pokemon, MON_DATA_MAX_HP);
+	u16 userAbility = GetMonAbility(pokemon);
+	
     u32 numPoisoned = 0;
     u32 numFainted = 0;
 
         if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         {
-            // Apply poison damage
-            hp = GetMonData(pokemon, MON_DATA_HP);
-            if (OW_POISON_DAMAGE < GEN_4 && (hp == 0 || --hp == 0))
-            {
-                TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_FAINT);
-                numFainted++;
-            }
-            else if (OW_POISON_DAMAGE >= GEN_4 && (hp == 1 || --hp == 1))
-                numFainted++;
+            // Apply poison damage			
+			if (userAbility == ABILITY_POISON_HEAL)
+			{
+				if (hp < maxHp) //ZETA- Poison heal recovers HP instead
+				{
+					hp++;
+				}
+			}
+			else if (userAbility != ABILITY_MAGIC_GUARD)					//ZETA- No damage if Magic Guard
+			{
+				if (OW_POISON_DAMAGE < GEN_4 && (hp == 0 || --hp == 0))
+				{
+					TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_FAINT);
+					numFainted++;
+				}
+				else if (OW_POISON_DAMAGE >= GEN_4 && (hp == 1 || --hp == 1))
+				{
+					numFainted++;
+				}
+				
+				numPoisoned++;
+			}
 
             SetMonData(pokemon, MON_DATA_HP, &hp);
-            numPoisoned++;
         }
-        pokemon++;
 
     // Do screen flash effect
     if (numFainted != 0 || numPoisoned != 0)

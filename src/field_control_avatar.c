@@ -792,6 +792,16 @@ static void UNUSED ClearFriendshipStepCounter(void)
     VarSet(VAR_FRIENDSHIP_STEP_COUNTER, 0);
 }
 
+//Split friendship bonus to new function to prevent duplicate code
+static void DoFriendshipWalkingBonus(struct Pokemon *mon)
+{
+	if (((Random() % 5) == 1) 
+	&& GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
+	{
+		AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
+	}
+}
+
 static void UpdateFriendshipStepCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_FRIENDSHIP_STEP_COUNTER);
@@ -801,16 +811,35 @@ static void UpdateFriendshipStepCounter(void)
     if (*ptr == 0)
     {
         struct Pokemon *mon = &gPlayerParty[GetFollowerMonIndex()];
-			
-			if (((GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_PSN) && (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].abilities[GetMonData(mon, MON_DATA_ABILITY_NUM)] != ABILITY_POISON_HEAL))
-				|| (GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS)) == AILMENT_BRN))
-			{
-				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
-			}
-			else if (((Random() % 5) == 1) && GetMonData(mon, MON_DATA_SANITY_HAS_SPECIES))
-			{
-				AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
-			}
+		u16 userAbility = GetMonAbility(mon);
+		u8 status = GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS));
+		
+		switch (status)
+		{
+			case AILMENT_PSN:
+				if (userAbility == ABILITY_POISON_HEAL)
+					DoFriendshipWalkingBonus(mon);
+				else if ((userAbility != ABILITY_MAGIC_GUARD) 
+					&& (userAbility != ABILITY_GUTS))
+					{
+						AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
+					}
+				break;
+			case AILMENT_BRN:
+				if (userAbility == ABILITY_HEATPROOF)
+					DoFriendshipWalkingBonus(mon);				
+				else if ((userAbility != ABILITY_MAGIC_GUARD)
+					&& (userAbility != ABILITY_GUTS))
+					{
+						AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING_HATE);
+					}
+				break;
+			case AILMENT_NONE:
+				DoFriendshipWalkingBonus(mon);
+				break;
+			default:
+				break;
+		}
     }
 }
 

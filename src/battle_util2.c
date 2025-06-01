@@ -95,7 +95,7 @@ void AdjustFriendshipOnBattleFaint(u8 battler)
 
     if (gBattleMons[opposingBattlerId].level > gBattleMons[battler].level)
     {
-        if (gBattleMons[opposingBattlerId].level - gBattleMons[battler].level > 29)
+        if ((gBattleMons[opposingBattlerId].level - gBattleMons[battler].level > 29) && (GetBattlerAbility(battler) != ABILITY_GUTS))
             AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[battler]], FRIENDSHIP_EVENT_FAINT_LARGE);
         else
             AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[battler]], FRIENDSHIP_EVENT_FAINT_SMALL);
