@@ -103,7 +103,6 @@ static void FieldCallback_Flash(void)
 
 static void FldEff_UseFlash(void)
 {
-    PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);													//ZETA- Follower flag is mutually exclusive and cannot be re-set from followers while field move is active
 	DoFieldMoveFriendshipChance(&gPlayerParty[GetCursorSelectionMonId()]);
