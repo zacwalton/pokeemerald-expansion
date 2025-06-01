@@ -3,6 +3,8 @@
 #include "event_data.h"
 #include "event_scripts.h"
 #include "field_effect.h"
+#include "field_screen_effect.h"
+#include "field_specials.h"
 #include "fldeff.h"
 #include "gpu_regs.h"
 #include "main.h"
@@ -13,6 +15,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "constants/abilities.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
 
@@ -80,7 +83,7 @@ bool8 SetUpFieldMove_Flash(void)
         gPostMenuFieldCallback = SetUpPuzzleEffectRegisteel;
         return TRUE;
     }
-    else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH))
+    else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH) && (gSaveBlock1Ptr->flashLevel > 1))
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
@@ -102,7 +105,10 @@ static void FldEff_UseFlash(void)
 {
     PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
-	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
+	FlagClear(FLAG_SYS_BONUS_FLASH);													//ZETA- Follower flag is mutually exclusive and cannot be re-set from followers while field move is active
+	DoFieldMoveFriendshipChance(&gPlayerParty[GetCursorSelectionMonId()]);
+	if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
+		FlagSet(FLAG_SYS_BONUS_FLASH);												//ZETA- repurpose follower flag for boosted field move, max flash radius only achieved if ability == illuminate
     ScriptContext_SetupScript(EventScript_UseFlash);
 }
 
@@ -364,3 +370,56 @@ static void Task_EnterCaveTransition4(u8 taskId)
         SetMainCallback2(gMain.savedCallback);
     }
 }
+
+//ZETA- Passive Flash effect from followers
+void UpdateFlashRadiusOnStep(void)
+{
+	#define FLASH_LEVEL_ABILITY 1			// Abilities (Illuminate) give maximum flash radius when following
+	#define FLASH_LEVEL_DEFAULT 7
+	
+	u8 followerIndex = GetFollowerMonIndex();
+	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
+	s32 newFlashLevel;
+	
+	if (FlagGet(FLAG_SYS_USE_FLASH))		// Do not touch any flags/flash radius if field move flag is active
+		return;
+	
+		u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
+		
+		if (GetMonAbility(&gPlayerParty[followerIndex]) == ABILITY_ILLUMINATE)
+		{
+			if (previousFlashLevel != FLASH_LEVEL_ABILITY)
+			{
+				newFlashLevel = FLASH_LEVEL_ABILITY;
+				FlagSet(FLAG_SYS_BONUS_FLASH);
+				AnimateFlash(newFlashLevel);
+				SetFlashLevel(newFlashLevel);
+			}
+			return;
+		}
+		
+		if (followerFlashLevel > 0)
+		{
+			if (previousFlashLevel != followerFlashLevel)
+			{
+				newFlashLevel = followerFlashLevel;
+				FlagSet(FLAG_SYS_BONUS_FLASH);
+				AnimateFlash(newFlashLevel);
+				SetFlashLevel(newFlashLevel);
+			}
+			return;
+		} 
+		
+		if (FlagGet(FLAG_SYS_BONUS_FLASH))
+		{
+			if (previousFlashLevel != FLASH_LEVEL_DEFAULT)
+			{
+				newFlashLevel = FLASH_LEVEL_DEFAULT;
+				FlagClear(FLAG_SYS_BONUS_FLASH);
+				AnimateFlash(newFlashLevel);
+				SetFlashLevel(newFlashLevel);
+			}
+			return;
+		}
+}
+

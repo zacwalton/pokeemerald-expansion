@@ -803,24 +803,58 @@ static void SetFlashScanlineEffectWindowBoundary(u16 *dest, u32 y, s32 left, s32
     }
 }
 
+//ZETA- Honestly this next bit is way beyond me, I just let AI figure out the math
+// Fast integer square root (binary search)
+static s32 Sqrt32(s32 x)
+{
+    s32 res = 0;
+    s32 bit = 1 << 30;
+
+    // Find the highest power of 4 <= x
+    while (bit > x)
+        bit >>= 2;
+
+    while (bit != 0)
+    {
+        if (x >= res + bit)
+        {
+            x -= res + bit;
+            res = (res >> 1) + bit;
+        }
+        else
+        {
+            res >>= 1;
+        }
+        bit >>= 2;
+    }
+
+    return res;
+}
+
+//ZETA- Reworked to fix scanline issues when reducing flash radius, again most of this is AI generated, but I've tested it works correctly
 static void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 centerY, s32 radius)
 {
-    s32 r = radius;
-    s32 v2 = radius;
-    s32 v3 = 0;
-    while (r >= v3)
+    for (s32 y = 0; y < DISPLAY_HEIGHT; y++)
+        dest[y] = 0;  // Mask all lines initially
+
+    for (s32 y = centerY - radius; y <= centerY + radius; y++)
     {
-        SetFlashScanlineEffectWindowBoundary(dest, centerY - v3, centerX - r, centerX + r);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY + v3, centerX - r, centerX + r);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY - r, centerX - v3, centerX + v3);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY + r, centerX - v3, centerX + v3);
-        v2 -= (v3 * 2) - 1;
-        v3++;
-        if (v2 < 0)
-        {
-            v2 += 2 * (r - 1);
-            r--;
-        }
+        if (y < 0 || y >= DISPLAY_HEIGHT)
+            continue;
+
+        s32 dy = y - centerY;
+        s32 dxSquared = radius * radius - dy * dy;
+        if (dxSquared < 0)
+            continue;
+
+        s32 dx = Sqrt32(dxSquared);
+        s32 x1 = centerX - dx;
+        s32 x2 = centerX + dx;
+
+        if (x1 < 0) x1 = 0;
+        if (x2 >= DISPLAY_WIDTH) x2 = DISPLAY_WIDTH - 1;
+
+        SetFlashScanlineEffectWindowBoundary(dest, y, x1, x2);
     }
 }
 
@@ -882,7 +916,8 @@ static void UpdateFlashLevelEffect(u8 taskId)
         SetFlashScanlineEffectWindowBoundaries(gScanlineEffectRegBuffers[gScanlineEffect.srcBuffer], tFlashCenterX, tFlashCenterY, tCurFlashRadius);
         tState = 0;
         tCurFlashRadius += tFlashRadiusDelta;
-        if (tCurFlashRadius > tDestFlashRadius)
+        if ((tFlashRadiusDelta > 0 && tCurFlashRadius >= tDestFlashRadius) ||
+			(tFlashRadiusDelta < 0 && tCurFlashRadius <= tDestFlashRadius))			//ZETA- Allow flash radius change to work both ways (growing and shrinking)
         {
             if (tClearScanlineEffect == 1)
             {
@@ -1002,8 +1037,11 @@ void AnimateFlash(u8 newFlashLevel)
     if (newFlashLevel == 0)
         fullBrightness = TRUE;
     StartUpdateFlashLevelEffect(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sFlashLevelToRadius[curFlashLevel], sFlashLevelToRadius[newFlashLevel], fullBrightness, 1);
+	if (FlagGet(FLAG_SYS_USE_FLASH))	//ZETA- Do not lock controls when updating flash radius from switching followers, only when activating field move
+	{
     StartWaitForFlashUpdate();
     LockPlayerFieldControls();
+	}
 }
 
 void WriteFlashScanlineEffectBuffer(u8 flashLevel)

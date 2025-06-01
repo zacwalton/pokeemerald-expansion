@@ -1396,6 +1396,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .eggMoveLearnset = sChinchouEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 27, SPECIES_LANTURN}),
         .surfApplyWet = TRUE,
+        .flashLevel = 4,
     },
 
     [SPECIES_LANTURN] =
@@ -1466,6 +1467,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sLanturnLevelUpLearnset,
         .teachableLearnset = sLanturnTeachableLearnset,
         .surfApplyWet = TRUE,
+        .flashLevel = 3,
     },
 #endif //P_FAMILY_CHINCHOU
 

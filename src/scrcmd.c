@@ -3337,3 +3337,9 @@ bool8 ScrCmd_setallharvestablemetatiles(struct ScriptContext *ctx)
 	SetHarvestableItemPresentAtCoords(gMapHeader.events);
     return FALSE;
 }
+
+u8 ScrCmd_getflashlevel(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = GetFlashLevel();
+    return FALSE;
+}
