@@ -2180,6 +2180,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sRolycolyTeachableLearnset,
         .eggMoveLearnset = sRolycolyEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 18, SPECIES_CARKOL}),
+        .flashLevel = 6,
     },
 
     [SPECIES_CARKOL] =
@@ -2242,6 +2243,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .levelUpLearnset = sCarkolLevelUpLearnset,
         .teachableLearnset = sCarkolTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 34, SPECIES_COALOSSAL}),
+        .flashLevel = 6,
     },
 
     [SPECIES_COALOSSAL] =
@@ -2306,6 +2308,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sCoalossalTeachableLearnset,
         .formSpeciesIdTable = sCoalossalFormSpeciesIdTable,
         .formChangeTable = sCoalossalFormChangeTable,
+        .flashLevel = 6,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -2363,6 +2366,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sCoalossalTeachableLearnset,
         .formSpeciesIdTable = sCoalossalFormSpeciesIdTable,
         .formChangeTable = sCoalossalFormChangeTable,
+        .flashLevel = 5,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_ROLYCOLY
@@ -3367,6 +3371,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .eggMoveLearnset = sToxelEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NATURE_AMPED, 30, SPECIES_TOXTRICITY_AMPED},
                                 {EVO_LEVEL_NATURE_LOW_KEY, 30, SPECIES_TOXTRICITY_LOW_KEY}),
+        .flashLevel = 6,
     },
 
     [SPECIES_TOXTRICITY_AMPED] =
@@ -3431,6 +3436,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sToxtricityAmpedTeachableLearnset,
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
+        .flashLevel = 4,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3484,6 +3490,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sToxtricityAmpedTeachableLearnset,
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
+        .flashLevel = 3,
     },
 #endif //P_GIGANTAMAX_FORMS
 
@@ -3548,6 +3555,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sToxtricityLowKeyTeachableLearnset,
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
+        .flashLevel = 5,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3601,6 +3609,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sToxtricityLowKeyTeachableLearnset,
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
+        .flashLevel = 3,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_TOXEL
@@ -3671,6 +3680,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sSizzlipedeTeachableLearnset,
         .eggMoveLearnset = sSizzlipedeEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_CENTISKORCH}),
+        .flashLevel = 5,
     },
 
     [SPECIES_CENTISKORCH] =
@@ -3739,6 +3749,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sCentiskorchTeachableLearnset,
         .formSpeciesIdTable = sCentiskorchFormSpeciesIdTable,
         .formChangeTable = sCentiskorchFormChangeTable,
+        .flashLevel = 4,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3796,6 +3807,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sCentiskorchTeachableLearnset,
         .formSpeciesIdTable = sCentiskorchFormSpeciesIdTable,
         .formChangeTable = sCentiskorchFormChangeTable,
+        .flashLevel = 4,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_SIZZLIPEDE
@@ -7368,6 +7380,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRegielekiLevelUpLearnset,
         .teachableLearnset = sRegielekiTeachableLearnset,
+        .flashLevel = 2,
     },
 #endif //P_FAMILY_REGIELEKI
 

@@ -352,6 +352,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sTepigTeachableLearnset,
         .eggMoveLearnset = sTepigEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 17, SPECIES_PIGNITE}),
+        .flashLevel = 6,
     },
 
     [SPECIES_PIGNITE] =
@@ -419,6 +420,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sPigniteLevelUpLearnset,
         .teachableLearnset = sPigniteTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_EMBOAR}),
+        .flashLevel = 6,
     },
 
     [SPECIES_EMBOAR] =
@@ -505,6 +507,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .teachableLearnset = sEmboarTeachableLearnset,
+        .flashLevel = 3,
     },
 #endif //P_FAMILY_TEPIG
 
@@ -923,6 +926,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sWatchogLevelUpLearnset,
         .teachableLearnset = sWatchogTeachableLearnset,
+        .flashLevel = 6,
     },
 #endif //P_FAMILY_PATRAT
 
@@ -2141,6 +2145,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sBlitzleTeachableLearnset,
         .eggMoveLearnset = sBlitzleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 27, SPECIES_ZEBSTRIKA}),
+        .flashLevel = 5,
     },
 
     [SPECIES_ZEBSTRIKA] =
@@ -2207,6 +2212,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sZebstrikaLevelUpLearnset,
         .teachableLearnset = sZebstrikaTeachableLearnset,
+        .flashLevel = 4,
     },
 #endif //P_FAMILY_BLITZLE
 
@@ -4873,6 +4879,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .eggMoveLearnset = sDarumakaEggMoveLearnset,
         .formSpeciesIdTable = sDarumakaFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_DARMANITAN_STANDARD}),
+        .flashLevel = 6,
     },
 
     [SPECIES_DARMANITAN_STANDARD] =
@@ -4942,6 +4949,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sDarmanitanTeachableLearnset,
         .formSpeciesIdTable = sDarmanitanFormSpeciesIdTable,
         .formChangeTable = sDarmanitanFormChangeTable,
+        .flashLevel = 6,
     },
 
     [SPECIES_DARMANITAN_ZEN] =
@@ -5187,6 +5195,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sDarmanitanGalarTeachableLearnset,
         .formSpeciesIdTable = sDarmanitanFormSpeciesIdTable,
         .formChangeTable = sDarmanitanGalarFormChangeTable,
+        .flashLevel = 5,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_DARUMAKA
@@ -9289,6 +9298,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sTynamoLevelUpLearnset,
         .teachableLearnset = sTynamoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 39, SPECIES_EELEKTRIK}),
+        .flashLevel = 6,
     },
 
     [SPECIES_EELEKTRIK] =
@@ -9359,6 +9369,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sEelektrikLevelUpLearnset,
         .teachableLearnset = sEelektrikTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_EELEKTROSS}),
+        .flashLevel = 5,
     },
 
     [SPECIES_EELEKTROSS] =
@@ -9429,6 +9440,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEelektrossLevelUpLearnset,
         .teachableLearnset = sEelektrossTeachableLearnset,
+        .flashLevel = 5,
     },
 #endif //P_FAMILY_TYNAMO
 
@@ -9645,6 +9657,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sLitwickTeachableLearnset,
         .eggMoveLearnset = sLitwickEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 41, SPECIES_LAMPENT}),
+        .flashLevel = 5,
     },
 
     [SPECIES_LAMPENT] =
@@ -9718,6 +9731,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sLampentLevelUpLearnset,
         .teachableLearnset = sLampentTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DUSK_STONE, SPECIES_CHANDELURE}),
+        .flashLevel = 4,
     },
 
     [SPECIES_CHANDELURE] =
@@ -9789,6 +9803,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sChandelureLevelUpLearnset,
         .teachableLearnset = sChandelureTeachableLearnset,
+        .flashLevel = 3,
     },
 #endif //P_FAMILY_LITWICK
 
@@ -11529,6 +11544,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sHeatmorLevelUpLearnset,
         .teachableLearnset = sHeatmorTeachableLearnset,
         .eggMoveLearnset = sHeatmorEggMoveLearnset,
+        .flashLevel = 5,
     },
 #endif //P_FAMILY_HEATMOR
 
@@ -11898,6 +11914,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sLarvestaTeachableLearnset,
         .eggMoveLearnset = sLarvestaEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 59, SPECIES_VOLCARONA}),
+        .flashLevel = 6,
     },
 
     [SPECIES_VOLCARONA] =
@@ -11968,6 +11985,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sVolcaronaLevelUpLearnset,
         .teachableLearnset = sVolcaronaTeachableLearnset,
+        .flashLevel = 5,
     },
 #endif //P_FAMILY_LARVESTA
 
@@ -12591,6 +12609,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .teachableLearnset = sReshiramTeachableLearnset,
+        .flashLevel = 6,
     },
 #endif //P_FAMILY_RESHIRAM
 
@@ -12661,6 +12680,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sZekromLevelUpLearnset,
         .teachableLearnset = sZekromTeachableLearnset,
+        .flashLevel = 6,
     },
 #endif //P_FAMILY_ZEKROM
 
@@ -12979,6 +12999,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sKyuremWhiteLevelUpLearnset,
         .teachableLearnset = sKyuremTeachableLearnset,
         .formSpeciesIdTable = sKyuremFormSpeciesIdTable,
+        .flashLevel = 5,
     },
 
     [SPECIES_KYUREM_BLACK] =
@@ -13056,6 +13077,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sKyuremBlackLevelUpLearnset,
         .teachableLearnset = sKyuremTeachableLearnset,
         .formSpeciesIdTable = sKyuremFormSpeciesIdTable,
+        .flashLevel = 5,
     },
 #endif //P_FUSION_FORMS
 #endif //P_FAMILY_KYUREM
