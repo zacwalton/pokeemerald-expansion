@@ -96,6 +96,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_ROUTE104_BOAT",
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 40,
       "y": 20,
@@ -109,6 +110,7 @@
       "flag": "FLAG_HIDE_ROUTE_104_MR_BRINEY_BOAT"
     },
     {
+      "local_id": "LOCALID_ROUTE104_BRINEY",
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
       "x": 40,
       "y": 17,
@@ -239,6 +241,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_ROUTE104_RIVAL",
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
       "x": 45,
       "y": 16,

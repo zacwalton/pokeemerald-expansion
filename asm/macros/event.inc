@@ -341,6 +341,12 @@
 	.byte SCR_OP_GETTIME
 	.endm
 
+	@ Sets the values of variable VAR_0x8000 to the time of day according to those found in rtc.h.
+	@ 0 = MORNING, 1 = DAY, 2 = EVENING, 3 = NIGHT
+	.macro gettimeofday
+	callnative ScrCmd_gettimeofday, requests_effects=1
+	.endm
+
 	@ Plays the specified sound. Only one sound may play at a time, with newer ones interrupting older ones.
 	.macro playse song:req
 	.byte SCR_OP_PLAYSE
@@ -621,10 +627,10 @@
 	.endm
 
 	@ Blocks script execution until the movements being applied to the specified (localId) object finish.
-	@ If localId is 0, then the id of the last-moved object will be used instead. If the specified object
-	@ is not currently being manipulated with applymovement, then this command does nothing.
+	@ If localId is LOCALID_NONE (0), then the id of the last-moved object will be used instead.
+	@ If the specified object is not currently being manipulated with applymovement, then this command does nothing.
 	@ If no map is specified, then the current map is used.
-	.macro waitmovement localId:req, map
+	.macro waitmovement localId=LOCALID_NONE, map
 		.ifb \map
 			.byte SCR_OP_WAITMOVEMENT
 			.2byte \localId
@@ -1793,11 +1799,14 @@
 	.4byte \text
 	.endm
 
-	@ Equivalent to fadescreen but copies gPlttBufferUnfaded to an allocated buffer on the fade out
-	@ and the reverse on the fade in, in effect saving gPlttBufferUnfaded to restore it.
-	.macro fadescreenswapbuffers mode:req
+	@ Equivalent to fadescreen but uses a hardware fade and darken/lighten blend modes,
+	@ to avoid modifying palettes at all.
+	@ Useful for fade-out/fade-in without leaving the overworld or entering a new scene.
+	@ If nowait set, doesn't wait for the fade to complete
+	.macro fadescreenswapbuffers mode:req, nowait=0
 	.byte SCR_OP_FADESCREENSWAPBUFFERS
 	.byte \mode
+	.byte \nowait
 	.endm
 
 	@ Buffers the specified trainer's class name to the given string var.
@@ -2296,7 +2305,11 @@
 	callnative ScriptSetDoubleBattleFlag, requests_effects=1
 	.endm
 
-	@ When OW_USE_FAKE_RTC and OW_FLAG_PAUSE_TIME is assigned, this macro will stop the flow of time.
+	@ ============================ @
+	@ FAKE RTC MACROS
+	@ Will only function if OW_USE_FAKE_RTC is true. If it has any additional requirements, it will be listed accordingly.
+	
+	@ When OW_USE_FAKE_RTC is true and OW_FLAG_PAUSE_TIME is assigned, this macro will stop the flow of time.
 	.macro pausefakertc
 	callnative Script_PauseFakeRtc, requests_effects=1
 	.endm
@@ -2324,6 +2337,47 @@
 	.4byte \fieldeffectflag
 	.endm
 
+	@ When OW_USE_FAKE_RTC is true, adds a specified amount of time.
+	.macro addtime days:req, hours:req, minutes:req
+	callnative ScrCmd_addtime, requests_effects=1
+	.4byte \days
+	.4byte \hours
+	.4byte \minutes
+	.endm
+
+	@ When OW_USE_FAKE_RTC is true, adds a specified number of days to the time. 
+	.macro adddays days:req
+	callnative ScrCmd_adddays, requests_effects=1
+	.4byte \days
+	.endm
+
+	@ When OW_USE_FAKE_RTC is true, adds a specified number of days, hours, and minutes to the time. 
+	.macro addhours hours:req
+	callnative ScrCmd_addhours, requests_effects=1
+	.4byte \hours
+	.endm
+
+	@ When OW_USE_FAKE_RTC is true, adds a specified number of days, hours, and minutes to the time. 
+	.macro addminutes minutes:req
+	callnative ScrCmd_addminutes, requests_effects=1
+	.4byte \minutes
+	.endm
+
+	@ Forwards the time to a specified hour and minute. 
+	@ This causes the time to go to the next day if the time has already been past. 
+	.macro fwdtime hours:req, minutes:req
+	callnative ScrCmd_fwdtime, requests_effects=1
+	.4byte \hours
+	.4byte \minutes
+	.endm
+
+	@ Forwards the time to a specified day of the week. Uses a 0-index starting from Sunday.
+	.macro fwdweekday weekday:req
+	callnative ScrCmd_fwdweekday, requests_effects=1
+	.4byte \weekday
+	.endm
+
+	@ ============================ @
 	@ ITEM DESCRIPTION HEADER MACROS
 	@ Used with OW_SHOW_ITEM_DESCRIPTIONS config
 	.macro showitemdescription
@@ -2465,7 +2519,7 @@
 	callnative Script_SetDifficulty, requests_effects=1
 	.byte \difficulty
 	.endm
-    
+
 	.macro forcesave
 	callnative Script_ForceSaveGame
 	waitstate
@@ -2715,4 +2769,77 @@
 	callnative ScrCmd_setallharvestablemetatiles
 	.endm
 	
-	
+
+@ Follower NPCs
+
+	@ Sets an NPC up to follow the player.
+	@ Follower flags are defined in include/constants/follower_npc.h
+	@ If you want to specify a battle partner without specifying a custom script, you can set the script parameter to 0.
+	.macro setfollowernpc localId:req, flags:req, script=0, battlePartner=0
+	.if FNPC_ENABLE_NPC_FOLLOWERS
+		checkfollowernpc
+		compare VAR_RESULT, FALSE
+		goto_if_ne 1f
+		hidefollower
+		waitmovement OBJ_EVENT_ID_FOLLOWER
+		callnative ScriptSetFollowerNPC
+		.if \script == 0
+			.set setScript, FALSE
+		.else
+			.set setScript, TRUE
+		.endif
+		.byte \localId
+		.2byte \flags
+		.byte setScript
+		.2byte \battlePartner
+		.4byte \script
+		updatefollowingmon
+        1:
+	.else
+		.error "setfollowernpc unavailable with FNPC_ENABLE_NPC_FOLLOWERS defined as FALSE"
+	.endif
+	.endm
+
+	@ Remove the follower NPC (assumes there will only ever be one).
+	.macro destroyfollowernpc
+	.if FNPC_ENABLE_NPC_FOLLOWERS
+		callnative ScriptDestroyFollowerNPC
+	.else
+		.error "destroyfollowernpc unavailable with FNPC_ENABLE_NPC_FOLLOWERS defined as FALSE"
+	.endif
+	.endm
+
+	@ Makes the player and follower NPC face one another.
+	.macro facefollowernpc
+	callnative ScriptFaceFollowerNPC
+	.endm
+
+	@ Makes the follower NPC walk into the player and get hidden.
+	@ Optionally, you can set the walk speed for the movement:
+	@ 0 = Slow
+	@ 1 = Normal (default)
+	@ 2 = Fast
+	@ 3 = Faster
+	.macro hidefollowernpc speed=1
+	callnative ScriptHideNPCFollower
+	.byte \speed
+	waitmovement OBJ_EVENT_ID_NPC_FOLLOWER
+	callnative HideNPCFollower
+	.endm
+
+	@ Checks if you have a follower NPC. Returns the result to VAR_RESULT.
+	.macro checkfollowernpc
+	callnative ScriptCheckFollowerNPC
+	.endm
+
+	@ Updates Pokemon follower.
+	.macro updatefollowingmon
+	callnative ScriptUpdateFollowingMon
+	.endm
+
+	@ Changes the battle partner of the existing follower NPC.
+	.macro changefollowerbattler battlePartner:req
+	callnative ScriptChangeFollowerNPCBattlePartner
+	.2byte \battlePartner
+	.endm
+

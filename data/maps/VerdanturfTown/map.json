@@ -54,6 +54,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_VERDANTURF_TWIN",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
       "x": 25,
       "y": 14,

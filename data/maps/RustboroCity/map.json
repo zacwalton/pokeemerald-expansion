@@ -124,6 +124,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_LITTLE_BOY",
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
       "x": 16,
       "y": 65,
@@ -137,6 +138,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_LITTLE_GIRL",
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
       "x": 17,
       "y": 65,
@@ -150,6 +152,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_DEVON_EMPLOYEE",
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
       "x": 28,
       "y": 21,
@@ -163,6 +166,7 @@
       "flag": "FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_GRUNT",
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 8,
       "y": 31,
@@ -215,6 +219,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_RIVAL",
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
       "x": 10,
       "y": 63,
@@ -228,6 +233,7 @@
       "flag": "FLAG_HIDE_RUSTBORO_CITY_RIVAL"
     },
     {
+      "local_id": "LOCALID_RUSTBORO_SCIENTIST",
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
       "x": 5,
       "y": 27,

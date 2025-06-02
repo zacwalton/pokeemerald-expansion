@@ -58,19 +58,18 @@ bool8 SetUpFieldMove_Headbutt(void);
 // Whirlpool
 bool8 FldEff_UseWhirlpool(void);
 bool8 SetUpFieldMove_Whirlpool(void);
-// Defog
-bool8 FldEff_UseDefog(void);
-bool8 SetUpFieldMove_Defog(void);
 // Lava Plume
 bool8 FldEff_UseLava(void);
 bool8 SetUpFieldMove_Lava(void);
 // Sludge Wave
 bool8 FldEff_UseSludge(void);
 bool8 SetUpFieldMove_Sludge(void);
-
 // Douse
 bool8 SetUpFieldMove_Douse(void);
 bool8 FldEff_UseDouse(void);
 
+// defog
+bool8 SetUpFieldMove_Defog(void);
+bool8 FldEff_Defog(void);
 
 #endif // GUARD_FLDEFF_H

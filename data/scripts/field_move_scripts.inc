@@ -332,7 +332,9 @@ EventScript_UseWaterfall::
 	msgbox Text_WantToWaterfall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndWaterfall
 	msgbox Text_MonUsedWaterfall, MSGBOX_DEFAULT
+	hidefollowernpc
 	dofieldeffect FLDEFF_USE_WATERFALL
+	callnative FollowerNPC_WarpSetEnd
 	goto EventScript_EndWaterfall
 
 EventScript_CannotUseWaterfall::
@@ -360,6 +362,7 @@ EventScript_UseDive::
 	lockall
 	checkmovefieldeffectflag 0x0080
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantDive
+	copyvar 0x8004 VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8005
 	setfieldeffectargument 0, VAR_RESULT
@@ -367,6 +370,9 @@ EventScript_UseDive::
 	msgbox Text_WantToDive, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndDive
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
+	hidefollowernpc
+	setfieldeffectargument 0, VAR_0x8004
+	setfieldeffectargument 1, 1
 	dofieldeffect FLDEFF_USE_DIVE
 	goto EventScript_EndDive
 	end
@@ -389,8 +395,9 @@ EventScript_UseDiveUnderwater::
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToSurface, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_EndSurface
+	goto_if_eq VAR_RESULT, NO, EventScript_NoSurface
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
+	hidefollowernpc
 	dofieldeffect FLDEFF_USE_DIVE
 	goto EventScript_EndSurface
 	end
@@ -402,6 +409,8 @@ EventScript_CantSurface::
 	end
 
 EventScript_EndSurface::
+	callnative SetFollowerNPCSurfSpriteAfterDive
+EventScript_NoSurface::
 	releaseall
 	end
 	
@@ -634,18 +643,6 @@ Text_CantRockClimb:
     .string "The cliff is steep.\n"
     .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
 
-EventScript_UseDefog::
-	dofieldeffect FLDEFF_USE_DEFOG
-	waitstate
-	setweather WEATHER_SUNNY
-	doweather
-	msgbox Text_ActivateDefog, MSGBOX_DEFAULT
-	releaseall
-	end
-
-Text_ActivateDefog::
-	.string "{STR_VAR_1} cleared the fog!$"
-	
 EventScript_UseLava::
 	checkmovefieldeffectflag 0x1000
 	compare VAR_RESULT, PARTY_SIZE
@@ -790,3 +787,23 @@ Text_MonUsedFieldMoveDouse:
 Text_CantDouse:
 	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR6}Doused{COLOR DARK_GRAY}!$"
 	
+EventScript_UseDefog::
+	lockall
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, MOVE_DEFOG
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	waitmovement 0
+	setfieldeffectargument 0, VAR_RESULT
+	dofieldeffect FLDEFF_DEFOG
+	waitstate
+	releaseall
+	end
+	
+
+Text_ActivateDefog::
+	.string "{STR_VAR_1} cleared the fog!$"
