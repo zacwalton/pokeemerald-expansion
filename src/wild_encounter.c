@@ -320,8 +320,8 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
     u8 max;
     u8 range;
     u8 rand;
-    u8 curvedLevel;
-    u8 curveAmount = 0;
+    //u8 curvedLevel;
+    //u8 curveAmount = 0;
     u16 wildPokemonSpecies = wildPokemon[wildMonIndex].species;
 
     if (LURE_STEP_COUNT == 0)
@@ -338,7 +338,7 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             max = wildPokemon[wildMonIndex].minLevel;
         }
         
-        curvedLevel = GetPartyMonCurvedLevel();
+        /*curvedLevel = GetPartyMonCurvedLevel();
         
         if(max < curvedLevel)
             curveAmount = (((3 * curvedLevel) + max) / 4) - max;
@@ -346,10 +346,10 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
         #if WILD_MON_CURVE_LIMIT_MAX_LEVEL
         curveAmount = LimitWildMonLevelCurve(wildPokemonSpecies, curveAmount);
         #endif
-
+*/
         range = max - min + 1;
-        if ((range < (curveAmount * 4) && (range != 0)))
-            range = curveAmount / 4;
+        //if ((range < (curveAmount * 4) && (range != 0)))
+        //    range = curveAmount / 4;
         
         rand = Random() % range;
 
@@ -360,17 +360,17 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE)
             {
                 if (Random() % 2 == 0)
-                    return max + curveAmount;
+                    return max/* + curveAmount*/;
 
                 if (rand != 0)
                     rand--;
             }
         }
-        if (gIsFishingEncounter)
+       /* if (gIsFishingEncounter)
 		{
 			return min + rand + (curveAmount /4);
-		}
-        return min + rand + curveAmount;
+		}*/
+        return min + rand/* + curveAmount*/;
     }
     else
     {
@@ -527,7 +527,7 @@ u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
-
+/*
 // List of Wild mons that you cannot get through dynamic evolution
 static const u16 wildMonEvolutionsBanned[] =
 {
@@ -719,7 +719,7 @@ static void TryToEvolveWildMon(u16 *species, u8 level)
            return;
         #endif
     }
-}
+}*/
 
 void CreateWildMon(u16 species, u8 level)
 {
@@ -750,21 +750,21 @@ void CreateWildMon(u16 species, u8 level)
             gender = MON_MALE;
         else
             gender = MON_FEMALE;
-        
+        /*
         #if WILD_MON_EVO_BANS
         if(!MonCannotDynamicEvolve(species))
         #endif
             TryToEvolveWildMonWithGender(&species, gender, level);
-
+*/
         CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0);
         return;
     }
-    
+    /*
     #if WILD_MON_EVO_BANS
     if(!MonCannotDynamicEvolve(species))
     #endif
         TryToEvolveWildMon(&species, level);
-
+*/
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
 }
 #ifdef BUGFIX
@@ -1509,11 +1509,14 @@ bool8 StandardWildEncounter_Debug(void)
 
 void HeadbuttWildEncounter(void)
 {
-    u16 headerId = GetCurrentMapWildMonHeaderId();
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
 
     if (headerId != 0xFFFF)
     {
-        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].rockSmashMonsInfo;
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_ROCKS);
+		
+        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo;
 
         if (wildPokemonInfo == NULL)
         {

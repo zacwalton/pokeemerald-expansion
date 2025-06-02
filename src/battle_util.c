@@ -7985,11 +7985,11 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum InverseBattleCheck
         return FALSE;
     if ((gAiLogicData->aiCalcInProgress ? gAiLogicData->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_LEVITATE)
         return FALSE;
-    if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_DAUNTING_WINGS)
+    if ((gAiLogicData->aiCalcInProgress ? gAiLogicData->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_DAUNTING_WINGS)
         return FALSE;
-    if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_WIND_CHIME)
+    if ((gAiLogicData->aiCalcInProgress ? gAiLogicData->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_WIND_CHIME)
         return FALSE;
-    if ((AI_DATA->aiCalcInProgress ? AI_DATA->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_DESERT_SPIRIT)
+    if ((gAiLogicData->aiCalcInProgress ? gAiLogicData->abilities[battler] : GetBattlerAbility(battler)) == ABILITY_DESERT_SPIRIT)
         return FALSE;
     if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && (!(checkInverse == INVERSE_BATTLE) || !FlagGet(B_FLAG_INVERSE_BATTLE)))
         return FALSE;

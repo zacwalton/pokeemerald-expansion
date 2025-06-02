@@ -77,14 +77,14 @@ static const u32 sRegionMapBkgnd_TilemapLZ[] = INCBIN_U32("graphics/soar/region_
 #define GFX_TAG_EON 9999
 
 static const u32 sEonBrendanSpriteTiles[] = INCBIN_U32("graphics/soar/latias_brendan.4bpp.lz");
-static const u32 sEonBrendanSpritePaletteData[] = INCBIN_U32("graphics/soar/latias_brendan.gbapal.lz");
+static const u16 sEonBrendanSpritePaletteData[] = INCBIN_U16("graphics/soar/latias_brendan.gbapal");
 static const u32 sEonMaySpriteTiles[] = INCBIN_U32("graphics/soar/latias_may.4bpp.lz");
-static const u32 sEonMaySpritePaletteData[] = INCBIN_U32("graphics/soar/latias_may.gbapal.lz");
+static const u16 sEonMaySpritePaletteData[] = INCBIN_U16("graphics/soar/latias_may.gbapal");
 
 static const u32 sEonBrendanSpriteTiles2[] = INCBIN_U32("graphics/soar/latios_brendan.4bpp.lz");
-static const u32 sEonBrendanSpritePaletteData2[] = INCBIN_U32("graphics/soar/latios_brendan.gbapal.lz");
+static const u16 sEonBrendanSpritePaletteData2[] = INCBIN_U16("graphics/soar/latios_brendan.gbapal");
 static const u32 sEonMaySpriteTiles2[] = INCBIN_U32("graphics/soar/latios_may.4bpp.lz");
-static const u32 sEonMaySpritePaletteData2[] = INCBIN_U32("graphics/soar/latios_may.gbapal.lz");
+static const u16 sEonMaySpritePaletteData2[] = INCBIN_U16("graphics/soar/latios_may.gbapal");
 
 static const struct OamData sEonSpriteOamData =
 {
@@ -232,7 +232,7 @@ void ItemUseOnFieldCB_EonFlute(u8 taskId)
 static void LoadEonGraphics(void)
 {
 	struct CompressedSpriteSheet sEonSpriteSheet = { .size = 1024,.tag = GFX_TAG_EON };
-	struct CompressedSpritePalette sEonSpritePalette = { .tag = GFX_TAG_EON };
+	struct SpritePalette sEonSpritePalette = { .tag = GFX_TAG_EON };
 
 	if (FlagGet(FLAG_EON_LATI)) {
 		sEonSpriteSheet.data = sEonBrendanSpriteTiles;
@@ -256,7 +256,7 @@ static void LoadEonGraphics(void)
 	}
 
 	LoadCompressedSpriteSheet(&sEonSpriteSheet);
-	LoadCompressedSpritePalette(&sEonSpritePalette);
+	LoadSpritePalette(&sEonSpritePalette);
 	sEonSpriteId = CreateSprite(&sEonSpriteTemplate, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, 0);
 	gSprites[sEonSpriteId].data[0] = 0;
 	gSprites[sEonSpriteId].data[1] = 0;
@@ -650,10 +650,10 @@ static void WarpCB2(void)
 		break;
 	case MAPSEC_EVER_GRANDE_CITY:
 		SetWarpDestinationToHealLocation(FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE) && (IPART(sPlayerPosY) / 8) == 10 ? HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE : HEAL_LOCATION_EVER_GRANDE_CITY);
-		break;
+		break;/*
 	case MAPSEC_MT_CHIMNEY:
 		SetWarpDestinationToHealLocation(HEAL_LOCATION_MT_CHIMNEY);
-		break;
+		break;*/
 	default:
 		SetWarpDestinationToHealLocation(sMapHealLocations[sPrevMapSection][2]);
 

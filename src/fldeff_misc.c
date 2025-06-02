@@ -1433,44 +1433,6 @@ static void FieldCallback_Whirlpool(void)
     ScriptContext_SetupScript(EventScript_UseWhirlpool);
 }
 
-// Defog
-static void FieldMove_Defog(void)
-{
-    PlaySE(SE_M_WING_ATTACK);
-    FieldEffectActiveListRemove(FLDEFF_USE_DEFOG);
-    ScriptContext_Enable();
-}
-
-bool8 FldEff_UseDefog(void)
-{
-    u8 taskId = CreateFieldMoveTask();
-
-    gTasks[taskId].data[8] = (u32)FieldMove_Defog >> 16;
-    gTasks[taskId].data[9] = (u32)FieldMove_Defog;
-	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
-    return FALSE;
-}
-
-bool8 SetUpFieldMove_Defog(void)
-{
-    if (GetCurrentWeather() == WEATHER_FOG_HORIZONTAL)
-    {
-        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
-        gPostMenuFieldCallback = FieldCallback_Defog;
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
-static void FieldCallback_Defog(void)
-{
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
-    ScriptContext_SetupScript(EventScript_UseDefog);
-}
-
 // Lava Plume
 static void FieldMove_Lava(void)
 {

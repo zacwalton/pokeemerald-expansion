@@ -370,7 +370,7 @@ enum EvoSpinDirections {
 #else
 #define LEGENDARY_PERFECT_IV_COUNT 0
 #endif
-
+/*
 // Only used in dynamic wild mon evolutions
 #define EVO_METHOD_COUNT                  53
 
@@ -392,5 +392,5 @@ enum EvoSpinDirections {
 #define EVO_MODE_BATTLE_SPECIAL    5
 #define EVO_MODE_OVERWORLD_SPECIAL 6
 #define EVO_MODE_BATTLE_ONLY       7 // This mode is only used in battles to support Tandemaus' unique requirement
-
+*/
 #endif // GUARD_CONSTANTS_POKEMON_H

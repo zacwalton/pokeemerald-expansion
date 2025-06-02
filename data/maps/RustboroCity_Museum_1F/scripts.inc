@@ -1,5 +1,3 @@
-.set LOCALID_FOSSIL_SCIENTIST, 1
-
 RustboroCity_Museum_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_Museum_1F_OnTransition
 	.byte 0
@@ -29,9 +27,9 @@ RustboroCity_Museum_1F_EventScript_FossilScientist::
 RustboroCity_Museum_1F_EventScript_NoticeRootFossil::
 	closemessage
 	playse SE_PIN
-	applymovement LOCALID_FOSSIL_SCIENTIST, Common_Movement_ExclamationMark
+	applymovement LOCALID_FOSSIL_SCIENTIST_MUSEUM, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_FOSSIL_SCIENTIST, Common_Movement_Delay48
+	applymovement LOCALID_FOSSIL_SCIENTIST_MUSEUM, Common_Movement_Delay48
 	waitmovement 0
 	msgbox RustboroCity_Museum_1F_Text_WantToBringFossilBackToLife, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, RustboroCity_Museum_1F_EventScript_DeclineGiveFossil
@@ -52,9 +50,9 @@ RustboroCity_Museum_1F_EventScript_GiveRootFossil::
 RustboroCity_Museum_1F_EventScript_NoticeClawFossil::
 	closemessage
 	playse SE_PIN
-	applymovement LOCALID_FOSSIL_SCIENTIST, Common_Movement_ExclamationMark
+	applymovement LOCALID_FOSSIL_SCIENTIST_MUSEUM, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_FOSSIL_SCIENTIST, Common_Movement_Delay48
+	applymovement LOCALID_FOSSIL_SCIENTIST_MUSEUM, Common_Movement_Delay48
 	waitmovement 0
 	msgbox RustboroCity_Museum_1F_Text_WantToBringFossilBackToLife, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, RustboroCity_Museum_1F_EventScript_DeclineGiveFossil

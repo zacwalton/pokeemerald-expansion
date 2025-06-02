@@ -21326,7 +21326,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .description = COMPOUND_STRING(
             "An extreme cold that\n"
             "freezes the foe."),
-        .effect = EFFECT_FREEZE,
+        .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_ICE,
         .accuracy = 90,
@@ -21334,6 +21334,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_STATUS,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_FREEZE_OR_FROSTBITE },
         .zMove = { .effect = Z_EFFECT_SPD_UP_1 },
         .magicCoatAffected = TRUE,
         .contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,

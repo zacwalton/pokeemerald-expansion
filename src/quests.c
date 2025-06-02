@@ -1169,7 +1169,7 @@ static bool8 LoadGraphics(void)
 			}
 			break;
 		case 2:
-			LoadCompressedPalette(sQuestMenuBgPals, 0x00, 0x60);
+			LoadPalette(sQuestMenuBgPals, 0x00, 0x60);
 			sStateDataPtr->data[0]++;
 			break;
 		case 3:

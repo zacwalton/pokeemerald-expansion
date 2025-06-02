@@ -3548,89 +3548,6 @@ BattleScript_EffectAuroraVeilSuccess::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectPoison::
-	attackcanceler
-	attackstring
-	ppreduce
-	jumpifability BS_TARGET, ABILITY_IMMUNITY, BattleScript_ImmunityProtected
-	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_AbilityProtectsDoesntAffect
-	jumpifability BS_TARGET, ABILITY_PURIFYING_SALT, BattleScript_AbilityProtectsDoesntAffect
-	jumpifability BS_TARGET_SIDE, ABILITY_PASTEL_VEIL, BattleScript_PastelVeilProtects
-	jumpifflowerveil BattleScript_FlowerVeilProtects
-	jumpifleafguardprotected BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifshieldsdown BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifsubstituteblocks BattleScript_ButItFailed
-	jumpifstatus BS_TARGET, STATUS1_POISON, BattleScript_AlreadyPoisoned
-	jumpifstatus BS_TARGET, STATUS1_TOXIC_POISON, BattleScript_AlreadyPoisoned
-	trypoisontype BS_ATTACKER, BS_TARGET, BattleScript_NotAffected
-	jumpifstatus BS_TARGET, STATUS1_ANY, BattleScript_ButItFailed
-	jumpifterrainaffected BS_TARGET, STATUS_FIELD_MISTY_TERRAIN, BattleScript_MistyTerrainPrevents
-	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
-	jumpifsafeguard BattleScript_SafeguardProtected
-	attackanimation
-	waitanimation
-	seteffectprimary MOVE_EFFECT_POISON
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
-
-BattleScript_EffectParalyze::
-	attackcanceler
-	attackstring
-	ppreduce
-	jumpifability BS_TARGET, ABILITY_LIMBER, BattleScript_LimberProtected
-	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_AbilityProtectsDoesntAffect
-	jumpifability BS_TARGET, ABILITY_PURIFYING_SALT, BattleScript_AbilityProtectsDoesntAffect
-	jumpifflowerveil BattleScript_FlowerVeilProtects
-	jumpifleafguardprotected BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifshieldsdown BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifsubstituteblocks BattleScript_ButItFailed
-	typecalc
-	jumpifmovehadnoeffect BattleScript_ButItFailed
-	jumpifstatus BS_TARGET, STATUS1_PARALYSIS, BattleScript_AlreadyParalyzed
-	jumpifelectricabilityaffected BS_TARGET, ABILITY_VOLT_ABSORB, BattleScript_VoltAbsorbHeal
-	clearmoveresultflags MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE
-	tryparalyzetype BS_ATTACKER, BS_TARGET, BattleScript_NotAffected
-	jumpifstatus BS_TARGET, STATUS1_ANY, BattleScript_ButItFailed
-	jumpifterrainaffected BS_TARGET, STATUS_FIELD_MISTY_TERRAIN, BattleScript_MistyTerrainPrevents
-	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
-	jumpifsafeguard BattleScript_SafeguardProtected
-	attackanimation
-	waitanimation
-	seteffectprimary MOVE_EFFECT_PARALYSIS
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
-
-BattleScript_EffectFreeze::
-	attackcanceler
-	attackstring
-	ppreduce
-	jumpifability BS_TARGET, ABILITY_MAGMA_ARMOR, BattleScript_MagmaArmorProtected
-	jumpifability BS_TARGET, ABILITY_SUPERHOT, BattleScript_MagmaArmorProtected
-	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_AbilityProtectsDoesntAffect
-	jumpifability BS_TARGET, ABILITY_PURIFYING_SALT, BattleScript_AbilityProtectsDoesntAffect
-	jumpifflowerveil BattleScript_FlowerVeilProtects
-	jumpifleafguardprotected BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifshieldsdown BS_TARGET, BattleScript_AbilityProtectsDoesntAffect
-	jumpifsubstituteblocks BattleScript_ButItFailed
-	typecalc
-	jumpifmovehadnoeffect BattleScript_ButItFailed
-	jumpifstatus BS_TARGET, STATUS1_PARALYSIS, BattleScript_AlreadyFrozen
-	tryparalyzetype BS_ATTACKER, BS_TARGET, BattleScript_NotAffected
-	jumpifstatus BS_TARGET, STATUS1_ANY, BattleScript_ButItFailed
-	jumpifterrainaffected BS_TARGET, STATUS_FIELD_MISTY_TERRAIN, BattleScript_MistyTerrainPrevents
-	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
-	jumpifsafeguard BattleScript_SafeguardProtected
-	clearmoveresultflags MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE
-	attackanimation
-	waitanimation
-	seteffectprimary MOVE_EFFECT_FREEZE
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
-
-
 BattleScript_VoltAbsorbHeal:
 	copybyte gBattlerAbility, gBattlerTarget
 	tryhealquarterhealth BS_TARGET BattleScript_MonMadeMoveUseless @ Check if max hp
@@ -3649,12 +3566,6 @@ BattleScript_AlreadyFrozen:
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNISALREADYFROZEN
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
-
-BattleScript_LimberProtected::
-	copybyte gEffectBattler, gBattlerTarget
-	setbyte cMULTISTRING_CHOOSER, B_MSG_ABILITY_PREVENTS_MOVE_STATUS
-	call BattleScript_PRLZPrevention
 	goto BattleScript_MoveEnd
 
 BattleScript_PowerHerbActivation:
@@ -8237,30 +8148,6 @@ BattleScript_AbilityNoStatLoss::
 BattleScript_ItemNoStatLoss::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_CLEARAMULETWONTLOWERSTATS
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_BRNPrevention::
-	pause B_WAIT_TIME_SHORT
-	printfromtable gBRNPreventionStringIds
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_PRLZPrevention::
-	pause B_WAIT_TIME_SHORT
-	printfromtable gPRLZPreventionStringIds
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_FRZPrevention::
-	pause B_WAIT_TIME_SHORT
-	printfromtable gFRZPreventionStringIds
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_PSNPrevention::
-	pause B_WAIT_TIME_SHORT
-	printfromtable gPSNPreventionStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
 

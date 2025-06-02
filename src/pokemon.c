@@ -7087,90 +7087,56 @@ void UpdateDaysPassedSinceFormChange(u16 days)
         }
     }
 }
-
+/*
 // Configuration for dynamic wild mon evo is located in include/constants/pokemon.h 
 
 // Table containing all (subjective) chances of certain evolution methods to happen on wild pokémon
 // Value 0 will never allow the evolution to happen
-static const u8 evoTypeChanceRoll[EVO_METHOD_COUNT] =
+static const u8 evoTypeChanceRoll[CONDITIONS_END] =
 {
-    [0] = 0, // This index is unused
-    [EVO_FRIENDSHIP] = 8,
-    [EVO_FRIENDSHIP_DAY] = 8,
-    [EVO_FRIENDSHIP_NIGHT] = 8,
-    [EVO_LEVEL] = 255,
-    [EVO_TRADE] = 16,
-    [EVO_TRADE_ITEM] = 16,
-    [EVO_ITEM] = 16,
-    [EVO_LEVEL_ATK_GT_DEF] = 16,
-    [EVO_LEVEL_ATK_EQ_DEF] = 16,
-    [EVO_LEVEL_ATK_LT_DEF] = 16,
-    [EVO_LEVEL_SILCOON] = 255,
-    [EVO_LEVEL_CASCOON] = 255,
-    [EVO_LEVEL_NINJASK] = 127,
-    [EVO_LEVEL_SHEDINJA] = 64,
-    [EVO_BEAUTY] = 16,
-    [EVO_LEVEL_FEMALE] = 127,
-    [EVO_LEVEL_MALE] = 127,
-    [EVO_LEVEL_NIGHT] = 64,
-    [EVO_LEVEL_DAY] = 64,
-    [EVO_LEVEL_DUSK] = 64,
-    [EVO_ITEM_HOLD_DAY] = 16,
-    [EVO_ITEM_HOLD_NIGHT] = 16,
-    [EVO_MOVE] = 16,
-    [EVO_FRIENDSHIP_MOVE_TYPE] = 8,
-    [EVO_MAPSEC] = 4,
-    [EVO_ITEM_MALE] = 16,
-    [EVO_ITEM_FEMALE] = 16,
-    [EVO_LEVEL_RAIN] = 127,
-    [EVO_SPECIFIC_MON_IN_PARTY] = 4,
-    [EVO_LEVEL_DARK_TYPE_MON_IN_PARTY] = 8,
-    [EVO_TRADE_SPECIFIC_MON] = 16,
-    [EVO_SPECIFIC_MAP] = 16,
-    [EVO_LEVEL_NATURE_AMPED] = 127,
-    [EVO_LEVEL_NATURE_LOW_KEY] = 127,
-    [EVO_CRITICAL_HITS] = 4,
-    [EVO_SCRIPT_TRIGGER_DMG] = 16,
-    [EVO_DARK_SCROLL] = 16,
-    [EVO_WATER_SCROLL] = 16,
-    [EVO_ITEM_NIGHT] = 16,
-    [EVO_ITEM_DAY] = 16,
-    [EVO_ITEM_HOLD] = 4,
-    [EVO_LEVEL_FOG] = 127,
-    [EVO_MOVE_TWO_SEGMENT] = 16,
-    [EVO_MOVE_THREE_SEGMENT] = 16,
-    [EVO_LEVEL_FAMILY_OF_THREE] = 4,
-    [EVO_LEVEL_FAMILY_OF_FOUR] = 4,
-    [EVO_USE_MOVE_TWENTY_TIMES] = 4,
-    [EVO_RECOIL_DAMAGE_MALE] = 8,
-    [EVO_RECOIL_DAMAGE_FEMALE] = 8,
-    [EVO_ITEM_COUNT_999] = 1,
-    [EVO_DEFEAT_THREE_WITH_ITEM] = 3,
-    [EVO_OVERWORLD_STEPS] = 16,
-};
-
-// Table containing all evolution methods that use param as level requirement
-static const bool8 evoMethodIsLevel[EVO_METHOD_COUNT] =
-{
-    [0] = FALSE, // This index is unused
-    [EVO_LEVEL] = TRUE,
-    [EVO_LEVEL_ATK_GT_DEF] = TRUE,
-    [EVO_LEVEL_ATK_EQ_DEF] = TRUE,
-    [EVO_LEVEL_ATK_LT_DEF] = TRUE,
-    [EVO_LEVEL_SILCOON] = TRUE,
-    [EVO_LEVEL_CASCOON] = TRUE,
-    [EVO_LEVEL_NINJASK] = TRUE,
-    [EVO_LEVEL_SHEDINJA] = TRUE,
-    [EVO_LEVEL_FEMALE] = TRUE,
-    [EVO_LEVEL_MALE] = TRUE,
-    [EVO_LEVEL_NIGHT] = TRUE,
-    [EVO_LEVEL_DAY] = TRUE,
-    [EVO_LEVEL_DUSK] = TRUE,
-    [EVO_LEVEL_RAIN] = TRUE,
-    [EVO_LEVEL_NATURE_LOW_KEY] = TRUE,
-    [EVO_LEVEL_FOG] = TRUE,
-    [EVO_LEVEL_FAMILY_OF_THREE] = TRUE,
-    [EVO_LEVEL_FAMILY_OF_FOUR] = TRUE,
+    [IF_GENDER]                    = 16,
+    [IF_TIME]                      = 16,
+    [IF_NOT_TIME]                  = 16,
+    [IF_MIN_FRIENDSHIP]           = 16,
+    [IF_ATK_GT_DEF]               = 16,
+    [IF_ATK_EQ_DEF]               = 16,
+    [IF_ATK_LT_DEF]               = 16,
+    [IF_HOLD_ITEM]                = 16,
+    // Gen 3
+    [IF_PID_UPPER_MODULO_10_GT]   = 16,
+    [IF_PID_UPPER_MODULO_10_EQ]   = 16,
+    [IF_PID_UPPER_MODULO_10_LT]   = 16,
+    [IF_MIN_BEAUTY]               = 16,
+    [IF_MIN_COOLNESS]             = 16,
+    [IF_MIN_SMARTNESS]            = 16,
+    [IF_MIN_TOUGHNESS]            = 16,
+    [IF_MIN_CUTENESS]             = 16,
+    // Gen 4
+    [IF_SPECIES_IN_PARTY]         = 16,
+    [IF_IN_MAP]                   = 16,
+    [IF_IN_MAPSEC]                = 16,
+    [IF_KNOWS_MOVE]               = 16,
+    // Gen 5
+    [IF_TRADE_PARTNER_SPECIES]    = 16,
+    // Gen 6
+    [IF_TYPE_IN_PARTY]            = 16,
+    [IF_WEATHER]                  = 16,
+    [IF_KNOWS_MOVE_TYPE]          = 16,
+    // Gen 8
+    [IF_NATURE]                   = 16,
+    [IF_AMPED_NATURE]             = 16,
+    [IF_LOW_KEY_NATURE]           = 16,
+    [IF_RECOIL_DAMAGE_GE]         = 16,
+    [IF_CURRENT_DAMAGE_GE]        = 16,
+    [IF_CRITICAL_HITS_GE]         = 16,
+    [IF_USED_MOVE_X_TIMES]        = 16,
+    // Gen 9
+    [IF_DEFEAT_X_WITH_ITEMS]      = 16,
+    [IF_PID_MODULO_100_GT]        = 16,
+    [IF_PID_MODULO_100_EQ]        = 16,
+    [IF_PID_MODULO_100_LT]        = 16,
+    [IF_MIN_OVERWORLD_STEPS]      = 16,
+    [IF_BAG_ITEM_COUNT]           = 16,
 };
 
 #if WILD_MON_EVO_BANS
@@ -7275,7 +7241,7 @@ bool8 CanEvolve(const struct Evolution *evolutions, u16 evolutionIndex, u8 level
     if(!passedCoinflip)
         return FALSE;
     
-    if(evoMethodIsLevel[evolutionMethod])
+    if(evolutionMethod == EVO_LEVEL)
     {
         bool8 passedLevelEvolution = CanLevelEvolution(evolutionMethod, level, evolutions[evolutionIndex].param);
 
@@ -7420,7 +7386,7 @@ u8 GetPartyMonCurvedLevel(void)
 
     return adjustedLevel;
 }
-
+*/
 u32 CheckDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, enum MonState state)
 {
     u32 moveType = GetDynamicMoveType(mon, move, battler, state);
