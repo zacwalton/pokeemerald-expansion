@@ -7712,7 +7712,7 @@ static u8 ItemEffectMoveEnd(u32 battler, u16 holdEffect)
 			gBattleScripting.animArg2 = 0;
 			gLastUsedItem = gBattleMons[battler].item;
 			
-            BattleScriptExecute(BattleScript_BerryStatRaiseEnd2);
+            BattleScriptExecute(BattleScript_ConsumableStatRaiseEnd2);
             effect = ItemHealHp(battler, gLastUsedItem, ITEMEFFECT_STATS_CHANGED, FALSE);
 		}
         break;
