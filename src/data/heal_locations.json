@@ -16,48 +16,48 @@
       "id": "HEAL_LOCATION_PETALBURG_CITY",
       "map": "MAP_PETALBURG_CITY",
       "x": 20,
-      "y": 17
+      "y": 29
     },
     {
       "id": "HEAL_LOCATION_SLATEPORT_CITY",
       "map": "MAP_SLATEPORT_CITY",
-      "x": 19,
-      "y": 20
+      "x": 14,
+      "y": 21
     },
     {
       "id": "HEAL_LOCATION_MAUVILLE_CITY",
       "map": "MAP_MAUVILLE_CITY",
-      "x": 22,
-      "y": 6
+      "x": 21,
+      "y": 22
     },
     {
       "id": "HEAL_LOCATION_RUSTBORO_CITY",
       "map": "MAP_RUSTBORO_CITY",
-      "x": 16,
-      "y": 39
+      "x": 9,
+      "y": 52
     },
     {
       "id": "HEAL_LOCATION_FORTREE_CITY",
       "map": "MAP_FORTREE_CITY",
       "x": 5,
-      "y": 7
+      "y": 10
     },
     {
       "id": "HEAL_LOCATION_LILYCOVE_CITY",
       "map": "MAP_LILYCOVE_CITY",
-      "x": 24,
-      "y": 15
+      "x": 25,
+      "y": 41
     },
     {
       "id": "HEAL_LOCATION_MOSSDEEP_CITY",
       "map": "MAP_MOSSDEEP_CITY",
-      "x": 28,
-      "y": 17
+      "x": 12,
+      "y": 11
     },
     {
       "id": "HEAL_LOCATION_SOOTOPOLIS_CITY",
       "map": "MAP_SOOTOPOLIS_CITY",
-      "x": 43,
+      "x": 41,
       "y": 32
     },
     {
@@ -87,31 +87,31 @@
     {
       "id": "HEAL_LOCATION_DEWFORD_TOWN",
       "map": "MAP_DEWFORD_TOWN",
-      "x": 2,
-      "y": 11
+      "x": 8,
+      "y": 16
     },
     {
       "id": "HEAL_LOCATION_LAVARIDGE_TOWN",
       "map": "MAP_LAVARIDGE_TOWN",
-      "x": 9,
-      "y": 7
+      "x": 23,
+      "y": 8
     },
     {
       "id": "HEAL_LOCATION_FALLARBOR_TOWN",
       "map": "MAP_FALLARBOR_TOWN",
-      "x": 14,
-      "y": 8
+      "x": 22,
+      "y": 20
     },
     {
       "id": "HEAL_LOCATION_VERDANTURF_TOWN",
       "map": "MAP_VERDANTURF_TOWN",
-      "x": 16,
-      "y": 4
+      "x": 31,
+      "y": 14
     },
     {
       "id": "HEAL_LOCATION_PACIFIDLOG_TOWN",
       "map": "MAP_PACIFIDLOG_TOWN",
-      "x": 8,
+      "x": 18,
       "y": 16
     },
     {
