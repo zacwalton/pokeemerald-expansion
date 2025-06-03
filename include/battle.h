@@ -253,7 +253,7 @@ struct FieldTimer
     u16 terrainTimer;
     u16 gravityTimer;
     u16 fairyLockTimer;
-	u16 ApotropaismTimer;
+	u16 apotropaismTimer;       //ZETA- Fairy Sport variant
 };
 
 struct WishFutureKnock

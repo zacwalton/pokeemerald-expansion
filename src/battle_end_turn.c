@@ -56,6 +56,7 @@ enum EndTurnResolutionOrder
     ENDTURN_GRAVITY,
     ENDTURN_WATER_SPORT,
     ENDTURN_MUD_SPORT,
+    ENDTURN_APOTROPAISM,		//ZETA- Fariy Sport variant
     ENDTURN_WONDER_ROOM,
     ENDTURN_MAGIC_ROOM,
     ENDTURN_TERRAIN,
@@ -241,9 +242,12 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
          && ability != ABILITY_SAND_FORCE
          && ability != ABILITY_SAND_RUSH
          && ability != ABILITY_OVERCOAT
+         && ability != ABILITY_DESERT_SPIRIT			//ZETA- Desert Spirit ability
+         && ability != ABILITY_WAXY_SKIN				//ZETA- Waxy Skin ability
          && !IS_BATTLER_ANY_TYPE(gBattlerAttacker, TYPE_ROCK, TYPE_GROUND, TYPE_STEEL)
          && !(gStatuses3[gBattlerAttacker] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
          && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+		 && !((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_WAX_HUSK))	//ZETA- Shedinja signature item
          && !IsBattlerProtectedByMagicGuard(battler, ability))
         {
             gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
@@ -265,9 +269,11 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
         {
             if (ability != ABILITY_SNOW_CLOAK
              && ability != ABILITY_OVERCOAT
+             && ability != ABILITY_THICK_FAT			//ZETA- Thick Fat now blocks hail
              && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
              && !(gStatuses3[battler] & (STATUS3_UNDERGROUND | STATUS3_UNDERWATER))
              && GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+			 && !((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_WAX_HUSK))	//ZETA- Shedinja signature item
              && !IsBattlerProtectedByMagicGuard(battler, ability))
             {
                 gBattleStruct->moveDamage[battler] = GetNonDynamaxMaxHP(battler) / 16;
@@ -1281,6 +1287,22 @@ static bool32 HandleEndTurnMudSport(u32 battler)
     return effect;
 }
 
+static bool32 HandleEndTurnApotropaism(u32 battler)				//ZETA- Fariy Sport variant
+{
+    bool32 effect = FALSE;
+
+    gBattleStruct->endTurnEventsCounter++;
+
+    if (gFieldStatuses & STATUS_FIELD_APOTROPAISM  && gFieldTimers.apotropaismTimer == gBattleTurnCounter)
+    {
+        gFieldStatuses &= ~STATUS_FIELD_APOTROPAISM;
+        BattleScriptExecute(BattleScript_ApotropaismEnds);
+        effect = TRUE;
+    }
+
+    return effect;
+}
+
 static bool32 HandleEndTurnWonderRoom(u32 battler)
 {
     bool32 effect = FALSE;
@@ -1363,7 +1385,8 @@ static bool32 HandleEndTurnThirdEventBlock(u32 battler)
             for (gBattlerAttacker = 0; gBattlerAttacker < gBattlersCount; gBattlerAttacker++)
             {
                 if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
-                && GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF)
+                && GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF
+                && GetBattlerAbility(gBattlerAttacker) != ABILITY_CACOPHONY)		//ZETA- CACOPHONY soundproof variant
                 {
                     gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_SLEEP;
                     gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_NIGHTMARE;
@@ -1565,6 +1588,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(u32 battler) =
     [ENDTURN_GRAVITY] = HandleEndTurnGravity,
     [ENDTURN_WATER_SPORT] = HandleEndTurnWaterSport,
     [ENDTURN_MUD_SPORT] = HandleEndTurnMudSport,
+    [ENDTURN_APOTROPAISM] = HandleEndTurnApotropaism,				//ZETA- Fairy Sport variant
     [ENDTURN_WONDER_ROOM] = HandleEndTurnWonderRoom,
     [ENDTURN_MAGIC_ROOM] = HandleEndTurnMagicRoom,
     [ENDTURN_TERRAIN] = HandleEndTurnTerrain,

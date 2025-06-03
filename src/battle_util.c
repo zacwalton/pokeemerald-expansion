@@ -5313,7 +5313,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     effect = i + 1;
             }
             break;
-        case ABILITYEFFECT_APOTROPAISM:
+        case ABILITYEFFECT_APOTROPAISM:							//ZETA- Fairy Sport variant
             for (i = 0; i < gBattlersCount; i++)
             {
                 if (gStatuses4[i] & STATUS4_APOTROPAISM)
@@ -8548,7 +8548,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
     if (moveType == TYPE_FIRE && ((gFieldStatuses & STATUS_FIELD_WATERSPORT)
     || AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_WATER_SPORT, 0)))
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
-    if (moveType == TYPE_FAIRY && ((gFieldStatuses & STATUS_FIELD_APOTROPAISM)
+    if (moveType == TYPE_FAIRY && ((gFieldStatuses & STATUS_FIELD_APOTROPAISM)							//ZETA- Fairy Sport variant
     || AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_APOTROPAISM, 0)))
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
 
@@ -10978,7 +10978,7 @@ bool32 IsBattlerAffectedByHazards(u32 battler, bool32 toxicSpikes)
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);
     }
-    else if ((gBattleMons[battler].species == SPECIES_SHEDINJA) && (holdEffect == HOLD_EFFECT_WAX_HUSK))
+    else if ((gBattleMons[battler].species == SPECIES_SHEDINJA) && (holdEffect == HOLD_EFFECT_WAX_HUSK))		//ZETA- Shedinja signature item
     {
         ret = FALSE;
         RecordItemEffectBattle(battler, holdEffect);

@@ -15593,7 +15593,7 @@ static void Cmd_settypebasedhalvers(void)
             if (!(gFieldStatuses & STATUS_FIELD_APOTROPAISM))
             {
                 gFieldStatuses |= STATUS_FIELD_APOTROPAISM;
-                gFieldTimers.ApotropaismTimer = 5;
+                gFieldTimers.apotropaismTimer = 5;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FAIRY;
                 worked = TRUE;
             }
