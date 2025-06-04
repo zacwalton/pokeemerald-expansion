@@ -79,11 +79,11 @@
 #define FLDEFF_USE_ROCK_CLIMB            74
 #define FLDEFF_ROCK_CLIMB_DUST           75
 #define FLDEFF_USE_WHIRLPOOL			 76
-#define FLDEFF_DEFOG			 	 	 77
-#define FLDEFF_USE_LAVA				 	 78
-#define FLDEFF_USE_SLUDGE				 79
-#define FLDEFF_USE_DOUSE				 80
-#define FLDEFF_CAVE_DUST                 81
+#define FLDEFF_USE_LAVA				 	 77
+#define FLDEFF_USE_SLUDGE				 78
+#define FLDEFF_USE_DOUSE				 79
+#define FLDEFF_CAVE_DUST                 80
+#define FLDEFF_DEFOG			 	 	 81
 
 #define FLDEFFOBJ_SHADOW_S              0
 #define FLDEFFOBJ_SHADOW_M              1

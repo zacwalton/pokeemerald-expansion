@@ -108,7 +108,8 @@ static void FldEff_UseFlash(void)
 	DoFieldMoveFriendshipChance(&gPlayerParty[GetCursorSelectionMonId()]);
 	if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
 		FlagSet(FLAG_SYS_BONUS_FLASH);												//ZETA- repurpose follower flag for boosted field move, max flash radius only achieved if ability == illuminate
-    ScriptContext_SetupScript(EventScript_UseFlash);
+    VarSet(VAR_0x8007, GetCursorSelectionMonId());
+	ScriptContext_SetupScript(EventScript_UseFlash);
 }
 
 static void CB2_ChangeMapMain(void)

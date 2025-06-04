@@ -31,6 +31,7 @@ bool8 SetUpFieldMove_Defog(void)
 
 static void FieldCallback_Defog(void)
 {
+	VarSet(VAR_0x8007, GetCursorSelectionMonId());
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_UseDefog);
 }
@@ -48,7 +49,7 @@ bool8 FldEff_Defog(void)
 
 static void FieldMove_Defog(void)
 {
-    PlaySE12WithPanning(SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER);
+    PlaySE(SE_M_WING_ATTACK);
     SetWeatherScreenFadeOut();
     FieldEffectActiveListRemove(FLDEFF_DEFOG);
     SetWeather(WEATHER_NONE);
