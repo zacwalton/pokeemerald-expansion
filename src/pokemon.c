@@ -7087,6 +7087,60 @@ void UpdateDaysPassedSinceFormChange(u16 days)
         }
     }
 }
+
+s32 GetPartyWeightedAverageLevel(void)
+{
+	s32 i;
+	u32 partyCount = CalculatePlayerPartyCount();
+	u32 validPartyCount = 0;
+	u32 weightedLevelTotal = 0;
+	u32 disobedience;
+	s32 avgLevel;
+	
+	for (i = 0; i < partyCount; i++)
+	{
+		u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+	
+		if ((species != SPECIES_NONE && species != SPECIES_EGG))
+		{
+		disobedience = 100 - GetDisobedienceRateFromMon(&gPlayerParty[i]);
+		weightedLevelTotal += disobedience * GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+		validPartyCount++;
+		}
+	}
+	
+	avgLevel = (weightedLevelTotal / validPartyCount);
+	return (avgLevel / 100);
+}
+
+s32 GetPartyLeadWeightedAverageLevel(void)
+{
+	s32 i;
+	u32 partyCount = CalculatePlayerPartyCount();
+	u32 validPartyCount = 0;
+	u32 weightedLevelTotal = 0;
+	u32 disobedience;
+	s32 avgLevel;
+	
+	for (i = 0; i < partyCount; i++)
+	{
+		u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+	
+		if ((species != SPECIES_NONE && species != SPECIES_EGG))
+		{
+		disobedience = 100 - GetDisobedienceRateFromMon(&gPlayerParty[i]);
+		weightedLevelTotal += disobedience * GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
+		validPartyCount++;
+		}
+	}
+	
+	i = GetFollowerMonIndex();
+	disobedience = 100 - GetDisobedienceRateFromMon(&gPlayerParty[i]);
+	
+	avgLevel = (weightedLevelTotal +  (disobedience * GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL))) / (validPartyCount + 1);
+	return (avgLevel / 100);
+}
+
 /*
 // Configuration for dynamic wild mon evo is located in include/constants/pokemon.h 
 

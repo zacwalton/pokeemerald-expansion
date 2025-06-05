@@ -17053,31 +17053,6 @@ u8 GetFirstFaintedPartyIndex(u8 battler)
     return PARTY_SIZE;
 }
 
-static s32 GetPartyWeightedAverageLevel(void)
-{
-	s32 i;
-	u32 partyCount = CalculatePlayerPartyCount();
-	u32 validPartyCount = 0;
-	u32 weightedLevelTotal = 0;
-	u32 disobedience;
-	s32 avgLevel;
-	
-	for (i = 0; i < partyCount; i++)
-	{
-		u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
-	
-		if ((species != SPECIES_NONE && species != SPECIES_EGG))
-		{
-		disobedience = 100 - GetDisobedienceRateFromMon(&gPlayerParty[i]);
-		weightedLevelTotal += disobedience * GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL);
-		validPartyCount++;
-		}
-	}
-	
-	avgLevel = (weightedLevelTotal / validPartyCount);
-	return (avgLevel / 100);
-}
-
 void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBattler)
 {
     enum ItemHoldEffect holdEffect = GetMonHoldEffect(&gPlayerParty[expGetterMonId]);

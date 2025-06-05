@@ -320,8 +320,8 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
     u8 max;
     u8 range;
     u8 rand;
-    //u8 curvedLevel;
-    //u8 curveAmount = 0;
+    u8 curvedLevel = GetPartyLeadWeightedAverageLevel();
+    u8 curveAmount = 0;
     u16 wildPokemonSpecies = wildPokemon[wildMonIndex].species;
 
     if (LURE_STEP_COUNT == 0)
@@ -338,18 +338,16 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             max = wildPokemon[wildMonIndex].minLevel;
         }
         
-        /*curvedLevel = GetPartyMonCurvedLevel();
-        
         if(max < curvedLevel)
             curveAmount = (((3 * curvedLevel) + max) / 4) - max;
 
         #if WILD_MON_CURVE_LIMIT_MAX_LEVEL
         curveAmount = LimitWildMonLevelCurve(wildPokemonSpecies, curveAmount);
         #endif
-*/
+
         range = max - min + 1;
-        //if ((range < (curveAmount * 4) && (range != 0)))
-        //    range = curveAmount / 4;
+        if ((range < (curveAmount * 4) && (range != 0)))
+            range = curveAmount / 4;
         
         rand = Random() % range;
 
@@ -360,17 +358,17 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIn
             if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE)
             {
                 if (Random() % 2 == 0)
-                    return max/* + curveAmount*/;
+                    return max + curveAmount;
 
                 if (rand != 0)
                     rand--;
             }
         }
-       /* if (gIsFishingEncounter)
+        if (gIsFishingEncounter)
 		{
 			return min + rand + (curveAmount /4);
-		}*/
-        return min + rand/* + curveAmount*/;
+		}
+        return min + rand + curveAmount;
     }
     else
     {
