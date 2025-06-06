@@ -7355,40 +7355,32 @@ u16 GetPossibleGenderEvolution(u16 species, u8 gender, u8 level, u8 maxStage)
 
     return resultSpecies;
 }
-
+*/
 u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage)
 {
-    int evo;
-    u16 resultSpecies = species;
+    int i;  //evo method
+    u16 validEvos[16];			//Magic Number - just sets an arbitrary upper limit to the number of evolutions
+    u8 count = 0;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
-    while(maxStage > 0)
-    {
         if(evolutions == NULL)
-            break;
+            return species;
 
-        for (evo = 0; evolutions[evo].method != EVOLUTIONS_END; evo++)
+        for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
         {
-            if(!CanEvolve(evolutions, evo, level))
-                continue;
-            
-            // Since evolutions are in order of less preferable to most preferable, we need to continue until EVOLUTIONS_END
-            resultSpecies = evolutions[evo].targetSpecies;
+			if (evolutions[i].method == EVO_LEVEL && level >= evolutions[i].param)
+			{
+				validEvos[count++] = evolutions[i].targetSpecies;
+			}
         }
+		
+		if (count == 0)
+			return species;
 
-        // If we get the same species, do we keep trying until maxStage is 0?
-        #if !WILD_MON_EVO_CHANCE_BY_STAGE
-        if(species == resultSpecies)
-            break;
-        #endif
-        
-        evolutions = GetSpeciesEvolutions(resultSpecies);
-        maxStage--;
-    }
-
-    return resultSpecies;
+    return validEvos[Random() % count];
 }
 
+/*
 // These could be moved to include/battle.h or include/wild_encounter.h but in here they're more near its context, idk
 #define WILD_MON_CURVE_CONSIDER_FAINTED     TRUE
 #define WILD_MON_CURVE_BADGE_MODIFIER       TRUE

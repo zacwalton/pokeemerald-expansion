@@ -525,7 +525,7 @@ u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
-/*
+
 // List of Wild mons that you cannot get through dynamic evolution
 static const u16 wildMonEvolutionsBanned[] =
 {
@@ -644,7 +644,7 @@ static bool8 WildMonEvoCheck(u16 originalSpecies, u16 *species)
     return TRUE;
 }
 #endif
-
+/*
 // If the chance arises, tries to evolve the mon without changing its gender
 static void TryToEvolveWildMonWithGender(u16 *species, u8 gender, u8 level)
 {
@@ -680,44 +680,36 @@ static void TryToEvolveWildMonWithGender(u16 *species, u8 gender, u8 level)
            return;
         #endif
     }
-}
+}*/
 
 // If the chance arises, tries to evolve the mon without caring for its resulting gender
 static void TryToEvolveWildMon(u16 *species, u8 level)
 {
-    u8 chance = (Random() % 100);
     #if WILD_MON_EVO_BANS
     u16 originalSpecies = *species;
     #endif
 
-    if(chance < WILD_MON_EVO_CHANCE_STAGE3)
+    u8 stages = 0;
+    u8 chance = Random() % 100;
+    if (chance < 33)				//33% chance to evolve a second time
+        stages = 2;
+    else if (chance < 66)			//66% chance to evolve, 33% chance to stay unevolved
+        stages = 1;
+
+    //Try to evolve
+    for (u8 i = 0; i < stages; i++)
     {
-        *species = GetPossibleEvolution(*species, level, 3);
+        u16 evolved = GetPossibleEvolution(*species, level, 1);
+        if (evolved == *species)
+            break;
+        *species = evolved;
 
         #if WILD_MON_EVO_BANS
-        if(WildMonEvoCheck(originalSpecies, species))
-           return;
+        if (WildMonEvoCheck(originalSpecies, species))
+            return;
         #endif
     }
-    else if(chance < WILD_MON_EVO_CHANCE_STAGE2)
-    {
-        *species = GetPossibleEvolution(*species, level, 2);
-
-        #if WILD_MON_EVO_BANS
-        if(WildMonEvoCheck(originalSpecies, species))
-           return;
-        #endif
-    }
-    else if(chance < WILD_MON_EVO_CHANCE_STAGE1)
-    {
-        *species = GetPossibleEvolution(*species, level, 1);
-
-        #if WILD_MON_EVO_BANS
-        if(WildMonEvoCheck(originalSpecies, species))
-           return;
-        #endif
-    }
-}*/
+}
 
 void CreateWildMon(u16 species, u8 level)
 {
@@ -757,12 +749,12 @@ void CreateWildMon(u16 species, u8 level)
         CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0);
         return;
     }
-    /*
+    
     #if WILD_MON_EVO_BANS
     if(!MonCannotDynamicEvolve(species))
     #endif
         TryToEvolveWildMon(&species, level);
-*/
+
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
 }
 #ifdef BUGFIX
