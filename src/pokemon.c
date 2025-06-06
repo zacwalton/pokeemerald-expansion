@@ -7356,10 +7356,12 @@ u16 GetPossibleGenderEvolution(u16 species, u8 gender, u8 level, u8 maxStage)
     return resultSpecies;
 }
 */
+#define DYNAMIC_EVO_MAX_EVOLUTIONS 15
+
 u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage)
 {
     int i;  //evo method
-    u16 validEvos[16];			//Magic Number - just sets an arbitrary upper limit to the number of evolutions
+    u16 validEvos[DYNAMIC_EVO_MAX_EVOLUTIONS];			//Just sets an arbitrary upper limit to the number of evolutions for the array size
     u8 count = 0;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
@@ -7368,7 +7370,11 @@ u16 GetPossibleEvolution(u16 species, u8 level, u8 maxStage)
 
         for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
         {
-			if (evolutions[i].method == EVO_LEVEL && level >= evolutions[i].param)
+			if ((evolutions[i].method == EVO_LEVEL || evolutions[i].method == EVO_LEVEL_BATTLE_ONLY) && level >= evolutions[i].param)
+			{
+				validEvos[count++] = evolutions[i].targetSpecies;
+			}
+			else if ((evolutions[i].method == EVO_ITEM || evolutions[i].method == EVO_TRADE) && ((Random() % 100) < GetPartyLeadWeightedAverageLevel() / 4)) //Maximum 25% chance, weighted against party level/obedience
 			{
 				validEvos[count++] = evolutions[i].targetSpecies;
 			}
