@@ -81,8 +81,8 @@
 #define TREASURE_TILE_SIZE              (TREASURE_ICON_WIDTH / 8)
 #define TREASURE_SCORE_COLOR_INTERVAL   (TREASURE_TIME_GOAL / NUM_COLOR_INTERVALS)
 #define TREASURE_SCORE_COLOR_NUM        10   // The color position in the palette that the treasure score meter uses.
-#define TREASURE_POST_GAME_X            109  // X position of the treasure icon to be inside the text box after battle.
-#define TREASURE_POST_GAME_Y            68   // Y position of the treasure icon to be inside the text box after battle.
+#define TREASURE_POST_GAME_X            109  // X position of the treasure icon after battle.
+#define TREASURE_POST_GAME_Y            68   // Y position of the treasure icon after battle.
 
 // Other Constants
 #define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts in the overworld.
