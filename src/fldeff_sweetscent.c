@@ -59,13 +59,13 @@ void StartSweetScentFieldEffect(void)
 {
     void *palBuffer;
     u32 taskId;
-    u32 palettes = ~(1 << (gSprites[GetPlayerAvatarSpriteId()].oam.paletteNum + 16) | (1 << 13) | (1 << 14) | (1 << 15));
+    //u32 palettes = ~(1 << (gSprites[GetPlayerAvatarSpriteId()].oam.paletteNum + 16) | (1 << 13) | (1 << 14) | (1 << 15));
 
     PlaySE(SE_M_SWEET_SCENT);
     palBuffer = Alloc(PLTT_SIZE);
     CpuFastCopy(gPlttBufferUnfaded, palBuffer, PLTT_SIZE);
     CpuFastCopy(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
-    BeginNormalPaletteFade(palettes, 4, 0, 8, RGB_RED);
+    BeginNormalPaletteFade(~0, 4, 0, 8, RGB_MAGENTA);
     taskId = CreateTask(TrySweetScentEncounter, 0);
     gTasks[taskId].data[0] = 0;
     StoreWordInTwoHalfwords((u16 *)&gTasks[taskId].tPalBuffer1, (u32) palBuffer);
@@ -91,7 +91,7 @@ static void TrySweetScentEncounter(u8 taskId)
     if (!gPaletteFade.active)
     {
         ClearMirageTowerPulseBlendEffect();
-        BlendPalettes(0x00000040, 8, RGB_RED);
+        BlendPalettes(0x00000040, 8, RGB_MAGENTA);
         if (gTasks[taskId].data[0] == 64)
         {
             gTasks[taskId].data[0] = 0;
@@ -102,7 +102,7 @@ static void TrySweetScentEncounter(u8 taskId)
             else
             {
                 gTasks[taskId].func = FailSweetScentEncounter;
-                BeginNormalPaletteFade(~(1 << (gSprites[GetPlayerAvatarSpriteId()].oam.paletteNum + 16)), 4, 8, 0, RGB_RED);
+                BeginNormalPaletteFade(~0, 4, 8, 0, RGB_MAGENTA);
                 TryStartMirageTowerPulseBlendEffect();
             }
         }
