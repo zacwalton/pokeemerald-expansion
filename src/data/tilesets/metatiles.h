@@ -276,3 +276,6 @@ const u16 gMetatileAttributes_RangerDepot[] = INCBIN_U16("data/tilesets/secondar
 
 const u16 gMetatiles_Sewer[] = INCBIN_U16("data/tilesets/secondary/sewer/metatiles.bin");
 const u16 gMetatileAttributes_Sewer[] = INCBIN_U16("data/tilesets/secondary/sewer/metatile_attributes.bin");
+
+const u16 gMetatiles_Hoenn_Spring[] = INCBIN_U16("data/tilesets/primary/hoenn_spring/metatiles.bin");
+const u16 gMetatileAttributes_Hoenn_Spring[] = INCBIN_U16("data/tilesets/primary/hoenn_spring/metatile_attributes.bin");

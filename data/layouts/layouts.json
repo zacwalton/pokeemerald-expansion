@@ -96,7 +96,7 @@
       "name": "EverGrandeCity_Layout",
       "width": 40,
       "height": 80,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_EverGrande",
       "border_filepath": "data/layouts/EverGrandeCity/border.bin",
       "blockdata_filepath": "data/layouts/EverGrandeCity/map.bin"
@@ -112,14 +112,14 @@
       "blockdata_filepath": "data/layouts/LittlerootTown/map.bin"
     },
     {
-      "id": "LAYOUT_LITTLEROOT_TOWN_SUMMER",
-      "name": "LittlerootTown_Layout_Summer",
+      "id": "LAYOUT_LITTLEROOT_TOWN_SPRING",
+      "name": "LittlerootTown_Layout_Spring",
       "width": 44,
       "height": 50,
-      "primary_tileset": "gTileset_Hoenn_Summer",
+      "primary_tileset": "gTileset_Hoenn_Spring",
       "secondary_tileset": "gTileset_Littleroot_Summer",
-      "border_filepath": "data/layouts/LittlerootTown_Summer/border.bin",
-      "blockdata_filepath": "data/layouts/LittlerootTown_Summer/map.bin"
+      "border_filepath": "data/layouts/LittlerootTown_Spring/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_Spring/map.bin"
     },
     {
       "id": "LAYOUT_LITTLEROOT_TOWN_AUTUMN",

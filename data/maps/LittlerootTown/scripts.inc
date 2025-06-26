@@ -40,13 +40,13 @@ LittlerootTown_OnLoad:
 	specialvar VAR_RESULT, Rtc_GetSeason
 	compare VAR_RESULT, 1
 	goto_if_eq LittlerootTown_EventScript_Summer
-//	specialvar VAR_RESULT, MapSeason
-//	compare VAR_RESULT, 2
-//	goto_if_eq LittlerootTown_EventScript_Autumn
-//	compare VAR_RESULT, 3
-//	goto_if_eq LittlerootTown_EventScript_Winter
-//	compare VAR_RESULT, 0
-//	goto_if_eq LittlerootTown_EventScript_Spring 
+	specialvar VAR_RESULT, MapSeason
+	compare VAR_RESULT, 2
+	goto_if_eq LittlerootTown_EventScript_Autumn
+	compare VAR_RESULT, 3
+	goto_if_eq LittlerootTown_EventScript_Winter
+	compare VAR_RESULT, 0
+	goto_if_eq LittlerootTown_EventScript_Spring 
 
 LittlerootTown_OnResume:
 	setallharvestablemetatiles
@@ -86,7 +86,7 @@ LittlerootTown_OnTransition:
 	end
 	
 LittlerootTown_EventScript_Summer::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SUMMER
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN
 	end
 	
 LittlerootTown_EventScript_Autumn::
@@ -98,7 +98,7 @@ LittlerootTown_EventScript_Winter::
 	end
 	
 LittlerootTown_EventScript_Spring::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SUMMER
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SPRING
 	end	
 
 
