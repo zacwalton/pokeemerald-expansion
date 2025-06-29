@@ -4242,113 +4242,610 @@
             "mons": [
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_POOCHYENA"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_WURMPLE"
+                "max_level": 30,
+                "species": "SPECIES_LEDYBA"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_SHROOMISH"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
+                "max_level": 30,
                 "species": "SPECIES_POOCHYENA"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_PARAS"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_SHROOMISH"
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
+                "max_level": 30,
                 "species": "SPECIES_WURMPLE"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_PARAS"
               },
               {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_TAILLOW"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_SLAKOTH"
-              },
-              {
                 "min_level": 6,
-                "max_level": 6,
+                "max_level": 30,
                 "species": "SPECIES_TAILLOW"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SLAKOTH"
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
               }
             ]
           },
           "rock_smash_mons": {
+            "encounter_rate": 5,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_BONSLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PHANTUMP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              }
+            ]
+          },
+          "headbutt_mons": {
             "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS",
+          "base_label": "gPetalburgWoods_Day",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "rock_smash_mons": {
+            "encounter_rate": 5,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_BONSLY"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_BONSLY"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
               },
               {
                 "min_level": 5,
-                "max_level": 5,
+                "max_level": 30,
                 "species": "SPECIES_NONE"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS",
+          "base_label": "gPetalburgWoods_Evening",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_LEDYBA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "rock_smash_mons": {
+            "encounter_rate": 5,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_BONSLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PHANTUMP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS",
+          "base_label": "gPetalburgWoods_Night",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SPINARAK"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_HOOTHOOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_ZUBAT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_ZUBAT"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "rock_smash_mons": {
+            "encounter_rate": 5,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PHANTUMP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PHANTUMP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_NONE"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SPINARAK"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_HOOTHOOT"
               }
             ]
           }
@@ -14696,6 +15193,422 @@
                 "min_level": 39,
                 "max_level": 48,
                 "species": "SPECIES_EELEKTRIK"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS_ENTRANCE",
+          "base_label": "gPetalburgWoods_Entrance",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_LEDYBA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS_ENTRANCE",
+          "base_label": "gPetalburgWoods_Entrance_Day",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS_ENTRANCE",
+          "base_label": "gPetalburgWoods_Entrance_Evening",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_LEDYBA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_TAILLOW"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PIDOVE"
+              }
+            ]
+          }
+        },
+        {
+          "map": "MAP_PETALBURG_WOODS_ENTRANCE",
+          "base_label": "gPetalburgWoods_Entrance_Night",
+          "land_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_POOCHYENA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SPINARAK"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_HOOTHOOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SHROOMISH"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_SLAKOTH"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_ZUBAT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PARAS"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_ZUBAT"
+              },
+              {
+                "min_level": 6,
+                "max_level": 30,
+                "species": "SPECIES_RALTS"
+              }
+            ]
+          },
+          "headbutt_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SPINARAK"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_SEEDOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_PINECO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 30,
+                "species": "SPECIES_HOOTHOOT"
               }
             ]
           }
