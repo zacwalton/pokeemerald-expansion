@@ -298,6 +298,61 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
+// Rock Smash, Cut and Douse Encounters 
+// ROCK_WILD_COUNT
+static u8 ChooseWildMonIndex_FieldObject(u8 method)
+{
+	#define SMASH  	0
+	#define CUT  	1
+	#define DOUSE 	2
+	
+    u8 wildMonIndex = 0;
+    bool8 swap = FALSE;
+    u8 rand = Random() % max(max(ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_TOTAL, ENCOUNTER_CHANCE_ROCK_SMASH_MONS_CUT_TOTAL),
+                             ENCOUNTER_CHANCE_ROCK_SMASH_MONS_DOUSE_TOTAL);
+
+    if (LURE_STEP_COUNT != 0 && (Random() % 10 < 2))
+        swap = TRUE;
+
+    switch (method)
+    {
+    case SMASH:
+        if (rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_0)
+            wildMonIndex = 0;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_0 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_1)
+            wildMonIndex = 1;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_1 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_2)
+            wildMonIndex = 2;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_2 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_3)
+            wildMonIndex = 3;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_3 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_SMASH_SLOT_4)
+            wildMonIndex = 4;
+
+        if (swap)
+            wildMonIndex = 4 - wildMonIndex;
+        break;
+    case CUT:
+        if (rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_CUT_SLOT_5)
+            wildMonIndex = 5;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_CUT_SLOT_5 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_CUT_SLOT_6)
+            wildMonIndex = 6;
+
+        if (swap)
+            wildMonIndex = 11 - wildMonIndex;
+        break;
+    case DOUSE:
+        if (rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_DOUSE_SLOT_7)
+            wildMonIndex = 7;
+        if (rand >= ENCOUNTER_CHANCE_ROCK_SMASH_MONS_DOUSE_SLOT_7 && rand < ENCOUNTER_CHANCE_ROCK_SMASH_MONS_DOUSE_SLOT_8)
+            wildMonIndex = 8;
+
+        if (swap)
+            wildMonIndex = 15 - wildMonIndex;
+        break;
+    }
+    return wildMonIndex;
+}
+
 #if WILD_MON_CURVE_LIMIT_MAX_LEVEL
 // Values are examples
 static const u8 wildMonMaxLevelCurveTable[NUM_SPECIES] =
@@ -806,7 +861,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         wildMonIndex = ChooseWildMonIndex_WaterRock();
         break;
     case WILD_AREA_ROCKS:
-        wildMonIndex = ChooseWildMonIndex_WaterRock();
+        //wildMonIndex = ChooseWildMonIndex_WaterRock();
         break;
     default:
     case WILD_AREA_FISHING:
@@ -831,6 +886,16 @@ static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 
     u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
 
     UpdateChainFishingStreak();
+    CreateWildMon(wildMonSpecies, level);
+    return wildMonSpecies;
+}
+
+static u16 GenerateFieldObjectWildMon(const struct WildPokemonInfo *wildMonInfo, u8 method)
+{
+    u8 wildMonIndex = ChooseWildMonIndex_FieldObject(method);
+    u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
+    u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_ROCKS);
+
     CreateWildMon(wildMonSpecies, level);
     return wildMonSpecies;
 }
@@ -1092,12 +1157,96 @@ void RockSmashWildEncounter(void)
             gSpecialVar_Result = FALSE;
         }
         else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
-         && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
+         && GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, SMASH))
         {
             if (TryDoDoubleWildBattle())
             {
                 struct Pokemon mon1 = gEnemyParty[0];
-                TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE);
+                GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, SMASH);
+                gEnemyParty[1] = mon1;
+                BattleSetup_StartDoubleWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+            else {
+                BattleSetup_StartWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+        }
+        else
+        {
+            gSpecialVar_Result = FALSE;
+        }
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
+}
+
+void CutWildEncounter(void)
+{
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
+
+    if (headerId != HEADER_NONE)
+    {
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_ROCKS);
+
+        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo;
+
+        if (wildPokemonInfo == NULL)
+        {
+            gSpecialVar_Result = FALSE;
+        }
+        else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
+         && GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, CUT))
+        {
+            if (TryDoDoubleWildBattle())
+            {
+                struct Pokemon mon1 = gEnemyParty[0];
+                GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, CUT);
+                gEnemyParty[1] = mon1;
+                BattleSetup_StartDoubleWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+            else {
+                BattleSetup_StartWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+        }
+        else
+        {
+            gSpecialVar_Result = FALSE;
+        }
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
+}
+
+void DouseWildEncounter(void)
+{
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
+
+    if (headerId != HEADER_NONE)
+    {
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_ROCKS);
+
+        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo;
+
+        if (wildPokemonInfo == NULL)
+        {
+            gSpecialVar_Result = FALSE;
+        }
+        else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
+         && GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, DOUSE))
+        {
+            if (TryDoDoubleWildBattle())
+            {
+                struct Pokemon mon1 = gEnemyParty[0];
+                GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, DOUSE);
                 gEnemyParty[1] = mon1;
                 BattleSetup_StartDoubleWildBattle();
                 gSpecialVar_Result = TRUE;

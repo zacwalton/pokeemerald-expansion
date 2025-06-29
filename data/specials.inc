@@ -575,3 +575,5 @@ gSpecials::
 	def_special GetCodeFeedback
 	def_special GetFollowerMonIndex
 	def_special RockSmashFindItem
+	def_special CutWildEncounter
+	def_special DouseWildEncounter
