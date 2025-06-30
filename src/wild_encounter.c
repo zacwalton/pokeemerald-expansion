@@ -353,6 +353,61 @@ static u8 ChooseWildMonIndex_FieldObject(u8 method)
     return wildMonIndex;
 }
 
+// Honey Tree Encounters 
+// HONEY_WILD_COUNT
+static u8 ChooseWildMonIndex_HoneyTree(u8 group)
+{
+	#define GROUP_A  	0
+	#define GROUP_B  	1
+	#define GROUP_C  	2
+	
+    u8 wildMonIndex = 0;
+    bool8 swap = FALSE;
+    u8 rand = Random() % max(ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_TOTAL, ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_TOTAL);
+
+    if (LURE_STEP_COUNT != 0 && (Random() % 10 < 2))
+        swap = TRUE;
+
+    switch (group)
+    {
+    case GROUP_A:
+        if (rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_0)
+            wildMonIndex = 0;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_0 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_1)
+            wildMonIndex = 1;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_1 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_2)
+            wildMonIndex = 2;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_2 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_3)
+            wildMonIndex = 3;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_3 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_4)
+            wildMonIndex = 4;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_4 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_A_SLOT_5)
+            wildMonIndex = 5;
+
+        if (swap)
+            wildMonIndex = 5 - wildMonIndex;
+        break;
+    case GROUP_B:
+        if (rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_6)
+            wildMonIndex = 6;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_6 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_7)
+            wildMonIndex = 7;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_7 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_8)
+            wildMonIndex = 8;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_8 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_9)
+            wildMonIndex = 9;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_9 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_10)
+            wildMonIndex = 10;
+        if (rand >= ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_10 && rand < ENCOUNTER_CHANCE_HONEY_TREE_MONS_GROUP_B_SLOT_11)
+            wildMonIndex = 11;
+
+        if (swap)
+            wildMonIndex = 17 - wildMonIndex;
+        break;
+    }
+    return wildMonIndex;
+}
+
 #if WILD_MON_CURVE_LIMIT_MAX_LEVEL
 // Values are examples
 static const u8 wildMonMaxLevelCurveTable[NUM_SPECIES] =
@@ -540,6 +595,9 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
             break;
         case WILD_AREA_HEADBUTT:
             wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].headbuttMonsInfo;
+            break;
+        case WILD_AREA_HONEY:
+            wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].honeyTreeMonsInfo;
             break;
         }
     }
@@ -866,6 +924,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     default:
     case WILD_AREA_FISHING:
     case WILD_AREA_HIDDEN:
+    case WILD_AREA_HONEY:
         break;
     }
 
@@ -895,6 +954,16 @@ static u16 GenerateFieldObjectWildMon(const struct WildPokemonInfo *wildMonInfo,
     u8 wildMonIndex = ChooseWildMonIndex_FieldObject(method);
     u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
     u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_ROCKS);
+
+    CreateWildMon(wildMonSpecies, level);
+    return wildMonSpecies;
+}
+
+static u16 GenerateHoneyTreeWildMon(const struct WildPokemonInfo *wildMonInfo, u8 group)
+{
+    u8 wildMonIndex = ChooseWildMonIndex_FieldObject(group);
+    u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
+    u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_HONEY);
 
     CreateWildMon(wildMonSpecies, level);
     return wildMonSpecies;
@@ -1247,6 +1316,58 @@ void DouseWildEncounter(void)
             {
                 struct Pokemon mon1 = gEnemyParty[0];
                 GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo, DOUSE);
+                gEnemyParty[1] = mon1;
+                BattleSetup_StartDoubleWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+            else {
+                BattleSetup_StartWildBattle();
+                gSpecialVar_Result = TRUE;
+            }
+        }
+        else
+        {
+            gSpecialVar_Result = FALSE;
+        }
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
+}
+
+void HoneyTreeWildEncounter(void)
+{
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
+	u32 group;
+	u32 random = (Random() % 9) != 9;
+	
+	if (random == 9)
+		group = GROUP_C;
+	else if (random < 7)
+		group = GROUP_A;
+	else
+		group = GROUP_B;
+
+    if (headerId != HEADER_NONE)
+    {
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_HONEY);
+
+        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].honeyTreeMonsInfo;
+
+        if (wildPokemonInfo == NULL)
+        {
+            gSpecialVar_Result = FALSE;
+        }
+        else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
+		 && group < GROUP_C 
+         && GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].honeyTreeMonsInfo, group))
+        {
+            if (TryDoDoubleWildBattle())
+            {
+                struct Pokemon mon1 = gEnemyParty[0];
+                GenerateFieldObjectWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].honeyTreeMonsInfo, group);
                 gEnemyParty[1] = mon1;
                 BattleSetup_StartDoubleWildBattle();
                 gSpecialVar_Result = TRUE;

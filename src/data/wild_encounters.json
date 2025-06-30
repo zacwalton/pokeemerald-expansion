@@ -122,6 +122,41 @@
             4,
             1
           ]
+        },
+        {
+          "type": "honey_tree_mons",
+          "encounter_rates": [
+            40,
+            30,
+            20,
+            5,
+            4,
+            1,
+            40,
+            30,
+            20,
+            5,
+            4,
+            1
+          ],
+          "groups": {
+            "group_a": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "group_b": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          }
         }
       ],
       "encounters": [
@@ -275,6 +310,71 @@
                 "min_level": 40,
                 "max_level": 45,
                 "species": "SPECIES_CORPHISH"
+              }
+            ]
+          },
+          "honey_tree_mons": {
+            "encounter_rate": 100,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_WURMPLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_CATERPIE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_ZIGZAGOON"
+              },
+              {
+                "min_level": 22,
+                "max_level": 40,
+                "species": "SPECIES_MASQUERAIN"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_TEDDIURSA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_WEEDLE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_CATERPIE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_SURSKIT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_TEDDIURSA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_TEDDIURSA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 40,
+                "species": "SPECIES_TEDDIURSA"
               }
             ]
           }
