@@ -4,6 +4,7 @@
 #include "metatile_behavior.h"
 #include "fieldmap.h"
 #include "follower_npc.h"
+#include "fishing_game.h"
 #include "random.h"
 #include "field_player_avatar.h"
 #include "event_data.h"
@@ -18,6 +19,7 @@
 #include "battle_debug.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
+#include "config/fishing_game.h"
 #include "constants/abilities.h"
 #include "constants/game_stat.h"
 #include "constants/item.h"
@@ -44,7 +46,6 @@ extern const u8 EventScript_SprayWoreOff[];
 
 static u16 FeebasRandom(void);
 static void FeebasSeedRng(u16 seed);
-static void UpdateChainFishingStreak();
 static bool8 IsWildLevelAllowedByRepel(u8 level);
 static void ApplyFluteEncounterRateMod(u32 *encRate);
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
@@ -1486,7 +1487,7 @@ u32 CalculateChainFishingShinyRolls(void)
     return (2 * min(gChainFishingDexNavStreak, FISHING_CHAIN_SHINY_STREAK_MAX));
 }
 
-static void UpdateChainFishingStreak()
+void UpdateChainFishingStreak()
 {
     if (!I_FISHING_CHAIN)
         return;
@@ -1517,10 +1518,13 @@ void FishingWildEncounter(u8 rod)
         timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
         species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod);
     }
-
-    IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
+    
     SetPokemonAnglerSpecies(species);
-    BattleSetup_StartWildBattle();
+    if (!FG_FISH_MINIGAME_ENABLED)
+    {
+        IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
+        BattleSetup_StartWildBattle();
+    }
 }
 
 u16 GetLocalWildMon(bool8 *isWaterMon)
