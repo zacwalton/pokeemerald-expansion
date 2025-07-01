@@ -48,6 +48,7 @@ static void ApplyFogBlend(u8 blendCoeff, u32 blendColor);
 static bool8 FadeInScreen_RainShowShade(void);
 static bool8 FadeInScreen_Drought(void);
 static bool8 FadeInScreen_FogHorizontal(void);
+static bool8 FadeInScreen_FlashTint(void);
 static void FadeInScreenWithWeather(void);
 static void DoNothing(void);
 static void Task_WeatherInit(u8 taskId);
@@ -141,6 +142,7 @@ static const struct WeatherCallbacks sWeatherFuncs[] =
     [WEATHER_DROUGHT]            = {Drought_InitVars,       Drought_Main,       Drought_InitAll,       Drought_Finish},
     [WEATHER_DOWNPOUR]           = {Downpour_InitVars,      Thunderstorm_Main,  Downpour_InitAll,      Thunderstorm_Finish},
     [WEATHER_UNDERWATER_BUBBLES] = {Bubbles_InitVars,       Bubbles_Main,       Bubbles_InitAll,       Bubbles_Finish},
+    [WEATHER_FLASHTINT]       	 = {FlashTint_InitVars,     FlashTint_Main,     FlashTint_InitAll,     FlashTint_Finish},
 };
 
 void (*const gWeatherPalStateFuncs[])(void) =
@@ -390,6 +392,13 @@ static void FadeInScreenWithWeather(void)
     case WEATHER_SANDSTORM:
     case WEATHER_FOG_DIAGONAL:
     case WEATHER_UNDERWATER:
+    case WEATHER_FLASHTINT:
+        if (FadeInScreen_FlashTint() == FALSE)
+        {
+            gWeatherPtr->colorMapIndex = 3;
+            gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
+        }
+        break;
     default:
         if (!gPaletteFade.active)
         {
@@ -439,6 +448,22 @@ static bool8 FadeInScreen_FogHorizontal(void)
 
     gWeatherPtr->fadeScreenCounter++;
     ApplyFogBlend(16 - gWeatherPtr->fadeScreenCounter, gWeatherPtr->fadeDestColor);
+    return TRUE;
+}
+
+static bool8 FadeInScreen_FlashTint(void)
+{
+    if (gWeatherPtr->fadeScreenCounter == 16)
+        return FALSE;
+
+    if (++gWeatherPtr->fadeScreenCounter >= 16)
+    {
+        ApplyColorMap(0, 32, 3);
+        gWeatherPtr->fadeScreenCounter = 16;
+        return FALSE;
+    }
+
+    ApplyColorMapWithBlend(0, 32, 3, 16 - gWeatherPtr->fadeScreenCounter, gWeatherPtr->fadeDestColor);
     return TRUE;
 }
 
@@ -763,6 +788,7 @@ void FadeScreen(u8 mode, s8 delay)
     case WEATHER_DOWNPOUR:
     case WEATHER_FOG_HORIZONTAL:
     case WEATHER_SHADE:
+	case WEATHER_FLASHTINT:
     case WEATHER_DROUGHT:
         useWeatherPal = TRUE;
         break;
@@ -1082,6 +1108,9 @@ static void UNUSED SetFieldWeather(u8 weather)
         break;
     case COORD_EVENT_WEATHER_SHADE:
         SetWeather(WEATHER_SHADE);
+        break;
+    case COORD_EVENT_WEATHER_FLASHTINT:
+        SetWeather(WEATHER_FLASHTINT);
         break;
     }
 }

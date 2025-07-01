@@ -224,6 +224,10 @@ void Bubbles_InitVars(void);
 void Bubbles_Main(void);
 void Bubbles_InitAll(void);
 bool8 Bubbles_Finish(void);
+void FlashTint_InitVars(void);
+void FlashTint_Main(void);
+void FlashTint_InitAll(void);
+bool8 FlashTint_Finish(void);
 
 u8 GetSavedWeather(void);
 void SetSavedWeather(u32 weather);

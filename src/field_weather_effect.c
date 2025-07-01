@@ -2632,6 +2632,7 @@ static u8 TranslateWeatherNum(u8 weather)
     case WEATHER_ABNORMAL:           return WEATHER_ABNORMAL;
     case WEATHER_ROUTE119_CYCLE:     return sWeatherCycleRoute119[gSaveBlock1Ptr->weatherCycleStage];
     case WEATHER_ROUTE123_CYCLE:     return sWeatherCycleRoute123[gSaveBlock1Ptr->weatherCycleStage];
+    case WEATHER_FLASHTINT:          return WEATHER_FLASHTINT;
     default:                         return WEATHER_NONE;
     }
 }
@@ -2648,4 +2649,31 @@ static void UpdateRainCounter(u8 newWeather, u8 oldWeather)
     if (newWeather != oldWeather
      && (newWeather == WEATHER_RAIN || newWeather == WEATHER_RAIN_THUNDERSTORM))
         IncrementGameStat(GAME_STAT_GOT_RAINED_ON);
+}
+
+//------------------------------------------------------------------------------
+// WEATHER_FLASHTINT
+//------------------------------------------------------------------------------
+
+void FlashTint_InitVars(void)
+{
+    gWeatherPtr->initStep = 0;
+    gWeatherPtr->targetColorMapIndex = 3;
+    gWeatherPtr->colorMapStepDelay = 20;
+    Weather_SetBlendCoeffs(8, BASE_SHADOW_INTENSITY); // preserve shadow darkness
+    gWeatherPtr->noShadows = FALSE;
+}
+
+void FlashTint_InitAll(void)
+{
+    FlashTint_InitVars();
+}
+
+void FlashTint_Main(void)
+{
+}
+
+bool8 FlashTint_Finish(void)
+{
+    return FALSE;
 }
