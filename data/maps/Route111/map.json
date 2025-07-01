@@ -1,7 +1,7 @@
 {
   "id": "MAP_ROUTE111",
   "name": "Route111",
-  "layout": "LAYOUT_ROUTE111",
+  "layout": "LAYOUT_ROUTE111_NO_MIRAGE_TOWER",
   "music": "MUS_ROUTE110",
   "region_map_section": "MAPSEC_ROUTE_111",
   "requires_flash": false,
@@ -12,7 +12,7 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": 0,
+  "connections": null,
   "object_events": [
     {
       "local_id": "LOCALID_ROUTE111_VICTOR",

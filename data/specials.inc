@@ -577,3 +577,4 @@ gSpecials::
 	def_special RockSmashFindItem
 	def_special CutWildEncounter
 	def_special DouseWildEncounter
+	def_special CreateFollowMonEncounter

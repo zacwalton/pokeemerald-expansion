@@ -3,6 +3,7 @@
 #include "berry_powder.h"
 #include "fake_rtc.h"
 #include "follower_npc.h"
+#include "followmon.h"
 #include "item.h"
 #include "load_save.h"
 #include "main.h"
@@ -205,6 +206,9 @@ void SaveObjectEvents(void)
     int i;
     u16 graphicsId;
 
+    // Temporary fix until we reduce followmon data size 
+    // and include it in the save
+    RemoveAllFollowMonObjects();
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
         gSaveBlock1Ptr->objectEvents[i] = gObjectEvents[i];

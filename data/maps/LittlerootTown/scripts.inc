@@ -463,6 +463,7 @@ LittlerootTown_EventScript_BrendansHouseSign::
 
 LittlerootTown_EventScript_ThirdHouseSign::
 	lock
+	setflag FLAG_SPAWN_OVERWORLD_MON
 	setflag FLAG_EXP_SHARE_ACTIVE
 	setflag OW_FLAG_POKE_RIDER
 	setflag FLAG_SYS_QUEST_MENU_GET

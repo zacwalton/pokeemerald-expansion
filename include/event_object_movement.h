@@ -60,6 +60,14 @@ enum FollowerTransformTypes
     TRANSFORM_TYPE_WEATHER,
 };
 
+enum FollowMonSpawnAnim
+{
+    FOLLOWMON_SPAWN_ANIM_GRASS,
+    FOLLOWMON_SPAWN_ANIM_WATER,
+    FOLLOWMON_SPAWN_ANIM_CAVE,
+    FOLLOWMON_SPAWN_ANIM_SHINY,
+};
+
 #define FIGURE_8_LENGTH 72
 
 #define GROUND_EFFECT_FLAG_TALL_GRASS_ON_SPAWN   (1 << 0)
@@ -511,5 +519,7 @@ u8 GetSidewaysStairsCollision(struct ObjectEvent *objectEvent, u8 dir, u8 curren
 bool8 MovementAction_EmoteX_Step0(struct ObjectEvent *, struct Sprite *);
 bool8 MovementAction_EmoteDoubleExclamationMark_Step0(struct ObjectEvent *, struct Sprite *);
 bool8 PlayerIsUnderWaterfall(struct ObjectEvent *objectEvent);
+
+bool8 MovementAction_FollowMonSpawn(enum FollowMonSpawnAnim spawnAnimType, struct ObjectEvent *objEvent);
 
 #endif //GUARD_EVENT_OBJECT_MOVEMENT_H
