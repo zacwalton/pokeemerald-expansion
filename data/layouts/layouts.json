@@ -427,7 +427,7 @@
       "width": 150,
       "height": 40,
       "primary_tileset": "gTileset_Hoenn_Summer",
-      "secondary_tileset": "gTileset_Pacifidlog_Summer",
+      "secondary_tileset": "gTileset_Foretree_Summer",
       "border_filepath": "data/layouts/Route123/border.bin",
       "blockdata_filepath": "data/layouts/Route123/map.bin"
     },
