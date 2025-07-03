@@ -12,6 +12,7 @@ enum WildPokemonArea {
     WILD_AREA_WATER,
     WILD_AREA_ROCKS,
     WILD_AREA_FISHING,
+    WILD_AREA_FISHING_FRESHWATER,
     WILD_AREA_HEADBUTT,
 	WILD_AREA_HONEY,
     WILD_AREA_HIDDEN
@@ -36,6 +37,7 @@ struct WildEncounterTypes
     const struct WildPokemonInfo *waterMonsInfo;
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
+    const struct WildPokemonInfo *fishingFreshwaterMonsInfo;
     const struct WildPokemonInfo *landMons2Info;
     const struct WildPokemonInfo *headbuttMonsInfo;
     const struct WildPokemonInfo *honeyTreeMonsInfo;
@@ -71,7 +73,8 @@ u32 CalculateChainFishingShinyRolls(void);
 void CreateWildMon(u16 species, u8 level);
 u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
-u8 ChooseWildMonIndex_WaterRock(void);
+//u8 ChooseWildMonIndex_WaterRock(void);
+u8 ChooseWildMonIndex_Water(void);
 u8 ChooseHiddenMonIndex(void);
 bool32 MapHasNoEncounterData(void);
 enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area);

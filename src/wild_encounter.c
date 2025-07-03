@@ -179,6 +179,35 @@ static void FeebasSeedRng(u16 seed)
     sFeebasRngValue = seed;
 }
 
+static u8 GetWaterMonGroup(void)
+{
+	#define SALTWATER  	0
+	#define FRESHWATER 	1
+	#define CURRENTS 	2
+
+	u8 group;
+	s16 x;
+	s16 y;
+	
+	PlayerGetDestCoords(&x, &y);
+	u8 metatileBehaviour = MapGridGetMetatileBehaviorAt(x, y);
+	
+	if (MetatileBehavior_IsFreshWater(metatileBehaviour))
+	{
+		group = FRESHWATER;
+	}
+	else if (MetatileBehavior_IsCurrentWater(metatileBehaviour))
+	{
+		group = CURRENTS;
+	}
+	else
+	{
+		group = SALTWATER;
+	}
+	
+	return group;
+}
+
 // LAND_WILD_COUNT
 u8 ChooseWildMonIndex_Land(void)
 {
@@ -219,7 +248,7 @@ u8 ChooseWildMonIndex_Land(void)
 
     return wildMonIndex;
 }
-
+/*
 // ROCK_WILD_COUNT / WATER_WILD_COUNT
 u8 ChooseWildMonIndex_WaterRock(void)
 {
@@ -245,7 +274,70 @@ u8 ChooseWildMonIndex_WaterRock(void)
         wildMonIndex = 4 - wildMonIndex;
 
     return wildMonIndex;
+}*/
+
+//WATER_WILD_COUNT
+u8 ChooseWildMonIndex_Water(void)
+{
+    u8 wildMonIndex = 0;
+    bool8 swap = FALSE;
+	u8 rand = Random() % max(max(ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_TOTAL, ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_TOTAL),
+                             ENCOUNTER_CHANCE_WATER_MONS_CURRENTS_TOTAL);
+	u8 group = GetWaterMonGroup();
+
+
+    if (LURE_STEP_COUNT != 0 && (Random() % 10 < 2))
+        swap = TRUE;
+
+    switch (group)
+    {
+    case SALTWATER:
+        if (rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_0)
+            wildMonIndex = 0;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_0 && rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_1)
+            wildMonIndex = 1;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_1 && rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_2)
+            wildMonIndex = 2;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_2 && rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_3)
+            wildMonIndex = 3;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_3 && rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_4)
+            wildMonIndex = 4;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_4 && rand < ENCOUNTER_CHANCE_WATER_MONS_SALTWATER_SLOT_5)
+            wildMonIndex = 5;
+
+        if (swap)
+            wildMonIndex = 5 - wildMonIndex;
+        break;
+    case FRESHWATER:
+        if (rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_6)
+            wildMonIndex = 6;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_6 && rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_7)
+            wildMonIndex = 7;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_7 && rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_8)
+            wildMonIndex = 8;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_8 && rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_9)
+            wildMonIndex = 9;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_9 && rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_10)
+            wildMonIndex = 10;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_10 && rand < ENCOUNTER_CHANCE_WATER_MONS_FRESHWATER_SLOT_11)
+            wildMonIndex = 11;
+
+        if (swap)
+            wildMonIndex = 17 - wildMonIndex;
+        break;
+    case CURRENTS:
+        if (rand < ENCOUNTER_CHANCE_WATER_MONS_CURRENTS_SLOT_12)
+            wildMonIndex = 12;
+        if (rand >= ENCOUNTER_CHANCE_WATER_MONS_CURRENTS_SLOT_12 && rand < ENCOUNTER_CHANCE_WATER_MONS_CURRENTS_SLOT_13)
+            wildMonIndex = 13;
+
+        if (swap)
+            wildMonIndex = 25 - wildMonIndex;
+        break;
+    }
+    return wildMonIndex;
 }
+
 
 // FISH_WILD_COUNT
 static u8 ChooseWildMonIndex_Fishing(u8 rod)
@@ -547,6 +639,9 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
         case WILD_AREA_FISHING:
             wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
             break;
+        case WILD_AREA_FISHING_FRESHWATER:
+            wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
+            break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
             break;
@@ -569,6 +664,9 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
         case WILD_AREA_FISHING:
             wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
             break;
+        case WILD_AREA_FISHING_FRESHWATER:
+            wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
+            break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
             break;
@@ -590,6 +688,9 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
             break;
         case WILD_AREA_FISHING:
             wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
+            break;
+        case WILD_AREA_FISHING_FRESHWATER:
+            wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
             break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
@@ -917,13 +1018,14 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, WATER_WILD_COUNT))
             break;
 
-        wildMonIndex = ChooseWildMonIndex_WaterRock();
+        wildMonIndex = ChooseWildMonIndex_Water();
         break;
     case WILD_AREA_ROCKS:
         //wildMonIndex = ChooseWildMonIndex_WaterRock();
         break;
     default:
     case WILD_AREA_FISHING:
+    case WILD_AREA_FISHING_FRESHWATER:
     case WILD_AREA_HIDDEN:
     case WILD_AREA_HONEY:
         break;
@@ -949,7 +1051,7 @@ bool8 GenerateFollowMon(struct FollowMon *followMon, bool8 inWater)
 
     headerId = GetCurrentMapWildMonHeaderId();
     if (inWater) {
-        wildMonIndex = ChooseWildMonIndex_WaterRock();
+        wildMonIndex = ChooseWildMonIndex_Water();
         timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_WATER);
         wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
         followMon->level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_WATER);
@@ -983,8 +1085,17 @@ bool8 GenerateFollowMon(struct FollowMon *followMon, bool8 inWater)
 static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
 {
     u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
+	u8 level;
     u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
-    u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
+	
+	if (IsPlayerFacingFreshWater())
+	{
+		level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING_FRESHWATER);
+	}
+	else
+	{
+		level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
+	}
 
     UpdateChainFishingStreak();
     CreateWildMon(wildMonSpecies, level);
@@ -1515,12 +1626,26 @@ bool8 SweetScentWildEncounter(void)
 bool8 DoesCurrentMapHaveFishingMons(void)
 {
     u32 headerId = GetCurrentMapWildMonHeaderId();
-    enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
-
-    if (headerId != HEADER_NONE && gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo != NULL)
+	if (IsPlayerFacingFreshWater())
+	{
+		enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_FRESHWATER);
+		
+		if (headerId != HEADER_NONE && gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo != NULL)
+		{
+			return TRUE;
+		}
+		
+		return FALSE;
+	}
+	
+	enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
+	
+	if (headerId != HEADER_NONE && gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo != NULL)
+	{
         return TRUE;
-    else
-        return FALSE;
+	}
+
+    return FALSE;
 }
 
 u32 CalculateChainFishingShinyRolls(void)
@@ -1552,6 +1677,12 @@ void FishingWildEncounter(u8 rod)
 
         species = sWildFeebas.species;
         CreateWildMon(species, level);
+    }
+    else if (IsPlayerFacingFreshWater())
+    {
+        headerId = GetCurrentMapWildMonHeaderId();
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_FRESHWATER);
+        species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo, rod);
     }
     else
     {
@@ -1596,7 +1727,7 @@ u16 GetLocalWildMon(bool8 *isWaterMon)
     else if (landMonsInfo == NULL && waterMonsInfo != NULL)
     {
         *isWaterMon = TRUE;
-        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_Water()].species;
     }
     // Either land or water Pokémon
     if ((Random() % 100) < 80)
@@ -1606,7 +1737,7 @@ u16 GetLocalWildMon(bool8 *isWaterMon)
     else
     {
         *isWaterMon = TRUE;
-        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_Water()].species;
     }
 }
 
@@ -1622,7 +1753,7 @@ u16 GetLocalWaterMon(void)
         const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
 
         if (waterMonsInfo)
-            return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+            return waterMonsInfo->wildPokemon[ChooseWildMonIndex_Water()].species;
     }
     return SPECIES_NONE;
 }
@@ -1741,6 +1872,7 @@ static u8 GetMaxLevelOfSpeciesInWildTable(const struct WildPokemon *wildMon, u16
         break;
     default:
     case WILD_AREA_FISHING:
+    case WILD_AREA_FISHING_FRESHWATER:
     case WILD_AREA_HIDDEN:
         break;
     }

@@ -49,6 +49,7 @@ bool8 PartyHasMonWithSurf(void);
 bool8 PartyHasMonWithLavaSurf(void);
 bool8 PartyHasMonWithSludgeSurf(void);
 bool8 IsPlayerFacingSurfableFishableWater(void);
+bool8 IsPlayerFacingFreshWater(void);
 bool8 IsPlayerFacingLava(void);
 bool8 IsPlayerFacingSludge(void);
 bool8 IsPlayerSurfingNorth(void);
