@@ -42,6 +42,7 @@
 #include "trainer_hill.h"
 #include "fldeff.h"
 #include "battle.h"
+#include "config/overworld.h"
 
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
@@ -964,6 +965,21 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 #define tFlashRadiusDelta    data[5]
 #define tClearScanlineEffect data[6]
 
+
+#define BLDCNT_TGT1_ALL_EXCEPT_BG0 (BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD) //Excludes BG0 for UI layers
+
+void DoFlashScanlineDarken(void)
+{
+        // Set up blending and windowing to create a dark tint outside the Flash circle
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_ALL_EXCEPT_BG0 | BLDCNT_EFFECT_DARKEN);
+        SetGpuReg(REG_OFFSET_BLDY, OW_FLASH_DARKEN_STRENGTH); 
+
+        // Configure WIN0 to be the visible circle, and outside to get the blend
+        SetGpuReg(REG_OFFSET_WINOUT, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);
+        SetGpuReg(REG_OFFSET_WININ, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ);
+        SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
+}
+
 static void UpdateFlashLevelEffect(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -971,6 +987,7 @@ static void UpdateFlashLevelEffect(u8 taskId)
     switch (tState)
     {
     case 0:
+        DoFlashScanlineDarken();
         SetFlashScanlineEffectWindowBoundaries(gScanlineEffectRegBuffers[gScanlineEffect.srcBuffer], tFlashCenterX, tFlashCenterY, tCurFlashRadius);
         tState = 1;
         break;
@@ -994,6 +1011,14 @@ static void UpdateFlashLevelEffect(u8 taskId)
         break;
     case 2:
         ScanlineEffect_Clear();
+
+        // Restore graphics state to default
+        SetGpuReg(REG_OFFSET_BLDY, 0);
+        SetGpuReg(REG_OFFSET_BLDCNT, 0);
+        ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
+        SetGpuReg(REG_OFFSET_WININ, 0);
+        SetGpuReg(REG_OFFSET_WINOUT, 0);
+
         DestroyTask(taskId);
         break;
     }
