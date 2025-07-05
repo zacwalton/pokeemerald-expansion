@@ -639,8 +639,8 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
         case WILD_AREA_FISHING:
             wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
             break;
-        case WILD_AREA_FISHING_FRESHWATER:
-            wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
+        case WILD_AREA_FISHING_POND:
+            wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingPondMonsInfo;
             break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gBattlePikeWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
@@ -664,8 +664,8 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
         case WILD_AREA_FISHING:
             wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
             break;
-        case WILD_AREA_FISHING_FRESHWATER:
-            wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
+        case WILD_AREA_FISHING_POND:
+            wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingPondMonsInfo;
             break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gBattlePyramidWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
@@ -689,8 +689,8 @@ enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area
         case WILD_AREA_FISHING:
             wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
             break;
-        case WILD_AREA_FISHING_FRESHWATER:
-            wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo;
+        case WILD_AREA_FISHING_POND:
+            wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingPondMonsInfo;
             break;
         case WILD_AREA_HIDDEN:
             wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
@@ -1025,7 +1025,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         break;
     default:
     case WILD_AREA_FISHING:
-    case WILD_AREA_FISHING_FRESHWATER:
+    case WILD_AREA_FISHING_POND:
     case WILD_AREA_HIDDEN:
     case WILD_AREA_HONEY:
         break;
@@ -1090,7 +1090,7 @@ static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 
 	
 	if (IsPlayerFacingFreshWater())
 	{
-		level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING_FRESHWATER);
+		level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING_POND);
 	}
 	else
 	{
@@ -1628,9 +1628,9 @@ bool8 DoesCurrentMapHaveFishingMons(void)
     u32 headerId = GetCurrentMapWildMonHeaderId();
 	if (IsPlayerFacingFreshWater())
 	{
-		enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_FRESHWATER);
+		enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_POND);
 		
-		if (headerId != HEADER_NONE && gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo != NULL)
+		if (headerId != HEADER_NONE && gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingPondMonsInfo != NULL)
 		{
 			return TRUE;
 		}
@@ -1681,8 +1681,8 @@ void FishingWildEncounter(u8 rod)
     else if (IsPlayerFacingFreshWater())
     {
         headerId = GetCurrentMapWildMonHeaderId();
-        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_FRESHWATER);
-        species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingFreshwaterMonsInfo, rod);
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING_POND);
+        species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingPondMonsInfo, rod);
     }
     else
     {
@@ -1872,7 +1872,7 @@ static u8 GetMaxLevelOfSpeciesInWildTable(const struct WildPokemon *wildMon, u16
         break;
     default:
     case WILD_AREA_FISHING:
-    case WILD_AREA_FISHING_FRESHWATER:
+    case WILD_AREA_FISHING_POND:
     case WILD_AREA_HIDDEN:
         break;
     }

@@ -127,7 +127,7 @@
           }
         },
         {
-          "type": "fishing_freshwater_mons",
+          "type": "fishing_pond_mons",
           "encounter_rates": [
             70,
             30,
@@ -22690,7 +22690,7 @@
               }
             ]
           },
-          "fishing_freshwater_mons": {
+          "fishing_pond_mons": {
             "encounter_rate": 30,
             "mons": [
               {
