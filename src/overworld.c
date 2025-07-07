@@ -2110,8 +2110,10 @@ static void InitCurrentFlashLevelScanlineEffect(void)
         WriteFlashScanlineEffectBuffer(flashLevel);
         ScanlineEffect_SetParams(sFlashEffectParams);
     }
-    
-    DoFlashScanlineDarken();
+    if (gMapHeader.cave)
+    {
+        DoFlashScanlineDarken();
+    }
 }
 
 static bool32 LoadMapInStepsLink(u8 *state)
