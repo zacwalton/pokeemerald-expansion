@@ -1777,14 +1777,16 @@ void CB2_OverworldBasic(void)
 }
 
 void CB2_Overworld(void)
-{
-    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND)
-        UpdatePalettesWithTime(PALETTES_ALL);
-        
+{        
     bool32 fading = (gPaletteFade.active != 0);
     if (fading)
         SetVBlankCallback(NULL);
+
     OverworldBasic();
+
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND)
+        UpdatePalettesWithTime(PALETTES_ALL);
+        
     if (fading)
     {
         SetFieldVBlankCallback();
