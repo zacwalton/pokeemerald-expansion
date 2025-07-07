@@ -970,9 +970,16 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 
 void DoFlashScanlineDarken(void)
 {
+        s32 flashLevel = GetFlashLevel();
+        s32 flashDarkenLevel = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / 3);
+        if (flashDarkenLevel < 0)
+        {
+            flashDarkenLevel = 0;
+        }
+
         // Set up blending and windowing to create a dark tint outside the Flash circle
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_ALL_EXCEPT_BG0 | BLDCNT_EFFECT_DARKEN);
-        SetGpuReg(REG_OFFSET_BLDY, OW_FLASH_DARKEN_STRENGTH); 
+        SetGpuReg(REG_OFFSET_BLDY, flashDarkenLevel); 
 
         // Configure WIN0 to be the visible circle, and outside to get the blend
         SetGpuReg(REG_OFFSET_WINOUT, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR);

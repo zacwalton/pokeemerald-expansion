@@ -1063,24 +1063,33 @@ bool32 Overworld_IsBikingAllowed(void)
 void SetDefaultFlashLevel(void)
 {
 	u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
+    u8 baseLevel = gMaxFlashLevel - 1;      //ZETA- Base Flash level is 1 (small radius)
     if (!gMapHeader.cave)
 	{
         gSaveBlock1Ptr->flashLevel = 0;
+        return;                             //ZETA- Early return if not in cave, Flash level is 0
 	}
-    else if (FlagGet(FLAG_SYS_USE_FLASH))
-	{
-		if (FlagGet(FLAG_SYS_BONUS_FLASH))		//ZETA- Bonus flag used for illuminate check (not follower)
-			gSaveBlock1Ptr->flashLevel = 1;		//ZETA- Illuminate grants maximum Flash level
-		else
-			gSaveBlock1Ptr->flashLevel = 2;		//ZETA- Default Field Move Flash level is now 2
-	}
-    else if (FlagGet(FLAG_SYS_BONUS_FLASH))		//ZETA- Bonus flag used to check follower passive flash here
-	{
-		if (followerFlashLevel > 0)				//ZETA- Ignore if no flash stat is set
-			gSaveBlock1Ptr->flashLevel = followerFlashLevel;
-	}
-	else
-        gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+
+	if (followerFlashLevel > 0)				//ZETA- Set Flash level to follower stat, if it has one
+		baseLevel = followerFlashLevel;
+
+    if (FlagGet(FLAG_SYS_USE_FLASH))        //ZETA- if Flash Field move is in effect increase flash radius by 3
+    {
+        if (baseLevel > 3)
+			baseLevel -= 3;
+        else
+            baseLevel = 1;
+    }
+
+    if (FlagGet(FLAG_SYS_BONUS_FLASH))        //ZETA- if Bonus Flash is in effect (follower has Illuminate) increase flash radius by 2
+    {
+        if (baseLevel > 2)
+			baseLevel -= 2;
+        else
+            baseLevel = 1;
+    }
+
+    gSaveBlock1Ptr->flashLevel = baseLevel;
 }
 
 void SetFlashLevel(s32 flashLevel)
