@@ -514,7 +514,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .teachableLearnset = sEmboarTeachableLearnset,
-        .flashLevel = 3,
+        .flashLevel = 4,
     },
 #endif //P_FAMILY_TEPIG
 
@@ -2175,7 +2175,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sBlitzleTeachableLearnset,
         .eggMoveLearnset = sBlitzleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 27, SPECIES_ZEBSTRIKA}),
-        .flashLevel = 5,
+        .flashLevel = 4,
     },
 
     [SPECIES_ZEBSTRIKA] =
@@ -2243,7 +2243,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sZebstrikaLevelUpLearnset,
         .teachableLearnset = sZebstrikaTeachableLearnset,
-        .flashLevel = 4,
+        .flashLevel = 5,
     },
 #endif //P_FAMILY_BLITZLE
 
@@ -5269,7 +5269,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sDarmanitanGalarTeachableLearnset,
         .formSpeciesIdTable = sDarmanitanFormSpeciesIdTable,
         .formChangeTable = sDarmanitanGalarFormChangeTable,
-        .flashLevel = 5,
+        .flashLevel = 6,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_DARUMAKA
@@ -9794,7 +9794,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sLitwickTeachableLearnset,
         .eggMoveLearnset = sLitwickEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 41, SPECIES_LAMPENT}),
-        .flashLevel = 5,
+        .flashLevel = 6,
     },
 
     [SPECIES_LAMPENT] =
@@ -9869,7 +9869,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sLampentLevelUpLearnset,
         .teachableLearnset = sLampentTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DUSK_STONE, SPECIES_CHANDELURE}),
-        .flashLevel = 4,
+        .flashLevel = 5,
     },
 
     [SPECIES_CHANDELURE] =
@@ -9942,7 +9942,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sChandelureLevelUpLearnset,
         .teachableLearnset = sChandelureTeachableLearnset,
-        .flashLevel = 3,
+        .flashLevel = 4,
     },
 #endif //P_FAMILY_LITWICK
 

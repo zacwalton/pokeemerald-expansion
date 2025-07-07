@@ -3490,7 +3490,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sToxtricityAmpedTeachableLearnset,
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
-        .flashLevel = 4,
+        .flashLevel = 5,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3738,7 +3738,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sSizzlipedeTeachableLearnset,
         .eggMoveLearnset = sSizzlipedeEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_CENTISKORCH}),
-        .flashLevel = 5,
+        .flashLevel = 6,
     },
 
     [SPECIES_CENTISKORCH] =
@@ -3808,7 +3808,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .teachableLearnset = sCentiskorchTeachableLearnset,
         .formSpeciesIdTable = sCentiskorchFormSpeciesIdTable,
         .formChangeTable = sCentiskorchFormChangeTable,
-        .flashLevel = 4,
+        .flashLevel = 5,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -7677,7 +7677,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRegielekiLevelUpLearnset,
         .teachableLearnset = sRegielekiTeachableLearnset,
-        .flashLevel = 2,
+        .flashLevel = 3,
     },
 #endif //P_FAMILY_REGIELEKI
 

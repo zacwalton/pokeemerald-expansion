@@ -457,7 +457,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .levelUpLearnset = sCombuskenLevelUpLearnset,
         .teachableLearnset = sCombuskenTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_BLAZIKEN}),
-        .flashLevel = 5,
+        .flashLevel = 6,
     },
 
     [SPECIES_BLAZIKEN] =
@@ -5848,7 +5848,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .levelUpLearnset = sVolbeatLevelUpLearnset,
         .teachableLearnset = sVolbeatTeachableLearnset,
         .eggMoveLearnset = sVolbeatEggMoveLearnset,
-        .flashLevel = 3,
+        .flashLevel = 4,
     },
 
     [SPECIES_ILLUMISE] =
@@ -5930,7 +5930,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .levelUpLearnset = sIllumiseLevelUpLearnset,
         .teachableLearnset = sIllumiseTeachableLearnset,
         .eggMoveLearnset = sIllumiseEggMoveLearnset,
-        .flashLevel = 3,
+        .flashLevel = 5,
     },
 #endif //P_FAMILY_VOLBEAT_ILLUMISE
 
@@ -6905,7 +6905,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .teachableLearnset = sCameruptTeachableLearnset,
         .formSpeciesIdTable = sCameruptFormSpeciesIdTable,
         .formChangeTable = sCameruptFormChangeTable,
-        .flashLevel = 3,
+        .flashLevel = 4,
     },
 
 #if P_MEGA_EVOLUTIONS
