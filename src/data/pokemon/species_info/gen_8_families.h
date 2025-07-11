@@ -2345,6 +2345,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sCoalossalFormSpeciesIdTable,
         .formChangeTable = sCoalossalFormChangeTable,
         .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -2404,6 +2405,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sCoalossalFormSpeciesIdTable,
         .formChangeTable = sCoalossalFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_ROLYCOLY
@@ -3491,6 +3493,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3546,6 +3549,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_GIGANTAMAX_FORMS
 
@@ -3612,6 +3616,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3667,6 +3672,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sToxtricityFormSpeciesIdTable,
         .formChangeTable = sToxtricityAmpedFormChangeTable,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_TOXEL
@@ -3739,6 +3745,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .eggMoveLearnset = sSizzlipedeEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_CENTISKORCH}),
         .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_CENTISKORCH] =
@@ -3809,6 +3816,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sCentiskorchFormSpeciesIdTable,
         .formChangeTable = sCentiskorchFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_GIGANTAMAX_FORMS
@@ -3868,6 +3876,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formSpeciesIdTable = sCentiskorchFormSpeciesIdTable,
         .formChangeTable = sCentiskorchFormChangeTable,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_SIZZLIPEDE
@@ -7678,6 +7687,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .levelUpLearnset = sRegielekiLevelUpLearnset,
         .teachableLearnset = sRegielekiTeachableLearnset,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_REGIELEKI
 

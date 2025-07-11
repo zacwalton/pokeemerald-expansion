@@ -619,6 +619,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sBlazikenFormSpeciesIdTable,
         .formChangeTable = sBlazikenFormChangeTable,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_MEGA_EVOLUTIONS
 #endif //P_FAMILY_TORCHIC
@@ -5849,6 +5850,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .teachableLearnset = sVolbeatTeachableLearnset,
         .eggMoveLearnset = sVolbeatEggMoveLearnset,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_ILLUMISE] =
@@ -5931,6 +5933,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .teachableLearnset = sIllumiseTeachableLearnset,
         .eggMoveLearnset = sIllumiseEggMoveLearnset,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_VOLBEAT_ILLUMISE
 
@@ -6906,6 +6909,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sCameruptFormSpeciesIdTable,
         .formChangeTable = sCameruptFormChangeTable,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_MEGA_EVOLUTIONS
@@ -6977,6 +6981,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sCameruptFormSpeciesIdTable,
         .formChangeTable = sCameruptFormChangeTable,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 #endif //P_MEGA_EVOLUTIONS
 #endif //P_FAMILY_NUMEL
@@ -9319,6 +9324,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sCastformFormSpeciesIdTable,
         .formChangeTable = sCastformFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_CASTFORM_RAINY] =
@@ -12715,6 +12721,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sGroudonFormSpeciesIdTable,
         .formChangeTable = sGroudonFormChangeTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 
 #if P_PRIMAL_REVERSIONS
@@ -12788,6 +12795,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formSpeciesIdTable = sGroudonFormSpeciesIdTable,
         .formChangeTable = sGroudonFormChangeTable,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_PRIMAL_REVERSIONS
 #endif //P_FAMILY_GROUDON

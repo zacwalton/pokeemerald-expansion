@@ -11,6 +11,8 @@
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
+#include "pokemon.h"
+#include "overworld.h"
 #include "script.h"
 #include "sound.h"
 #include "sprite.h"
@@ -371,58 +373,83 @@ static void Task_EnterCaveTransition4(u8 taskId)
     }
 }
 
+extern const struct BlendSettings gCustomDNSTintBlend[];
+
 //ZETA- Passive Flash effect from followers
 void UpdateFlashRadiusOnStep(void)
 {
-	#define FLASH_LEVEL_ABILITY 1			// Abilities (Illuminate) give maximum flash radius when following
+	if (!gMapHeader.cave)
+		return;
+        
 	#define FLASH_LEVEL_DEFAULT 7
 	
 	u8 followerIndex = GetFollowerMonIndex();
 	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
 	s32 newFlashLevel;
 	
-	if (GetFlashLevel() == 0)
-		return;
-	
-	if (FlagGet(FLAG_SYS_USE_FLASH))		// Do not touch any flags/flash radius if field move flag is active
-		return;
-	
-		u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
+    s8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
+    u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
+    u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
+    u8 flashTint = VarGet(VAR_DNS_FLASH_BLEND);
+    u8 newFlashTint = 1;
+    u8 flashShadowStrength = OW_FLASH_SHADOW_STRENGTH;
+    
+
+    //Get Flash DNS Tint
+    if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && followerFlashTintShiny > 0)
+        newFlashTint = followerFlashTintShiny;
+    else if (followerFlashTint > 0)
+        newFlashTint = followerFlashTint;
+    else if (FlagGet(FLAG_SYS_USE_FLASH))
+        newFlashTint = DNS_BLEND_CAVE_STANDARD;
+    else
+        newFlashTint = DNS_BLEND_CAVE_DARK;                                                            //ZETA- Default to DNS Darker Cave blend if Flash is not active
 		
-		if (GetMonAbility(&gPlayerParty[followerIndex]) == ABILITY_ILLUMINATE)
-		{
-			if (previousFlashLevel != FLASH_LEVEL_ABILITY)
-			{
-				newFlashLevel = FLASH_LEVEL_ABILITY;
-				FlagSet(FLAG_SYS_BONUS_FLASH);
-				AnimateFlash(newFlashLevel);
-				SetFlashLevel(newFlashLevel);
-			}
-			return;
-		}
+    //Do Custom DNS Blend
+    if (flashTint != newFlashTint)
+    {
+        u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
+        const struct BlendSettings *blend = &gCustomDNSTintBlend[newFlashTint];
+        TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
+
+        VarSet(VAR_DNS_FLASH_BLEND, newFlashTint);
+    }    
 		
-		if (followerFlashLevel > 0)
-		{
-			if (previousFlashLevel != followerFlashLevel)
-			{
-				newFlashLevel = followerFlashLevel;
-				FlagSet(FLAG_SYS_BONUS_FLASH);
-				AnimateFlash(newFlashLevel);
-				SetFlashLevel(newFlashLevel);
-			}
-			return;
-		} 
-		
-		if (FlagGet(FLAG_SYS_BONUS_FLASH))
-		{
-			if (previousFlashLevel != FLASH_LEVEL_DEFAULT)
-			{
-				newFlashLevel = FLASH_LEVEL_DEFAULT;
-				FlagClear(FLAG_SYS_BONUS_FLASH);
-				AnimateFlash(newFlashLevel);
-				SetFlashLevel(newFlashLevel);
-			}
-			return;
-		}
+    //Flash Radius and Shadow strength
+    if (followerFlashLevel > 0)
+        newFlashLevel = followerFlashLevel;
+    else 
+        newFlashLevel = FLASH_LEVEL_DEFAULT;
+
+    if ((GetMonAbility(&gPlayerParty[followerIndex]) == ABILITY_ILLUMINATE) || FlagGet(FLAG_SYS_BONUS_FLASH))
+    {
+        newFlashLevel = newFlashLevel - OW_FLASH_ILLUMINATE_BONUS;
+        flashShadowStrength = flashShadowStrength - OW_FLASH_ILLUMINATE_SHADOW;
+    }
+
+    if (FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        newFlashLevel = newFlashLevel - OW_FLASH_FIELDMOVE_BONUS;
+        flashShadowStrength = flashShadowStrength - OW_FLASH_FIELDMOVE_SHADOW;
+    }
+
+    if (newFlashLevel < 1)
+        newFlashLevel = 1;                  //Clamp flash level to minimum
+
+    if (flashShadowStrength < 1)
+        flashShadowStrength = 1;         //Clamp flash level to minimum
+
+    //Set Flash Shadow strength
+    if (followerFlashLevel > 0)
+        flashShadowStrength = flashShadowStrength - ((8 - followerFlashLevel) / 2);
+
+    VarSet(VAR_DNS_FLASH_SHADOW, flashShadowStrength);
+    
+    if (newFlashLevel == previousFlashLevel)
+        return;
+
+    AnimateFlash(newFlashLevel);
+	SetFlashLevel(newFlashLevel);
+	return;
 }
 

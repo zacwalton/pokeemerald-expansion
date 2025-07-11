@@ -971,7 +971,7 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 void DoFlashScanlineDarken(void)
 {
         s32 flashLevel = GetFlashLevel();
-        s32 flashDarkenLevel = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / 3);
+        s32 flashDarkenLevel = OW_FLASH_SHADOW_STRENGTH - ((gMaxFlashLevel  - flashLevel) / 3);
         if (flashDarkenLevel < 0)
         {
             flashDarkenLevel = 0;

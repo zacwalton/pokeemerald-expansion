@@ -298,6 +298,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .eggMoveLearnset = sCyndaquilEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 14, SPECIES_QUILAVA}),
         .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_QUILAVA] =
@@ -368,6 +369,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_TYPHLOSION},
                                 {EVO_NONE, 0, SPECIES_TYPHLOSION_HISUI}),
         .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -445,6 +447,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .teachableLearnset = sTyphlosionTeachableLearnset,
         .formSpeciesIdTable = sTyphlosionFormSpeciesIdTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_HISUIAN_FORMS
@@ -512,6 +515,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .teachableLearnset = sTyphlosionHisuiTeachableLearnset,
         .formSpeciesIdTable = sTyphlosionFormSpeciesIdTable,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_HISUIAN_FORMS
 #endif //P_FAMILY_CYNDAQUIL
@@ -1419,7 +1423,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .eggMoveLearnset = sChinchouEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 27, SPECIES_LANTURN}),
         .surfApplyWet = TRUE,
-        .flashLevel = 4,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_LANTURN] =
@@ -1491,7 +1496,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sLanturnLevelUpLearnset,
         .teachableLearnset = sLanturnTeachableLearnset,
         .surfApplyWet = TRUE,
-        .flashLevel = 3,
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_CHINCHOU
 
@@ -1948,6 +1954,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .eggMoveLearnset = sMareepEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 15, SPECIES_FLAAFFY}),
         .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_FLAAFFY] =
@@ -2019,6 +2026,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .teachableLearnset = sFlaaffyTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_AMPHAROS}),
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 
 #define AMPHAROS_DEFENSE (P_UPDATED_STATS >= GEN_6 ? 85 : 75)
@@ -2100,6 +2109,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .formSpeciesIdTable = sAmpharosFormSpeciesIdTable,
         .formChangeTable = sAmpharosFormChangeTable,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 
 #if P_MEGA_EVOLUTIONS
@@ -2170,6 +2181,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .formSpeciesIdTable = sAmpharosFormSpeciesIdTable,
         .formChangeTable = sAmpharosFormChangeTable,
         .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
+		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 #endif //P_MEGA_EVOLUTIONS
 #endif //P_FAMILY_MAREEP
@@ -6125,6 +6138,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .eggMoveLearnset = sSlugmaEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_MAGCARGO}),
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_RED,
+		.flashTintShiny = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_MAGCARGO] =
@@ -6202,6 +6217,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sMagcargoLevelUpLearnset,
         .teachableLearnset = sMagcargoTeachableLearnset,
         .flashLevel = 2,
+		.flashTint = DNS_BLEND_FLASH_RED,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_FAMILY_SLUGMA
 
@@ -8493,6 +8510,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sHoOhLevelUpLearnset,
         .teachableLearnset = sHoOhTeachableLearnset,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_HO_OH
 

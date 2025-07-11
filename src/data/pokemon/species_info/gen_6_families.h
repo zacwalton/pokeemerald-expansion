@@ -426,6 +426,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .levelUpLearnset = sDelphoxLevelUpLearnset,
         .teachableLearnset = sDelphoxTeachableLearnset,
         .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 #endif //P_FAMILY_FENNEKIN
 
@@ -1675,6 +1676,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .levelUpLearnset = sPyroarLevelUpLearnset,
         .teachableLearnset = sPyroarTeachableLearnset,
         .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_LITLEO
 
