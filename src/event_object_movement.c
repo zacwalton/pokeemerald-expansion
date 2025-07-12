@@ -2277,11 +2277,18 @@ void UpdateFollowingPokemon(void)
     // Follower appearance changed; move to player and set invisible
     if (species != OW_SPECIES(objEvent) || shiny != OW_SHINY(objEvent) || female != OW_FEMALE(objEvent))
     {
-        MoveObjectEventToMapCoords(objEvent,
-                                   gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x,
-                                   gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
-        FollowerSetGraphics(objEvent, species, shiny, female);
-        objEvent->invisible = TRUE;
+        if (OW_SHOW_FOLLOWER_AFTER_CHANGE) //Do not hide followers if follower form or species changes (use HGSS behaviour)
+        {
+            FollowerSetGraphics(objEvent, species, shiny, female);
+        }
+        else
+        {
+            MoveObjectEventToMapCoords(objEvent,
+                                    gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x,
+                                    gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+            FollowerSetGraphics(objEvent, species, shiny, female);
+            objEvent->invisible = TRUE;     
+        }
     }
     sprite->data[6] = 0; // set animation data
 }
