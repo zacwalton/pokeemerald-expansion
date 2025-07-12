@@ -19,6 +19,7 @@
 #include "field_player_avatar.h"
 #include "field_weather.h"
 #include "fieldmap.h"
+#include "fldeff.h"
 #include "follower_npc.h"
 #include "follower_helper.h"
 #include "followmon.h"
@@ -2289,6 +2290,11 @@ void UpdateFollowingPokemon(void)
             FollowerSetGraphics(objEvent, species, shiny, female);
             objEvent->invisible = TRUE;     
         }
+        if (gMapHeader.cave)
+            {
+                UpdateFlashStrength();
+                UpdateFlashTint();
+            }
     }
     sprite->data[6] = 0; // set animation data
 }

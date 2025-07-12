@@ -942,7 +942,12 @@ if (I_VS_SEEKER_CHARGING != 0)
     SetSavedWeatherFromCurrMapHeader();
     ChooseAmbientCrySpecies();
     if (isOutdoors)
+    {
         FlagClear(FLAG_SYS_USE_FLASH);
+        FlagClear(FLAG_SYS_BONUS_FLASH);
+        VarSet(VAR_DNS_FLASH_BLEND, 0);
+    }
+	FlagClear(FLAG_SYS_FLASH_BLEND_APPLIED);
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
@@ -1057,6 +1062,14 @@ bool32 Overworld_IsBikingAllowed(void)
         return TRUE;
 }
 
+bool8 IsFollowerSpawned(void)
+{
+    struct ObjectEvent *obj = GetFollowerObject();
+    if (!obj)
+        return FALSE;
+    return !obj->invisible;
+}
+
 // Flash level of 0 is fully bright
 // Flash level of 1 is the largest flash radius
 // Flash level of 7 is the smallest flash radius
@@ -1066,27 +1079,23 @@ void SetDefaultFlashLevel(void)
     if (!gMapHeader.cave)
 	{
         gSaveBlock1Ptr->flashLevel = 0;
-        return;                             //ZETA- Early return if not in cave, Flash level is 0
+        return;                                 //ZETA- Early return if not in cave, Flash level is 0
 	}
 
-    s8 baseFlashLevel = gMaxFlashLevel - 1;      //ZETA- Base Flash level is 1 (small radius)
+    s8 baseFlashLevel = gMaxFlashLevel - 1;     //ZETA- Base Flash level is 1 (small radius)
 
-    if (FlagGet(FLAG_SYS_USE_FLASH))        //ZETA- if Flash Field move is in effect increase flash radius by 3
+    if (FlagGet(FLAG_SYS_USE_FLASH))            //ZETA- if Flash Field move is in effect increase flash radius by OW_FLASH_FIELDMOVE_BONUS
 		baseFlashLevel -= OW_FLASH_FIELDMOVE_BONUS;
 
-    if (FlagGet(FLAG_SYS_BONUS_FLASH))        //ZETA- if Bonus Flash is in effect (follower has Illuminate) increase flash radius by 2
+    if (FlagGet(FLAG_SYS_BONUS_FLASH))          //ZETA- if Bonus Flash is in effect (follower has Illuminate) increase flash radius by OW_FLASH_ILLUMINATE_BONUS
 		baseFlashLevel -= OW_FLASH_ILLUMINATE_BONUS;
 
-    if (baseFlashLevel < 1)
+    if (baseFlashLevel < 1)                     //Clamp at minimum of 1
         baseFlashLevel = 1;
 
     gSaveBlock1Ptr->flashLevel = baseFlashLevel;
 
-    VarSet(VAR_DNS_FLASH_BLEND, DNS_BLEND_CAVE_DARK);
-
-    u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
-    const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
-    TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
+    //DoCustomDNSBlend();
 }
 
 void SetFlashLevel(s32 flashLevel)
@@ -1474,6 +1483,15 @@ bool8 IsMapTypeOutdoors(u8 mapType)
         return FALSE;
 }
 
+bool8 IsMapTypeFlash(u8 mapType)
+{
+    if (mapType == MAP_TYPE_UNDERGROUND
+     || mapType == MAP_TYPE_UNDERWATER)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 bool8 Overworld_MapTypeAllowsTeleportAndFly(u8 mapType)
 {
     if (mapType == MAP_TYPE_ROUTE
@@ -1681,7 +1699,9 @@ bool32 MapHasNaturalLight(u8 mapType)
          && (mapType == MAP_TYPE_TOWN
           || mapType == MAP_TYPE_CITY
           || mapType == MAP_TYPE_ROUTE
-          || mapType == MAP_TYPE_OCEAN_ROUTE));
+          || mapType == MAP_TYPE_OCEAN_ROUTE
+          || mapType == MAP_TYPE_UNDERGROUND
+          || mapType == MAP_TYPE_UNDERWATER));
 }
 
 bool32 CurrentMapHasShadows(void)
@@ -1743,8 +1763,17 @@ void UpdatePalettesWithTime(u32 palettes)
         return;
     palettes = FilterTimeBlendPalettes(palettes);
     if (!palettes)
-        return;                                                                             //Do normal DNS blending 
+        return;
+    
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)          // Is in a cave or underwater
+    {
+        //DoCustomDNSBlend();
+        return;
+    }
+    else                                                                                               // Is not in a cave or underwater — do normal DNS blend
+    {
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, &gTimeBlend.startBlend, &gTimeBlend.endBlend, gTimeBlend.weight);
+    }
 }
 
 u8 UpdateSpritePaletteWithTime(u8 paletteNum)
@@ -1753,7 +1782,7 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
     {
         if (!gMapHeader.cave) //Ignore maps that require flash, that is handled on step
         {
-            if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)   //ZETA- Set DNS tint to default Cave
+            if (IsMapTypeFlash(gMapHeader.mapType))   //ZETA- Set DNS tint to default Cave
                 TimeMixPalettes(1, &gPlttBufferUnfaded[OBJ_PLTT_ID(paletteNum)], &gPlttBufferFaded[OBJ_PLTT_ID(paletteNum)], (struct BlendSettings *)&gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD], (struct BlendSettings *)&gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD], 256);
             else                                                                                           //Do normal DNS blending
                 TimeMixPalettes(1, &gPlttBufferUnfaded[OBJ_PLTT_ID(paletteNum)], &gPlttBufferFaded[OBJ_PLTT_ID(paletteNum)], &gTimeBlend.startBlend, &gTimeBlend.endBlend, gTimeBlend.weight);
@@ -1772,18 +1801,30 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
 
 void DoCustomDNSBlend(void)
 {
+    if (!IsMapTypeFlash(gMapHeader.mapType))
+        return;
+    
     u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
-
-    u16 blendVar = VarGet(VAR_DNS_FLASH_BLEND);
-
-    if (gMapHeader.cave && blendVar < 1) //Ignore maps that require flash, that is handled on step
+    if (!gMapHeader.cave)                                                                            // In cave or underwater but does not require flash = do normal cave blend
+        {
+            const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
+            TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
+            return;
+        }
+    else if (IsFollowerSpawned()) 
     {
-        const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
+        UpdateFlashTint();
+    }
+    else if (FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        VarSet(VAR_DNS_FLASH_BLEND, DNS_BLEND_CAVE_STANDARD);
+        const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
     }
-    else if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)
+    else
     {
-        const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
+        VarSet(VAR_DNS_FLASH_BLEND, DNS_BLEND_CAVE_DARK);
+        const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
     }
     
@@ -1816,6 +1857,8 @@ static void OverworldBasic(void)
            UpdateAltBgPalettes(PALETTES_BG);
            UpdatePalettesWithTime(PALETTES_ALL);
         }
+        //if (gMapHeader.cave && (VarGet(VAR_DNS_FLASH_BLEND) < 2))
+        //    SetDefaultFlashLevel();
     }
 }
 
@@ -1833,12 +1876,17 @@ void CB2_Overworld(void)
 
     OverworldBasic();
 
-    if ((gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER))
-        DoCustomDNSBlend();
-
     if (fading)
     {
         SetFieldVBlankCallback();
+        if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)
+        {
+            //if (!FlagGet(FLAG_SYS_FLASH_BLEND_APPLIED))
+            //{
+                DoCustomDNSBlend();
+                //FlagSet(FLAG_SYS_FLASH_BLEND_APPLIED);
+            //}
+        }
         return;
     }
 }
@@ -2234,6 +2282,7 @@ static bool32 LoadMapInStepsLink(u8 *state)
             LoadWirelessStatusIndicatorSpriteGfx();
             CreateWirelessStatusIndicatorSprite(0, 0);
         }
+        //DoCustomDNSBlend();
         (*state)++;
         break;
     case 12:
@@ -2306,6 +2355,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
     case 11:
         if (gMapHeader.showMapName == TRUE && SecretBaseMapPopupEnabled() == TRUE)
             ShowMapNamePopup();
+        //DoCustomDNSBlend();
+        
         (*state)++;
         break;
     case 12:
@@ -2339,6 +2390,7 @@ static bool32 ReturnToFieldLocal(u8 *state)
         InitViewGraphics();
         TryLoadTrainerHillEReaderPalette();
         FollowerNPC_BindToSurfBlobOnReloadScreen();
+        //UpdateFlashRadiusOnStep();
         (*state)++;
         break;
     case 2:
@@ -2346,6 +2398,8 @@ static bool32 ReturnToFieldLocal(u8 *state)
             (*state)++;
         break;
     case 3:
+        if (gMapHeader.cave)
+            UpdateFlashStrength();
         return TRUE;
     }
 
@@ -2411,6 +2465,7 @@ static bool32 ReturnToFieldLink(u8 *state)
             LoadWirelessStatusIndicatorSpriteGfx();
             CreateWirelessStatusIndicatorSprite(0, 0);
         }
+        //UpdateFlashRadiusOnStep();
         (*state)++;
         break;
     case 12:
@@ -2512,6 +2567,7 @@ static void ResumeMap(bool32 a1)
         SetUpFieldTasks();
     RunOnResumeMapScript();
     TryStartMirageTowerPulseBlendEffect();
+
 }
 
 static void InitObjectEventsLink(void)
