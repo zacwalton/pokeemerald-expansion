@@ -11991,9 +11991,21 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_SLUDGE_WAVE, // Todo
     },
 
-    [ITEM_HM_DRAGON_ASCENT] =
+    [ITEM_HM_MAELSTROM] =
     {
         .name = _("HM14"),
+        .price = 0,
+        .description = sQuestionMarksDesc, // Todo
+        .importance = 1,
+        .pocket = POCKET_TM_HM,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_TMHM,
+        .secondaryId = MOVE_MAELSTROM, // Todo
+    },
+
+    [ITEM_HM_DRAGON_ASCENT] =
+    {
+        .name = _("HM15"),
         .price = 0,
         .description = COMPOUND_STRING(
             "Dives underwater\n"

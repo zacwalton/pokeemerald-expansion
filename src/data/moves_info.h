@@ -21445,6 +21445,33 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_GigaDrain,
     },
 
+    [MOVE_MAELSTROM] =
+    {
+        .name = COMPOUND_STRING("Maelstrom"),
+        .description = COMPOUND_STRING(
+            "Traps and hurts the foe in\n"
+            "a maelstrom for "BINDING_TURNS" turns."),
+        .effect = EFFECT_HIT,
+        .power = 90, 
+        .type = TYPE_WATER,
+        .accuracy = 85, 
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .damagesUnderwater = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_WRAP, 
+        }),
+        .contestEffect = CONTEST_EFFECT_DONT_EXCITE_AUDIENCE,
+        .contestCategory = CONTEST_CATEGORY_BEAUTY,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
+        .battleAnimScript = gBattleAnimMove_Whirlpool,
+		.fieldMoveFlags = IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_DOUSE,
+        .validApprenticeMove = TRUE,
+    },
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {

@@ -790,6 +790,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -901,6 +902,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [],
@@ -1023,6 +1025,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [],
@@ -4149,6 +4152,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_PSYCHIC_NOISE"
     ],
@@ -4290,6 +4294,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FUTURE_SIGHT",
       "MOVE_PSYCHIC_NOISE"
@@ -4921,6 +4926,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -5025,6 +5031,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -5163,6 +5170,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_COACHING",
       "MOVE_THROAT_CHOP",
@@ -5640,6 +5648,7 @@
       "MOVE_KNOCK_OFF",
       "MOVE_FLIP_TURN",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_THROAT_CHOP"
@@ -5762,6 +5771,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_FLIP_TURN",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_SKITTER_SMACK",
@@ -6254,6 +6264,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_EXPANDING_FORCE",
       "MOVE_CURSE"
     ],
@@ -6411,6 +6422,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FUTURE_SIGHT",
       "MOVE_EXPANDING_FORCE",
@@ -6963,6 +6975,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_TRIPLE_AXEL",
       "MOVE_CURSE"
@@ -7095,6 +7108,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_TRIPLE_AXEL",
       "MOVE_CURSE",
@@ -7465,7 +7479,8 @@
       "MOVE_BLIZZARD",
       "MOVE_TERA_BLAST",
       "MOVE_ICICLE_SPEAR",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_AQUA_RING",
@@ -7590,7 +7605,8 @@
       "MOVE_TERA_BLAST",
       "MOVE_ICICLE_SPEAR",
       "MOVE_WEATHER_BALL",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_AQUA_RING",
@@ -9818,6 +9834,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_SCALE_SHOT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -9917,6 +9934,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_SCALE_SHOT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [],
@@ -10583,6 +10601,7 @@
       "MOVE_ENDEAVOR",
       "MOVE_TEMPER_FLARE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_DRAGON_CHEER"
     ],
@@ -10701,6 +10720,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_CURSE",
       "MOVE_DRAGON_CHEER",
@@ -10982,6 +11002,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_CURSE",
       "MOVE_ALLURING_VOICE"
@@ -12804,6 +12825,7 @@
       "MOVE_PETAL_BLIZZARD",
       "MOVE_TEMPER_FLARE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SUPERCELL_SLAM",
       "MOVE_ELECTROWEB",
@@ -13633,6 +13655,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_BREAKING_SWIPE",
       "MOVE_CURSE"
@@ -13755,6 +13778,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_BREAKING_SWIPE",
       "MOVE_CURSE"
@@ -13891,6 +13915,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_BREAKING_SWIPE",
       "MOVE_CURSE"
@@ -14766,6 +14791,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_ELECTROWEB",
       "MOVE_CURSE"
@@ -14891,6 +14917,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_ELECTROWEB",
       "MOVE_CURSE"
@@ -15803,6 +15830,7 @@
       "MOVE_MISTY_EXPLOSION",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_ALLURING_VOICE"
     ],
@@ -15943,6 +15971,7 @@
       "MOVE_MISTY_EXPLOSION",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_ALLURING_VOICE"
     ],
@@ -16225,6 +16254,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -17173,6 +17203,7 @@
       "MOVE_TOXIC",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_CURSE"
@@ -17305,6 +17336,7 @@
       "MOVE_FOCUS_PUNCH",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_CURSE"
@@ -17926,6 +17958,7 @@
       "MOVE_HELPING_HAND",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FUTURE_SIGHT",
       "MOVE_EXPANDING_FORCE",
@@ -19181,6 +19214,7 @@
       "MOVE_PAIN_SPLIT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_SLUDGE_WAVE",
       "MOVE_THROAT_CHOP",
       "MOVE_CURSE"
@@ -20954,6 +20988,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_BREAKING_SWIPE"
     ],
@@ -22405,7 +22440,8 @@
       "MOVE_SCALD",
       "MOVE_WEATHER_BALL",
       "MOVE_DOUBLE_EDGE",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -22979,6 +23015,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FUTURE_SIGHT",
       "MOVE_CURSE",
       "MOVE_PSYCHIC_NOISE"
@@ -24014,6 +24051,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_CURSE"
@@ -24145,6 +24183,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_CURSE"
@@ -24292,6 +24331,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_CURSE",
@@ -24685,6 +24725,7 @@
       "MOVE_GRASSY_GLIDE",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -24818,6 +24859,7 @@
       "MOVE_GRASSY_GLIDE",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -24969,6 +25011,7 @@
       "MOVE_GRASSY_GLIDE",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -25518,6 +25561,7 @@
       "MOVE_KNOCK_OFF",
       "MOVE_DUAL_WINGBEAT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FEATHER_DANCE"
     ],
@@ -25656,6 +25700,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_DUAL_WINGBEAT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FEATHER_DANCE"
     ],
@@ -30847,6 +30892,7 @@
       "MOVE_HIGH_HORSEPOWER",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FUTURE_SIGHT"
     ],
@@ -30969,6 +31015,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_FUTURE_SIGHT",
       "MOVE_CURSE"
@@ -31085,6 +31132,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
 	  "MOVE_SEA_STRIDE"
     ],
@@ -31217,6 +31265,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_HARD_PRESS",
@@ -31319,6 +31368,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -31455,6 +31505,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_TRIPLE_AXEL",
       "MOVE_SKITTER_SMACK",
@@ -32599,7 +32650,8 @@
       "MOVE_SCALE_SHOT",
       "MOVE_PSYCH_UP",
       "MOVE_ENDEAVOR",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_SUPERSONIC",
@@ -33720,6 +33772,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FUTURE_SIGHT",
       "MOVE_BREAKING_SWIPE",
       "MOVE_DRAGON_CHEER",
@@ -33966,6 +34019,7 @@
       "MOVE_ROAR",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [],
@@ -34231,6 +34285,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_METEOR_BEAM",
       "MOVE_BREAKING_SWIPE",
       "MOVE_DRAGON_CHEER"
@@ -35387,6 +35442,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_FEATHER_DANCE"
     ],
@@ -35497,6 +35553,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_FEATHER_DANCE"
     ],
@@ -35643,6 +35700,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_FEATHER_DANCE",
       "MOVE_THROAT_CHOP",
@@ -37330,7 +37388,8 @@
       "MOVE_ROAR",
       "MOVE_FOCUS_PUNCH",
       "MOVE_FLIP_TURN",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_AQUA_RING",
@@ -37461,6 +37520,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -37571,6 +37631,7 @@
       "MOVE_TERA_BLAST",
       "MOVE_PAIN_SPLIT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SKITTER_SMACK",
       "MOVE_CURSE",
@@ -37683,6 +37744,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_PAIN_SPLIT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_SKITTER_SMACK",
@@ -40632,6 +40694,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [
@@ -40740,6 +40803,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [
@@ -44075,6 +44139,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_BREAKING_SWIPE"
     ],
     "EggMoves": [],
@@ -44626,6 +44691,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [],
@@ -44735,6 +44801,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [],
@@ -45920,7 +45987,8 @@
       "MOVE_TERA_BLAST",
       "MOVE_KNOCK_OFF",
       "MOVE_FLIP_TURN",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_AIR_SLASH",
@@ -46037,7 +46105,8 @@
       "MOVE_KNOCK_OFF",
       "MOVE_VACUUM_WAVE",
       "MOVE_FLIP_TURN",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_AIR_SLASH",
@@ -46171,6 +46240,7 @@
       "MOVE_VACUUM_WAVE",
       "MOVE_FLIP_TURN",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_UPPER_HAND"
     ],
     "EggMoves": [
@@ -48028,6 +48098,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -50077,6 +50148,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FEATHER_DANCE"
     ],
     "EggMoves": [
@@ -50185,6 +50257,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FEATHER_DANCE",
       "MOVE_ALLURING_VOICE"
     ],
@@ -50771,6 +50844,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_PAIN_SPLIT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [
@@ -58775,6 +58849,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_SCALE_SHOT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE"
     ],
@@ -58891,6 +58966,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_SCALE_SHOT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE"
     ],
@@ -62093,6 +62169,7 @@
       "MOVE_UPROAR",
       "MOVE_FLIP_TURN",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL"
     ],
     "EggMoves": [
@@ -62196,6 +62273,7 @@
       "MOVE_UPROAR",
       "MOVE_FLIP_TURN",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL"
     ],
     "EggMoves": [],
@@ -62316,6 +62394,7 @@
       "MOVE_MISTY_EXPLOSION",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_ALLURING_VOICE",
       "MOVE_PSYCHIC_NOISE"
@@ -66466,6 +66545,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PAIN_SPLIT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_EXPANDING_FORCE",
       "MOVE_PSYCHIC_NOISE"
     ],
@@ -68289,6 +68369,7 @@
       "MOVE_HAZE",
       "MOVE_WEATHER_BALL",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -68377,6 +68458,7 @@
       "MOVE_HAZE",
       "MOVE_WEATHER_BALL",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -68499,6 +68581,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SKITTER_SMACK",
       "MOVE_BREAKING_SWIPE"
@@ -69142,6 +69225,7 @@
       "MOVE_HYDRO_PUMP",
       "MOVE_TERA_BLAST",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_SKITTER_SMACK"
     ],
     "EggMoves": [
@@ -69260,6 +69344,7 @@
       "MOVE_DRAGON_TAIL",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SKITTER_SMACK",
       "MOVE_METEOR_BEAM",
@@ -70145,6 +70230,7 @@
       "MOVE_DUAL_WINGBEAT",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FEATHER_DANCE",
       "MOVE_THROAT_CHOP"
     ],
@@ -70230,6 +70316,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_THROAT_CHOP"
     ],
     "EggMoves": [
@@ -70322,6 +70409,7 @@
       "MOVE_SCALE_SHOT",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_THROAT_CHOP"
     ],
     "EggMoves": [
@@ -72292,6 +72380,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_FEATHER_DANCE"
     ],
     "EggMoves": [
@@ -74943,6 +75032,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -76144,7 +76234,8 @@
       "MOVE_SLEEP_TALK",
       "MOVE_SUBSTITUTE",
       "MOVE_PSYCH_UP",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [
       "MOVE_DETECT",
@@ -76250,6 +76341,7 @@
       "MOVE_SUBSTITUTE",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_FEATHER_DANCE"
     ],
@@ -76396,6 +76488,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_TRIPLE_AXEL",
       "MOVE_COACHING",
       "MOVE_FEATHER_DANCE",
@@ -81488,6 +81581,7 @@
       "MOVE_BLIZZARD",
       "MOVE_TERA_BLAST",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_THROAT_CHOP"
     ],
@@ -81585,6 +81679,7 @@
       "MOVE_TERA_BLAST",
       "MOVE_PAIN_SPLIT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_THROAT_CHOP"
     ],
@@ -81939,6 +82034,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_THROAT_CHOP",
       "MOVE_HARD_PRESS"
     ],
@@ -83502,6 +83598,7 @@
       "MOVE_TERA_BLAST",
       "MOVE_LUNGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_DRAGON_CHEER"
     ],
@@ -85220,7 +85317,8 @@
       "MOVE_HYPER_BEAM",
       "MOVE_TERA_BLAST",
       "MOVE_FLIP_TURN",
-      "MOVE_WHIRLPOOL"
+      "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM"
     ],
     "EggMoves": [],
     "TutorMoves": []
@@ -87373,6 +87471,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_BREAKING_SWIPE",
       "MOVE_DRAGON_CHEER"
     ],
@@ -91555,6 +91654,7 @@
       "MOVE_WEATHER_BALL",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_EXPANDING_FORCE",
       "MOVE_CURSE"
     ],
@@ -91722,6 +91822,7 @@
       "MOVE_PSYCH_UP",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_EXPANDING_FORCE",
@@ -92404,6 +92505,7 @@
       "MOVE_HELPING_HAND",
       "MOVE_PSYCH_UP",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER",
       "MOVE_SLUDGE_WAVE",
       "MOVE_FUTURE_SIGHT",
@@ -93503,6 +93605,7 @@
       "MOVE_FLIP_TURN",
       "MOVE_LASH_OUT",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_THROAT_CHOP",
       "MOVE_UPPER_HAND"
     ],
@@ -93773,6 +93876,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_MUDDY_WATER"
     ],
     "EggMoves": [
@@ -95022,6 +95126,7 @@
       "MOVE_DOUBLE_EDGE",
       "MOVE_ENDEAVOR",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_CURSE"
     ],
     "EggMoves": [
@@ -97452,6 +97557,7 @@
       "MOVE_FOCUS_PUNCH",
       "MOVE_DOUBLE_EDGE",
       "MOVE_WHIRLPOOL",
+      "MOVE_MAELSTROM",
       "MOVE_COACHING"
     ],
     "EggMoves": [],

@@ -832,10 +832,11 @@
 #define ITEM_HM11 692
 #define ITEM_HM12 693
 #define ITEM_HM13 694
-#define	ITEM_HM14 695				
+#define	ITEM_HM14 695
+#define	ITEM_HM15 696				
 						
 //	Charms					
-#define	ITEM_OVAL_CHARM	696				
+#define	ITEM_OVAL_CHARM	856				
 #define	ITEM_SHINY_CHARM 697				
 #define	ITEM_CATCHING_CHARM	698				
 #define	ITEM_EXP_CHARM 699				
@@ -1023,7 +1024,7 @@
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 856
+#define ITEMS_COUNT 857
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
@@ -1054,7 +1055,7 @@
 #define ITEM_TO_MULCH(itemId)(((itemId) - ITEM_GROWTH_MULCH) + 1)
 
 #define NUM_TECHNICAL_MACHINES 100
-#define NUM_HIDDEN_MACHINES 14
+#define NUM_HIDDEN_MACHINES 15
 
 #define MAX_BAG_ITEM_CAPACITY         999
 #define MAX_PC_ITEM_CAPACITY          999

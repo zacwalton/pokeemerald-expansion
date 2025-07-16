@@ -117,6 +117,7 @@
     F(BODY_PRESS) \
     F(ACROBATICS) \
     F(SLUDGE_WAVE) \
+    F(MAELSTROM) \
     F(DRAGON_ASCENT) 
 
 #define FOREACH_TMHM(F) \
