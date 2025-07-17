@@ -30,7 +30,7 @@ SecretBase_EventScript_CheckEntrance::
 	goto_if_eq VAR_RESULT, TRUE, SecretBase_EventScript_AlreadyHasSecretBase
 	checkmovefieldeffectflag  0x100000
 	setfieldeffectargument 0, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	goto_if_eq VAR_0x8007, SECRET_BASE_RED_CAVE, SecretBase_EventScript_Cave
 	goto_if_eq VAR_0x8007, SECRET_BASE_BROWN_CAVE, SecretBase_EventScript_Cave
 	goto_if_eq VAR_0x8007, SECRET_BASE_BLUE_CAVE, SecretBase_EventScript_Cave

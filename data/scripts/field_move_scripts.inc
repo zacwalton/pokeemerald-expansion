@@ -6,7 +6,7 @@ EventScript_CutTree::
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	goto EventScript_CutTreeSuccess
 	
 EventScript_CutTreeSuccess::
@@ -86,7 +86,7 @@ EventScript_RockSmash::
 	setfieldeffectargument 0, VAR_RESULT
 	copyvar VAR_0x8008, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	goto EventScript_RockSmashSuccess
 	
 EventScript_RockSmashSuccess::
@@ -258,7 +258,7 @@ EventScript_StrengthBoulder::
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantStrength
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	msgbox Text_WantToStrength, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelStrength
 	closemessage
@@ -328,7 +328,7 @@ EventScript_UseWaterfall::
 	checkmovefieldeffectflag 0x0040
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWaterfall
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToWaterfall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndWaterfall
@@ -366,7 +366,7 @@ EventScript_UseDive::
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantDive
 	copyvar 0x8004 VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToDive, MSGBOX_YESNO
@@ -393,7 +393,7 @@ EventScript_UseDiveUnderwater::
 	checkmovefieldeffectflag 0x0080
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSurface
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToSurface, MSGBOX_YESNO
@@ -423,7 +423,7 @@ EventScript_Whirlpool::
 	checkmovefieldeffectflag 0x0400
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWhirlpool
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToUseWhirlpool, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelWhirlpool
@@ -494,7 +494,7 @@ EventScript_Headbutt::
 	goto_if_eq EventScript_CantHeadbuttTree
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick 0, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	goto EventScript_HeadbuttSuccess
 	
 EventScript_HeadbuttSuccess::
@@ -616,7 +616,7 @@ EventScript_UseRockClimb::
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantRockClimb
 	bufferpartymonnick 0, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToRockClimb, MSGBOX_YESNO
 	compare VAR_RESULT, NO
@@ -650,7 +650,7 @@ EventScript_UseLava::
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantLavaSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	lockall
 	msgbox Text_WantToUseLavaSurf, MSGBOX_YESNO
@@ -689,7 +689,7 @@ EventScript_UseSludge::
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantSludgeSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	setfieldeffectargument 0, VAR_RESULT
 	lockall
 	msgbox Text_WantToUseSludgeSurf, MSGBOX_YESNO
@@ -729,7 +729,7 @@ EventScript_DouseFire::
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckCantDouse
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8005
+	buffermovename STR_VAR_2, VAR_0x8008
 	goto EventScript_DouseFireSuccess
 	
 EventScript_DouseFireSuccess::

@@ -3063,7 +3063,7 @@ u8 ScrCmd_checkmovefieldeffectflag(struct ScriptContext *ctx)
 			{
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
-			gSpecialVar_0x8005 = moveId;
+			gSpecialVar_0x8008 = moveId;
             break;
 			}
 		}
@@ -3446,3 +3446,17 @@ u8 ScrCmd_getflashlevel(struct ScriptContext *ctx)
     gSpecialVar_Result = GetFlashLevel();
     return FALSE;
 }
+
+bool8 ScrCmd_doesmovehavefieldeffect(struct ScriptContext *ctx)
+{
+    u32 moveId = VarGet(ScriptReadHalfword(ctx));
+    u32 fieldEffectFlag = ScriptReadHalfword(ctx);
+    if (gMovesInfo[moveId].fieldMoveFlags & fieldEffectFlag)
+    {
+        gSpecialVar_Result = TRUE;
+    }
+    else
+        gSpecialVar_Result = FALSE;
+    return FALSE;
+}
+

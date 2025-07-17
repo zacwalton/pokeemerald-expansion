@@ -753,6 +753,8 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
 			VarSet(VAR_WET_STEP_COUNTER, 25);
 		if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING))		//ZETA- Add wet speed debuff counter
 		{
+		    FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+            FlagClear(FLAG_SYS_USE_WATERFALL);
 			u16 wetCounter = VarGet(VAR_WET_STEP_COUNTER);
 			if (wetCounter > 0)
 			{

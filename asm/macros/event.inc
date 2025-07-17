@@ -2843,3 +2843,10 @@
 	.2byte \battlePartner
 	.endm
 
+	@ Checks if the given move has the desired field effect flag
+	.macro doesmovehavefieldeffect moveId:req, fieldEffectFlag:req
+	.byte SCR_OP_DOESMOVEHAVEFIELDEFFECT
+	.2byte \moveId
+	.2byte \fieldEffectFlag
+	.endm
+

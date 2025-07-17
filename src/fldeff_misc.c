@@ -1415,7 +1415,7 @@ bool8 SetUpFieldMove_Whirlpool(void)
 		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SOUTHWARD_CURRENT)
 		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_WESTWARD_CURRENT)
 		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_EASTWARD_CURRENT))
-		&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING))
+		/*&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING)*/)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Whirlpool;
