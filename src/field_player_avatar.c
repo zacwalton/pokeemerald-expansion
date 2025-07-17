@@ -92,6 +92,7 @@ static bool8 ForcedMovement_SlideSouth(void);
 static bool8 ForcedMovement_SlideNorth(void);
 static bool8 ForcedMovement_SlideWest(void);
 static bool8 ForcedMovement_SlideEast(void);
+static bool8 ForcedMovement_PushedSouthByWaterfall(void);
 static bool8 ForcedMovement_MatJump(void);
 static bool8 ForcedMovement_MatSpin(void);
 static bool8 ForcedMovement_MuddySlope(void);
@@ -230,7 +231,7 @@ static bool8 (*const sForcedMovementFuncs[NUM_FORCED_MOVEMENTS + 1])(void) =
     ForcedMovement_SlideNorth,
     ForcedMovement_SlideWest,
     ForcedMovement_SlideEast,
-    ForcedMovement_PushedSouthByCurrent,
+    ForcedMovement_PushedSouthByWaterfall,
     ForcedMovement_MatJump,
     ForcedMovement_MatSpin,
     ForcedMovement_MuddySlope,
@@ -569,7 +570,6 @@ static bool8 ForcedMovement_WalkEast(void)
     return DoForcedMovement(DIR_EAST, PlayerWalkNormal);
 }
 
-
 static bool8 ForcedMovement_PushedSouthByCurrent(void)
 {
 	if ((FlagGet(FLAG_SYS_USE_WHIRLPOOL)) && (gMain.heldKeys & B_BUTTON))
@@ -629,6 +629,14 @@ static bool8 ForcedMovement_SlideWest(void)
 static bool8 ForcedMovement_SlideEast(void)
 {
     return ForcedMovement_Slide(DIR_EAST, PlayerWalkFast);
+}
+
+static bool8 ForcedMovement_PushedSouthByWaterfall(void)
+{
+	if ((FlagGet(FLAG_SYS_USE_WATERFALL)) && (gMain.heldKeys & B_BUTTON) && (gMain.heldKeys & DPAD_UP))
+		return FALSE;
+	else 
+		return DoForcedMovement(DIR_SOUTH, PlayerRideWaterCurrent);
 }
 
 static bool8 ForcedMovement_MatJump(void)

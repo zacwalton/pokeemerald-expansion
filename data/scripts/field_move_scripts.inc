@@ -335,6 +335,7 @@ EventScript_UseWaterfall::
 	msgbox Text_MonUsedWaterfall, MSGBOX_DEFAULT
 	hidefollowernpc
 	dofieldeffect FLDEFF_USE_WATERFALL
+	setflag FLAG_SYS_USE_WATERFALL
 	callnative FollowerNPC_WarpSetEnd
 	goto EventScript_EndWaterfall
 

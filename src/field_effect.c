@@ -3365,6 +3365,7 @@ static void SurfFieldEffect_End(struct Task *task)
         FieldEffectActiveListRemove(FLDEFF_USE_LAVA);
         FieldEffectActiveListRemove(FLDEFF_USE_SLUDGE);
 		FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+        FlagClear(FLAG_SYS_USE_WATERFALL);
         DestroyTask(FindTaskIdByFunc(Task_SurfFieldEffect));
     }
 }

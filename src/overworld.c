@@ -394,6 +394,7 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+    FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
 }
@@ -406,6 +407,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+    FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
     RunScriptImmediately(EventScript_ResetMrBriney);
@@ -419,6 +421,7 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+    FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
 }
@@ -458,6 +461,7 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
+    FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
     if (B_RESET_FLAGS_VARS_AFTER_WHITEOUT == TRUE)
