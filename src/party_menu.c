@@ -168,6 +168,7 @@ enum {
 	FIELD_MOVE_MUDDY_WATER,
 	FIELD_MOVE_SEA_STRIDE,
 	FIELD_MOVE_WHIRLPOOL,
+	FIELD_MOVE_MAELSTROM,
     FIELD_MOVE_FLY,         // FLAG_BADGE06_GET
 	FIELD_MOVE_DRAGON_ASCENT,
     FIELD_MOVE_DIVE,        // FLAG_BADGE07_GET
@@ -4154,6 +4155,7 @@ static void CursorCb_FieldMove(u8 taskId)
     }
     else
     {
+        VarSet(VAR_0x8008, sFieldMoves[fieldMove]);
         // All field moves before WATERFALL are HMs.
         /*if (fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(FLAG_BADGE01_GET + fieldMove) != TRUE)
         {
@@ -4332,6 +4334,13 @@ static void DisplayCantUseFlashMessage(void)
 static void FieldCallback_Surf(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    u16 moveId = VarGet(VAR_0x8008); // moveId is set in CursorCb_FieldMove
+
+    if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WHIRLPOOL)
+        FlagSet(FLAG_SYS_USE_WHIRLPOOL);
+    if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WATERFALL)
+        FlagSet(FLAG_SYS_USE_WATERFALL);
+
     FieldEffectStart(FLDEFF_USE_SURF);
 }
 
@@ -4376,6 +4385,7 @@ void CB2_ReturnToPartyMenuFromFlyMap(void)
 static void FieldCallback_Waterfall(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    FlagSet(FLAG_SYS_USE_WHIRLPOOL);
     FieldEffectStart(FLDEFF_USE_WATERFALL);
 }
 

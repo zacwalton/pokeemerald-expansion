@@ -1430,6 +1430,7 @@ bool8 SetUpFieldMove_Whirlpool(void)
 static void FieldCallback_Whirlpool(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    FlagSet(FLAG_SYS_USE_WHIRLPOOL);
     ScriptContext_SetupScript(EventScript_UseWhirlpool);
 }
 
