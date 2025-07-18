@@ -100,7 +100,7 @@ Harvest_Resource_Collected::
 	end
 	
 EventScript_Harvest_CutGrassScript::
-	giveitem ITEM_PLANT_FIBRE, VAR_0x8008
+	giveitem ITEM_PLANT_FIBRE, VAR_0x8009
 	releaseall
 	end
 	

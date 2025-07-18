@@ -25,6 +25,7 @@
 #include "constants/field_effects.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "constants/moves.h"
 
 extern struct MapPosition gPlayerFacingPosition;
 
@@ -140,6 +141,36 @@ static const struct SpriteTemplate sSpriteTemplate_CutGrass =
     .callback = CutGrassSpriteCallback1,
 };
 
+static bool8 HasHyperCutAbility(u16 ability)
+{
+    switch (ability)
+    {
+    case ABILITY_HYPER_CUTTER:
+    case ABILITY_TECHNICIAN:
+    case ABILITY_SHEER_FORCE:
+    case ABILITY_HARVEST:
+    case ABILITY_LONG_REACH:
+    case ABILITY_SHARPNESS:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+static bool8 MoveHasBonusRadius(u16 moveId)
+{
+    switch (moveId)
+    {
+    case MOVE_LEAF_BLADE:
+    case MOVE_ROTOTILLER:
+    case MOVE_STEAMROLLER:
+    case MOVE_STEEL_ROLLER:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 // code
 bool8 SetUpFieldMove_Cut(void)
 {
@@ -147,6 +178,7 @@ bool8 SetUpFieldMove_Cut(void)
     u8 i, j;
     u8 tileBehavior;
     u16 userAbility;
+    u16 moveId = VarGet(VAR_0x8008);
     bool8 cutTiles[CUT_NORMAL_AREA];
     bool8 ret;
 
@@ -162,12 +194,7 @@ bool8 SetUpFieldMove_Cut(void)
         PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
         userAbility = GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]);
 		VarSet(VAR_0x8007, userAbility);
-        if ((userAbility == ABILITY_HYPER_CUTTER)
-			|| (userAbility == ABILITY_TECHNICIAN)
-			|| (userAbility == ABILITY_SHEER_FORCE)
-			|| (userAbility == ABILITY_HARVEST)
-			|| (userAbility == ABILITY_LONG_REACH)
-			|| (userAbility == ABILITY_SHARPNESS))
+        if (HasHyperCutAbility(userAbility) || (MoveHasBonusRadius(moveId)))
         {
             sCutSquareSide = CUT_HYPER_SIDE;
             sTileCountFromPlayer_X = 2;
@@ -226,12 +253,7 @@ bool8 SetUpFieldMove_Cut(void)
             }
         }
 
-        if ((userAbility != ABILITY_HYPER_CUTTER)
-			&& (userAbility != ABILITY_TECHNICIAN)
-			&& (userAbility != ABILITY_SHEER_FORCE)
-			&& (userAbility != ABILITY_HARVEST)
-			&& (userAbility != ABILITY_LONG_REACH)
-			&& (userAbility != ABILITY_SHARPNESS))
+        if (!HasHyperCutAbility(userAbility) && (!MoveHasBonusRadius(moveId)))
         {
             if (ret == TRUE)
             {
@@ -878,6 +900,7 @@ bool8 FldEff_CutGrass(void)
 	u8 itemChance = 0;
     u16 *ashGatherCount;
 	u16 userAbility = VarGet(VAR_0x8007);
+    u16 moveId = VarGet(VAR_0x8008);
 
     PlaySE(SE_M_CUT);
     PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
@@ -913,6 +936,10 @@ bool8 FldEff_CutGrass(void)
 					}
 				else
 				itemChance += 2;
+            
+                if (moveId == MOVE_LEAF_BLADE)      //Hidden buff for leaf blade, as an indirect buff to grass starters
+                    itemChance += 2;
+
 			}
 			//ZETA- Do Ash grass yield
 			if (MetatileBehavior_IsAshGrass(MapGridGetMetatileBehaviorAt(x, y)))
@@ -933,10 +960,12 @@ bool8 FldEff_CutGrass(void)
 	//ZETA- Give items based on yields
 	if (yieldCount > 0)
 	{
-		VarSet(VAR_0x8008, yieldCount);
+        if ((moveId == MOVE_LEAF_BLADE) || (userAbility == ABILITY_HARVEST))
+            yieldCount = (yieldCount * 12) / 10; //20% bonus yield
+		VarSet(VAR_0x8009, yieldCount);
 		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript);
 	}
-	if ((Random() % 100) < itemChance)
+	if ((Random() % 200) < itemChance)
 	{
 		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript_Item);
 	}

@@ -176,14 +176,14 @@ enum FieldMoveType
     IS_FIELD_MOVE_DIVE 		= 1 << 7, 		// 0x0080		Dive
     IS_FIELD_MOVE_DIG 		= 1 << 8, 		// 0x0100		Access Underground - not implemented
     IS_FIELD_MOVE_SOAR 		= 1 << 9, 		// 0x0200		Eon Flute - needs linking
-    IS_FIELD_MOVE_WHIRLPOOL = 1 << 10, 		// 0x0400		Whilrpool - not implemented
+    IS_FIELD_MOVE_WHIRLPOOL = 1 << 10, 		// 0x0400		Whilrpool
     IS_FIELD_MOVE_FLASH 	= 1 << 11, 		// 0x0800		Flash
-    IS_FIELD_MOVE_LAVA 		= 1 << 12, 		// 0x1000		Lava Plume - lava surfing, needs implementing
+    IS_FIELD_MOVE_LAVA 		= 1 << 12, 		// 0x1000		Lava Plume - lava surfing
     IS_FIELD_MOVE_HP 		= 1 << 13, 		// 0x2000		Softboiled/Milk Drink - currently has no effect
     IS_FIELD_MOVE_JUMP 		= 1 << 14, 		// 0x4000		Jump up ledges - not implemented
     IS_FIELD_MOVE_WARP 		= 1 << 15, 		// 0x8000		Warp to known locations - currently has no effect
 	IS_FIELD_MOVE_HACK		= 1 << 16, 		// 0x10000		Charge Beam - open locked electronic doors, not implemented
-	IS_FIELD_MOVE_DEFOG		= 1 << 17,		// 0x20000		Defog - not implemented
+	IS_FIELD_MOVE_DEFOG		= 1 << 17,		// 0x20000		Defog
 	IS_FIELD_MOVE_ESCAPE	= 1 << 18,		// 0x40000 		Dig - escape from caves effect - currently unused
 	IS_FIELD_MOVE_LURE		= 1 << 19,		// 0x80000 		Sweet Scent effect - currently unused
 	IS_FIELD_MOVE_SECRET	= 1 << 20,		// 0x100000		Secret Power
