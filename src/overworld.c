@@ -955,7 +955,10 @@ if (I_VS_SEEKER_CHARGING != 0)
         FlagClear(FLAG_SYS_USE_FLASH);
         FlagClear(FLAG_SYS_BONUS_FLASH);
         FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
-        VarSet(VAR_DNS_FLASH_BLEND, 0);
+        //Clear Tint and Set shadow back to default
+        u16 flashTrackerPacked = 0;
+        SET_SHADOW_STRENGTH(flashTrackerPacked, OW_FLASH_SHADOW_STRENGTH);
+        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     }
 	//FlagClear(FLAG_SYS_FLASH_BLEND_APPLIED);
     SetDefaultFlashLevel();
@@ -1803,7 +1806,8 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
         else 
         {
             //Get blend index from upper byte of blend var
-            u16 blendVar = VarGet(VAR_DNS_FLASH_BLEND);
+            u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+            u16 blendVar = GET_FOLLOWER_TINT(flashTrackerPacked);
             const struct BlendSettings *blend = &gCustomDNSTintBlend[blendVar];
             TimeMixPalettes(1, &gPlttBufferUnfaded[OBJ_PLTT_ID(paletteNum)], &gPlttBufferFaded[OBJ_PLTT_ID(paletteNum)], (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
         }
@@ -1817,6 +1821,7 @@ void DoCustomDNSBlend(void)
     if (!IsMapTypeFlash(gMapHeader.mapType))
         return;
     
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
     if (!gMapHeader.cave)                                                                            // In cave or underwater but does not require flash = do normal cave blend
         {
@@ -1830,13 +1835,15 @@ void DoCustomDNSBlend(void)
     }
     else if (FlagGet(FLAG_SYS_USE_FLASH))
     {
-        VarSet(VAR_DNS_FLASH_BLEND, DNS_BLEND_CAVE_STANDARD);
+        SET_FOLLOWER_TINT(flashTrackerPacked, DNS_BLEND_CAVE_STANDARD);
+        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
         const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
     }
     else
     {
-        VarSet(VAR_DNS_FLASH_BLEND, DNS_BLEND_CAVE_DARK);
+        SET_FOLLOWER_TINT(flashTrackerPacked, DNS_BLEND_CAVE_DARK);
+        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
         const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
     }

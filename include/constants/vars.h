@@ -246,7 +246,7 @@
 #define VAR_GIFT_UNUSED_5                                0x40E2 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_6                                0x40E3 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_7                                0x40E4 // var is written to, but never read
-#define VAR_DNS_FLASH_SHADOW                             0x40E5 // Flash shadow strength
+#define VAR_UNUSED_0x40E5                                0x40E5 // Unused Var
 #define VAR_DAILY_SLOTS                                  0x40E6
 #define VAR_DAILY_WILDS                                  0x40E7
 #define VAR_DAILY_BLENDER                                0x40E8
@@ -266,7 +266,7 @@
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
 #define VAR_SURF_MON_SLOT                                0x40F7 // Surfing Mon party slot
 #define VAR_FREEZESURFBLOB                               0x40F8 // Set on surf init to stop blob overlay being offset incorrectly
-#define VAR_DNS_FLASH_BLEND                              0x40F9 //ZETA- As Bitmask: Store current custom DNS blend and flash darkness strength
+#define VAR_FLASH_TRACKER                                0x40F9 //ZETA- As Bitmask: Store current custom DNS blend and flash darkness strength
 #define VAR_FOLLOW_MON_0                     			 0x40FA
 #define VAR_FOLLOW_MON_1                    			 0x40FB
 #define VAR_FOLLOW_MON_2                     			 0x40FC
