@@ -1396,7 +1396,7 @@
 #define FLAG_UNUSED_0x884                           (SYSTEM_FLAGS + 0x24) // Unused Flag
 #define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag
 #define FLAG_SYS_USE_WATERFALL                      (SYSTEM_FLAGS + 0x26) // Dont force waterfall interact each time
-#define FLAG_SYS_FLASH_BLEND_APPLIED                (SYSTEM_FLAGS + 0x27) // Used to throttle flash blending
+#define FLAG_SYS_USE_FLASH_MOVE_BONUS               (SYSTEM_FLAGS + 0x27) // ZETA- Set bonus flash for certain flash moves
 
 #define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x28)
 #define FLAG_SYS_USE_STRENGTH                       (SYSTEM_FLAGS + 0x29)

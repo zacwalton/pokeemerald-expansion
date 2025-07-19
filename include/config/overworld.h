@@ -98,11 +98,11 @@
 #define OW_SHADOW_INTENSITY             4       // Ranges from 0 to 16, where 0 is fully transparent and 16 is black.
 #define OW_OBJECT_SUBPRIORITY           148     // The higher the value, the farther back compared to other sprites. Shadows should be behind object events.
 #define OW_ENABLE_DNS                   TRUE    // If set to TRUE, the overworld will be tinted depending on time of day.
-#define OW_FLASH_SHADOW_STRENGTH        14      //Ranges from 0 to 16, where 0 is fully transparent and 16 is black. [13-14 are good near-black values]
+#define OW_FLASH_SHADOW_STRENGTH        15      //Ranges from 0 to 16, where 0 is fully transparent and 16 is black. [13-14 are good near-black values]
 #define OW_FLASH_FIELDMOVE_BONUS        3       //Sets how much the Flash field move decreases the Flash level
 #define OW_FLASH_ILLUMINATE_BONUS       2       //Sets how much flash boosting abilities (illuminate) decreases the Flash level
-#define OW_FLASH_FIELDMOVE_SHADOW       3       //Sets how much the Flash field move decreases the Flash shadow level
-#define OW_FLASH_ILLUMINATE_SHADOW      3       //Sets how much flash boosting abilities (illuminate) decreases the Flash shadow level
+#define OW_FLASH_FIELDMOVE_SHADOW       2       //Sets how much the Flash field move decreases the Flash shadow level
+#define OW_FLASH_ILLUMINATE_SHADOW      2       //Sets how much flash boosting abilities (illuminate) decreases the Flash shadow level
 
 // Object Event Shadows
 #define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.

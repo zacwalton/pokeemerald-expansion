@@ -18,6 +18,7 @@
 #include "sprite.h"
 #include "task.h"
 #include "constants/abilities.h"
+#include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
 
@@ -74,8 +75,27 @@ static const u16 sCaveTransitionPalette_Enter[] = INCBIN_U16("graphics/cave_tran
 static const u32 sCaveTransitionTilemap[] = INCBIN_U32("graphics/cave_transition/tilemap.bin.lz");
 static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/tiles.4bpp.lz");
 
+static bool8 MoveHasBonusRadius(u16 moveId)
+{
+    switch (moveId)
+    {
+    case MOVE_FLASH:
+    case MOVE_DAZZLING_GLEAM:
+    case MOVE_FLASH_CANNON:
+    case MOVE_PHOTON_GEYSER:
+    case MOVE_PRISMATIC_LASER:
+    case MOVE_LUSTER_PURGE:
+    case MOVE_TAIL_GLOW:
+    case MOVE_SUNSTEEL_STRIKE:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 bool8 SetUpFieldMove_Flash(void)
 {
+    u16 moveId = VarGet(VAR_0x8008);
     // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
     // Flash is used instead.
     if (ShouldDoBrailleRegisteelEffect())
@@ -85,13 +105,21 @@ bool8 SetUpFieldMove_Flash(void)
         gPostMenuFieldCallback = SetUpPuzzleEffectRegisteel;
         return TRUE;
     }
-    else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH) && (gSaveBlock1Ptr->flashLevel > 1))
+    else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH)/* && (gSaveBlock1Ptr->flashLevel > 1)*/)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
+        if (MoveHasBonusRadius(moveId))
+            FlagSet(FLAG_SYS_USE_FLASH_MOVE_BONUS);
         return TRUE;
     }
-
+    else if (gMapHeader.cave == TRUE && (FlagGet(FLAG_SYS_USE_FLASH)) && (!FlagGet(FLAG_SYS_USE_FLASH_MOVE_BONUS)) && (MoveHasBonusRadius(moveId))) //Allow boosted flash moves to be used even if flash is already set
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Flash;
+        FlagSet(FLAG_SYS_USE_FLASH_MOVE_BONUS);
+        return TRUE;
+    }
     return FALSE;
 }
 
@@ -106,7 +134,7 @@ static void FieldCallback_Flash(void)
 static void FldEff_UseFlash(void)
 {
     FlagSet(FLAG_SYS_USE_FLASH);
-	FlagClear(FLAG_SYS_BONUS_FLASH);													//ZETA- Follower flag is mutually exclusive and cannot be re-set from followers while field move is active
+	//FlagClear(FLAG_SYS_BONUS_FLASH);													//ZETA- Follower flag is mutually exclusive and cannot be re-set from followers while field move is active
 	DoFieldMoveFriendshipChance(&gPlayerParty[GetCursorSelectionMonId()]);
 	if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
 		FlagSet(FLAG_SYS_BONUS_FLASH);												//ZETA- repurpose follower flag for boosted field move, max flash radius only achieved if ability == illuminate
@@ -439,6 +467,12 @@ void UpdateFlashStrength(void)
         flashShadowStrength = flashShadowStrength - OW_FLASH_FIELDMOVE_SHADOW;
     }
 
+    if (FlagGet(FLAG_SYS_USE_FLASH_MOVE_BONUS))
+    {
+        newFlashLevel = newFlashLevel - 1;
+        flashShadowStrength = flashShadowStrength - 1;
+    }
+
     if (newFlashLevel < 1)
         newFlashLevel = 1;                  //Clamp flash level to minimum
 
@@ -463,78 +497,10 @@ void UpdateFlashStrength(void)
 void UpdateFlashRadiusOnStep(void)
 {
 	if (!gMapHeader.cave)
-    {
-        //VarSet(VAR_DNS_FLASH_BLEND, 0);
 		return;
-    }
 	
-	u8 followerIndex = GetFollowerMonIndex();
-	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
-	s32 newFlashLevel;
-	
-    s8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
-    u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
-    u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
-    u8 currentFlashTint = VarGet(VAR_DNS_FLASH_BLEND);
-    u8 newFlashTint = 1;
-    u8 flashShadowStrength = OW_FLASH_SHADOW_STRENGTH;
-    
-
-    //Get Flash DNS Tint
-    if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && followerFlashTintShiny > 0)
-        newFlashTint = followerFlashTintShiny;
-    else if (followerFlashTint > 0)
-        newFlashTint = followerFlashTint;
-    else if (FlagGet(FLAG_SYS_USE_FLASH))
-        newFlashTint = DNS_BLEND_CAVE_STANDARD;
-    else
-        newFlashTint = DNS_BLEND_CAVE_DARK;                                                            //ZETA- Default to DNS Darker Cave blend if Flash is not active
-		
-    //Do Custom DNS Blend
-    if (currentFlashTint != newFlashTint)
-    {
-        VarSet(VAR_DNS_FLASH_BLEND, newFlashTint);
-        u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
-        const struct BlendSettings *blend = &gCustomDNSTintBlend[newFlashTint];
-        TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
-
-    }    
-		
-    //Flash Radius and Shadow strength
-    if (followerFlashLevel > 0)
-        newFlashLevel = followerFlashLevel;
-    else 
-        newFlashLevel = FLASH_LEVEL_DEFAULT;
-
-    if ((GetMonAbility(&gPlayerParty[followerIndex]) == ABILITY_ILLUMINATE) || FlagGet(FLAG_SYS_BONUS_FLASH))
-    {
-        newFlashLevel = newFlashLevel - OW_FLASH_ILLUMINATE_BONUS;
-        flashShadowStrength = flashShadowStrength - OW_FLASH_ILLUMINATE_SHADOW;
-    }
-
-    if (FlagGet(FLAG_SYS_USE_FLASH))
-    {
-        newFlashLevel = newFlashLevel - OW_FLASH_FIELDMOVE_BONUS;
-        flashShadowStrength = flashShadowStrength - OW_FLASH_FIELDMOVE_SHADOW;
-    }
-
-    if (newFlashLevel < 1)
-        newFlashLevel = 1;                  //Clamp flash level to minimum
-
-    if (flashShadowStrength < 1)
-        flashShadowStrength = 1;         //Clamp flash level to minimum
-
-    //Set Flash Shadow strength
-    if (followerFlashLevel > 0)
-        flashShadowStrength = flashShadowStrength - ((8 - followerFlashLevel) / 2);
-
-    VarSet(VAR_DNS_FLASH_SHADOW, flashShadowStrength);
-    
-    if (newFlashLevel == previousFlashLevel)
-        return;
-
-    AnimateFlash(newFlashLevel);
-	SetFlashLevel(newFlashLevel);
+    UpdateFlashTint();
+	UpdateFlashStrength();
 	return;
 }
 

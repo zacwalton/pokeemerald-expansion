@@ -396,6 +396,8 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
+    FlagClear(FLAG_SYS_BONUS_FLASH);
+    FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
 }
 
@@ -410,6 +412,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
+    FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
     RunScriptImmediately(EventScript_ResetMrBriney);
 }
 
@@ -424,6 +427,7 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
+    FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
 }
 
 #if B_RESET_FLAGS_VARS_AFTER_WHITEOUT  == TRUE
@@ -464,6 +468,7 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
 	FlagClear(FLAG_SYS_BONUS_FLASH);
+    FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
     if (B_RESET_FLAGS_VARS_AFTER_WHITEOUT == TRUE)
         Overworld_ResetBattleFlagsAndVars();
     // If you were defeated by Kyogre/Groudon and the step counter has
@@ -949,9 +954,10 @@ if (I_VS_SEEKER_CHARGING != 0)
     {
         FlagClear(FLAG_SYS_USE_FLASH);
         FlagClear(FLAG_SYS_BONUS_FLASH);
+        FlagClear(FLAG_SYS_USE_FLASH_MOVE_BONUS);
         VarSet(VAR_DNS_FLASH_BLEND, 0);
     }
-	FlagClear(FLAG_SYS_FLASH_BLEND_APPLIED);
+	//FlagClear(FLAG_SYS_FLASH_BLEND_APPLIED);
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
@@ -1090,6 +1096,9 @@ void SetDefaultFlashLevel(void)
 
     if (FlagGet(FLAG_SYS_USE_FLASH))            //ZETA- if Flash Field move is in effect increase flash radius by OW_FLASH_FIELDMOVE_BONUS
 		baseFlashLevel -= OW_FLASH_FIELDMOVE_BONUS;
+
+    if (FlagGet(FLAG_SYS_USE_FLASH_MOVE_BONUS))            //ZETA- if MoveHasBonusRadius, flash level is boosted by 1
+		baseFlashLevel -= 1;
 
     if (FlagGet(FLAG_SYS_BONUS_FLASH))          //ZETA- if Bonus Flash is in effect (follower has Illuminate) increase flash radius by OW_FLASH_ILLUMINATE_BONUS
 		baseFlashLevel -= OW_FLASH_ILLUMINATE_BONUS;
