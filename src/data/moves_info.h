@@ -5593,6 +5593,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_CHARGE},
         .battleAnimScript = gBattleAnimMove_Spark,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
     },
 
     [MOVE_FURY_CUTTER] =
@@ -12654,6 +12655,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_ElectroBall,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
     },
 
     [MOVE_SOAK] =
@@ -17155,7 +17157,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SunsteelStrike,
-		.fieldMoveFlags = IS_FIELD_MOVE_SMASH,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH | IS_FIELD_MOVE_SMASH,
     },
 
     [MOVE_MOONGEIST_BEAM] =
@@ -17349,6 +17351,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_PhotonGeyser,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
     },
 
     [MOVE_ZIPPY_ZAP] =
@@ -17544,6 +17547,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .sheerForceBoost = SHEER_FORCE_NO_BOOST,
         }),
         .battleAnimScript = gBattleAnimMove_GlitzyGlow,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
     },
 
     [MOVE_BADDY_BAD] =

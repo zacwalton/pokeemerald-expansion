@@ -87,6 +87,10 @@ static bool8 MoveHasBonusRadius(u16 moveId)
     case MOVE_LUSTER_PURGE:
     case MOVE_TAIL_GLOW:
     case MOVE_SUNSTEEL_STRIKE:
+    case MOVE_LIGHT_OF_RUIN:
+    case MOVE_BLUE_FLARE:
+    case MOVE_BURN_UP:
+    case MOVE_LAVA_PLUME:
         return TRUE;
     default:
         return FALSE;
