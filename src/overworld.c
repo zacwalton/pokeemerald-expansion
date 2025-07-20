@@ -1821,33 +1821,39 @@ void DoCustomDNSBlend(void)
     if (!IsMapTypeFlash(gMapHeader.mapType))
         return;
     
-    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
     if (!gMapHeader.cave)                                                                            // In cave or underwater but does not require flash = do normal cave blend
         {
             const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
             TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
             return;
-        }
+        }/*
     else if (IsFollowerSpawned()) 
     {
         UpdateFlashTint();
     }
     else if (FlagGet(FLAG_SYS_USE_FLASH))
     {
-        SET_FOLLOWER_TINT(flashTrackerPacked, DNS_BLEND_CAVE_STANDARD);
-        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
-        const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
-        TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
+        u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+        u8 moveTint = GET_MOVE_TINT(flashTrackerPacked);
+        if (moveTint > 0)
+        {
+            const struct BlendSettings *blend = &gCustomDNSTintBlend[moveTint];
+            TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256); 
+        }
+        else
+        {
+            const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_STANDARD];
+            TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
+        }
     }
     else
     {
-        SET_FOLLOWER_TINT(flashTrackerPacked, DNS_BLEND_CAVE_DARK);
-        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
         const struct BlendSettings *blend = &gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)blend, (struct BlendSettings *)blend, 256);
-    }
-    
+    }*/
+   UpdateFlashTint();
+    return;
 }
 
 static void OverworldBasic(void)
@@ -1880,6 +1886,8 @@ static void OverworldBasic(void)
         //if (gMapHeader.cave && (VarGet(VAR_DNS_FLASH_BLEND) < 2))
         //    SetDefaultFlashLevel();
     }
+    if (gMapHeader.cave && (FindTaskIdByFunc(UpdateFlashLevelEffect) == TASK_NONE))
+        UpdateFlashTint();
 }
 
 // This CB2 is used when starting
@@ -1903,7 +1911,12 @@ void CB2_Overworld(void)
         {
             //if (!FlagGet(FLAG_SYS_FLASH_BLEND_APPLIED))
             //{
-                DoCustomDNSBlend();
+            if (FindTaskIdByFunc(UpdateFlashLevelEffect) == TASK_NONE)
+            {
+                //UpdateFlashTint();
+                //UpdateFlashStrength();
+                //UpdateFlashRadiusOnStep();
+            }
                 //FlagSet(FLAG_SYS_FLASH_BLEND_APPLIED);
             //}
         }

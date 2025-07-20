@@ -8,6 +8,7 @@
 #include "fldeff.h"
 #include "gpu_regs.h"
 #include "main.h"
+#include "move.h"
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -100,6 +101,8 @@ static bool8 MoveHasBonusRadius(u16 moveId)
 bool8 SetUpFieldMove_Flash(void)
 {
     u16 moveId = VarGet(VAR_0x8008);
+    //u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+
     // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
     // Flash is used instead.
     if (ShouldDoBrailleRegisteelEffect())
@@ -115,6 +118,10 @@ bool8 SetUpFieldMove_Flash(void)
         gPostMenuFieldCallback = FieldCallback_Flash;
         if (MoveHasBonusRadius(moveId))
             FlagSet(FLAG_SYS_USE_FLASH_MOVE_BONUS);
+
+        //SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
+        //VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+        //UpdateFlashTint();
         return TRUE;
     }
     else if (gMapHeader.cave == TRUE && (FlagGet(FLAG_SYS_USE_FLASH)) && (!FlagGet(FLAG_SYS_USE_FLASH_MOVE_BONUS)) && (MoveHasBonusRadius(moveId))) //Allow boosted flash moves to be used even if flash is already set
@@ -122,6 +129,10 @@ bool8 SetUpFieldMove_Flash(void)
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
         FlagSet(FLAG_SYS_USE_FLASH_MOVE_BONUS);
+
+        //SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
+        //VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+        //UpdateFlashTint();
         return TRUE;
     }
     return FALSE;
@@ -137,6 +148,9 @@ static void FieldCallback_Flash(void)
 
 static void FldEff_UseFlash(void)
 {
+    u16 moveId = VarGet(VAR_0x8008);
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+
     FlagSet(FLAG_SYS_USE_FLASH);
 	//FlagClear(FLAG_SYS_BONUS_FLASH);													//ZETA- Follower flag is mutually exclusive and cannot be re-set from followers while field move is active
 	DoFieldMoveFriendshipChance(&gPlayerParty[GetCursorSelectionMonId()]);
@@ -144,6 +158,11 @@ static void FldEff_UseFlash(void)
 		FlagSet(FLAG_SYS_BONUS_FLASH);												//ZETA- repurpose follower flag for boosted field move, max flash radius only achieved if ability == illuminate
     VarSet(VAR_0x8007, GetCursorSelectionMonId());
 	ScriptContext_SetupScript(EventScript_UseFlash);
+    
+    SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+    UpdateFlashTint();
+    UpdateFlashStrength();
 }
 
 static void CB2_ChangeMapMain(void)
@@ -424,24 +443,35 @@ void UpdateFlashTint(void)
     s8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
     u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
     u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
-    u8 currentFlashTint = followerTint;
+    u8 currentFlashTint = 0;
     u8 newFlashTint = 1;
     
 
     //Get Flash DNS Tint
-    if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && followerFlashTintShiny > 0)
+    if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && (IsFollowerSpawned()) && followerFlashTintShiny > 0)
+    {
         newFlashTint = followerFlashTintShiny;
-    else if (followerFlashTint > 0)
+        currentFlashTint = followerFlashTintShiny;
+    }
+    else if ((IsFollowerSpawned()) && followerFlashTint > 0)
+    {
         newFlashTint = followerFlashTint;
+        currentFlashTint = followerFlashTint;
+    }
     else if (FlagGet(FLAG_SYS_USE_FLASH))
-        newFlashTint = DNS_BLEND_CAVE_STANDARD;
+    {
+        if (moveTint > 0)
+            newFlashTint = moveTint;
+        else
+            newFlashTint = DNS_BLEND_CAVE_STANDARD;
+    }
     else
         newFlashTint = DNS_BLEND_CAVE_DARK;                                                            //ZETA- Default to DNS Darker Cave blend if Flash is not active
 		
     //Do Custom DNS Blend
-    if (currentFlashTint != newFlashTint)
+    if ((currentFlashTint != followerFlashTintShiny) || (currentFlashTint != followerFlashTint))
     {
-        SET_FOLLOWER_TINT(flashTrackerPacked, newFlashTint);
+        SET_FOLLOWER_TINT(flashTrackerPacked, currentFlashTint);
         VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     }
 
