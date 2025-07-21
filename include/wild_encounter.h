@@ -13,6 +13,7 @@ enum WildPokemonArea {
     WILD_AREA_ROCKS,
     WILD_AREA_FISHING,
     WILD_AREA_FISHING_POND,
+    WILD_AREA_LAND2,
     WILD_AREA_HEADBUTT,
 	WILD_AREA_HONEY,
     WILD_AREA_HIDDEN
@@ -38,7 +39,7 @@ struct WildEncounterTypes
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
     const struct WildPokemonInfo *fishingPondMonsInfo;
-    const struct WildPokemonInfo *landMons2Info;
+    const struct WildPokemonInfo *land2MonsInfo;
     const struct WildPokemonInfo *headbuttMonsInfo;
     const struct WildPokemonInfo *honeyTreeMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo;
