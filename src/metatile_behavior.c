@@ -137,6 +137,8 @@ static const u8 sTileBitAttributes[NUM_METATILE_BEHAVIORS] =
 	[MB_LAVA]								= TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
 	[MB_SLUDGE]								= TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
     [MB_LONG_GRASS_GREEN]                   = TILE_FLAG_UNUSED,
+    [MB_LONG_GRASS_STRAW]                   = TILE_FLAG_UNUSED,
+    [MB_TALL_GRASS_GREEN]                   = TILE_FLAG_UNUSED,
 };
 
 bool8 MetatileBehavior_IsATile(u8 metatileBehavior)
@@ -186,7 +188,11 @@ bool8 MetatileBehavior_IsJumpSouth(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsPokeGrass(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_TALL_GRASS || metatileBehavior == MB_LONG_GRASS || metatileBehavior == MB_LONG_GRASS_GREEN)
+    if (metatileBehavior == MB_TALL_GRASS 
+    || metatileBehavior == MB_LONG_GRASS 
+    || metatileBehavior == MB_LONG_GRASS_GREEN 
+    || metatileBehavior == MB_LONG_GRASS_STRAW 
+    || metatileBehavior == MB_TALL_GRASS_GREEN)
         return TRUE;
     else
         return FALSE;
@@ -740,7 +746,9 @@ bool8 MetatileBehavior_IsTallGrass(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsLongGrass(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_LONG_GRASS || metatileBehavior == MB_LONG_GRASS_GREEN)
+    if (metatileBehavior == MB_LONG_GRASS 
+    || metatileBehavior == MB_LONG_GRASS_GREEN 
+    || metatileBehavior == MB_LONG_GRASS_STRAW)
         return TRUE;
     else
         return FALSE;
@@ -831,7 +839,9 @@ bool8 MetatileBehavior_IsLandWildEncounter(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsLand2WildEncounter(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_LONG_GRASS_GREEN)
+    if (metatileBehavior == MB_LONG_GRASS_GREEN 
+    || metatileBehavior == MB_LONG_GRASS_STRAW 
+    || metatileBehavior == MB_TALL_GRASS_GREEN)
         return TRUE;
     else
         return FALSE;
@@ -1291,7 +1301,8 @@ bool8 MetatileBehavior_IsRunningDisallowed(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_NO_RUNNING
      || metatileBehavior == MB_LONG_GRASS 
-     || metatileBehavior == MB_LONG_GRASS_GREEN
+     || metatileBehavior == MB_LONG_GRASS_GREEN 
+     || metatileBehavior == MB_LONG_GRASS_STRAW
      || metatileBehavior == MB_HOT_SPRINGS
      || MetatileBehavior_IsPacifidlogLog(metatileBehavior) != FALSE)
         return TRUE;
@@ -1303,7 +1314,9 @@ bool8 MetatileBehavior_IsCuttableGrass(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_TALL_GRASS
      || metatileBehavior == MB_LONG_GRASS
-     || metatileBehavior == MB_LONG_GRASS_GREEN
+     || metatileBehavior == MB_LONG_GRASS_GREEN 
+     || metatileBehavior == MB_LONG_GRASS_STRAW 
+     || metatileBehavior == MB_TALL_GRASS_GREEN
      || metatileBehavior == MB_ASHGRASS
      || metatileBehavior == MB_LONG_GRASS_SOUTH_EDGE)
         return TRUE;
@@ -1413,7 +1426,9 @@ bool8 MetatileBehavior_IsQuestionnaire(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_LONG_GRASS || metatileBehavior == MB_LONG_GRASS_GREEN)
+    if (metatileBehavior == MB_LONG_GRASS 
+    || metatileBehavior == MB_LONG_GRASS_GREEN 
+    || metatileBehavior == MB_LONG_GRASS_STRAW)
         return TRUE;
     else
         return FALSE;
