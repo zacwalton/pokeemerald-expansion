@@ -28,7 +28,10 @@ LilycoveCity_DepartmentStore_4F_Pokemart_AttackTMs:
 	.2byte ITEM_TM_FIRE_BLAST
 	.2byte ITEM_TM_THUNDER
 	.2byte ITEM_TM_BLIZZARD
+	.2byte ITEM_TM_FOCUS_PUNCH
+	.2byte ITEM_TM_STONE_EDGE
 	.2byte ITEM_TM_HYPER_BEAM
+	.2byte ITEM_TM_GIGA_IMPACT
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_4F_EventScript_ClerkRight::
@@ -47,6 +50,24 @@ LilycoveCity_DepartmentStore_4F_Pokemart_DefenseTMs:
 	.2byte ITEM_TM_SAFEGUARD
 	.2byte ITEM_TM_REFLECT
 	.2byte ITEM_TM_LIGHT_SCREEN
+	pokemartlistend
+
+LilycoveCity_DepartmentStore_4F_EventScript_ClerkCenter::
+	lock
+	faceplayer
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_4F_Pokemart_WeatherTMs
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+LilycoveCity_DepartmentStore_4F_Pokemart_WeatherTMs:
+	.2byte ITEM_TM_SUNNY_DAY
+	.2byte ITEM_TM_RAIN_DANCE
+	.2byte ITEM_TM_SANDSTORM
+	.2byte ITEM_TM_HAIL
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_4F_Text_AttackOrDefenseTM:
