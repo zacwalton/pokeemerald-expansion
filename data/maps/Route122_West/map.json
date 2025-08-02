@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_MT_PYRE_EXTERIOR",
-      "offset": -30,
-      "direction": "left"
-    },
-    {
       "map": "MAP_LILYCOVE_BAY",
       "offset": 0,
       "direction": "up"

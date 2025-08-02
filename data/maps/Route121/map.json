@@ -29,11 +29,6 @@
       "direction": "right"
     },
     {
-      "map": "MAP_MT_PYRE_EXTERIOR",
-      "offset": 32,
-      "direction": "down"
-    },
-    {
       "map": "MAP_MT_PYRE_EXT",
       "offset": 32,
       "direction": "down"
