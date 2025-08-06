@@ -79,8 +79,8 @@ static const struct HealLocation sHealLocations[NUM_HEAL_LOCATIONS - 1] = {
     [HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE - 1] = {
         .mapGroup = MAP_GROUP(MAP_LITTLEROOT_TOWN),
         .mapNum = MAP_NUM(MAP_LITTLEROOT_TOWN),
-        .x = 14,
-        .y = 9,
+        .x = 15,
+        .y = 33,
     },
     [HEAL_LOCATION_OLDALE_TOWN - 1] = {
         .mapGroup = MAP_GROUP(MAP_OLDALE_TOWN),
@@ -139,8 +139,8 @@ static const struct HealLocation sHealLocations[NUM_HEAL_LOCATIONS - 1] = {
     [HEAL_LOCATION_ROUTE123 - 1] = {
         .mapGroup = MAP_GROUP(MAP_ROUTE123),
         .mapNum = MAP_NUM(MAP_ROUTE123),
-        .x = 114,
-        .y = 20,
+        .x = 123,
+        .y = 19,
     },
 };
 
