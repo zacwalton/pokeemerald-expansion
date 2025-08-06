@@ -30,12 +30,12 @@
     },
     {
       "map": "MAP_ROUTE103",
-      "offset": 58,
+      "offset": 60,
       "direction": "right"
     },
     {
       "map": "MAP_VERDALE_FALLS",
-      "offset": -2,
+      "offset": 0,
       "direction": "right"
     },
     {

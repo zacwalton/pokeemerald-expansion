@@ -1307,3 +1307,5 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/scripts/dexnav.inc"
 
+
+	.include "data/maps/OldManor/scripts.inc"

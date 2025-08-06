@@ -25,7 +25,7 @@
     },
     {
       "map": "MAP_VERDANTURF_TOWN",
-      "offset": 0,
+      "offset": -10,
       "direction": "right"
     },
     {

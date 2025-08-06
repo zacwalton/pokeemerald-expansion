@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_LITTLEROOT_TOWN",
-      "offset": 34,
+      "offset": 30,
       "direction": "right"
     },
     {
@@ -32,6 +32,21 @@
       "map": "MAP_RUGGED_SEA_ROUTE107",
       "offset": 40,
       "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE102",
+      "offset": 30,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_PETALBURG_CITY",
+      "offset": -10,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_ROUTE101",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [],

@@ -32,6 +32,11 @@
       "map": "MAP_OLD_POWER_PLANT_UNDERWATER",
       "offset": 0,
       "direction": "dive"
+    },
+    {
+      "map": "MAP_OLDALE_RUINS",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [],

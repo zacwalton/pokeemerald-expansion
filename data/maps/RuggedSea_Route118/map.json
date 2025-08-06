@@ -52,6 +52,11 @@
       "map": "MAP_DONTO_ISLAND",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_OLD_MANOR",
+      "offset": 29,
+      "direction": "up"
     }
   ],
   "object_events": [],

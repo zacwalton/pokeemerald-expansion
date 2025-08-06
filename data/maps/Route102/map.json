@@ -20,7 +20,7 @@
     },
     {
       "map": "MAP_OLDALE_TOWN",
-      "offset": 22,
+      "offset": 24,
       "direction": "right"
     },
     {
@@ -30,7 +30,17 @@
     },
     {
       "map": "MAP_ROUTE103",
-      "offset": -8,
+      "offset": -6,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_LITTLEROOT",
+      "offset": -30,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE101",
+      "offset": 54,
       "direction": "right"
     }
   ],

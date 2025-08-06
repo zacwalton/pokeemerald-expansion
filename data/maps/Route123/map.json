@@ -42,6 +42,11 @@
       "map": "MAP_MT_PYRE_EXT",
       "offset": 112,
       "direction": "up"
+    },
+    {
+      "map": "MAP_OLD_MANOR",
+      "offset": 0,
+      "direction": "right"
     }
   ],
   "object_events": [

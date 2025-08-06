@@ -35,7 +35,7 @@
     },
     {
       "map": "MAP_PETALBURG_WOODS",
-      "offset": 2,
+      "offset": 0,
       "direction": "left"
     }
   ],

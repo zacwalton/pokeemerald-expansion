@@ -27,6 +27,16 @@
       "map": "MAP_OLDALE_RUINS",
       "offset": 30,
       "direction": "up"
+    },
+    {
+      "map": "MAP_RUGGED_SEA_LITTLEROOT",
+      "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_ROUTE102",
+      "offset": -54,
+      "direction": "left"
     }
   ],
   "object_events": [

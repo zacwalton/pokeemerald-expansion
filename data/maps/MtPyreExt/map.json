@@ -37,6 +37,11 @@
       "map": "MAP_ROUTE122_WEST",
       "offset": 30,
       "direction": "right"
+    },
+    {
+      "map": "MAP_OLD_MANOR",
+      "offset": 38,
+      "direction": "down"
     }
   ],
   "object_events": [],

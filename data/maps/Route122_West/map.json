@@ -32,6 +32,11 @@
       "map": "MAP_RUGGED_SEA_ROUTE126",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_OLD_MANOR",
+      "offset": 50,
+      "direction": "left"
     }
   ],
   "object_events": [],
