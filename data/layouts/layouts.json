@@ -5160,6 +5160,26 @@
       "secondary_tileset": "gTileset_Littleroot_Summer",
       "border_filepath": "data/layouts/OldManor/border.bin",
       "blockdata_filepath": "data/layouts/OldManor/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_LAYOUT_PINK",
+      "name": "LittlerootTown_BrendansHouse_2F_Layout_Pink",
+      "width": 9,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/LittlerootTown_BrendansHouse_2F_Layout_Pink/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_BrendansHouse_2F_Layout_Pink/map.bin"
+    },
+    {
+      "id": "LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_2F_LAYOUT_BLUE",
+      "name": "LittlerootTown_MaysHouse_2F_Layout_Blue",
+      "width": 9,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/LittlerootTown_MaysHouse_2F_Layout_Blue/border.bin",
+      "blockdata_filepath": "data/layouts/LittlerootTown_MaysHouse_2F_Layout_Blue/map.bin"
     }
   ]
 }

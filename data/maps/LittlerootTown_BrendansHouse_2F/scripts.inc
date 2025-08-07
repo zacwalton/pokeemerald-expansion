@@ -9,6 +9,12 @@ LittlerootTown_BrendansHouse_2F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
+		checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_BrendansHouse_2F_SetPinkRoom
+	end
+
+LittlerootTown_BrendansHouse_2F_SetPinkRoom::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_LAYOUT_PINK
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos::

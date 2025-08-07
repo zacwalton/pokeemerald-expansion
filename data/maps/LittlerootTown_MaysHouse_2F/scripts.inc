@@ -10,6 +10,12 @@ LittlerootTown_MaysHouse_2F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
+		checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_2F_SetBlueRoom
+	end
+
+LittlerootTown_MaysHouse_2F_SetBlueRoom::
+	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_MAYS_HOUSE_2F_LAYOUT_BLUE
 	end
 
 LittlerootTown_MaysHouse_2F_EventScript_CheckShouldUpdateMayPos::
