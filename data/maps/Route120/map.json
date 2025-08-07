@@ -413,7 +413,7 @@
     },
     {
       "local_id": "LOCALID_BRIDGE_KECLEON",
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 12,
       "y": 21,
       "elevation": 4,
@@ -506,7 +506,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_BRIDGE_SHADOW"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 20,
       "y": 16,
       "elevation": 3,
@@ -519,7 +519,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_1"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 27,
       "y": 7,
       "elevation": 3,
@@ -532,7 +532,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_2"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 5,
       "y": 82,
       "elevation": 3,
@@ -545,7 +545,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_3"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 7,
       "y": 56,
       "elevation": 3,
@@ -558,7 +558,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_5"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
       "x": 19,
       "y": 53,
       "elevation": 3,

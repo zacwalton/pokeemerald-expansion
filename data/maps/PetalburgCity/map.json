@@ -22,16 +22,6 @@
       "map": "MAP_ROUTE104",
       "offset": 1,
       "direction": "left"
-    },
-    {
-      "map": "MAP_ROUTE105",
-      "offset": -70,
-      "direction": "down"
-    },
-    {
-      "map": "MAP_RUGGED_SEA_LITTLEROOT",
-      "offset": 10,
-      "direction": "down"
     }
   ],
   "object_events": [

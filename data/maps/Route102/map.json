@@ -34,11 +34,6 @@
       "direction": "right"
     },
     {
-      "map": "MAP_RUGGED_SEA_LITTLEROOT",
-      "offset": -30,
-      "direction": "down"
-    },
-    {
       "map": "MAP_ROUTE101",
       "offset": 54,
       "direction": "right"
