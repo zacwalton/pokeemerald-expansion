@@ -28,7 +28,7 @@ SecretBase_EventScript_CheckEntrance::
 	special GetSecretBaseTypeInFrontOfPlayer
 	special CheckPlayerHasSecretBase
 	goto_if_eq VAR_RESULT, TRUE, SecretBase_EventScript_AlreadyHasSecretBase
-	checkmovefieldeffectflag  0x100000
+	checkmovefieldeffectflag  IS_FIELD_MOVE_SECRET
 	setfieldeffectargument 0, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8008
 	goto_if_eq VAR_0x8007, SECRET_BASE_RED_CAVE, SecretBase_EventScript_Cave

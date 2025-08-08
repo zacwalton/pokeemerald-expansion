@@ -1,6 +1,6 @@
 
 EventScript_UseSurf::
-	checkmovefieldeffectflag 0x0020
+	checkmovefieldeffectflag IS_FIELD_MOVE_SURF
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_EndUseSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8008
@@ -10,9 +10,9 @@ EventScript_UseSurf::
 	goto_if_eq VAR_RESULT, NO, EventScript_ReleaseUseSurf
 	msgbox gText_PlayerUsedSurf, MSGBOX_DEFAULT
 	dofieldeffect FLDEFF_USE_SURF
-	doesmovehavefieldeffect VAR_0x8008, 0x0400
+	doesmovehavefieldeffect VAR_0x8008, IS_FIELD_MOVE_WHIRLPOOL
 	call_if_eq VAR_RESULT, TRUE, EventScript_Surf_ActivateWhirlpool
-	doesmovehavefieldeffect VAR_0x8008, 0x0040
+	doesmovehavefieldeffect VAR_0x8008, IS_FIELD_MOVE_WATERFALL
 	call_if_eq VAR_RESULT, TRUE, EventScript_Surf_ActivateWaterfall
 EventScript_ReleaseUseSurf::
 	releaseall

@@ -1533,3 +1533,21 @@ bool32 FldEffBurn_IsActive(void)
 {
     return FuncIsActiveTask(Task_FieldBurnEffect);
 }
+
+bool8 FldEff_UseDetect(void)
+{
+    u8 taskId = CreateFieldMoveTask();
+
+    gTasks[taskId].data[8] = (uintptr_t)StartDetectFieldEffect >> 16;
+    gTasks[taskId].data[9] = (uintptr_t)StartDetectFieldEffect;
+	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
+    //IncrementGameStat(GAME_STAT_USED_DOUSE);
+    return FALSE;
+}
+
+void StartDetectFieldEffect(void)
+{
+    PlaySE(SE_SHIP);
+    FieldEffectActiveListRemove(FLDEFF_USE_DETECT);
+    ScriptContext_Enable();
+}

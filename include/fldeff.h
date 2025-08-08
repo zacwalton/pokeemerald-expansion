@@ -85,4 +85,9 @@ bool8 FldEff_UseDouse(void);
 bool8 SetUpFieldMove_Defog(void);
 bool8 FldEff_Defog(void);
 
+// detect
+bool8 SetUpFieldMove_Detect(void);
+bool8 FldEff_UseDetect(void);
+void StartDetectFieldEffect(void);
+
 #endif // GUARD_FLDEFF_H

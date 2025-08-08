@@ -2,7 +2,7 @@
 EventScript_CutTree::
 	lockall
 	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
-	checkmovefieldeffectflag 0x0001
+	checkmovefieldeffectflag IS_FIELD_MOVE_CUT
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -81,7 +81,7 @@ EventScript_UseRockSmash::
 EventScript_RockSmash::
 	lockall
 	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
-	checkmovefieldeffectflag 0x0002
+	checkmovefieldeffectflag IS_FIELD_MOVE_SMASH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
 	setfieldeffectargument 0, VAR_RESULT
 	copyvar VAR_0x8008, VAR_RESULT
@@ -254,7 +254,7 @@ EventScript_StrengthBoulder::
 	lockall
 	//goto_if_unset FLAG_BADGE04_GET, EventScript_CantStrength
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_CheckActivatedBoulder
-	checkmovefieldeffectflag 0x0008
+	checkmovefieldeffectflag IS_FIELD_MOVE_PUSH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantStrength
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -325,7 +325,7 @@ Text_StrengthActivated:
 
 EventScript_UseWaterfall::
 	lockall
-	checkmovefieldeffectflag 0x0040
+	checkmovefieldeffectflag IS_FIELD_MOVE_WATERFALL
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWaterfall
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8008
@@ -362,7 +362,7 @@ Text_MonUsedWaterfall:
 
 EventScript_UseDive::
 	lockall
-	checkmovefieldeffectflag 0x0080
+	checkmovefieldeffectflag IS_FIELD_MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantDive
 	copyvar 0x8004 VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -390,7 +390,7 @@ EventScript_EndDive::
 
 EventScript_UseDiveUnderwater::
 	lockall
-	checkmovefieldeffectflag 0x0080
+	checkmovefieldeffectflag IS_FIELD_MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSurface
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8008
@@ -420,7 +420,7 @@ EventScript_NoSurface::
 EventScript_Whirlpool::
 	lockall
 	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
-	checkmovefieldeffectflag 0x0400
+	checkmovefieldeffectflag IS_FIELD_MOVE_WHIRLPOOL
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWhirlpool
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, VAR_0x8008
@@ -489,7 +489,7 @@ Text_ActivateWhirlpool::
 @ Interact with a tree a Pokémon can use headbutt on
 EventScript_Headbutt::
 	lockall
-	checkmovefieldeffectflag 0x0004
+	checkmovefieldeffectflag IS_FIELD_MOVE_SHAKE
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantHeadbuttTree
 	setfieldeffectargument 0, VAR_RESULT
@@ -612,7 +612,7 @@ Text_CantHeadbuttTree:
 	
 EventScript_UseRockClimb::
 	lockall
-	checkmovefieldeffectflag 0x0010
+	checkmovefieldeffectflag IS_FIELD_MOVE_CLIMB
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantRockClimb
 	bufferpartymonnick 0, VAR_RESULT
@@ -646,7 +646,7 @@ Text_CantRockClimb:
     .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
 
 EventScript_UseLava::
-	checkmovefieldeffectflag 0x1000
+	checkmovefieldeffectflag IS_FIELD_MOVE_LAVA
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantLavaSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -685,7 +685,7 @@ Text_PlayerUsedLavaSurf:
 
 	
 EventScript_UseSludge::
-	checkmovefieldeffectflag  0x200000
+	checkmovefieldeffectflag  IS_FIELD_MOVE_SLUDGE
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantSludgeSurf
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
@@ -725,7 +725,7 @@ Text_PlayerUsedSludgeSurf:
 EventScript_DouseFire::
 	//lockall
 	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
-	checkmovefieldeffectflag 0x400000
+	checkmovefieldeffectflag IS_FIELD_MOVE_DOUSE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckCantDouse
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT

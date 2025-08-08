@@ -50,19 +50,50 @@ Route119_EventScript_Kecleon2::
 EventScript_Kecleon::
 	checkitem ITEM_DEVON_SCOPE
 	goto_if_eq VAR_RESULT, TRUE, EventScript_AskUseDevonScope
+	checkmovefieldeffectflag IS_FIELD_MOVE_DETECT
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantIdentify
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8008
+	msgbox Kecleon_Text_WantToIdentify, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CantIdentify
+	closemessage
+	goto EventScript_KecleonCommon
+	end
+	
+EventScript_KecleonCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_DETECT
+	waitstate
+	goto EventScript_KecleonBattleFieldMoveSetup
+	releaseall
+	end
+
+EventScript_CantIdentify:
 	msgbox Kecleon_Text_SomethingUnseeable, MSGBOX_DEFAULT
 	release
 	end
 
 EventScript_AskUseDevonScope::
 	msgbox Kecleon_Text_WantToUseDevonScope, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EventScript_BattleKecleon
+	goto_if_eq VAR_RESULT, YES, EventScript_KecleonBattleDevonSetup
 	release
 	end
 
-EventScript_BattleKecleon::
+EventScript_KecleonBattleDevonSetup:
 	msgbox Kecleon_Text_UseDevonScopeMonAttacked, MSGBOX_DEFAULT
 	closemessage
+	goto EventScript_BattleKecleon
+	end
+	
+EventScript_KecleonBattleFieldMoveSetup:
+	msgbox Kecleon_Text_IdentifiedMonAttacked, MSGBOX_DEFAULT
+	closemessage
+	goto EventScript_BattleKecleon
+	end
+
+EventScript_BattleKecleon::
 	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
 	waitmovement 0
 	applymovement VAR_LAST_TALKED, Movement_KecleonAppears
@@ -109,3 +140,27 @@ Movement_KecleonAppears:
 	delay_16
 	set_visible
 	step_end
+
+Kecleon_Text_SomethingUnseeable::
+	.string "Something unseeable is in the way.$"
+
+Kecleon_Text_WantToUseDevonScope::
+	.string "Something unseeable is in the way.\p"
+	.string "Want to use the DEVON SCOPE?$"
+
+Kecleon_Text_UseDevonScopeMonAttacked::
+	.string "{PLAYER} used the DEVON SCOPE.\p"
+	.string "An invisible POKéMON became completely\n"
+	.string "visible!\p"
+	.string "The startled POKéMON attacked!$"
+	
+Kecleon_Text_WantToIdentify::
+	.string "Something unseeable is in the way.\p"
+	.string "Want to identify it?$"
+
+Kecleon_Text_IdentifiedMonAttacked::
+	.string "{PLAYER} used {STR_VAR_2}.\p"
+	.string "An invisible POKéMON became completely\n"
+	.string "visible!\p"
+	.string "The startled POKéMON attacked!$"
+	

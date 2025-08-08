@@ -5185,6 +5185,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Foresight,
+		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
         .validApprenticeMove = TRUE,
     },
 
@@ -8439,6 +8440,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_OdorSleuth,
+		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
         .validApprenticeMove = TRUE,
     },
 
@@ -9500,6 +9502,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_MiracleEye,
+		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
     },
 
     [MOVE_WAKE_UP_SLAP] =
