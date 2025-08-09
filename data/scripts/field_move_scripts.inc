@@ -1,118 +1,9 @@
-@ Interact with cuttable tree
-EventScript_CutTree::
-	lockall
-	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
-	checkmovefieldeffectflag IS_FIELD_MOVE_CUT
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
-	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8008
-	goto EventScript_CutTreeSuccess
-	
-EventScript_CutTreeSuccess::
-	msgbox Text_WantToCut, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_CancelCut
-	msgbox Text_MonUsedFieldMoveCut, MSGBOX_DEFAULT
-	closemessage
-EventScript_CutTreeCommon:
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
-	dofieldeffect FLDEFF_USE_CUT_ON_TREE
-	waitstate
-EventScript_CutTreeDown:: @ fallthrough
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
-	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
-	waitmovement 0
-	removeobject VAR_LAST_TALKED
-	special CutWildEncounter
-	random 5
-    addvar VAR_RESULT, 1
-    giveitem ITEM_WOOD, VAR_RESULT
-	releaseall
-	end
-
-@ Use cut from party menu
-EventScript_UseCut::
-	lockall
-	goto EventScript_CutTreeCommon
-
-Movement_CutTreeDown:
-	cut_tree
-	step_end
-
-EventScript_CheckTreeCantCut::
-	msgbox Text_CantCut, MSGBOX_DEFAULT
-	releaseall
-	end
-
-EventScript_CancelCut::
-	closemessage
-	releaseall
-	end
-
-Text_WantToCut:
-	.string "This tree looks like it can be\n"
-	.string "{COLOR GREEN}Cut{COLOR DARK_GRAY} down!\p"
-	.string "Would you like to{COLOR GREEN} Cut {COLOR DARK_GRAY}it?$"
+@ Generic Use Text
 
 Text_MonUsedFieldMove:
 	.string "{STR_VAR_1} used{COLOR BLUE} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
-Text_MonUsedFieldMoveCut:
-	.string "{STR_VAR_1} used{COLOR GREEN} {STR_VAR_2}{COLOR DARK_GRAY}!$"
-
-Text_MonUsedFieldMoveSmash:
-	.string "{STR_VAR_1} used{COLOR RED} {STR_VAR_2}{COLOR DARK_GRAY}!$"
-
-Text_MonUsedFieldMoveShake:
-	.string "{STR_VAR_1} used{COLOR LIGHT_BLUE} {STR_VAR_2}{COLOR DARK_GRAY}!$"
-
-Text_CantCut:
-	.string "This tree looks like it can be\n"
-	.string "{COLOR GREEN}Cut {COLOR DARK_GRAY}down!$"
-
-@ Use rock smash from party menu
-EventScript_UseRockSmash::
-	lockall
-	goto EventScript_RockSmashCommon
-
-@ Interact with smashable rock
-EventScript_RockSmash::
-	lockall
-	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
-	checkmovefieldeffectflag IS_FIELD_MOVE_SMASH
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
-	setfieldeffectargument 0, VAR_RESULT
-	copyvar VAR_0x8008, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, VAR_0x8008
-	goto EventScript_RockSmashSuccess
-	
-EventScript_RockSmashSuccess::
-	msgbox Text_WantToSmash, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_CancelSmash
-	msgbox Text_MonUsedFieldMoveSmash, MSGBOX_DEFAULT
-	closemessage
-EventScript_RockSmashCommon:
-	@ check if follower should use the field move
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
-	dofieldeffect FLDEFF_USE_ROCK_SMASH
-	waitstate
-EventScript_SmashRock:: @ fallthrough
-	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
-	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
-	applymovement VAR_LAST_TALKED, Movement_SmashRock
-	waitmovement 0
-	removeobject VAR_LAST_TALKED
-	specialvar VAR_RESULT, TryUpdateRusturfTunnelState
-	goto_if_eq VAR_RESULT, TRUE, EventScript_SmashRockEndNoItem
-	special RockSmashWildEncounter
-	goto_if_eq VAR_RESULT, FALSE, EventScript_EndSmash
-	waitstate
-	releaseall
-	end
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ FOLLOWER MOVEMENT
 
 EventScript_FollowerFieldMove::
 	getdirectiontoface VAR_0x8005, OBJ_EVENT_ID_FOLLOWER, OBJ_EVENT_ID_PLAYER
@@ -216,7 +107,132 @@ Movement_WalkLeft:
 Movement_JumpLeft:
 	jump_in_place_left
 	step_end
+	
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ CUT
+
+@ Interact with cuttable tree
+EventScript_CutTree::
+	lockall
+	//goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkmovefieldeffectflag IS_FIELD_MOVE_CUT
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8008
+	goto EventScript_CutTreeSuccess
+	
+EventScript_CutTreeSuccess::
+	msgbox Text_WantToCut, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelCut
+	msgbox Text_MonUsedFieldMoveCut, MSGBOX_DEFAULT
+	closemessage
+EventScript_CutTreeCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_CUT_ON_TREE
+	waitstate
+EventScript_CutTreeDown:: @ fallthrough
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
+	waitmovement 0
+	removeobject VAR_LAST_TALKED
+	special CutWildEncounter
+	random 5
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
+
+@ Use cut from party menu
+EventScript_UseCut::
+	lockall
+	goto EventScript_CutTreeCommon
+
+Movement_CutTreeDown:
+	cut_tree
+	step_end
+
+EventScript_CheckTreeCantCut::
+	msgbox Text_CantCut, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CancelCut::
+	closemessage
+	releaseall
+	end
+	
+EventScript_CutGrassCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if true
+	dofieldeffect FLDEFF_USE_CUT_ON_GRASS
+	waitstate
+
+
+@ Use Cut grass from party menu
+EventScript_UseCutGrass::
+	lockall
+	goto EventScript_CutGrassCommon
+
+
+Text_WantToCut:
+	.string "This tree looks like it can be {COLOR GREEN}Cut{COLOR DARK_GRAY} down!\n"
+	.string "Would you like to{COLOR GREEN} Cut {COLOR DARK_GRAY}it?$"
+
+Text_MonUsedFieldMoveCut:
+	.string "{STR_VAR_1} used{COLOR GREEN} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+
+Text_CantCut:
+	.string "This tree looks like it can be {COLOR GREEN}Cut {COLOR DARK_GRAY}down!$"
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SMASH
+
+@ Use rock smash from party menu
+EventScript_UseRockSmash::
+	lockall
+	goto EventScript_RockSmashCommon
+
+
+@ Interact with smashable rock
+EventScript_RockSmash::
+	lockall
+	//goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkmovefieldeffectflag IS_FIELD_MOVE_SMASH
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8008
+	goto EventScript_RockSmashSuccess
+	
+EventScript_RockSmashSuccess::
+	msgbox Text_WantToSmash, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelSmash
+	msgbox Text_MonUsedFieldMoveSmash, MSGBOX_DEFAULT
+	closemessage
+EventScript_RockSmashCommon:
+	@ check if follower should use the field move
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_ROCK_SMASH
+	waitstate
+EventScript_SmashRock:: @ fallthrough
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	applymovement VAR_LAST_TALKED, Movement_SmashRock
+	waitmovement 0
+	removeobject VAR_LAST_TALKED
+	specialvar VAR_RESULT, TryUpdateRusturfTunnelState
+	goto_if_eq VAR_RESULT, TRUE, EventScript_SmashRockEndNoItem
+	special RockSmashWildEncounter
+	goto_if_eq VAR_RESULT, FALSE, EventScript_EndSmash
+	waitstate
+	releaseall
+	end
+	
 Movement_SmashRock:
 	rock_smash_break
 	step_end
@@ -242,13 +258,21 @@ EventScript_CancelSmash::
 	releaseall
 	end
 
+
 Text_WantToSmash:
 	.string "This rock appears to be breakable.\n"
-	.string "Would you like to {COLOR RED} Smash{COLOR DARK_GRAY} it?$"
+	.string "Would you like to{COLOR RED} Smash{COLOR DARK_GRAY} it?$"
+	
+Text_MonUsedFieldMoveSmash:
+	.string "{STR_VAR_1} used{COLOR RED} {STR_VAR_2}{COLOR DARK_GRAY}!$"
 
 Text_CantSmash:
 	.string "It's a rugged rock, but a POKéMON\n"
 	.string "may be able to {COLOR RED}Smash {COLOR DARK_GRAY}it.$"
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ PUSH
 
 EventScript_StrengthBoulder::
 	lockall
@@ -301,6 +325,7 @@ EventScript_CancelStrength::
 	releaseall
 	end
 
+
 Text_WantToStrength:
 	.string "It looks heavy, but a POKéMON\n"
 	.string "may be able to {COLOR DYNAMIC_COLOR2}push {COLOR DARK_GRAY}it aside.\p"
@@ -322,6 +347,9 @@ Text_CantStrength:
 Text_StrengthActivated:
 	.string "{STR_VAR_1} made it possible to {COLOR DYNAMIC_COLOR2}push{COLOR DARK_GRAY}\n"
 	.string "objects around.$"
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ WATERFALL
 
 EventScript_UseWaterfall::
 	lockall
@@ -349,6 +377,7 @@ EventScript_EndWaterfall::
 	releaseall
 	end
 
+
 Text_CantWaterfall:
 	.string "A wall of water is crashing down.\n"
 	.string "A Pokémon may be able to{COLOR LIGHT_GREEN} Scale{COLOR DARK_GRAY} it.$"
@@ -359,6 +388,9 @@ Text_WantToWaterfall:
 
 Text_MonUsedWaterfall:
 	.string "{STR_VAR_1} used {COLOR LIGHT_GREEN}{STR_VAR_2}{COLOR DARK_GRAY}.$"
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DIVE
 
 EventScript_UseDive::
 	lockall
@@ -416,6 +448,29 @@ EventScript_NoSurface::
 	releaseall
 	end
 	
+
+Text_CantDive:
+	.string "The sea is deep here. A POKéMON\n"
+	.string "may be able to {COLOR DYNAMIC_COLOR5}Dive {COLOR DARK_GRAY}underwater.$"
+
+Text_WantToDive:
+	.string "The sea is deep here.\n"
+	.string "Would you like to {COLOR DYNAMIC_COLOR5}Dive{COLOR DARK_GRAY}?$"
+
+Text_MonUsedDive:
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}.$"
+
+Text_CantSurface:
+	.string "Light is filtering down from above.\n"
+	.string "A POKéMON may be able to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}.$"
+
+Text_WantToSurface:
+	.string "Light is filtering down from above.\n"
+	.string "Would you like to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}?$"
+	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ WHIRLPOOL
+	
 @ Interact with fast currents
 EventScript_Whirlpool::
 	lockall
@@ -433,7 +488,13 @@ EventScript_Whirlpool::
 	goto EventScript_ActivateWhirlpool
 	end
 	
+	
 @ Use whirlpool from party menu
+EventScript_UseWhirlpool::
+	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
+	lockall
+	goto EventScript_WhirlpoolCommon
+
 EventScript_WhirlpoolCommon::
 	lockall
 	dofieldeffect FLDEFF_USE_WHIRLPOOL
@@ -443,17 +504,12 @@ EventScript_WhirlpoolCommon::
 	releaseall
 	end
 	
+	
 EventScript_ActivateWhirlpool::
 	setflag FLAG_SYS_USE_WHIRLPOOL
 	msgbox Text_PlayerUsedWhirlpool, MSGBOX_DEFAULT
 	releaseall
 	end
-	
-@ Use whirlpool from party menu
-EventScript_UseWhirlpool::
-	goto_if_set FLAG_SYS_USE_WHIRLPOOL, EventScript_CheckActivatedWhirlpool
-	lockall
-	goto EventScript_WhirlpoolCommon
 	
 EventScript_CantWhirlpool::
 	lockall
@@ -486,6 +542,9 @@ Text_ActivateWhirlpool::
 	.string "{STR_VAR_1} made it possible\n"
 	.string "to {COLOR DYNAMIC_COLOR5}surf {COLOR DARK_GRAY}the currents!$"
 
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SHAKE
+
 @ Interact with a tree a Pokémon can use headbutt on
 EventScript_Headbutt::
 	lockall
@@ -509,6 +568,8 @@ EventScript_HeadbuttCommon::
 	dofieldeffect FLDEFF_USE_HEADBUTT
 	waitstate
 	goto EventScript_HeadbuttTree
+	
+	
 @ Use headbutt from party menu
 EventScript_UseHeadbutt::
 	lockall
@@ -547,6 +608,21 @@ EventScript_CancelHeadbutt::
 	releaseall
 	end
 
+
+Text_WantToHeadbutt:
+	.string "It's a large, formidable tree.\n"
+	.string "Would you like to{COLOR LIGHT_BLUE} Shake{COLOR DARK_GRAY} it?$"
+
+Text_MonUsedFieldMoveShake:
+	.string "{STR_VAR_1} used{COLOR LIGHT_BLUE} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+
+Text_CantHeadbuttTree:
+	.string "There's a large, formidable tree.\n"
+	.string "It looks like it can be{COLOR LIGHT_BLUE} Shook{COLOR DARK_GRAY}!$"
+	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DIG
+
 EventScript_DigCommon:
 	isfollowerfieldmoveuser VAR_0x8004
 	setfieldeffectargument 3, VAR_0x8004 @ skip pose if true
@@ -558,57 +634,15 @@ EventScript_DigSealedChamber:: @ fallthrough
 	callnative DoBrailleDigEffect
 	releaseall
 	end
-
+	
+	
 @ Use Dig from party menu
 EventScript_UseDig::
 	lockall
 	goto EventScript_DigCommon
+	
 
-
-EventScript_CutGrassCommon:
-	isfollowerfieldmoveuser VAR_0x8004
-	setfieldeffectargument 3, VAR_0x8004 @ skip pose if true
-	dofieldeffect FLDEFF_USE_CUT_ON_GRASS
-	waitstate
-
-@ Use Cut grass from party menu
-EventScript_UseCutGrass::
-	lockall
-	goto EventScript_CutGrassCommon
-
-Text_CantDive:
-	.string "The sea is deep here. A POKéMON\n"
-	.string "may be able to {COLOR DYNAMIC_COLOR5}Dive {COLOR DARK_GRAY}underwater.$"
-
-Text_WantToDive:
-	.string "The sea is deep here.\n"
-	.string "Would you like to {COLOR DYNAMIC_COLOR5}Dive{COLOR DARK_GRAY}?$"
-
-Text_MonUsedDive:
-	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR5} {STR_VAR_2}{COLOR DARK_GRAY}.$"
-
-Text_CantSurface:
-	.string "Light is filtering down from above.\n"
-	.string "A POKéMON may be able to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}.$"
-
-Text_WantToSurface:
-	.string "Light is filtering down from above.\n"
-	.string "Would you like to {COLOR DYNAMIC_COLOR5}Surface{COLOR DARK_GRAY}?$"
-
-EventScript_FailSweetScent::
-	msgbox Text_FailSweetScent, MSGBOX_SIGN
-	end
-
-Text_FailSweetScent:
-	.string "Looks like there's nothing here…$"
-
-Text_WantToHeadbutt:
-	.string "It's a large, formidable tree.\n"
-	.string "Would you like to{COLOR LIGHT_BLUE} Shake{COLOR DARK_GRAY} it?$"
-
-Text_CantHeadbuttTree:
-	.string "There's a large, formidable tree.\n"
-	.string "It looks like it can be{COLOR LIGHT_BLUE} Shook{COLOR DARK_GRAY}!$"
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ CLIMB
 	
 EventScript_UseRockClimb::
 	lockall
@@ -634,6 +668,7 @@ EventScript_EndRockClimb::
 	releaseall
 	end
 	
+	
 Text_WantToRockClimb:
     .string "The cliff is steep.\n"
     .string "Would you like to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it?$"
@@ -644,6 +679,9 @@ Text_MonUsedRockClimb:
 Text_CantRockClimb:
     .string "The cliff is steep.\n"
     .string "A Pokémon may be able to{COLOR LIGHT_GREEN} Climb{COLOR DARK_GRAY} it.$"
+	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ LAVA
 
 EventScript_UseLava::
 	checkmovefieldeffectflag IS_FIELD_MOVE_LAVA
@@ -672,6 +710,7 @@ EventScript_CancelLavaSurf::
 	releaseall
 	end
 
+
 Text_CantLavaSurf:
 	.string "The lava is hot and bubbling.\n$"
 	
@@ -683,6 +722,7 @@ Text_PlayerUsedLavaSurf:
     .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
 	
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SLUDGE
 	
 EventScript_UseSludge::
 	checkmovefieldeffectflag  IS_FIELD_MOVE_SLUDGE
@@ -710,6 +750,7 @@ EventScript_CantSludgeSurf::
 EventScript_CancelSludgeSurf::
 	releaseall
 	end
+	
 
 Text_CantSludgeSurf:
 	.string "The water is foul and contaminated.\n$"
@@ -720,6 +761,9 @@ Text_WantToUseSludgeSurf:
 
 Text_PlayerUsedSludgeSurf:
     .string "{STR_VAR_1} used {COLOR DYNAMIC_COLOR5}{STR_VAR_2}{COLOR DARK_GRAY}!$"
+	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DOUSE
 	
 @ Interact with large fire
 EventScript_DouseFire::
@@ -753,6 +797,7 @@ EventScript_DouseFireDown:: @ fallthrough
 	goto_if_eq VAR_RESULT, 1, EventScript_DouseFireItem
 	releaseall
 	end
+
 
 @ Use Douse from party menu
 EventScript_UseDouse::
@@ -790,6 +835,9 @@ Text_MonUsedFieldMoveDouse:
 Text_CantDouse:
 	.string "This fire looks like it can be {COLOR DYNAMIC_COLOR6}Doused{COLOR DARK_GRAY}!$"
 	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DEFOG
+	
 EventScript_UseDefog::
     lockall
     isfollowerfieldmoveuser VAR_0x8004
@@ -809,6 +857,9 @@ EventScript_UseDefog::
 Text_ActivateDefog::
 	.string "{STR_VAR_1} cleared the{COLOR BLUE} fog{COLOR DARK_GRAY}!$"
 
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SWEET SCENT
+
 EventScript_UseSweetScent::
     lockall
     isfollowerfieldmoveuser VAR_0x8004
@@ -821,7 +872,17 @@ EventScript_UseSweetScent::
     releaseall
     end
 	
+EventScript_FailSweetScent::
+	msgbox Text_FailSweetScent, MSGBOX_SIGN
+	end
+
+
+Text_FailSweetScent:
+	.string "Looks like there's nothing here…$"
 	
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ REVEAL
+
 @ Interact with hidden Kecleon
 EventScript_RevealKecleon::
 	lockall
@@ -915,6 +976,7 @@ Movement_KecleonAppears:
 	delay_16
 	set_visible
 	step_end
+
 
 @ Use reveal from party menu
 EventScript_UseReveal_Kecleon::
