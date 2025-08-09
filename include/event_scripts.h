@@ -697,4 +697,5 @@ extern const u8 EventScript_TooDark[];
 extern const u8 EventScript_MovedTooFast[];
 
 extern const u8 Eventscript_Harvest_Tile[];
+extern const u8 EventScript_UseReveal_Kecleon[];
 #endif // GUARD_EVENT_SCRIPTS_H

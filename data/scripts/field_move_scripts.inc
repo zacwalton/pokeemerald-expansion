@@ -114,7 +114,7 @@ EventScript_SmashRock:: @ fallthrough
 	releaseall
 	end
 
-EventScript_FollowerFieldMove:
+EventScript_FollowerFieldMove::
 	getdirectiontoface VAR_0x8005, OBJ_EVENT_ID_FOLLOWER, OBJ_EVENT_ID_PLAYER
 	specialvar VAR_0x8006, GetPlayerFacingDirection
 	goto_if_eq VAR_0x8005, DIR_NONE, EventScript_FollowerFieldMoveEnd
@@ -822,3 +822,141 @@ EventScript_UseSweetScent::
     end
 	
 	
+@ Interact with hidden Kecleon
+EventScript_RevealKecleon::
+	lockall
+	checkitem ITEM_DEVON_SCOPE
+	goto_if_eq VAR_RESULT, TRUE, EventScript_AskUseDevonScope
+	checkmovefieldeffectflag IS_FIELD_MOVE_REVEAL
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantReveal
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	buffermovename STR_VAR_2, VAR_0x8008
+	goto EventScript_RevealSuccess
+	
+EventScript_RevealSuccess::
+	msgbox Text_WantToReveal, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelReveal
+	msgbox Text_MonUsedFieldMoveReveal, MSGBOX_DEFAULT
+	closemessage
+EventScript_RevealKecleonCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_REVEAL
+	waitstate
+EventScript_RevealedKecleon:: @ fallthrough
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	waitmovement 0
+	goto EventScript_KecleonBattleMoveSetup
+	releaseall
+	end
+	
+EventScript_AskUseDevonScope::
+	msgbox Text_WantToUseDevonScope, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_KecleonBattleDevonSetup
+	release
+	end
+	
+EventScript_KecleonBattleDevonSetup:
+	msgbox Text_UseDevonScopeMonAttacked, MSGBOX_DEFAULT
+	closemessage
+	goto EventScript_BattleKecleon
+	end
+	
+EventScript_KecleonBattleMoveSetup:
+	msgbox Text_RevealedMonAttacked, MSGBOX_DEFAULT
+	closemessage
+	goto EventScript_BattleKecleon
+	end
+
+EventScript_BattleKecleon::
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	applymovement VAR_LAST_TALKED, Movement_KecleonAppears
+	waitmovement 0
+	waitse
+	playmoncry SPECIES_KECLEON, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setwildbattle SPECIES_KECLEON, 30
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, EventScript_RemoveKecleon
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, EventScript_RemoveKecleon
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, EventScript_RemoveKecleon
+	release
+	end
+	
+EventScript_RemoveKecleon::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+Movement_KecleonAppears:
+	set_visible
+	delay_4
+	set_invisible
+	delay_4
+	set_visible
+	delay_4
+	set_invisible
+	delay_4
+	set_visible
+	delay_8
+	set_invisible
+	delay_8
+	set_visible
+	delay_8
+	set_invisible
+	delay_8
+	set_visible
+	delay_16
+	set_invisible
+	delay_16
+	set_visible
+	step_end
+
+@ Use reveal from party menu
+EventScript_UseReveal_Kecleon::
+	lockall
+	goto EventScript_RevealKecleonCommon
+
+EventScript_CantReveal::
+	msgbox Text_CantReveal, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CancelReveal::
+	closemessage
+	releaseall
+	end
+
+Text_WantToReveal:
+	.string "Something unseeable is in the way.\p"
+	.string "Want to{COLOR DYNAMIC_COLOR4} reveal{COLOR DARK_GRAY} it?$"
+
+Text_MonUsedFieldMoveReveal:
+	.string "{STR_VAR_1} used{COLOR DYNAMIC_COLOR4} {STR_VAR_2}{COLOR DARK_GRAY}!$"
+
+Text_RevealMonAttacks::
+	.string "{STR_VAR_1} used {STR_VAR_2}.\p"
+	.string "Something appeared!\n"
+	.string "The startled POKéMON attacked!$"
+
+Text_RevealedMonAttacked::
+	.string "Something appeared!\n"
+	.string "The startled POKéMON attacked!$"
+	
+Text_WantToUseDevonScope::
+	.string "Something unseeable is in the way.\p"
+	.string "Want to use the DEVON SCOPE?$"
+	
+Text_UseDevonScopeMonAttacked::
+	.string "{PLAYER} used the DEVON SCOPE.\p"
+	.string "Something appeared!\n"
+	.string "The startled POKéMON attacked!$"
+
+Text_CantReveal:
+	.string "Something unseeable is in the way.$"
+	
+

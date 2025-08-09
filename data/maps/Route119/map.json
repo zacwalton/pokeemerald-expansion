@@ -485,7 +485,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 42,
       "y": 10,
       "elevation": 3,
@@ -494,11 +494,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route119_EventScript_Kecleon1",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_119_KECLEON_1"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 34,
       "y": 21,
       "elevation": 3,
@@ -507,7 +507,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route119_EventScript_Kecleon2",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_119_KECLEON_2"
     },
     {

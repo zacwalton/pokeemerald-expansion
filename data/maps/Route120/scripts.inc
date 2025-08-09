@@ -6,7 +6,7 @@ Route120_MapScripts::
 	.byte 0
 
 Route120_OnResume:
-	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, Route120_EventScript_RemoveKecleonObject
+@	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, Route120_EventScript_RemoveKecleonObject
 	end
 
 Route120_EventScript_RemoveKecleonObject::
@@ -251,7 +251,7 @@ Route120_Movement_ApproachKecleonWest:
 	step_end
 
 Route120_EventScript_BridgeKecleon::
-	msgbox Kecleon_Text_SomethingUnseeable, MSGBOX_NPC
+	msgbox Text_CantReveal, MSGBOX_NPC
 	end
 
 Route120_EventScript_RouteSignFortree::

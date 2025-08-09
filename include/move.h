@@ -190,7 +190,7 @@ enum FieldMoveType
 	IS_FIELD_MOVE_SECRET	= 1 << 20,		// 0x100000		Secret Power
 	IS_FIELD_MOVE_SLUDGE	= 1 << 21,		// 0x200000		Sludge Wave - Surf Toxic Water
 	IS_FIELD_MOVE_DOUSE 	= 1 << 22,		// 0x400000		Extinguish Fires
-	IS_FIELD_MOVE_DETECT 	= 1 << 23,		// 0x800000		Identify Hidden Objects
+	IS_FIELD_MOVE_REVEAL 	= 1 << 23,		// 0x800000		Identify Hidden Objects
     IS_FIELD_MOVE_UNUSED1   = 1 << 24,      // 0x01000000   Unused
     IS_FIELD_MOVE_UNUSED2   = 1 << 25,      // 0x02000000   Unused
     IS_FIELD_MOVE_UNUSED3   = 1 << 26,      // 0x04000000   Unused

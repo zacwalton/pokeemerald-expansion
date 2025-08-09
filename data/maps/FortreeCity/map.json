@@ -109,7 +109,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 25,
       "y": 11,
       "elevation": 3,
@@ -118,7 +118,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "FortreeCity_EventScript_Kecleon",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_FORTREE_CITY_KECLEON"
     }
   ],

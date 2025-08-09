@@ -90,7 +90,7 @@ gFieldEffectScriptPointers::
 
 	.4byte gFieldEffectScript_CaveDust                  @ FLDEFF_CAVE_DUST
 	.4byte gFieldEffectScript_Defog                     @ FLDEFF_DEFOG
-	.4byte gFieldEffectScript_UseDetect        	        @ FLDEFF_USE_DETECT
+	.4byte gFieldEffectScript_UseReveal        	        @ FLDEFF_USE_REVEAL
 
 gFieldEffectScript_ExclamationMarkIcon1::
 	field_eff_callnative FldEff_ExclamationMarkIcon
@@ -426,6 +426,6 @@ gFieldEffectScript_Defog::
     field_eff_callnative FldEff_Defog
     field_eff_end
 	
-gFieldEffectScript_UseDetect:: 
-	field_eff_callnative FldEff_UseDetect
+gFieldEffectScript_UseReveal:: 
+	field_eff_callnative FldEff_UseReveal
 	field_eff_end

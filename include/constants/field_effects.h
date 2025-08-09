@@ -84,7 +84,7 @@
 #define FLDEFF_USE_DOUSE				 79
 #define FLDEFF_CAVE_DUST                 80
 #define FLDEFF_DEFOG			 	 	 81
-#define FLDEFF_USE_DETECT		 	 	 82
+#define FLDEFF_USE_REVEAL		 	 	 82
 
 #define FLDEFFOBJ_SHADOW_S              0
 #define FLDEFFOBJ_SHADOW_M              1

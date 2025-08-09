@@ -276,6 +276,10 @@ enum {
 	FIELD_MOVE_SCALD,
 	FIELD_MOVE_WATER_PLEDGE,
 	FIELD_MOVE_CHILLING_WATER,
+	FIELD_MOVE_FORESIGHT,
+	FIELD_MOVE_ODOR_SLEUTH,
+	FIELD_MOVE_MIRACLE_EYE,
+	FIELD_MOVE_DETECT,
     FIELD_MOVES_COUNT
 };
 
@@ -2938,7 +2942,7 @@ static u8 DisplaySelectionWindow(u8 windowType)
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
 				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
 					fontColorsId = 4; //Light Gray
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_HP)
+				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_REVEAL)
 					fontColorsId = 14; //Dynamic 4 (Pink)
 				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SECRET)
 					fontColorsId = 11; //Blue

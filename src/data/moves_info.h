@@ -5185,7 +5185,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Foresight,
-		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
         .validApprenticeMove = TRUE,
     },
 
@@ -5297,6 +5297,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_TAUNT},
         .battleAnimScript = gBattleAnimMove_Detect,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
         .validApprenticeMove = TRUE,
     },
 
@@ -8440,7 +8441,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_OdorSleuth,
-		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
         .validApprenticeMove = TRUE,
     },
 
@@ -9502,7 +9503,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_MiracleEye,
-		.fieldMoveFlags = IS_FIELD_MOVE_DETECT,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
     },
 
     [MOVE_WAKE_UP_SLAP] =

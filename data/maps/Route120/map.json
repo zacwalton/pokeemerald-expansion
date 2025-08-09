@@ -413,7 +413,7 @@
     },
     {
       "local_id": "LOCALID_BRIDGE_KECLEON",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 12,
       "y": 21,
       "elevation": 4,
@@ -450,7 +450,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "EventScript_CutTree",
-      "flag": "FLAG_TEMP_14"
+      "flag": "FLAG_UNUSED_0x068"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
@@ -506,7 +506,7 @@
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_BRIDGE_SHADOW"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 20,
       "y": 16,
       "elevation": 3,
@@ -515,11 +515,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route120_EventScript_Kecleon1",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_1"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 27,
       "y": 7,
       "elevation": 3,
@@ -528,11 +528,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route120_EventScript_Kecleon2",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_2"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 5,
       "y": 82,
       "elevation": 3,
@@ -541,11 +541,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route120_EventScript_Kecleon3",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_3"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 7,
       "y": 56,
       "elevation": 3,
@@ -554,11 +554,11 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route120_EventScript_Kecleon5",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_5"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KECLEON)",
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
       "x": 19,
       "y": 53,
       "elevation": 3,
@@ -567,7 +567,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route120_EventScript_Kecleon4",
+      "script": "EventScript_RevealKecleon",
       "flag": "FLAG_HIDE_ROUTE_120_KECLEON_4"
     },
     {
@@ -608,6 +608,19 @@
       "trainer_sight_or_berry_tree_id": "ITEM_REVIVE",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_ROUTE_120_REVIVE"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_KECLEON",
+      "x": 20,
+      "y": 7,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_INVISIBLE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_RevealKecleon",
+      "flag": "FLAG_UNUSED_0x055"
     }
   ],
   "warp_events": [

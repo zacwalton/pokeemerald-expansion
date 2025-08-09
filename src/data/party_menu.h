@@ -126,7 +126,7 @@ static const u8 sFontColorTable[][3] =
     {TEXT_COLOR_WHITE,       TEXT_COLOR_BLUE,  			TEXT_COLOR_LIGHT_GRAY}, // Field moves			11 Misc
     {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_5,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			12 Surf		(Blue)
     {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_6,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			13 Douse	(Cyan)
-    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_4,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			14 HP		(Pink)
+    {TEXT_COLOR_WHITE,       TEXT_DYNAMIC_COLOR_4,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			14 Reveal	(Pink)
     {TEXT_COLOR_WHITE,       TEXT_COLOR_LIGHT_BLUE,  	TEXT_COLOR_LIGHT_GRAY}, // Field moves			15 Shake
     {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE,      	TEXT_COLOR_DARK_GRAY},  // Unused				16
 };
@@ -942,6 +942,10 @@ static const u16 sFieldMoves[FIELD_MOVES_COUNT + 1] =
     [FIELD_MOVE_SCALD]  = MOVE_SCALD,
     [FIELD_MOVE_WATER_PLEDGE]  = MOVE_WATER_PLEDGE,
     [FIELD_MOVE_CHILLING_WATER]  = MOVE_CHILLING_WATER,
+    [FIELD_MOVE_FORESIGHT]  = MOVE_FORESIGHT,
+    [FIELD_MOVE_ODOR_SLEUTH]  = MOVE_ODOR_SLEUTH,
+    [FIELD_MOVE_MIRACLE_EYE]  = MOVE_MIRACLE_EYE,
+    [FIELD_MOVE_DETECT]  = MOVE_DETECT,
     // NOTE: This value is used as the terminal value for the table. There's no reason to do this, as the size of the table is known.
     //       Whichever move shares this value (MOVE_SWORDS_DANCE by default) if present will be treated as the end of the array rather than a field move.
     [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT
@@ -1097,6 +1101,10 @@ struct
     [FIELD_MOVE_SCALD]  = {SetUpFieldMove_Douse,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_WATER_PLEDGE]  = {SetUpFieldMove_Douse,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_CHILLING_WATER]  = {SetUpFieldMove_Douse,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_FORESIGHT]  = {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_ODOR_SLEUTH]  = {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_MIRACLE_EYE]  = {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_DETECT]  = {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
 };
 
 static const u8 *const sUnionRoomTradeMessages[] =
