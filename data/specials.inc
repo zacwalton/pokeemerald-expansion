@@ -168,6 +168,7 @@ gSpecials::
 	def_special GetPlayerTrainerIdOnesDigit
 	def_special GetPlayerBigGuyGirlString
 	def_special GetRivalSonDaughterString
+	def_special GetRivalBoyGirlString
 	def_special SetHiddenItemFlag
 	def_special CableCarWarp
 	def_special CableCar
@@ -578,3 +579,4 @@ gSpecials::
 	def_special CutWildEncounter
 	def_special DouseWildEncounter
 	def_special CreateFollowMonEncounter
+	def_special DoRivalNamingScreen

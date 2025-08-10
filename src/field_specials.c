@@ -156,6 +156,8 @@ static const u8 sText_BigGuy[] = _("Big guy");
 static const u8 sText_BigGirl[] = _("Big girl");
 static const u8 sText_Son[] = _("son");
 static const u8 sText_Daughter[] = _("daughter");
+static const u8 sText_Boy[] = _("boy");
+static const u8 sText_Girl[] = _("girl");
 static const u8 sText_99TimesPlus[] = _("99 times +");
 static const u8 sText_1MinutePlus[] = _("1 minute +");
 static const u8 sText_SpaceSeconds[] = _(" seconds");
@@ -940,6 +942,14 @@ void GetRivalSonDaughterString(void)
         StringCopy(gStringVar1, sText_Daughter);
     else
         StringCopy(gStringVar1, sText_Son);
+}
+
+void GetRivalBoyGirlString(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        StringCopy(gStringVar1, sText_Girl);
+    else
+        StringCopy(gStringVar1, sText_Boy);
 }
 
 u8 GetBattleOutcome(void)
@@ -4445,4 +4455,9 @@ void RockSmashFindItem(void)
 		}
 		else
 			gSpecialVar_Result = FALSE;
+}
+
+void DoRivalNamingScreen(void)
+{
+    DoNamingScreen(NAMING_SCREEN_RIVAL, gSaveBlock1Ptr->rivalName, 0, 0, 0, CB2_ReturnToFieldContinueScript);
 }

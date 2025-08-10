@@ -1170,6 +1170,7 @@ struct SaveBlock1
 #endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3???
+    u8 rivalName[PLAYER_NAME_LENGTH + 1];
 };
 
 extern struct SaveBlock1 *gSaveBlock1Ptr;

@@ -129,6 +129,55 @@ PlayersHouse_1F_EventScript_SetWatchedBroadcast::
 	releaseall
 	end
 
+PlayersHouse_1F_EventScript_WrongTrainerCard::
+	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	call PlayersHouse_1F_EventScript_MomNoticeMail
+	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachMomTrainerCard
+	waitmovement 0
+	special GetRivalBoyGirlString
+	msgbox PlayersHouse_1F_Text_TrainerCardMail, MSGBOX_DEFAULT
+	closemessage
+	playse MUS_OBTAIN_ITEM
+	waitse
+	msgbox PlayersHouse_1F_Text_TrainerCardMailWrong, MSGBOX_DEFAULT
+	closemessage
+	special DoRivalNamingScreen
+	waitstate
+	msgbox PlayersHouse_1F_Text_MomDirectToNeighbour, MSGBOX_DEFAULT
+	closemessage
+	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
+	end
+		
+PlayersHouse_1F_EventScript_MomNoticeMail::
+	playse SE_PIN
+	applymovement VAR_0x8005, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox PlayersHouse_1F_Text_OhComeQuickly, MSGBOX_DEFAULT
+	closemessage
+	return
+		
+PlayersHouse_1F_Text_TrainerCardMail:
+	.string "MOM: Look! Your Trainer Card arrived\n"
+	.string "in the mail!$"
+		
+PlayersHouse_1F_Text_TrainerCardMailWrong:
+	.string "Oh... \p"
+	.string "It's got the wrong name on it.\n"
+	.string "Hang on...\p"
+	.string "What did I say the {STR_VAR_1} next door's\n"
+	.string "name was again?$"
+
+PlayersHouse_1F_Text_MomDirectToNeighbour:
+	.string "Ah. {RIVAL}. I see.\n"
+	.string "They must have got mixed up in the mail.\n"
+	.string "I bet next door has your card.\p"
+	.string "You should head over and introduce \n"
+	.string "yourself$"
+
+
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -356,7 +405,7 @@ PlayersHouse_1F_EventScript_Vigoroth1::
 	lock
 	faceplayer
 	waitse
-	playmoncry SPECIES_VIGOROTH, CRY_MODE_NORMAL
+	playmoncry SPECIES_MACHOKE, CRY_MODE_NORMAL
 	msgbox PlayersHouse_1F_Text_Vigoroth1, MSGBOX_DEFAULT
 	waitmoncry
 	release
@@ -366,11 +415,16 @@ PlayersHouse_1F_EventScript_Vigoroth2::
 	lock
 	faceplayer
 	waitse
-	playmoncry SPECIES_VIGOROTH, CRY_MODE_NORMAL
+	playmoncry SPECIES_MACHOKE, CRY_MODE_NORMAL
 	msgbox PlayersHouse_1F_Text_Vigoroth2, MSGBOX_DEFAULT
 	waitmoncry
 	release
 	end
+
+PlayersHouse_1F_Movement_PlayerApproachMomTrainerCard:
+	walk_down
+	walk_down
+	step_end
 
 PlayersHouse_1F_Movement_PlayerApproachTVForGymMale:
 	walk_down
