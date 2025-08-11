@@ -155,6 +155,7 @@ PlayersHouse_1F_EventScript_MomNoticeMail::
 	waitmovement 0
 	applymovement VAR_0x8005, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
+	delay 20
 	msgbox PlayersHouse_1F_Text_OhComeQuickly, MSGBOX_DEFAULT
 	closemessage
 	return
@@ -171,11 +172,11 @@ PlayersHouse_1F_Text_TrainerCardMailWrong:
 	.string "name was again?$"
 
 PlayersHouse_1F_Text_MomDirectToNeighbour:
-	.string "Ah. {RIVAL}. I see.\n"
+	.string "Ah. {RIVAL}... I see.\n"
 	.string "They must have got mixed up in the mail.\n"
 	.string "I bet next door has your card.\p"
 	.string "You should head over and introduce \n"
-	.string "yourself$"
+	.string "yourself.$"
 
 
 PlayersHouse_1F_EventScript_PetalburgGymReportMale::
