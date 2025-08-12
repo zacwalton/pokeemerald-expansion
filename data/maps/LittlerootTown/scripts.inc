@@ -90,15 +90,15 @@ LittlerootTown_EventScript_Summer::
 	end
 	
 LittlerootTown_EventScript_Autumn::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_AUTUMN
+@	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_AUTUMN
 	end
 
 LittlerootTown_EventScript_Winter::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_WINTER
+@	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_WINTER
 	end
 	
 LittlerootTown_EventScript_Spring::
-	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SPRING
+@	setmaplayoutindex LAYOUT_LITTLEROOT_TOWN_SPRING
 	end	
 
 
@@ -1105,3 +1105,380 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
 
+LittlerootTown_EventScript_LabDoorPokemonEscape::
+	lockall
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2
+	clearflag FLAG_HIDE_STARTER_TREECKO
+	clearflag FLAG_HIDE_STARTER_TORCHIC
+	clearflag FLAG_HIDE_STARTER_MUDKIP
+	playse SE_PIN
+	applymovement LOCALID_PLAYER, Common_Movement_ExclamationMark
+	waitmovement 0
+	delay 20
+	playse SE_BIKE_HOP
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerJumpBackFromLab
+	waitmovement 0
+	call LittlerootTown_EventScript_OpenBirchLabDoor
+	setobjectxyperm LOCALID_STARTER_TREECKO, 27, 7
+	addobject LOCALID_STARTER_TREECKO
+	applymovement LOCALID_STARTER_TREECKO, LittlerootTown_Movement_StarterRunOutDoor
+	delay 15
+@	removeobject LOCALID_STARTER_TREECKO
+	setobjectxyperm LOCALID_STARTER_TREECKO, 15, 3
+	setobjectxyperm LOCALID_STARTER_TORCHIC, 27, 7
+	addobject LOCALID_STARTER_TORCHIC
+	applymovement LOCALID_STARTER_TORCHIC, LittlerootTown_Movement_StarterRunOutDoor
+	delay 15
+@	removeobject LOCALID_STARTER_TORCHIC
+	setobjectxyperm LOCALID_STARTER_TORCHIC, 3, 3
+	setobjectxyperm LOCALID_STARTER_MUDKIP, 27, 7
+	addobject LOCALID_STARTER_MUDKIP
+	applymovement LOCALID_STARTER_MUDKIP, LittlerootTown_Movement_StarterRunOutDoor
+	delay 15
+@	removeobject LOCALID_STARTER_MUDKIP
+	setobjectxyperm LOCALID_STARTER_MUDKIP, 13, 18
+	addobject LOCALID_LITTLEROOT_RIVAL2
+	setobjectxy LOCALID_LITTLEROOT_RIVAL2, 27, 7	
+	applymovement LOCALID_LITTLEROOT_RIVAL2, LittlerootTown_Movement_MayRunOutDoor
+	call LittlerootTown_EventScript_CloseBirchLabDoor
+	waitmovement
+	delay 15
+@	removeobject LOCALID_LITTLEROOT_RIVAL2
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL2, 10, 2	
+	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL2, MOVEMENT_TYPE_FACE_DOWN
+	call LittlerootTown_EventScript_OpenBirchLabDoor
+	addobject LOCALID_LITTLEROOT_BIRCH2
+	setobjectxy LOCALID_LITTLEROOT_BIRCH2, 27, 7	
+	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_WalkDown
+	waitmovement
+	call LittlerootTown_EventScript_CloseBirchLabDoor
+	msgbox LittlerootTown_Text_BirchCatchThem, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_ExclamationMark
+	waitmovement
+	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_FacePlayer
+	waitmovement
+	msgbox LittlerootTown_Text_BirchIntroducePlayer, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_BIRCH2, LittlerootTown_Movement_BirchChaseAfterStarters
+	waitmovement
+@	removeobject LOCALID_LITTLEROOT_BIRCH2
+	setobjectxyperm LOCALID_LITTLEROOT_BIRCH2, 11, 2	
+	setobjectmovementtype LOCALID_LITTLEROOT_BIRCH2, MOVEMENT_TYPE_FACE_DOWN
+@	addobject LOCALID_STARTER_TREECKO
+@	addobject LOCALID_STARTER_TORCHIC
+@	addobject LOCALID_STARTER_MUDKIP
+@	addobject LOCALID_LITTLEROOT_RIVAL2
+@	addobject LOCALID_LITTLEROOT_BIRCH2
+	call LittlerootTown_EventScript_LabEscapeMoveOffScreen
+	setvar VAR_LITTLEROOT_TOWN_STATE, 1
+	releaseall
+	end
+	
+LittlerootTown_EventScript_LabEscapeMoveOffScreen:
+	applymovement LOCALID_STARTER_TREECKO, LittlerootTown_Movement_BirchChaseMoveOffscreen
+	applymovement LOCALID_STARTER_TORCHIC, LittlerootTown_Movement_BirchChaseMoveOffscreen
+	applymovement LOCALID_STARTER_MUDKIP, LittlerootTown_Movement_BirchChaseMoveOffscreen
+	applymovement LOCALID_LITTLEROOT_RIVAL2, LittlerootTown_Movement_BirchChaseMoveOffscreen
+	applymovement LOCALID_LITTLEROOT_BIRCH2, LittlerootTown_Movement_BirchChaseMoveOffscreen
+	waitmovement
+	return
+	
+LittlerootTown_Movement_PlayerJumpBackFromLab::
+	face_left
+	lock_facing_direction
+	jump_right
+	unlock_facing_direction
+	step_end
+
+LittlerootTown_EventScript_OpenBirchLabDoor::
+	opendoor 27, 7
+	waitdooranim
+	return
+
+LittlerootTown_EventScript_CloseBirchLabDoor::
+	closedoor 27, 7
+	waitdooranim
+	return
+
+LittlerootTown_Movement_StarterRunOutDoor:
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	step_end
+
+LittlerootTown_Movement_MayRunOutDoor:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+LittlerootTown_Movement_BirchChaseAfterStarters:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+	
+LittlerootTown_Movement_BirchChaseMoveOffscreen:
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	step_end
+
+LittlerootTown_Text_BirchCatchThem:
+	.string "Catch them {RIVAL}!!!$"
+
+LittlerootTown_Text_BirchIntroducePlayer:
+	.string "Hi! You must be {PLAYER}.\n"
+	.string "Sorry, can't stop!\p"
+	.string "Make yourself useful would you?\p"
+	.string "Can you find one of the pokémon\n"
+	.string "that fled the lab?\p"
+	.string "If you can get it to follow you\n"
+	.string "back into the lab, i'll reward you.\p"
+	.string "Anyways...\n"
+	.string "Got to run!$"
+	
+LittlerootTown_EventScript_DestroyStarterFollowerTreecko::
+	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Treecko
+	waitmovement
+	destroyfollowernpc
+	return
+	
+LittlerootTown_EventScript_DestroyStarterFollowerTorchic::
+	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Torchic
+	waitmovement
+	destroyfollowernpc
+	return
+	
+LittlerootTown_EventScript_DestroyStarterFollowerMudkip::
+	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Mudkip
+	waitmovement
+	destroyfollowernpc
+	return
+	
+LittlerootTown_Movement_StarterExit_Treecko:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+	
+LittlerootTown_Movement_StarterExit_Torchic:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+	
+LittlerootTown_Movement_StarterExit_Mudkip:
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+	
+LittlerootTown_EventScript_TerminateScript::
+	releaseall
+	end
+	
+LittlerootTown_EventScript_StartRecruit_Treecko::
+	faceplayer
+	playmoncry SPECIES_TREECKO, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Treecko, MSGBOX_DEFAULT
+	waitmoncry
+	goto_if_set FLAG_HIDE_STARTER_TREECKO, LittlerootTown_EventScript_TerminateScript
+	msgbox LittlerootTown_Text_StartRecruit_Treecko, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_StartRecruit_TreeckoConfirmed
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_Interact_Treecko::
+	faceplayer
+	playmoncry SPECIES_TREECKO, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Treecko, MSGBOX_DEFAULT
+	waitmoncry
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_StartRecruit_TreeckoConfirmed:
+	playfanfare MUS_CAUGHT
+	waitfanfare
+	msgbox LittlerootTown_Text_Start_TreeckoJoined, MSGBOX_DEFAULT
+	closemessage
+	checkfollowernpc 
+	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerTreecko
+	setfollowernpc LOCALID_STARTER_TREECKO, FNPC_NONE, LittlerootTown_EventScript_Interact_Treecko, 0
+	removeobject LOCALID_STARTER_TREECKO
+	clearflag FLAG_HIDE_STARTER_TORCHIC
+	clearflag FLAG_HIDE_STARTER_MUDKIP
+	releaseall
+	end
+	
+	
+LittlerootTown_EventScript_StartRecruit_Torchic::
+	faceplayer
+	playmoncry SPECIES_TORCHIC, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Torchic, MSGBOX_DEFAULT
+	waitmoncry
+	goto_if_set FLAG_HIDE_STARTER_TORCHIC, LittlerootTown_EventScript_TerminateScript
+	msgbox LittlerootTown_Text_StartRecruit_Torchic, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_StartRecruit_TorchicConfirmed
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_Interact_Torchic::
+	faceplayer
+	playmoncry SPECIES_TORCHIC, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Torchic, MSGBOX_DEFAULT
+	waitmoncry
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_StartRecruit_TorchicConfirmed:
+	releaseall
+	playfanfare MUS_CAUGHT
+	waitfanfare
+	msgbox LittlerootTown_Text_Start_TorchicJoined, MSGBOX_DEFAULT
+	closemessage
+	checkfollowernpc 
+	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerTorchic
+	setfollowernpc LOCALID_STARTER_TORCHIC, FNPC_NONE, LittlerootTown_EventScript_Interact_Torchic, 0
+	removeobject LOCALID_STARTER_TORCHIC
+	clearflag FLAG_HIDE_STARTER_TREECKO
+	clearflag FLAG_HIDE_STARTER_MUDKIP
+	releaseall
+	end
+	
+
+LittlerootTown_EventScript_StartRecruit_Mudkip::
+	faceplayer
+	playmoncry SPECIES_MUDKIP, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Mudkip, MSGBOX_DEFAULT
+	waitmoncry
+	goto_if_set FLAG_HIDE_STARTER_MUDKIP, LittlerootTown_EventScript_TerminateScript
+	msgbox LittlerootTown_Text_StartRecruit_Mudkip, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_StartRecruit_MudkipConfirmed
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_Interact_Mudkip::
+	faceplayer
+	playmoncry SPECIES_MUDKIP, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Mudkip, MSGBOX_DEFAULT
+	waitmoncry
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_StartRecruit_MudkipConfirmed:
+	releaseall
+	playfanfare MUS_CAUGHT
+	waitfanfare
+	msgbox LittlerootTown_Text_Start_MudkipJoined, MSGBOX_DEFAULT
+	closemessage
+	checkfollowernpc 
+	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerMudkip
+	setfollowernpc LOCALID_STARTER_MUDKIP, FNPC_NONE, LittlerootTown_EventScript_Interact_Mudkip, 0
+	removeobject LOCALID_STARTER_MUDKIP
+	clearflag FLAG_HIDE_STARTER_TREECKO
+	clearflag FLAG_HIDE_STARTER_TORCHIC
+	releaseall
+	end
+
+LittlerootTown_Text_Start_Treecko:
+	.string "Triii Triii$"
+
+LittlerootTown_Text_Start_Torchic:
+	.string "Torchii$"
+
+LittlerootTown_Text_Start_Mudkip:
+	.string "Kiiiip$"
+	
+LittlerootTown_Text_StartRecruit_Treecko:
+	.string "Ask Treecko to follow you?\n"
+	.string "You can only have one follower active.$"
+
+LittlerootTown_Text_StartRecruit_Torchic:
+	.string "Ask Torchic to follow you?\n"
+	.string "You can only have one follower active.$"
+
+LittlerootTown_Text_StartRecruit_Mudkip:
+	.string "Ask Mudkip to follow you?\n"
+	.string "You can only have one follower active.$"
+	
+LittlerootTown_Text_Start_TreeckoJoined:
+	.string "Treecko became your follower!$"
+
+LittlerootTown_Text_Start_TorchicJoined:
+	.string "Torchic became your follower!$"
+
+LittlerootTown_Text_Start_MudkipJoined:
+	.string "Mudkip became your follower!$"
+	
+LittlerootTown_EventScript_BirchBlockade::
+	faceplayer
+	msgbox LittlerootTown_Text_BirchBlockade, MSGBOX_DEFAULT
+	closemessage
+	releaseall
+	end
+
+LittlerootTown_EventScript_RivalBlockade::
+	faceplayer
+	msgbox LittlerootTown_Text_RivalBlockade, MSGBOX_DEFAULT
+	closemessage
+	releaseall
+	end
+
+LittlerootTown_Text_BirchBlockade:
+	.string "We'll stay and block the exit.\p"
+	.string "Can you find one of the pokémon\n"
+	.string "and bring it back to the lab?\p"
+	.string "Then me and {RIVAL} can split up\n"
+	.string "and find the other two.$"
+
+LittlerootTown_Text_RivalBlockade:
+	.string "… … … … … … … … …\n"
+	.string "… … … … … … … … …\p"
+	.string "Hi, Nice to meet you {PLAYER}. I'm \n"
+	.string "{RIVAL} but now is not a good time.\p"
+	.string "Can you find a pokémon and\n"
+	.string "meet us back in the lab?$"

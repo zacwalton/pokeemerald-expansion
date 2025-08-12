@@ -51,7 +51,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
-      "x": 12,
+      "x": 10,
       "y": 18,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -142,6 +142,76 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "FLAG_HIDE_LITTLEROOT_TOWN_BIRCH"
+    },
+    {
+      "local_id": "LOCALID_STARTER_TREECKO",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(TREECKO)",
+      "x": 15,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_StartRecruit_Treecko",
+      "flag": "FLAG_HIDE_STARTER_TREECKO"
+    },
+    {
+      "local_id": "LOCALID_STARTER_TORCHIC",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(TORCHIC)",
+      "x": 2,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_StartRecruit_Torchic",
+      "flag": "FLAG_HIDE_STARTER_TORCHIC"
+    },
+    {
+      "local_id": "LOCALID_STARTER_MUDKIP",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(MUDKIP)",
+      "x": 13,
+      "y": 18,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_StartRecruit_Mudkip",
+      "flag": "FLAG_HIDE_STARTER_MUDKIP"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_BIRCH2",
+      "graphics_id": "OBJ_EVENT_GFX_PROF_BIRCH",
+      "x": 11,
+      "y": 2,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_BirchBlockade",
+      "flag": "FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_RIVAL2",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
+      "x": 10,
+      "y": 2,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_RivalBlockade",
+      "flag": "FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2"
     }
   ],
   "warp_events": [
@@ -197,8 +267,8 @@
     },
     {
       "type": "trigger",
-      "x": 8,
-      "y": 9,
+      "x": -1,
+      "y": 1,
       "elevation": 3,
       "var": "VAR_LITTLEROOT_TOWN_STATE",
       "var_value": "3",
@@ -206,8 +276,8 @@
     },
     {
       "type": "trigger",
-      "x": 9,
-      "y": 9,
+      "x": 0,
+      "y": 1,
       "elevation": 3,
       "var": "VAR_LITTLEROOT_TOWN_STATE",
       "var_value": "3",
@@ -215,8 +285,8 @@
     },
     {
       "type": "trigger",
-      "x": 10,
-      "y": 9,
+      "x": 1,
+      "y": 1,
       "elevation": 3,
       "var": "VAR_LITTLEROOT_TOWN_STATE",
       "var_value": "3",
@@ -224,8 +294,8 @@
     },
     {
       "type": "trigger",
-      "x": 11,
-      "y": 9,
+      "x": 2,
+      "y": 1,
       "elevation": 3,
       "var": "VAR_LITTLEROOT_TOWN_STATE",
       "var_value": "3",
@@ -248,6 +318,15 @@
       "var": "VAR_LITTLEROOT_TOWN_STATE",
       "var_value": "3",
       "script": "LittlerootTown_EventScript_GiveRunningShoesTrigger1"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 8,
+      "elevation": 0,
+      "var": "VAR_LITTLEROOT_TOWN_STATE",
+      "var_value": "0",
+      "script": "LittlerootTown_EventScript_LabDoorPokemonEscape"
     }
   ],
   "bg_events": [

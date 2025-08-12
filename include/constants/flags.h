@@ -664,11 +664,11 @@
 #define FLAG_LITTLEROOTTOWN_SECRETTREE1  0x266 // Unused Flag
 #define FLAG_LITTLEROOTTOWN_SECRETTREE2  0x267 // Unused Flag
 #define FLAG_EXP_SHARE_ACTIVE	   0x268 // EXP SHARE/EXP ALL FLAG
-#define FLAG_UNUSED_0x269  0x269 // Unused Flag
-#define FLAG_UNUSED_0x26A  0x26A // Unused Flag
-#define FLAG_UNUSED_0x26B  0x26B // Unused Flag
-#define FLAG_UNUSED_0x26C  0x26C // Unused Flag
-#define FLAG_UNUSED_0x26D  0x26D // Unused Flag
+#define FLAG_HIDE_STARTER_TREECKO  0x269 // Unused Flag
+#define FLAG_HIDE_STARTER_TORCHIC  0x26A // Unused Flag
+#define FLAG_HIDE_STARTER_MUDKIP  0x26B // Unused Flag
+#define FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2  0x26C // Unused Flag
+#define FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2  0x26D // Unused Flag
 #define FLAG_UNUSED_0x26E  0x26E // Unused Flag
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag

@@ -146,6 +146,8 @@ PlayersHouse_1F_EventScript_WrongTrainerCard::
 	waitstate
 	msgbox PlayersHouse_1F_Text_MomDirectToNeighbour, MSGBOX_DEFAULT
 	closemessage
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
 	goto PlayersHouse_1F_EventScript_SetWatchedBroadcast
 	end
 		
