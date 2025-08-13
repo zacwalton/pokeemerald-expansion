@@ -74,6 +74,7 @@ LittlerootTown_EventScript_SecretTree2Set::
 LittlerootTown_OnTransition:
 	setflag FLAG_VISITED_LITTLEROOT_TOWN
 	call Common_EventScript_SetupRivalGfxId
+@	call LittlerootTown_EventScript_SetupSecretStarterGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
 	call_if_unset FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_SetTwinPos
 	call_if_eq VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos
@@ -1174,6 +1175,9 @@ LittlerootTown_EventScript_LabDoorPokemonEscape::
 @	addobject LOCALID_LITTLEROOT_BIRCH2
 	call LittlerootTown_EventScript_LabEscapeMoveOffScreen
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
+	clearflag FLAG_HIDE_STARTER_HIDDEN
+	addobject FLAG_HIDE_STARTER_HIDDEN
+	call LittlerootTown_EventScript_SetupSecretStarterGfxId
 	releaseall
 	end
 	
@@ -1347,6 +1351,7 @@ LittlerootTown_EventScript_StartRecruit_TreeckoConfirmed:
 	removeobject LOCALID_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_MUDKIP
+	clearflag FLAG_HIDE_STARTER_HIDDEN
 	releaseall
 	end
 	
@@ -1384,6 +1389,7 @@ LittlerootTown_EventScript_StartRecruit_TorchicConfirmed:
 	removeobject LOCALID_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_MUDKIP
+	clearflag FLAG_HIDE_STARTER_HIDDEN
 	releaseall
 	end
 	
@@ -1421,6 +1427,7 @@ LittlerootTown_EventScript_StartRecruit_MudkipConfirmed:
 	removeobject LOCALID_STARTER_MUDKIP
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
+	clearflag FLAG_HIDE_STARTER_HIDDEN
 	releaseall
 	end
 
@@ -1482,3 +1489,178 @@ LittlerootTown_Text_RivalBlockade:
 	.string "{RIVAL} but now is not a good time.\p"
 	.string "Can you find a pokémon and\n"
 	.string "meet us back in the lab?$"
+	
+LittlerootTown_EventScript_SetupSecretStarterGfxId::
+	compare VAR_LITTLEROOT_TOWN_STATE, 1
+	goto_if_eq LittlerootTown_EventScript_SetupSecretStarterGfxId_Success
+	return
+	
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Success:
+	switch VAR_HIDDEN_STARTER
+	case 0, LittlerootTown_EventScript_SetupSecretStarterGfxId_Pichu
+	case 1, LittlerootTown_EventScript_SetupSecretStarterGfxId_Eevee
+	case 2, LittlerootTown_EventScript_SetupSecretStarterGfxId_Togepi
+	case 3, LittlerootTown_EventScript_SetupSecretStarterGfxId_Cleffa
+	case 4, LittlerootTown_EventScript_SetupSecretStarterGfxId_Grookey
+	case 5, LittlerootTown_EventScript_SetupSecretStarterGfxId_Axew
+	case 6, LittlerootTown_EventScript_SetupSecretStarterGfxId_Goomy
+	case 7, LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal
+	releaseall
+	return
+	
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Pichu:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(PICHU)
+	setvar VAR_HIDDEN_STARTER, SPECIES_PICHU
+	return
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Eevee:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(EEVEE)
+	setvar VAR_HIDDEN_STARTER, SPECIES_EEVEE
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Togepi:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(TOGEPI)
+	setvar VAR_HIDDEN_STARTER, SPECIES_TOGEPI
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Cleffa:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(CLEFFA)
+	setvar VAR_HIDDEN_STARTER, SPECIES_CLEFFA
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Grookey:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(GROOKEY)
+	setvar VAR_HIDDEN_STARTER, SPECIES_GROOKEY
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Axew:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(AXEW)
+	setvar VAR_HIDDEN_STARTER, SPECIES_AXEW
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Goomy:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(GOOMY)
+	setvar VAR_HIDDEN_STARTER, SPECIES_GOOMY
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal:
+	specialvar VAR_RESULT, Rtc_GetSeason
+	switch VAR_RESULT
+	case 0, LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Spring
+	case 1, LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Summer
+	case 2, LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Autumn
+	case 3, LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Winter
+	return
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Spring:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(FLABEBE)
+	setvar VAR_HIDDEN_STARTER, SPECIES_FLABEBE
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Summer:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(RALTS)
+	setvar VAR_HIDDEN_STARTER, SPECIES_RALTS
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Autumn:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(LITWICK)
+	setvar VAR_HIDDEN_STARTER, SPECIES_LITWICK
+	return
+
+
+LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal_Winter:
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(SWINUB)
+	setvar VAR_HIDDEN_STARTER, SPECIES_SWINUB
+	return
+
+LittlerootTown_EventScript_StartRecruit_Hidden_UNUSED::
+	switch VAR_OBJ_GFX_ID_B
+	case OBJ_EVENT_GFX_SPECIES(PICHU), LittlerootTown_EventScript_SetupSecretStarterGfxId_Pichu
+	case OBJ_EVENT_GFX_SPECIES(EEVEE), LittlerootTown_EventScript_SetupSecretStarterGfxId_Eevee
+	case OBJ_EVENT_GFX_SPECIES(TOGEPI), LittlerootTown_EventScript_SetupSecretStarterGfxId_Togepi
+	case OBJ_EVENT_GFX_SPECIES(CLEFFA), LittlerootTown_EventScript_SetupSecretStarterGfxId_Cleffa
+	case OBJ_EVENT_GFX_SPECIES(GROOKEY), LittlerootTown_EventScript_SetupSecretStarterGfxId_Grookey
+	case OBJ_EVENT_GFX_SPECIES(AXEW), LittlerootTown_EventScript_SetupSecretStarterGfxId_Axew
+	case OBJ_EVENT_GFX_SPECIES(GOOMY), LittlerootTown_EventScript_SetupSecretStarterGfxId_Goomy
+	case OBJ_EVENT_GFX_SPECIES(FLABEBE), LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal
+	case OBJ_EVENT_GFX_SPECIES(RALTS), LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal
+	case OBJ_EVENT_GFX_SPECIES(LITWICK), LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal
+	case OBJ_EVENT_GFX_SPECIES(SWINUB), LittlerootTown_EventScript_SetupSecretStarterGfxId_Seasonal
+	return
+	
+
+	
+
+LittlerootTown_EventScript_StartRecruit_Hidden::
+	faceplayer
+	playmoncry VAR_HIDDEN_STARTER, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Hidden, MSGBOX_DEFAULT
+	waitmoncry
+	goto_if_set FLAG_HIDE_STARTER_HIDDEN, LittlerootTown_EventScript_TerminateScript
+	msgbox LittlerootTown_Text_StartRecruit_Hidden, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_StartRecruit_HiddenConfirmed
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_Interact_Hidden::
+	faceplayer
+	playmoncry VAR_HIDDEN_STARTER, CRY_MODE_NORMAL
+	msgbox LittlerootTown_Text_Start_Hidden, MSGBOX_DEFAULT
+	waitmoncry
+	closemessage
+	releaseall
+	end
+	
+LittlerootTown_EventScript_StartRecruit_HiddenConfirmed:
+	releaseall
+	playfanfare MUS_CAUGHT
+	waitfanfare
+	msgbox LittlerootTown_Text_Start_HiddenJoined, MSGBOX_DEFAULT
+	closemessage
+	checkfollowernpc 
+	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerHidden
+	setfollowernpc LOCALID_STARTER_HIDDEN, FNPC_NONE, LittlerootTown_EventScript_Interact_Hidden, 0
+	removeobject LOCALID_STARTER_HIDDEN
+	clearflag FLAG_HIDE_STARTER_TREECKO
+	clearflag FLAG_HIDE_STARTER_TORCHIC
+	clearflag FLAG_HIDE_STARTER_MUDKIP
+	releaseall
+	end
+
+LittlerootTown_Text_Start_Hidden:
+	.string "Pihyiii!$"
+	
+LittlerootTown_Text_StartRecruit_Hidden:
+	.string "Ask the Pokémon to follow you?\n"
+	.string "You can only have one follower active.$"
+	
+LittlerootTown_Text_Start_HiddenJoined:
+	.string "The pokémon became your follower!$"
+	
+LittlerootTown_EventScript_DestroyStarterFollowerHidden::
+	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Hidden
+	waitmovement
+	destroyfollowernpc
+	return
+	
+LittlerootTown_Movement_StarterExit_Hidden:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+	

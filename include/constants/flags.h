@@ -669,7 +669,7 @@
 #define FLAG_HIDE_STARTER_MUDKIP  0x26B // Unused Flag
 #define FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2  0x26C // Unused Flag
 #define FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2  0x26D // Unused Flag
-#define FLAG_UNUSED_0x26E  0x26E // Unused Flag
+#define FLAG_HIDE_STARTER_HIDDEN  0x26E // Unused Flag
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag
 #define FLAG_UNUSED_0x271  0x271 // Unused Flag

@@ -212,6 +212,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "LittlerootTown_EventScript_RivalBlockade",
       "flag": "FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2"
+    },
+    {
+      "local_id": "LOCALID_STARTER_HIDDEN",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_B",
+      "x": 0,
+      "y": 18,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_StartRecruit_Hidden",
+      "flag": "FLAG_HIDE_STARTER_HIDDEN"
     }
   ],
   "warp_events": [
