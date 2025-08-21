@@ -97,6 +97,62 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita",
       "flag": "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_MUDKIP",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(MUDKIP)",
+      "x": -4,
+      "y": -4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_Interact_Mudkip",
+      "flag": "FLAG_HIDE_STARTER_MUDKIP"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_TORCHIC",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(TORCHIC)",
+      "x": -5,
+      "y": -4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_Interact_Torchic",
+      "flag": "FLAG_HIDE_STARTER_TORCHIC"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_TREECKO",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(TREECKO)",
+      "x": -6,
+      "y": -4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_Interact_Treecko",
+      "flag": "FLAG_HIDE_STARTER_TREECKO"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_HIDDENSTARTER",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_B",
+      "x": -3,
+      "y": -4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_BIRCHLAB_HIDE_HIDDEN_STARTER"
     }
   ],
   "warp_events": [
@@ -115,7 +171,44 @@
       "dest_warp_id": "2"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_LITTLEROOT_TOWN_STATE",
+      "var_value": "2",
+      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_LITTLEROOT_TOWN_STATE",
+      "var_value": "2",
+      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_LITTLEROOT_TOWN_STATE",
+      "var_value": "2",
+      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 13,
+      "elevation": 0,
+      "var": "VAR_LITTLEROOT_TOWN_STATE",
+      "var_value": "2",
+      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

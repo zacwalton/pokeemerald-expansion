@@ -96,6 +96,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnFrame:
+	map_script_2 VAR_LITTLEROOT_TOWN_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
@@ -992,3 +993,432 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters::
+	lockall
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters_Main
+	releaseall
+	end
+	
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnWithStarters_Main:
+	delay 10
+	setvar VAR_LITTLEROOT_TOWN_STATE, 3
+	playse SE_PIN
+	applymovement LOCALID_PLAYER, Common_Movement_ExclamationMark
+	waitmovement 0
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	setobjectxyperm LOCALID_BIRCHS_LAB_BIRCH, 7, 12	
+	addobject LOCALID_BIRCHS_LAB_BIRCH
+	applymovement LOCALID_BIRCHS_LAB_BIRCH, LittlerootTown_ProfessorBirchsLab_Movement_BirchEnter
+	delay 16
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	setobjectxyperm LOCALID_BIRCHS_LAB_RIVAL, 7, 12	
+	addobject LOCALID_BIRCHS_LAB_RIVAL
+	applymovement LOCALID_BIRCHS_LAB_RIVAL, LittlerootTown_ProfessorBirchsLab_Movement_RivalEnter
+	call_if_unset FLAG_HIDE_STARTER_TREECKO, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnTreecko
+	call_if_unset FLAG_HIDE_STARTER_TORCHIC, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnTorchic
+	call_if_unset FLAG_HIDE_STARTER_MUDKIP, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnMudkip
+	waitmovement 0
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerWalkToBirch
+	delay 16
+	call LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower
+	setobjectxyperm LOCALID_BIRCHS_LAB_HIDDENSTARTER, 6, 12	
+	addobject LOCALID_BIRCHS_LAB_HIDDENSTARTER
+	applymovement LOCALID_BIRCHS_LAB_HIDDENSTARTER, LittlerootTown_ProfessorBirchsLab_Movement_FollowerWalkToBirch
+	waitmovement 0
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue
+	return
+	
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower:
+	call_if_set FLAG_HIDE_STARTER_TREECKO, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Treecko
+	call_if_set FLAG_HIDE_STARTER_TORCHIC, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Torchic
+	call_if_set FLAG_HIDE_STARTER_MUDKIP, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Mudkip
+	call_if_set FLAG_HIDE_STARTER_HIDDEN, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Hidden
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Treecko:
+	setvar VAR_STARTER_MON, 0
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(TREECKO)
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Torchic:
+	setvar VAR_STARTER_MON, 1
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(TORCHIC)
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Mudkip:
+	setvar VAR_STARTER_MON, 2
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(MUDKIP)
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Hidden:
+	switch VAR_HIDDEN_STARTER
+	case SPECIES_PICHU, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Pichu
+	case SPECIES_EEVEE, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Eevee
+	case SPECIES_TOGEPI, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Togepi
+	case SPECIES_CLEFFA, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Cleffa
+	case SPECIES_GROOKEY, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Grookey
+	case SPECIES_AXEW, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Axew
+	case SPECIES_GOOMY, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Goomy
+	case SPECIES_FLABEBE, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Flabebe
+	case SPECIES_RALTS, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Ralts
+	case SPECIES_LITWICK, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Litwick
+	case SPECIES_SWINUB, LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Swinub
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Pichu:
+	setvar VAR_STARTER_MON, 3
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(PICHU)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Eevee:
+	setvar VAR_STARTER_MON, 4
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(EEVEE)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Togepi:
+	setvar VAR_STARTER_MON, 5
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(TOGEPI)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Cleffa:
+	setvar VAR_STARTER_MON, 6
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(CLEFFA)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Grookey:
+	setvar VAR_STARTER_MON, 7
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(GROOKEY)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Axew:
+	setvar VAR_STARTER_MON, 8
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(AXEW)
+	return
+
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Goomy:
+	setvar VAR_STARTER_MON, 9
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(GOOMY)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Flabebe:
+	setvar VAR_STARTER_MON, 10
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(FLABEBE)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Ralts:
+	setvar VAR_STARTER_MON, 11
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(RALTS)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Litwick:
+	setvar VAR_STARTER_MON, 12
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(LITWICK)
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GetStarterFollower_Swinub:
+	setvar VAR_STARTER_MON, 13
+	setvar VAR_OBJ_GFX_ID_B, OBJ_EVENT_GFX_SPECIES(SWINUB)
+	return
+	
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue:
+	goto_if_unset FLAG_HIDE_STARTER_TREECKO, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueTorchic
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Treecko
+	releaseall
+	end
+	
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueTorchic:
+	goto_if_unset FLAG_HIDE_STARTER_TORCHIC, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueMudkip
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Torchic
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueMudkip:
+	goto_if_unset FLAG_HIDE_STARTER_MUDKIP, LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueHidden
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Mudkip
+	releaseall
+	end
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Treecko:
+	bufferspeciesname STR_VAR_1, SPECIES_TREECKO
+	playmoncry SPECIES_TREECKO, CRY_MODE_NORMAL
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StarterInspect, MSGBOX_DEFAULT
+	closemessage
+	waitmoncry
+	givemon SPECIES_TREECKO, 5
+	playfanfare MUS_OBTAIN_ITEM
+	waitfanfare
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_CongratsWhyNotGiveNicknameToMon, MSGBOX_YESNO
+	call Common_EventScript_NameReceivedPartyMon
+	removeobject LOCALID_BIRCHS_LAB_HIDDENSTARTER
+	setvar VAR_STARTER_MON, 0
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_End
+	releaseall
+	end
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Torchic:
+	bufferspeciesname STR_VAR_1, SPECIES_TORCHIC
+	playmoncry SPECIES_TORCHIC, CRY_MODE_NORMAL
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StarterInspect, MSGBOX_DEFAULT
+	closemessage
+	waitmoncry
+	givemon SPECIES_TORCHIC, 5
+	playfanfare MUS_OBTAIN_ITEM
+	waitfanfare
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_CongratsWhyNotGiveNicknameToMon, MSGBOX_YESNO
+	call Common_EventScript_NameReceivedPartyMon
+	removeobject LOCALID_BIRCHS_LAB_HIDDENSTARTER
+	setvar VAR_STARTER_MON, 1
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_End
+	releaseall
+	end
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_Mudkip:
+	bufferspeciesname STR_VAR_1, SPECIES_MUDKIP
+	playmoncry SPECIES_MUDKIP, CRY_MODE_NORMAL
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StarterInspect, MSGBOX_DEFAULT
+	closemessage
+	waitmoncry
+	givemon SPECIES_MUDKIP, 5
+	playfanfare MUS_OBTAIN_ITEM
+	waitfanfare
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_CongratsWhyNotGiveNicknameToMon, MSGBOX_YESNO
+	call Common_EventScript_NameReceivedPartyMon
+	removeobject LOCALID_BIRCHS_LAB_HIDDENSTARTER
+	setvar VAR_STARTER_MON, 2
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_End
+	releaseall
+	end
+	
+LittlerootTown_ProfessorBirchsLab_Text_StarterInspect:
+	.string "PROF. BIRCH: Hey, {PLAYER}!\n"
+	.string "Aha! You found {STR_VAR_1}!\p"
+	.string "{STR_VAR_1} seems very content around you.\n"
+	.string "Here, take this pokéball.$"
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogueHidden:
+	bufferspeciesname STR_VAR_1, VAR_HIDDEN_STARTER
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_HiddenStarter, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter01
+	waitmovement 0
+	applymovement LOCALID_BIRCHS_LAB_HIDDENSTARTER, LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter02
+	waitmovement 0
+	playmoncry VAR_HIDDEN_STARTER, CRY_MODE_NORMAL
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_HiddenStarterInspect, MSGBOX_DEFAULT
+	closemessage
+	waitmoncry
+	givemon VAR_HIDDEN_STARTER, 5
+	playfanfare MUS_OBTAIN_ITEM
+	waitfanfare
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_CongratsWhyNotGiveNicknameToMon, MSGBOX_YESNO
+	call Common_EventScript_NameReceivedPartyMon
+	applymovement LOCALID_BIRCHS_LAB_HIDDENSTARTER, LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter02
+	removeobject LOCALID_BIRCHS_LAB_HIDDENSTARTER
+	waitmovement 0	
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter03
+	waitmovement 0	
+	setvar VAR_STARTER_MON, 4
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_End
+	releaseall
+	end
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnStartersDialogue_End:
+	setflag FLAG_SYS_POKEMON_GET
+	setflag FLAG_HIDE_STARTER_TREECKO
+	setflag FLAG_HIDE_STARTER_TORCHIC
+	setflag FLAG_HIDE_STARTER_MUDKIP
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	msgbox Route103_Text_MayLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTreecko
+	case 2, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleMudkip
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTorchic
+	case 1, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTorchic
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTreecko::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route103_Text_MayDefeated
+	goto LittlerootTown_ProfessorBirchsLab_AfterMayBattle
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTorchic::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
+	goto LittlerootTown_ProfessorBirchsLab_AfterMayBattle
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleMudkip::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
+	goto LittlerootTown_ProfessorBirchsLab_AfterMayBattle
+	end
+
+LittlerootTown_ProfessorBirchsLab_AfterMayBattle::
+	msgbox Route103_Text_MayTimeToHeadBack, MSGBOX_DEFAULT
+	goto Route103_EventScript_RivalExit
+	end
+	
+LittlerootTown_ProfessorBirchsLab_Text_HiddenStarter:
+	.string "PROF. BIRCH: Hey, {PLAYER}!\n"
+	.string "That- er...\p"
+	.string "… … … \n"
+	.string "What is that?\p"
+	.string "Oh that wasn't one of my pokémon.\n"
+	.string "Let me take a closer look.$"
+	
+LittlerootTown_ProfessorBirchsLab_Text_HiddenStarterInspect:
+	.string "… … …\n"
+	.string "… It looks like …\p"
+	.string "Aha! You found a {STR_VAR_1}!\n"
+	.string "{STR_VAR_1} seems very content around you.\p"
+	.string "Here, take this pokéball.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_CongratsWhyNotGiveNicknameToMon:
+	.string "Congratulations, {PLAYER}!\n"
+	.string "You are now a Pokémon Trainer.\p"
+	.string "Say, why not give a nickname\n"
+	.string "to that {STR_VAR_1}?$"
+	
+LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter01:
+	walk_left
+	face_right
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter02:
+	walk_up
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_BirchInspectHiddenStarter03:
+	walk_right
+	face_up
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnTreecko:
+	delay 16
+	setobjectxyperm LOCALID_BIRCHS_LAB_TREECKO, 7, 12	
+	addobject LOCALID_BIRCHS_LAB_TREECKO
+	applymovement LOCALID_BIRCHS_LAB_TREECKO, LittlerootTown_ProfessorBirchsLab_Movement_TreeckoEnter
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnTorchic:
+	delay 16
+	setobjectxyperm LOCALID_BIRCHS_LAB_TORCHIC, 7, 12	
+	addobject LOCALID_BIRCHS_LAB_TORCHIC
+	applymovement LOCALID_BIRCHS_LAB_TORCHIC, LittlerootTown_ProfessorBirchsLab_Movement_TorchicEnter
+	return
+	
+LittlerootTown_ProfessorBirchsLab_EventScript_ReturnMudkip:
+	delay 16
+	setobjectxyperm LOCALID_BIRCHS_LAB_MUDKIP, 7, 12	
+	addobject LOCALID_BIRCHS_LAB_MUDKIP
+	applymovement LOCALID_BIRCHS_LAB_MUDKIP, LittlerootTown_ProfessorBirchsLab_Movement_MudkipEnter
+	return
+
+LittlerootTown_ProfessorBirchsLab_Movement_BirchEnter:
+	walk_in_place_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_left
+	face_down
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_RivalEnter:
+	walk_in_place_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	face_down
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_TreeckoEnter:
+	walk_in_place_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_up
+	jump_up
+	face_down
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_TorchicEnter:
+	walk_in_place_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	jump_up
+	face_down
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_MudkipEnter:
+	walk_in_place_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	jump_up
+	face_down
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerWalkToBirch:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+	
+LittlerootTown_ProfessorBirchsLab_Movement_FollowerWalkToBirch:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+	
+
+

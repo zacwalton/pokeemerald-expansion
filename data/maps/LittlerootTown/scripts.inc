@@ -1125,54 +1125,44 @@ LittlerootTown_EventScript_LabDoorPokemonEscape::
 	addobject LOCALID_STARTER_TREECKO
 	applymovement LOCALID_STARTER_TREECKO, LittlerootTown_Movement_StarterRunOutDoor
 	delay 15
-@	removeobject LOCALID_STARTER_TREECKO
 	setobjectxyperm LOCALID_STARTER_TREECKO, 15, 3
 	setobjectxyperm LOCALID_STARTER_TORCHIC, 27, 7
 	addobject LOCALID_STARTER_TORCHIC
 	applymovement LOCALID_STARTER_TORCHIC, LittlerootTown_Movement_StarterRunOutDoor
 	delay 15
-@	removeobject LOCALID_STARTER_TORCHIC
 	setobjectxyperm LOCALID_STARTER_TORCHIC, 3, 3
 	setobjectxyperm LOCALID_STARTER_MUDKIP, 27, 7
 	addobject LOCALID_STARTER_MUDKIP
 	applymovement LOCALID_STARTER_MUDKIP, LittlerootTown_Movement_StarterRunOutDoor
 	delay 15
-@	removeobject LOCALID_STARTER_MUDKIP
 	setobjectxyperm LOCALID_STARTER_MUDKIP, 13, 18
 	addobject LOCALID_LITTLEROOT_RIVAL2
 	setobjectxy LOCALID_LITTLEROOT_RIVAL2, 27, 7	
 	applymovement LOCALID_LITTLEROOT_RIVAL2, LittlerootTown_Movement_MayRunOutDoor
 	call LittlerootTown_EventScript_CloseBirchLabDoor
-	waitmovement
+	waitmovement 0
 	delay 15
-@	removeobject LOCALID_LITTLEROOT_RIVAL2
 	setobjectxyperm LOCALID_LITTLEROOT_RIVAL2, 10, 2	
 	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL2, MOVEMENT_TYPE_FACE_DOWN
 	call LittlerootTown_EventScript_OpenBirchLabDoor
 	addobject LOCALID_LITTLEROOT_BIRCH2
 	setobjectxy LOCALID_LITTLEROOT_BIRCH2, 27, 7	
 	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_WalkDown
-	waitmovement
+	waitmovement 0
 	call LittlerootTown_EventScript_CloseBirchLabDoor
 	msgbox LittlerootTown_Text_BirchCatchThem, MSGBOX_DEFAULT
 	closemessage
 	playse SE_PIN
 	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_ExclamationMark
-	waitmovement
+	waitmovement 0
 	applymovement LOCALID_LITTLEROOT_BIRCH2, Common_Movement_FacePlayer
-	waitmovement
+	waitmovement 0
 	msgbox LittlerootTown_Text_BirchIntroducePlayer, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_LITTLEROOT_BIRCH2, LittlerootTown_Movement_BirchChaseAfterStarters
-	waitmovement
-@	removeobject LOCALID_LITTLEROOT_BIRCH2
+	waitmovement 0
 	setobjectxyperm LOCALID_LITTLEROOT_BIRCH2, 11, 2	
 	setobjectmovementtype LOCALID_LITTLEROOT_BIRCH2, MOVEMENT_TYPE_FACE_DOWN
-@	addobject LOCALID_STARTER_TREECKO
-@	addobject LOCALID_STARTER_TORCHIC
-@	addobject LOCALID_STARTER_MUDKIP
-@	addobject LOCALID_LITTLEROOT_RIVAL2
-@	addobject LOCALID_LITTLEROOT_BIRCH2
 	call LittlerootTown_EventScript_LabEscapeMoveOffScreen
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	clearflag FLAG_HIDE_STARTER_HIDDEN
@@ -1187,7 +1177,7 @@ LittlerootTown_EventScript_LabEscapeMoveOffScreen:
 	applymovement LOCALID_STARTER_MUDKIP, LittlerootTown_Movement_BirchChaseMoveOffscreen
 	applymovement LOCALID_LITTLEROOT_RIVAL2, LittlerootTown_Movement_BirchChaseMoveOffscreen
 	applymovement LOCALID_LITTLEROOT_BIRCH2, LittlerootTown_Movement_BirchChaseMoveOffscreen
-	waitmovement
+	waitmovement 0
 	return
 	
 LittlerootTown_Movement_PlayerJumpBackFromLab::
@@ -1266,19 +1256,19 @@ LittlerootTown_Text_BirchIntroducePlayer:
 	
 LittlerootTown_EventScript_DestroyStarterFollowerTreecko::
 	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Treecko
-	waitmovement
+	waitmovement 0
 	destroyfollowernpc
 	return
 	
 LittlerootTown_EventScript_DestroyStarterFollowerTorchic::
 	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Torchic
-	waitmovement
+	waitmovement 0
 	destroyfollowernpc
 	return
 	
 LittlerootTown_EventScript_DestroyStarterFollowerMudkip::
 	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Mudkip
-	waitmovement
+	waitmovement 0
 	destroyfollowernpc
 	return
 	
@@ -1352,6 +1342,7 @@ LittlerootTown_EventScript_StartRecruit_TreeckoConfirmed:
 	clearflag FLAG_HIDE_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_MUDKIP
 	clearflag FLAG_HIDE_STARTER_HIDDEN
+	setvar VAR_LITTLEROOT_TOWN_STATE, 2
 	releaseall
 	end
 	
@@ -1390,6 +1381,7 @@ LittlerootTown_EventScript_StartRecruit_TorchicConfirmed:
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_MUDKIP
 	clearflag FLAG_HIDE_STARTER_HIDDEN
+	setvar VAR_LITTLEROOT_TOWN_STATE, 2
 	releaseall
 	end
 	
@@ -1428,6 +1420,7 @@ LittlerootTown_EventScript_StartRecruit_MudkipConfirmed:
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_HIDDEN
+	setvar VAR_LITTLEROOT_TOWN_STATE, 2
 	releaseall
 	end
 
@@ -1633,6 +1626,7 @@ LittlerootTown_EventScript_StartRecruit_HiddenConfirmed:
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_MUDKIP
+	setvar VAR_LITTLEROOT_TOWN_STATE, 2
 	releaseall
 	end
 
@@ -1648,7 +1642,7 @@ LittlerootTown_Text_Start_HiddenJoined:
 	
 LittlerootTown_EventScript_DestroyStarterFollowerHidden::
 	applymovement OBJ_EVENT_ID_NPC_FOLLOWER, LittlerootTown_Movement_StarterExit_Hidden
-	waitmovement
+	waitmovement 0
 	destroyfollowernpc
 	return
 	

@@ -670,7 +670,7 @@
 #define FLAG_HIDE_LITTLEROOT_TOWN_RIVAL2  0x26C // Unused Flag
 #define FLAG_HIDE_LITTLEROOT_TOWN_BIRCH2  0x26D // Unused Flag
 #define FLAG_HIDE_STARTER_HIDDEN  0x26E // Unused Flag
-#define FLAG_UNUSED_0x26F  0x26F // Unused Flag
+#define FLAG_BIRCHLAB_HIDE_HIDDEN_STARTER  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag
 #define FLAG_UNUSED_0x271  0x271 // Unused Flag
 #define FLAG_UNUSED_0x272  0x272 // Unused Flag
