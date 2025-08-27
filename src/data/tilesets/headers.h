@@ -839,7 +839,7 @@ const struct Tileset gTileset_Hoenn_Summer =
     .palettes = gTilesetPalettes_Hoenn_Summer,
     .metatiles = gMetatiles_Hoenn_Summer,
     .metatileAttributes = gMetatileAttributes_Hoenn_Summer,
-    .callback = NULL,
+    .callback = InitTilesetAnim_General,
 };
 
 const struct Tileset gTileset_Dewford_Summer =
