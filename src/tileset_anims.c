@@ -48,6 +48,8 @@ static void QueueAnimTiles_General_Water(u16);
 static void QueueAnimTiles_General_SandWaterEdge(u16);
 static void QueueAnimTiles_General_Waterfall(u16);
 static void QueueAnimTiles_General_LandWaterEdge(u16);
+static void QueueAnimTiles_General_WaterRock(u16);
+static void QueueAnimTiles_General_WaterCurrents(u8);
 static void QueueAnimTiles_Building_TVTurnedOn(u16);
 static void QueueAnimTiles_Rustboro_WindyWater(u16, u8);
 static void QueueAnimTiles_Rustboro_Fountain(u16);
@@ -63,7 +65,6 @@ static void QueueAnimTiles_Lavaridge_Steam(u8);
 static void QueueAnimTiles_Lavaridge_Lava(u16);
 static void QueueAnimTiles_EverGrande_Flowers(u16, u8);
 static void QueueAnimTiles_Pacifidlog_LogBridges(u8);
-static void QueueAnimTiles_Pacifidlog_WaterCurrents(u8);
 static void QueueAnimTiles_Sootopolis_StormyWater(u16);
 static void QueueAnimTiles_Underwater_Seaweed(u8);
 static void QueueAnimTiles_Cave_Lava(u16);
@@ -149,6 +150,38 @@ const u16 *const gTilesetAnims_General_LandWaterEdge[] = {
     gTilesetAnims_General_LandWaterEdge_Frame3
 };
 
+const u16 gTilesetAnims_General_WaterRock_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_rock/0.4bpp");
+const u16 gTilesetAnims_General_WaterRock_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_rock/1.4bpp");
+const u16 gTilesetAnims_General_WaterRock_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_rock/2.4bpp");
+const u16 gTilesetAnims_General_WaterRock_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_rock/3.4bpp");
+
+const u16 *const gTilesetAnims_General_WaterRock[] = {
+    gTilesetAnims_General_WaterRock_Frame0,
+    gTilesetAnims_General_WaterRock_Frame1,
+    gTilesetAnims_General_WaterRock_Frame2,
+    gTilesetAnims_General_WaterRock_Frame3
+};
+
+const u16 gTilesetAnims_General_WaterCurrents_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/0.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/1.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/2.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/3.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame4[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/4.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame5[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/5.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame6[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/6.4bpp");
+const u16 gTilesetAnims_General_WaterCurrents_Frame7[] = INCBIN_U16("data/tilesets/primary/hoenn_summer/anim/water_currents/7.4bpp");
+
+const u16 *const gTilesetAnims_General_WaterCurrents[] = {
+    gTilesetAnims_General_WaterCurrents_Frame0,
+    gTilesetAnims_General_WaterCurrents_Frame1,
+    gTilesetAnims_General_WaterCurrents_Frame2,
+    gTilesetAnims_General_WaterCurrents_Frame3,
+    gTilesetAnims_General_WaterCurrents_Frame4,
+    gTilesetAnims_General_WaterCurrents_Frame5,
+    gTilesetAnims_General_WaterCurrents_Frame6,
+    gTilesetAnims_General_WaterCurrents_Frame7
+};
+
 const u16 gTilesetAnims_Lavaridge_Steam_Frame0[] = INCBIN_U16("data/tilesets/secondary/lavaridge/anim/steam/0.4bpp");
 const u16 gTilesetAnims_Lavaridge_Steam_Frame1[] = INCBIN_U16("data/tilesets/secondary/lavaridge/anim/steam/1.4bpp");
 const u16 gTilesetAnims_Lavaridge_Steam_Frame2[] = INCBIN_U16("data/tilesets/secondary/lavaridge/anim/steam/2.4bpp");
@@ -182,26 +215,6 @@ const u16 *const gTilesetAnims_Underwater_Seaweed[] = {
     gTilesetAnims_Underwater_Seaweed_Frame1,
     gTilesetAnims_Underwater_Seaweed_Frame2,
     gTilesetAnims_Underwater_Seaweed_Frame3
-};
-
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame0[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/0.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame1[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/1.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame2[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/2.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame3[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/3.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame4[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/4.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame5[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/5.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame6[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/6.4bpp");
-const u16 gTilesetAnims_Pacifidlog_WaterCurrents_Frame7[] = INCBIN_U16("data/tilesets/secondary/pacifidlog/anim/water_currents/7.4bpp");
-
-const u16 *const gTilesetAnims_Pacifidlog_WaterCurrents[] = {
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame0,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame1,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame2,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame3,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame4,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame5,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame6,
-    gTilesetAnims_Pacifidlog_WaterCurrents_Frame7
 };
 
 const u16 gTilesetAnims_Mauville_Flower1_Frame0[] = INCBIN_U16("data/tilesets/secondary/mauville/anim/flower_1/0.4bpp");
@@ -648,6 +661,10 @@ static void TilesetAnim_General(u16 timer)
         QueueAnimTiles_General_Waterfall(timer / 16);
     if (timer % 16 == 4)
         QueueAnimTiles_General_LandWaterEdge(timer / 16);
+    if (timer % 16 == 4)
+        QueueAnimTiles_General_WaterRock(timer / 16);
+    if (timer % 16 == 1)
+        QueueAnimTiles_General_WaterCurrents(timer / 16);
 }
 
 static void TilesetAnim_Building(u16 timer)
@@ -928,8 +945,6 @@ static void TilesetAnim_Pacifidlog(u16 timer)
 {
     if (timer % 16 == 0)
         QueueAnimTiles_Pacifidlog_LogBridges(timer / 16);
-    if (timer % 16 == 1)
-        QueueAnimTiles_Pacifidlog_WaterCurrents(timer / 16);
 }
 
 static void TilesetAnim_Sootopolis(u16 timer)
@@ -968,6 +983,18 @@ static void QueueAnimTiles_General_LandWaterEdge(u16 timer)
     AppendTilesetAnimToBuffer(gTilesetAnims_General_LandWaterEdge[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 6 * TILE_SIZE_4BPP);
 }
 
+static void QueueAnimTiles_General_WaterRock(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_WaterRock);
+    AppendTilesetAnimToBuffer(gTilesetAnims_General_WaterRock[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(375)), 4 * TILE_SIZE_4BPP);
+}
+
+static void QueueAnimTiles_General_WaterCurrents(u8 timer)
+{
+    u8 i = timer % ARRAY_COUNT(gTilesetAnims_General_WaterCurrents);
+    AppendTilesetAnimToBuffer(gTilesetAnims_General_WaterCurrents[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(486)), 8 * TILE_SIZE_4BPP);
+}
+
 static void QueueAnimTiles_Lavaridge_Steam(u8 timer)
 {
     u8 i = timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Steam);
@@ -987,12 +1014,6 @@ static void QueueAnimTiles_Underwater_Seaweed(u8 timer)
 {
     u8 i = timer % ARRAY_COUNT(gTilesetAnims_Underwater_Seaweed);
     AppendTilesetAnimToBuffer(gTilesetAnims_Underwater_Seaweed[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 4 * TILE_SIZE_4BPP);
-}
-
-static void QueueAnimTiles_Pacifidlog_WaterCurrents(u8 timer)
-{
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Pacifidlog_WaterCurrents);
-    AppendTilesetAnimToBuffer(gTilesetAnims_Pacifidlog_WaterCurrents[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 8 * TILE_SIZE_4BPP);
 }
 
 static void QueueAnimTiles_Mauville_Flowers(u16 timer_div, u8 timer_mod)
