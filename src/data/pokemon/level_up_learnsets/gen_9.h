@@ -10927,6 +10927,7 @@ static const struct LevelUpMove sGarchompLevelUpLearnset[] = {
 static const struct LevelUpMove sRioluLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_ENDURE),
+    LEVEL_UP_MOVE( 1, MOVE_AURA_SENSE),
     LEVEL_UP_MOVE( 4, MOVE_FEINT),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE(12, MOVE_COUNTER),
@@ -10958,6 +10959,7 @@ static const struct LevelUpMove sLucarioLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_FINAL_GAMBIT),
     LEVEL_UP_MOVE( 1, MOVE_LIFE_DEW),
+    LEVEL_UP_MOVE( 1, MOVE_AURA_SENSE),
     LEVEL_UP_MOVE(12, MOVE_COUNTER),
     LEVEL_UP_MOVE(16, MOVE_WORK_UP),
     LEVEL_UP_MOVE(20, MOVE_FORCE_PALM),

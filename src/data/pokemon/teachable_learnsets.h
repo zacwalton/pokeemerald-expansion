@@ -22182,6 +22182,7 @@ static const u16 sInfernapeTeachableLearnset[] = {
     MOVE_TOXIC,
     MOVE_U_TURN,
     MOVE_WILL_O_WISP,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_CHIMCHAR
@@ -24065,6 +24066,7 @@ static const u16 sRioluTeachableLearnset[] = {
     MOVE_SWORDS_DANCE,
     MOVE_THUNDER_PUNCH,
     MOVE_TOXIC,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -24121,6 +24123,7 @@ static const u16 sLucarioTeachableLearnset[] = {
     MOVE_SWORDS_DANCE,
     MOVE_THUNDER_PUNCH,
     MOVE_TOXIC,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_RIOLU
@@ -30572,6 +30575,7 @@ static const u16 sMienfooTeachableLearnset[] = {
     MOVE_TAUNT,
     MOVE_TOXIC,
     MOVE_U_TURN,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -30616,6 +30620,7 @@ static const u16 sMienshaoTeachableLearnset[] = {
     MOVE_TAUNT,
     MOVE_TOXIC,
     MOVE_U_TURN,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_MIENFOO

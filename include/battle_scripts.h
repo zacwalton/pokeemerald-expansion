@@ -661,6 +661,7 @@ extern const u8 BattleScript_EffectHealingWish[];
 extern const u8 BattleScript_EffectProtect[];
 extern const u8 BattleScript_EffectSpikes[];
 extern const u8 BattleScript_EffectForesight[];
+extern const u8 BattleScript_EffectAuraSense[];
 extern const u8 BattleScript_EffectPerishSong[];
 extern const u8 BattleScript_EffectSandstorm[];
 extern const u8 BattleScript_EffectEndure[];

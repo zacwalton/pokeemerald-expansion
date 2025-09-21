@@ -21496,6 +21496,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .validApprenticeMove = TRUE,
     },
 
+    [MOVE_AURA_SENSE] =
+    {
+        .name = COMPOUND_STRING("Aura Sense"),
+        .description = COMPOUND_STRING(
+            "Negates the foe's efforts\n"
+            "to heighten evasiveness."),
+        .effect = EFFECT_AURA_SENSE,
+        .power = 0,
+        .type = TYPE_FIGHTING,
+        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 0 : 100,
+        .pp = 40,
+        .target = MOVE_TARGET_OPPONENTS_FIELD,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .zMove = { .effect = Z_EFFECT_BOOST_CRITS },
+        .magicCoatAffected = B_UPDATED_MOVE_FLAGS >= GEN_5,
+        .ignoresSubstitute = TRUE,
+        .contestEffect = CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_AuraSense,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
+        .validApprenticeMove = TRUE,
+    },
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {

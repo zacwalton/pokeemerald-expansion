@@ -2763,6 +2763,7 @@ static const u16 sMedititeEggMoveLearnset[] = {
     MOVE_DRAIN_PUNCH,
     MOVE_SECRET_POWER,
     MOVE_QUICK_GUARD,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_MEDITITE
@@ -3473,6 +3474,7 @@ static const u16 sChimcharEggMoveLearnset[] = {
     MOVE_FOCUS_PUNCH,
     MOVE_SUBMISSION,
     MOVE_POWER_UP_PUNCH,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_CHIMCHAR
@@ -4829,6 +4831,7 @@ static const u16 sMienfooEggMoveLearnset[] = {
     MOVE_ME_FIRST,
     MOVE_KNOCK_OFF,
     MOVE_ALLY_SWITCH,
+    MOVE_AURA_SENSE,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_MIENFOO

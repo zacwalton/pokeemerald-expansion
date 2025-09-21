@@ -854,6 +854,7 @@ extern const u8 gBattleAnimMove_FlashFreeze[];
 extern const u8 gBattleAnimMove_IceBlitz[];
 extern const u8 gBattleAnimMove_Apotropaism[];
 extern const u8 gBattleAnimMove_SeaStride[];
+extern const u8 gBattleAnimMove_AuraSense[];
 extern const u8 gBattleAnimMove_BreakneckBlitz[];
 extern const u8 gBattleAnimMove_AllOutPummeling[];
 extern const u8 gBattleAnimMove_SupersonicSkystrike[];

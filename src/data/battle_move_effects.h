@@ -585,6 +585,13 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
+    [EFFECT_AURA_SENSE] =
+    {
+        .battleScript = BattleScript_EffectAuraSense,
+        .battleTvScore = 3,
+        .encourageEncore = TRUE,
+    },
+
     [EFFECT_PERISH_SONG] =
     {
         .battleScript = BattleScript_EffectPerishSong,
