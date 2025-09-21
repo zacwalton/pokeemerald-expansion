@@ -2275,7 +2275,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 15,
         .type = TYPE_FIRE,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 70,
-        .pp = 15,
+        .pp = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
@@ -3449,7 +3449,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Traps and squeezes the\n"
             "foe for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = 50,
+        .power = 60,
         .type = TYPE_WATER,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 100 : 75,
         .pp = B_UPDATED_MOVE_DATA >= GEN_5 ? 20 : 10,
@@ -8699,6 +8699,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Extrasensory,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
         .validApprenticeMove = TRUE,
     },
 
@@ -8738,7 +8739,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 15,
         .type = TYPE_GROUND,
         .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 95 : 70,
-        .pp = 15,
+        .pp = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
@@ -13067,9 +13068,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Shoots boiling water at the\n"
             "foe. May inflict a burn."),
         .effect = EFFECT_HIT,
-        .power = 70,  //nerf to 70
+        .power = 75,  //nerf to 75
         .type = TYPE_WATER,
-        .accuracy = 100,
+        .accuracy = 90,
         .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -15754,7 +15755,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "The foe is infested and\n"
             "attacked for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = 50,
+        .power = 60,
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 20,
@@ -17964,7 +17965,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .effect = EFFECT_BOLT_BEAK,
         .power = 75,
         .type = TYPE_ELECTRIC,
-        .accuracy = 100,
+        .accuracy = 95,
         .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -17986,7 +17987,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .effect = EFFECT_BOLT_BEAK,
         .power = 75,
         .type = TYPE_WATER,
-        .accuracy = 100,
+        .accuracy = 95,
         .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
