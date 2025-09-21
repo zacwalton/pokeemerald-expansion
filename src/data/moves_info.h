@@ -19072,7 +19072,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Mastering the Dark style,\n"
             "strikes with a critical hit."),
         .effect = EFFECT_HIT,
-        .power = B_UPDATED_MOVE_DATA >= GEN_9 ? 75 : 80,
+        .power = 70,
         .type = TYPE_DARK,
         .accuracy = 100,
         .pp = 5,
@@ -19097,7 +19097,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Mastering the Water style,\n"
             "strikes with 3 critical hits."),
         .effect = EFFECT_HIT,
-        .power = 25,
+        .power = 20,
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 5,

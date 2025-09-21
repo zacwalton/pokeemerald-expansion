@@ -8657,6 +8657,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
     case ABILITY_SUPREME_OVERLORD:
         modifier = uq4_12_multiply(modifier, GetSupremeOverlordModifier(battlerAtk));
         break;
+    case ABILITY_UNSEEN_FIST:
+        if (IsMoveMakingContact(move, battlerAtk) && gProtectStructs[damageCalcData->battlerDef].protected)
+            modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));
+        break;
     }
 
     // field abilities
