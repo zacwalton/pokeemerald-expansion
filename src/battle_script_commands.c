@@ -1591,7 +1591,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     if (defAbility == ABILITY_UNAWARE)
         accStage = DEFAULT_STAT_STAGE;
 
-    if (gBattleMons[battlerDef].status2 & STATUS2_FORESIGHT || gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED)
+    if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_FORESIGHT || gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_MIRACLE_EYED)
         buff = accStage;
     else
         buff = accStage + DEFAULT_STAT_STAGE - evasionStage;
@@ -11977,9 +11977,9 @@ static void Cmd_setmiracleeye(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
-    if (!(gStatuses3[gBattlerTarget] & STATUS3_MIRACLE_EYED))
+    if (!(gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_MIRACLE_EYED))
     {
-        gStatuses3[gBattlerTarget] |= STATUS3_MIRACLE_EYED;
+        gSideStatuses[GetBattlerSide(gBattlerTarget)] |= SIDE_STATUS_MIRACLE_EYED;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
@@ -14008,7 +14008,7 @@ static void Cmd_setforesight(void)
 {
     CMD_ARGS();
 
-    gBattleMons[gBattlerTarget].status2 |= STATUS2_FORESIGHT;
+    gSideStatuses[GetBattlerSide(gBattlerTarget)] |= SIDE_STATUS_FORESIGHT;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
