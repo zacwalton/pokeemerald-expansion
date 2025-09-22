@@ -902,6 +902,7 @@ static const u16 sOnixEggMoveLearnset[] = {
     MOVE_STEALTH_ROCK,
     MOVE_ROTOTILLER,
     MOVE_WIDE_GUARD,
+    MOVE_LIDAR_LOCK,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_ONIX
@@ -2743,6 +2744,7 @@ static const u16 sAronEggMoveLearnset[] = {
     MOVE_SUPERPOWER,
     MOVE_STEALTH_ROCK,
     MOVE_REVERSAL,
+    MOVE_LIDAR_LOCK,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_ARON

@@ -21470,6 +21470,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_GigaDrain,
     },
 
+    // Whirlpool/Surf Upgrade
     [MOVE_MAELSTROM] =
     {
         .name = COMPOUND_STRING("Maelstrom"),
@@ -21497,6 +21498,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .validApprenticeMove = TRUE,
     },
 
+    // Foresight Variant
     [MOVE_AURA_SENSE] =
     {
         .name = COMPOUND_STRING("Aura Sense"),
@@ -21520,6 +21522,42 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_AuraSense,
 		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL,
+        .validApprenticeMove = TRUE,
+    },
+
+    // Rapid Spin Variant
+    [MOVE_LIDAR_LOCK] =
+    {
+        .name = COMPOUND_STRING("LiDAR Lock"),
+        .description = COMPOUND_STRING(
+            "Scopes out the field to remove\n"
+        #if B_SPEED_BUFFING_RAPID_SPIN >= GEN_8
+            "hazards and boost accuracy."),
+        #else 
+            "certain effects."),
+        #endif
+        .effect = EFFECT_RAPID_SPIN,
+        .power = B_UPDATED_MOVE_DATA >= GEN_8 ? 50 : 20,
+        .type = TYPE_STEEL,
+        .accuracy = 100,
+        .pp = 40,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS(
+            {
+                .moveEffect = MOVE_EFFECT_ACC_PLUS_1,
+                .self = TRUE,
+                .chance = 100,
+            }
+        ),
+        .contestEffect = CONTEST_EFFECT_AVOID_STARTLE_ONCE,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = COMBO_STARTER_LOCK_ON,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_LockOn,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL | IS_FIELD_MOVE_CUT | IS_FIELD_MOVE_SMASH,
         .validApprenticeMove = TRUE,
     },
 
