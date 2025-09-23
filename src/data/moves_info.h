@@ -2492,7 +2492,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Dig,
-		.fieldMoveFlags = IS_FIELD_MOVE_ESCAPE | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_WARP,
+		.fieldMoveFlags = IS_FIELD_MOVE_ESCAPE | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_SMASH,
         .validApprenticeMove = TRUE,
     },
 
@@ -2722,7 +2722,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_CONFUSION, COMBO_STARTER_DOUBLE_TEAM, COMBO_STARTER_KINESIS, COMBO_STARTER_PSYCHIC},
         .battleAnimScript = gBattleAnimMove_Teleport,
-		.fieldMoveFlags = IS_FIELD_MOVE_WARP,
+		.fieldMoveFlags = IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_ESCAPE,
     },
 
     [MOVE_NIGHT_SHADE] =
@@ -8621,7 +8621,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         .battleAnimScript = gBattleAnimMove_WaterSpout,
-		.fieldMoveFlags = IS_FIELD_MOVE_DOUSE,
+		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL | IS_FIELD_MOVE_DOUSE,
         .validApprenticeMove = TRUE,
     },
 
@@ -9056,7 +9056,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Bounce,
-		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL | IS_FIELD_MOVE_JUMP,
+		.fieldMoveFlags = IS_FIELD_MOVE_JUMP,
         .validApprenticeMove = TRUE,
     },
 
@@ -11874,6 +11874,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         .battleAnimScript = gBattleAnimMove_AquaJet,
+		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL,
     },
 
     [MOVE_ATTACK_ORDER] =
@@ -12215,7 +12216,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_ShadowForce,
-		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_WARP,
+		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_ESCAPE,
     },
 
     [MOVE_HONE_CLAWS] =
@@ -14647,7 +14648,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_PhantomForce,
-		.fieldMoveFlags = IS_FIELD_MOVE_HACK,
+		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_ESCAPE,
     },
 
     [MOVE_TRICK_OR_TREAT] =
@@ -15446,7 +15447,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_EerieImpulse,
-		.fieldMoveFlags = IS_FIELD_MOVE_HACK,
+		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_REVEAL,
     },
 
     [MOVE_VENOM_DRENCH] =
@@ -19495,6 +19496,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .makesContact = TRUE,
         .skyBattleBanned = B_EXTRAPOLATED_MOVE_FLAGS,
         .battleAnimScript = gBattleAnimMove_WaveCrash,
+		.fieldMoveFlags = IS_FIELD_MOVE_WATERFALL,
     },
 
     [MOVE_CHLOROBLAST] =
@@ -21365,6 +21367,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
         .battleAnimScript = gBattleAnimMove_FlashFreeze,
+		.fieldMoveFlags = IS_FIELD_MOVE_DOUSE,
     },
 	// Ice-type Close Combat
     [MOVE_ICE_BLITZ] =
@@ -21478,10 +21481,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Traps and hurts the foe in\n"
             "a maelstrom for "BINDING_TURNS" turns."),
         .effect = EFFECT_HIT,
-        .power = 90, 
+        .power = 100, 
         .type = TYPE_WATER,
-        .accuracy = 85, 
-        .pp = 10,
+        .accuracy = 70, 
+        .pp = 5,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
@@ -21494,7 +21497,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_RAIN_DANCE},
         .battleAnimScript = gBattleAnimMove_Whirlpool,
-		.fieldMoveFlags = IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_DOUSE,
+		.fieldMoveFlags = IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_DIVE | IS_FIELD_MOVE_DOUSE,
         .validApprenticeMove = TRUE,
     },
 
