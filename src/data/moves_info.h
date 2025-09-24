@@ -17568,7 +17568,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             .sheerForceBoost = SHEER_FORCE_NO_BOOST,
         }),
         .battleAnimScript = gBattleAnimMove_GlitzyGlow,
-		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
     },
 
     [MOVE_BADDY_BAD] =
