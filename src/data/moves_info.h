@@ -5520,6 +5520,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SWORDS_DANCE},
         .battleAnimScript = gBattleAnimMove_FalseSwipe,
         .validApprenticeMove = TRUE,
+		.fieldMoveFlags = IS_FIELD_MOVE_CUT,
     },
 
     [MOVE_SWAGGER] =
@@ -15424,6 +15425,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_AromaticMist,
+		.fieldMoveFlags = IS_FIELD_MOVE_LURE,
     },
 
     [MOVE_EERIE_IMPULSE] =
@@ -18471,6 +18473,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_LifeDew,
+		.fieldMoveFlags = IS_FIELD_MOVE_HP,
     },
 
     [MOVE_OBSTRUCT] =
@@ -19065,6 +19068,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_JungleHealing,
+		.fieldMoveFlags = IS_FIELD_MOVE_HP,
     },
 
     [MOVE_WICKED_BLOW] =
@@ -19830,6 +19834,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .mirrorMoveBanned = TRUE,
         .healingMove = TRUE,
         .battleAnimScript = gBattleAnimMove_LunarBlessing,
+		.fieldMoveFlags = IS_FIELD_MOVE_HP,
     },
 
     [MOVE_TAKE_HEART] =
