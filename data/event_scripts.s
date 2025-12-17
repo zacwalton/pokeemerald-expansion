@@ -1308,3 +1308,5 @@ EventScript_VsSeekerChargingDone::
 
 
 	.include "data/maps/OldManor/scripts.inc"
+
+	.include "data/maps/SeaMauville_Deck/scripts.inc"

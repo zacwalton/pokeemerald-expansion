@@ -224,7 +224,7 @@
     {
       "id": "LAYOUT_ROUTE103",
       "name": "Route103_Layout",
-      "width": 100,
+      "width": 110,
       "height": 30,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Littleroot_Summer",
@@ -255,7 +255,7 @@
       "id": "LAYOUT_ROUTE106",
       "name": "Route106_Layout",
       "width": 120,
-      "height": 20,
+      "height": 36,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Dewford_Summer",
       "border_filepath": "data/layouts/Route106/border.bin",
@@ -274,7 +274,7 @@
     {
       "id": "LAYOUT_ROUTE108",
       "name": "Route108_Layout",
-      "width": 80,
+      "width": 90,
       "height": 40,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Dewford_Summer",
@@ -285,7 +285,7 @@
       "id": "LAYOUT_ROUTE109",
       "name": "Route109_Layout",
       "width": 40,
-      "height": 90,
+      "height": 106,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Slateport_Summer",
       "border_filepath": "data/layouts/Route109/border.bin",
@@ -314,7 +314,7 @@
     {
       "id": "LAYOUT_ROUTE112",
       "name": "Route112_Layout",
-      "width": 70,
+      "width": 80,
       "height": 30,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Lavaridge_Summer",
@@ -324,7 +324,7 @@
     {
       "id": "LAYOUT_ROUTE113",
       "name": "Route113_Layout",
-      "width": 106,
+      "width": 116,
       "height": 34,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Fallarbor_Summer",
@@ -364,7 +364,7 @@
     {
       "id": "LAYOUT_ROUTE117",
       "name": "Route117_Layout",
-      "width": 60,
+      "width": 70,
       "height": 50,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Verdanturf_Summer",
@@ -4465,7 +4465,7 @@
       "id": "LAYOUT_RUGGED_SEA_ROUTE107",
       "name": "RuggedSea_Route107_Layout",
       "width": 84,
-      "height": 20,
+      "height": 36,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Dewford_Summer",
       "border_filepath": "data/layouts/RuggedSea_Route107/border.bin",
@@ -4474,7 +4474,7 @@
     {
       "id": "LAYOUT_RUGGED_SEA_SLATEPORT",
       "name": "RuggedSea_Slateport_Layout",
-      "width": 56,
+      "width": 66,
       "height": 65,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Littleroot_Summer",
@@ -4534,7 +4534,7 @@
     {
       "id": "LAYOUT_OLD_POWER_PLANT",
       "name": "OldPowerPlant_Layout",
-      "width": 40,
+      "width": 50,
       "height": 30,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Littleroot_Summer",
@@ -4544,7 +4544,7 @@
     {
       "id": "LAYOUT_VERDALE_FALLS",
       "name": "VerdaleFalls_Layout",
-      "width": 100,
+      "width": 110,
       "height": 60,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Verdanturf_Summer",
@@ -4554,8 +4554,8 @@
     {
       "id": "LAYOUT_SEA_MAUVILLE",
       "name": "SeaMauville_Layout",
-      "width": 56,
-      "height": 35,
+      "width": 66,
+      "height": 51,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Dewford_Summer",
       "border_filepath": "data/layouts/SeaMauville/border.bin",
@@ -4594,7 +4594,7 @@
     {
       "id": "LAYOUT_VALLEY_OF_STEEL",
       "name": "ValleyOfSteel_Layout",
-      "width": 60,
+      "width": 70,
       "height": 54,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Forina_Summer",
@@ -5124,7 +5124,7 @@
     {
       "id": "LAYOUT_MT_CHIMNEY_BASE",
       "name": "MtChimneyBase_Layout",
-      "width": 29,
+      "width": 39,
       "height": 70,
       "primary_tileset": "gTileset_Hoenn_Summer",
       "secondary_tileset": "gTileset_Lavaridge_Summer",
@@ -5180,6 +5180,16 @@
       "secondary_tileset": "gTileset_BrendansMaysHouse",
       "border_filepath": "data/layouts/LittlerootTown_MaysHouse_2F_Layout_Blue/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_MaysHouse_2F_Layout_Blue/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEA_MAUVILLE_DECK",
+      "name": "SeaMauville_Deck_Layout",
+      "width": 60,
+      "height": 60,
+      "primary_tileset": "gTileset_Hoenn_Summer",
+      "secondary_tileset": "gTileset_Dewford_Summer",
+      "border_filepath": "data/layouts/SeaMauville_Deck/border.bin",
+      "blockdata_filepath": "data/layouts/SeaMauville_Deck/map.bin"
     }
   ]
 }
