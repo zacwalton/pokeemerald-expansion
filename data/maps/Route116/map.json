@@ -492,6 +492,20 @@
       "var": "VAR_ROUTE116_STATE",
       "var_value": "1",
       "script": "Route116_EventScript_BrineyTrigger"
+    },
+    {
+      "type": "weather",
+      "x": 23,
+      "y": 8,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY_CLOUDS"
+    },
+    {
+      "type": "weather",
+      "x": 23,
+      "y": 5,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
     }
   ],
   "bg_events": [
