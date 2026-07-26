@@ -1781,12 +1781,9 @@ void UpdatePalettesWithTime(u32 palettes)
     if (!palettes)
         return;
     
-    if (IsMapTypeFlash(gMapHeader.mapType))          // Is in a cave or underwater
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)          // Is in a cave or underwater
     {
-		//if (!gMapHeader.cave)
-		//{
-			DoCustomDNSBlend();
-		//}
+        //DoCustomDNSBlend();
         return;
     }
     else                                                                                               // Is not in a cave or underwater — do normal DNS blend
@@ -1914,7 +1911,6 @@ void CB2_Overworld(void)
         {
             //if (!FlagGet(FLAG_SYS_FLASH_BLEND_APPLIED))
             //{
-				DoCustomDNSBlend();
             if (FindTaskIdByFunc(UpdateFlashLevelEffect) == TASK_NONE)
             {
                 //UpdateFlashTint();
