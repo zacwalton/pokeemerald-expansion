@@ -1666,8 +1666,7 @@ bool32 MapHasNaturalLight(u8 mapType)
           || mapType == MAP_TYPE_CITY
           || mapType == MAP_TYPE_ROUTE
           || mapType == MAP_TYPE_OCEAN_ROUTE
-          || mapType == MAP_TYPE_UNDERGROUND
-          || mapType == MAP_TYPE_UNDERWATER));
+          || mapType == MAP_TYPE_UNDERGROUND));
 }
 
 bool32 CurrentMapHasShadows(void)
@@ -1721,7 +1720,7 @@ void UpdatePalettesWithTime(u32 palettes)
     palettes &= PALETTES_MAP | PALETTES_OBJECTS; // Don't blend UI pals
     if (!palettes)
         return;
-    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND)
     {
         TimeMixPalettes(palettes, gPlttBufferUnfaded, gPlttBufferFaded, (struct BlendSettings *)&gTimeOfDayBlend[TIME_NIGHT], (struct BlendSettings *)&gTimeOfDayBlend[TIME_NIGHT], 256);
         return;
@@ -1789,9 +1788,9 @@ void CB2_Overworld(void)
 
     OverworldBasic();
 
-    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND || gMapHeader.mapType == MAP_TYPE_UNDERWATER)
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND)
         UpdatePalettesWithTime(PALETTES_ALL);
-
+        
     if (fading)
     {
         SetFieldVBlankCallback();
