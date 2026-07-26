@@ -425,7 +425,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         )
         .levelUpLearnset = sDelphoxLevelUpLearnset,
         .teachableLearnset = sDelphoxTeachableLearnset,
-        .flashLevel = 5,
+        .flashLevel = 4,
     },
 #endif //P_FAMILY_FENNEKIN
 

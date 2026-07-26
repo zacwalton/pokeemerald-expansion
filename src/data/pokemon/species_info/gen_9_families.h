@@ -325,7 +325,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sCrocalorLevelUpLearnset,
         .teachableLearnset = sCrocalorTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SKELEDIRGE}),
-        .flashLevel = 5,
+        .flashLevel = 4,
     },
 
     [SPECIES_SKELEDIRGE] =
@@ -389,7 +389,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sSkeledirgeLevelUpLearnset,
         .teachableLearnset = sSkeledirgeTeachableLearnset,
-        .flashLevel = 5,
+        .flashLevel = 3,
     },
 #endif //P_FAMILY_FUECOCO
 
