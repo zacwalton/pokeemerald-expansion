@@ -412,11 +412,6 @@ void UpdateFlashTint(void)
 {
     if (!gMapHeader.cave)
 		return;
-    
-    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
-    u8 followerTint = GET_FOLLOWER_TINT(flashTrackerPacked);
-    u8 moveTint = GET_MOVE_TINT(flashTrackerPacked);
-
 	u8 followerIndex = GetFollowerMonIndex();
 	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
 	s32 newFlashLevel;
@@ -424,7 +419,7 @@ void UpdateFlashTint(void)
     s8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashLevel;
     u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
     u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
-    u8 currentFlashTint = followerTint;
+    u8 currentFlashTint = VarGet(VAR_DNS_FLASH_BLEND);
     u8 newFlashTint = 1;
     
 
@@ -440,10 +435,7 @@ void UpdateFlashTint(void)
 		
     //Do Custom DNS Blend
     if (currentFlashTint != newFlashTint)
-    {
-        SET_FOLLOWER_TINT(flashTrackerPacked, newFlashTint);
-        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
-    }
+        VarSet(VAR_DNS_FLASH_BLEND, newFlashTint);
 
     u32 palettes = FilterTimeBlendPalettes(PALETTES_ALL);
     const struct BlendSettings *blend = &gCustomDNSTintBlend[newFlashTint];
@@ -454,8 +446,6 @@ void UpdateFlashStrength(void)
 {
     if (!gMapHeader.cave)
 		return;
-        
-    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
 	u8 followerIndex = GetFollowerMonIndex();
 	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
 	s32 newFlashLevel;
@@ -497,9 +487,7 @@ void UpdateFlashStrength(void)
     if (followerFlashLevel > 0)
         flashShadowStrength = flashShadowStrength - ((8 - followerFlashLevel) / 2);
 
-    
-    SET_SHADOW_STRENGTH(flashTrackerPacked, flashShadowStrength);
-    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+    VarSet(VAR_DNS_FLASH_SHADOW, flashShadowStrength);
     
     if (newFlashLevel == previousFlashLevel)
         return;
