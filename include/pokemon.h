@@ -513,6 +513,9 @@ struct SpeciesInfo /*0xC4*/
     u8 surfSpeed;
     bool8 surfApplyWet;
     bool8 surfBlockFishing;
+	u8 flashLevel;					//Better Flash - Defines Flash radius of a Pokémon
+    u8 flashTint;					//Better Flash - Defines flash tint (custom dns blend)
+    u8 flashTintShiny;				//Better Flash - Defines flash tint for shiny Pokémon (for species like Rapidash and Emboar that have different flame colours when shiny)
 };
 
 struct Ability
