@@ -2292,8 +2292,8 @@ void UpdateFollowingPokemon(void)
         }
         if (gMapHeader.cave)
             {
-                UpdateFlashTint();
                 UpdateFlashStrength();
+                UpdateFlashTint();
             }
     }
     sprite->data[6] = 0; // set animation data

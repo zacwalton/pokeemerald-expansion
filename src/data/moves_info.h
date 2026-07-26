@@ -1480,7 +1480,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         .battleAnimScript = gBattleAnimMove_Ember,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_FLAMETHROWER] =
@@ -1507,7 +1506,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         .battleAnimScript = gBattleAnimMove_Flamethrower,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
         .validApprenticeMove = TRUE,
     },
 
@@ -1751,7 +1749,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_HAIL},
         .battleAnimScript = gBattleAnimMove_AuroraBeam,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_GREEN,
     },
 
     [MOVE_HYPER_BEAM] =
@@ -5914,7 +5911,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         .battleAnimScript = gBattleAnimMove_SacredFire,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_PURPLE,
         .validApprenticeMove = TRUE,
     },
 
@@ -7857,7 +7853,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_TailGlow,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_YELLOW,
         .validApprenticeMove = TRUE,
     },
 
@@ -11446,7 +11441,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         .battleAnimScript = gBattleAnimMove_LavaPlume,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH | IS_FIELD_MOVE_LAVA,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_LEAF_STORM] =
@@ -14250,7 +14244,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_BlueFlare,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
     [MOVE_FIERY_DANCE] =
@@ -15916,7 +15909,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .metronomeBanned = TRUE,
         .battleAnimScript = gBattleAnimMove_LightOfRuin,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_PINK,
     },
 
     [MOVE_ORIGIN_PULSE] =
@@ -15941,7 +15933,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_OriginPulse,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
     [MOVE_PRECIPICE_BLADES] =
@@ -16621,7 +16612,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {COMBO_STARTER_SUNNY_DAY},
         .battleAnimScript = gBattleAnimMove_BurnUp,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH | IS_FIELD_MOVE_DOUSE,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_SPEED_SWAP] =
@@ -16982,7 +16972,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_FleurCannon,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_PINK,
     },
 
     [MOVE_PSYCHIC_FANGS] =
@@ -17177,7 +17166,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SunsteelStrike,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH | IS_FIELD_MOVE_SMASH,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_MOONGEIST_BEAM] =
@@ -17202,7 +17190,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_MoongeistBeam,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
     [MOVE_TEARFUL_LOOK] =
@@ -19959,7 +19946,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         }),
         .battleAnimScript = gBattleAnimMove_LuminaCrash,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_PINK,
     },
 
     [MOVE_ORDER_UP] =
@@ -20298,7 +20284,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         }),
         .battleAnimScript = gBattleAnimMove_TorchSong,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_AQUA_STEP] =
@@ -21107,7 +21092,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .category = DAMAGE_CATEGORY_SPECIAL,
         .battleAnimScript = gBattleAnimMove_FickleBeam,
 		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
-        .flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [MOVE_BURNING_BULWARK] =

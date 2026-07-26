@@ -36,7 +36,6 @@ void DoPortholeWarp(void);
 void DoCableClubWarp(void);
 void DoContestHallWarp(void);
 void DoFlashScanlineDarken(void);
-void UpdateFlashLevelEffect(u8 taskId);
 void AnimateFlash(u8 newFlashLevel);
 void WriteBattlePyramidViewScanlineEffectBuffer(void);
 void DoSpinEnterWarp(void);
