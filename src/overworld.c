@@ -2088,8 +2088,6 @@ static void InitCurrentFlashLevelScanlineEffect(void)
         WriteFlashScanlineEffectBuffer(flashLevel);
         ScanlineEffect_SetParams(sFlashEffectParams);
     }
-    
-    DoFlashScanlineDarken();
 }
 
 static bool32 LoadMapInStepsLink(u8 *state)
@@ -2121,8 +2119,8 @@ static bool32 LoadMapInStepsLink(u8 *state)
         (*state)++;
         break;
     case 4:
-        InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
+        InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2196,8 +2194,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
         (*state)++;
         break;
     case 4:
-        InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
+        InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2298,8 +2296,8 @@ static bool32 ReturnToFieldLink(u8 *state)
         (*state)++;
         break;
     case 3:
-        InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
+        InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2378,8 +2376,8 @@ static void ResetScreenForMapLoad(void)
 
 static void InitViewGraphics(void)
 {
-    InitOverworldGraphicsRegisters();
     InitCurrentFlashLevelScanlineEffect();
+    InitOverworldGraphicsRegisters();
     InitTextBoxGfxAndPrinters();
     InitMapView();
 }
