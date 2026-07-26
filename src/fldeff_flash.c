@@ -381,9 +381,6 @@ void UpdateFlashRadiusOnStep(void)
 	s32 previousFlashLevel = gSaveBlock1Ptr->flashLevel;
 	s32 newFlashLevel;
 	
-	if (GetFlashLevel() == 0)
-		return;
-	
 	if (FlagGet(FLAG_SYS_USE_FLASH))		// Do not touch any flags/flash radius if field move flag is active
 		return;
 	
