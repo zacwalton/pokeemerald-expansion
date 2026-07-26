@@ -499,7 +499,6 @@ struct SpeciesInfo /*0xC4*/
     u8 surfSpeed;
     bool8 surfApplyWet;
     bool8 surfBlockFishing;
-	u8 flashLevel;
 };
 
 struct Ability

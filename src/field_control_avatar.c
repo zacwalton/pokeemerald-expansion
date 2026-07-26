@@ -18,7 +18,6 @@
 #include "field_burn.h"
 #include "field_screen_effect.h"
 #include "field_specials.h"
-#include "fldeff.h"
 #include "fldeff_misc.h"
 #include "follower_npc.h"
 #include "followmon.h"
@@ -733,7 +732,6 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
     UpdateFriendshipStepCounter();
     UpdateFarawayIslandStepCounter();
     UpdateFollowerStepCounter();
-	UpdateFlashRadiusOnStep();		//ZETA- Add follower flash check on step
 
     if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED_MOVE) && !MetatileBehavior_IsForcedMovementTile(metatileBehavior))
     {

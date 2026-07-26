@@ -395,7 +395,6 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-	FlagClear(FLAG_SYS_BONUS_FLASH);
 }
 
 void Overworld_ResetStateAfterTeleport(void)
@@ -408,7 +407,6 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-	FlagClear(FLAG_SYS_BONUS_FLASH);
     RunScriptImmediately(EventScript_ResetMrBriney);
 }
 
@@ -422,7 +420,6 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-	FlagClear(FLAG_SYS_BONUS_FLASH);
 }
 
 #if B_RESET_FLAGS_VARS_AFTER_WHITEOUT  == TRUE
@@ -462,7 +459,6 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-	FlagClear(FLAG_SYS_BONUS_FLASH);
     if (B_RESET_FLAGS_VARS_AFTER_WHITEOUT == TRUE)
         Overworld_ResetBattleFlagsAndVars();
     // If you were defeated by Kyogre/Groudon and the step counter has
@@ -1066,24 +1062,11 @@ bool32 Overworld_IsBikingAllowed(void)
 // Flash level of 8 is fully black
 void SetDefaultFlashLevel(void)
 {
-	u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
     if (!gMapHeader.cave)
-	{
         gSaveBlock1Ptr->flashLevel = 0;
-	}
     else if (FlagGet(FLAG_SYS_USE_FLASH))
-	{
-		if (FlagGet(FLAG_SYS_BONUS_FLASH))		//ZETA- Bonus flag used for illuminate check (not follower)
-			gSaveBlock1Ptr->flashLevel = 1;		//ZETA- Illuminate grants maximum Flash level
-		else
-			gSaveBlock1Ptr->flashLevel = 2;		//ZETA- Default Field Move Flash level is now 2
-	}
-    else if (FlagGet(FLAG_SYS_BONUS_FLASH))		//ZETA- Bonus flag used to check follower passive flash here
-	{
-		if (followerFlashLevel > 0)				//ZETA- Ignore if no flash stat is set
-			gSaveBlock1Ptr->flashLevel = followerFlashLevel;
-	}
-	else
+        gSaveBlock1Ptr->flashLevel = 1;
+    else
         gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
 }
 
