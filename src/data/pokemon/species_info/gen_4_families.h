@@ -289,7 +289,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sChimcharTeachableLearnset,
         .eggMoveLearnset = sChimcharEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 14, SPECIES_MONFERNO}),
-        .flashLevel = 5,
     },
 
     [SPECIES_MONFERNO] =
@@ -362,7 +361,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .levelUpLearnset = sMonfernoLevelUpLearnset,
         .teachableLearnset = sMonfernoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_INFERNAPE}),
-        .flashLevel = 4,
     },
 
     [SPECIES_INFERNAPE] =
@@ -438,7 +436,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sInfernapeLevelUpLearnset,
         .teachableLearnset = sInfernapeTeachableLearnset,
-        .flashLevel = 3,
     },
 #endif //P_FAMILY_CHIMCHAR
 
@@ -1364,7 +1361,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sShinxTeachableLearnset,
         .eggMoveLearnset = sShinxEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 15, SPECIES_LUXIO}),
-        .flashLevel = 6,
     },
 
     [SPECIES_LUXIO] =
@@ -1445,7 +1441,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .levelUpLearnset = sLuxioLevelUpLearnset,
         .teachableLearnset = sLuxioTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_LUXRAY}),
-        .flashLevel = 6,
     },
 
     [SPECIES_LUXRAY] =
@@ -1534,7 +1529,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sLuxrayLevelUpLearnset,
         .teachableLearnset = sLuxrayTeachableLearnset,
-        .flashLevel = 5,
     },
 #endif //P_FAMILY_SHINX
 
@@ -5720,7 +5714,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
-        .flashLevel = 5,
     },
 
 #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -6728,7 +6721,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sHeatranLevelUpLearnset,
         .teachableLearnset = sHeatranTeachableLearnset,
-        .flashLevel = 6,
     },
 #endif //P_FAMILY_HEATRAN
 
@@ -7525,8 +7517,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .formChangeTable = sArceusFormChangeTable,                                  \
         .isMythical = TRUE,                                                         \
         .isFrontierBanned = TRUE,                                                   \
-        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,                               \
-        .flashLevel = 2,                                                            \
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT, \
     }
 
     [SPECIES_ARCEUS_NORMAL]   = ARCEUS_SPECIES_INFO(TYPE_NORMAL,   Normal,   1),

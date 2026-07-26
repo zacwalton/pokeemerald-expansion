@@ -353,7 +353,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .levelUpLearnset = sBraixenLevelUpLearnset,
         .teachableLearnset = sBraixenTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_DELPHOX}),
-        .flashLevel = 6,
     },
 
     [SPECIES_DELPHOX] =
@@ -425,7 +424,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         )
         .levelUpLearnset = sDelphoxLevelUpLearnset,
         .teachableLearnset = sDelphoxTeachableLearnset,
-        .flashLevel = 4,
     },
 #endif //P_FAMILY_FENNEKIN
 
@@ -1674,7 +1672,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         )
         .levelUpLearnset = sPyroarLevelUpLearnset,
         .teachableLearnset = sPyroarTeachableLearnset,
-        .flashLevel = 4,
     },
 #endif //P_FAMILY_LITLEO
 
