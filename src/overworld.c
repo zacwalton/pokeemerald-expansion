@@ -1475,6 +1475,15 @@ bool8 IsMapTypeIndoors(u8 mapType)
         return FALSE;
 }
 
+bool8 IsMapTypePermaDark(u8 mapType)
+{
+    if (mapType == MAP_TYPE_UNDERGROUND
+     || mapType == MAP_TYPE_UNDERWATER)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 u8 GetSavedWarpRegionMapSectionId(void)
 {
     return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->dynamicWarp.mapGroup, gSaveBlock1Ptr->dynamicWarp.mapNum)->regionMapSectionId;
@@ -1580,8 +1589,15 @@ void UpdateTimeOfDay(void)
     RtcCalcLocalTime();
     hours = sHoursOverride ? sHoursOverride : gLocalTime.hours;
     minutes = sHoursOverride ? 0 : gLocalTime.minutes;
+    
+    if (IsMapTypePermaDark(gMapHeader.mapType))
+    {
+        gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+        gTimeBlend.startBlend = gTimeBlend.endBlend = gTimeOfDayBlend[TIME_NIGHT];
+        gTimeOfDay = TIME_NIGHT;  
+    }
 
-    if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_MIDDLE)) // night->morning
+    else if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_MIDDLE)) // night->morning
     {
         gTimeBlend.startBlend = gTimeOfDayBlend[TIME_NIGHT];
         gTimeBlend.endBlend = gTimeOfDayBlend[TIME_MORNING];
@@ -1639,7 +1655,9 @@ bool32 MapHasNaturalLight(u8 mapType)
          && (mapType == MAP_TYPE_TOWN
           || mapType == MAP_TYPE_CITY
           || mapType == MAP_TYPE_ROUTE
-          || mapType == MAP_TYPE_OCEAN_ROUTE));
+          || mapType == MAP_TYPE_OCEAN_ROUTE
+          || mapType == MAP_TYPE_UNDERGROUND
+          || mapType == MAP_TYPE_UNDERWATER));
 }
 
 bool32 CurrentMapHasShadows(void)
