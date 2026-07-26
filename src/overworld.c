@@ -1573,6 +1573,13 @@ void CB1_Overworld(void)
 
 #define DNS_TINTCOLOUR_CAVE              Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16    // 0x9D7474
 #define DNS_TINTCOLOUR_CAVE_DARK         Q_8_8(0.30)  | Q_8_8(0.30)  << 8 | Q_8_8(0.40)  << 16    // 0x664D4D
+#define DNS_TINTCOLOUR_FLASH_YELLOW      Q_8_8(0.568) | Q_8_8(0.510) << 8 | Q_8_8(0.267) << 16    // 0x448291
+#define DNS_TINTCOLOUR_FLASH_ORANGE      Q_8_8(0.568) | Q_8_8(0.431) << 8 | Q_8_8(0.267) << 16    // 0x446E91
+#define DNS_TINTCOLOUR_FLASH_RED         Q_8_8(0.568) | Q_8_8(0.325) << 8 | Q_8_8(0.267) << 16    // 0x445391
+#define DNS_TINTCOLOUR_FLASH_PINK        Q_8_8(0.58)  | Q_8_8(0.35)  << 8 | Q_8_8(0.56)  << 16    // 0x8F5994
+#define DNS_TINTCOLOUR_FLASH_PURPLE      Q_8_8(0.368) | Q_8_8(0.267) << 8 | Q_8_8(0.568) << 16    // 0x91445E
+#define DNS_TINTCOLOUR_FLASH_BLUE        Q_8_8(0.267) | Q_8_8(0.459) << 8 | Q_8_8(0.568) << 16    // 0x917544
+#define DNS_TINTCOLOUR_FLASH_GREEN       Q_8_8(0.267) | Q_8_8(0.568) << 8 | Q_8_8(0.451) << 16    // 0x734591
 
 const struct BlendSettings gTimeOfDayBlend[] =
 {
@@ -1586,6 +1593,13 @@ const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT] =
 {
     [DNS_BLEND_CAVE]        = {.coeff = 10, .blendColor = DNS_TINTCOLOUR_CAVE, .isTint = TRUE},
     [DNS_BLEND_CAVE_DARK]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_CAVE_DARK, .isTint = TRUE},
+    [DNS_BLEND_FLASH_YELLOW]    = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_YELLOW, .isTint = TRUE},
+    [DNS_BLEND_FLASH_ORANGE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_ORANGE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_RED]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_RED, .isTint = TRUE},
+    [DNS_BLEND_FLASH_PINK]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_PINK, .isTint = TRUE},
+    [DNS_BLEND_FLASH_PURPLE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_PURPLE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_BLUE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_BLUE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_GREEN]    = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_GREEN, .isTint = TRUE},
 };
 #define DEFAULT_WEIGHT 256
 #define TIME_BLEND_WEIGHT(begin, end) (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - begin) * MINUTES_PER_HOUR + minutes) / ((end - begin) * MINUTES_PER_HOUR)))
