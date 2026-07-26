@@ -515,8 +515,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .teachableLearnset = sEmboarTeachableLearnset,
         .flashLevel = 4,
-		.flashTint = DNS_BLEND_FLASH_ORANGE,
-		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 #endif //P_FAMILY_TEPIG
 
@@ -942,7 +940,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sWatchogLevelUpLearnset,
         .teachableLearnset = sWatchogTeachableLearnset,
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_PATRAT
 
@@ -2179,7 +2176,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .eggMoveLearnset = sBlitzleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 27, SPECIES_ZEBSTRIKA}),
         .flashLevel = 4,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_ZEBSTRIKA] =
@@ -2248,7 +2244,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sZebstrikaLevelUpLearnset,
         .teachableLearnset = sZebstrikaTeachableLearnset,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_BLITZLE
 
@@ -5025,7 +5020,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formSpeciesIdTable = sDarmanitanFormSpeciesIdTable,
         .formChangeTable = sDarmanitanFormChangeTable,
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_DARMANITAN_ZEN] =
@@ -5276,7 +5270,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formSpeciesIdTable = sDarmanitanFormSpeciesIdTable,
         .formChangeTable = sDarmanitanGalarFormChangeTable,
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_DARUMAKA
@@ -9438,7 +9431,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sTynamoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 39, SPECIES_EELEKTRIK}),
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_EELEKTRIK] =
@@ -9511,7 +9503,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sEelektrikTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_EELEKTROSS}),
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_EELEKTROSS] =
@@ -9584,7 +9575,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sEelektrossLevelUpLearnset,
         .teachableLearnset = sEelektrossTeachableLearnset,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_TYNAMO
 
@@ -9805,8 +9795,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .eggMoveLearnset = sLitwickEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 41, SPECIES_LAMPENT}),
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_PURPLE,
-		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 
     [SPECIES_LAMPENT] =
@@ -9882,8 +9870,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sLampentTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DUSK_STONE, SPECIES_CHANDELURE}),
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_PURPLE,
-		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_CHANDELURE] =
@@ -9957,8 +9943,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sChandelureLevelUpLearnset,
         .teachableLearnset = sChandelureTeachableLearnset,
         .flashLevel = 4,
-		.flashTint = DNS_BLEND_FLASH_PURPLE,
-		.flashTintShiny = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_LITWICK
 
@@ -11725,7 +11709,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sHeatmorTeachableLearnset,
         .eggMoveLearnset = sHeatmorEggMoveLearnset,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_HEATMOR
 
@@ -12173,7 +12156,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sVolcaronaLevelUpLearnset,
         .teachableLearnset = sVolcaronaTeachableLearnset,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_LARVESTA
 
@@ -12806,7 +12788,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sReshiramLevelUpLearnset,
         .teachableLearnset = sReshiramTeachableLearnset,
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_RESHIRAM
 
@@ -12879,8 +12860,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sZekromLevelUpLearnset,
         .teachableLearnset = sZekromTeachableLearnset,
         .flashLevel = 6,
-		.flashTint = DNS_BLEND_FLASH_BLUE,
-		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 #endif //P_FAMILY_ZEKROM
 
@@ -13204,7 +13183,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sKyuremTeachableLearnset,
         .formSpeciesIdTable = sKyuremFormSpeciesIdTable,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_RED,
     },
 
     [SPECIES_KYUREM_BLACK] =
@@ -13284,8 +13262,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sKyuremTeachableLearnset,
         .formSpeciesIdTable = sKyuremFormSpeciesIdTable,
         .flashLevel = 5,
-		.flashTint = DNS_BLEND_FLASH_BLUE,
-		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 #endif //P_FUSION_FORMS
 #endif //P_FAMILY_KYUREM
