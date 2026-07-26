@@ -19,6 +19,13 @@
 #define AFFECTION_THRESHOLD_FOUR_HEARTS 220
 #define AFFECTION_THRESHOLD_FIVE_HEARTS 250
 
+//Better Flash- Piggybacks off the DNS system to use custom blend caves
+enum CustomDNSTint
+{
+    DNS_BLEND_CAVE,
+    DNS_BLEND_CAVE_DARK,
+    DNS_BLEND_COUNT,
+};
 
 // Property labels for Get(Box)MonData / Set(Box)MonData
 enum {

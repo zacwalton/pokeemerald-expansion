@@ -45,6 +45,9 @@ struct LinkPlayerObjectEvent
     u8 movementMode;
 };
 
+#include "palette.h"
+extern const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT];
+
 // Exported RAM declarations
 extern struct WarpData gLastUsedWarp;
 extern struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4];

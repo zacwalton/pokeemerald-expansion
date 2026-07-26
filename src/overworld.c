@@ -46,6 +46,7 @@
 #include "new_game.h"
 #include "palette.h"
 #include "play_time.h"
+#include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
 #include "rotating_gate.h"
@@ -1570,6 +1571,9 @@ void CB1_Overworld(void)
 
 #define TINT_NIGHT Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16
 
+#define DNS_TINTCOLOUR_CAVE              Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16    // 0x9D7474
+#define DNS_TINTCOLOUR_CAVE_DARK         Q_8_8(0.30)  | Q_8_8(0.30)  << 8 | Q_8_8(0.40)  << 16    // 0x664D4D
+
 const struct BlendSettings gTimeOfDayBlend[] =
 {
     [TIME_MORNING] = {.coeff = 4,  .blendColor = 0xA8B0E0,   .isTint = TRUE},
@@ -1578,6 +1582,11 @@ const struct BlendSettings gTimeOfDayBlend[] =
     [TIME_NIGHT]   = {.coeff = 10, .blendColor = TINT_NIGHT, .isTint = TRUE},
 };
 
+const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT] =
+{
+    [DNS_BLEND_CAVE]        = {.coeff = 10, .blendColor = DNS_TINTCOLOUR_CAVE, .isTint = TRUE},
+    [DNS_BLEND_CAVE_DARK]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_CAVE_DARK, .isTint = TRUE},
+};
 #define DEFAULT_WEIGHT 256
 #define TIME_BLEND_WEIGHT(begin, end) (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - begin) * MINUTES_PER_HOUR + minutes) / ((end - begin) * MINUTES_PER_HOUR)))
 
@@ -1592,9 +1601,18 @@ void UpdateTimeOfDay(void)
     
     if (IsMapTypePermaDark(gMapHeader.mapType))
     {
-        gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
-        gTimeBlend.startBlend = gTimeBlend.endBlend = gTimeOfDayBlend[TIME_NIGHT];
-        gTimeOfDay = TIME_NIGHT;  
+        if (gMapHeader.cave)
+        {
+            gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+            gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
+            gTimeOfDay = DNS_BLEND_CAVE_DARK;  
+        }
+        else
+        {
+            gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+            gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE];
+            gTimeOfDay = DNS_BLEND_CAVE;
+        }  
     }
 
     else if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_MIDDLE)) // night->morning
