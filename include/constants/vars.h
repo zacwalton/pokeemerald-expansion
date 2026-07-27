@@ -266,7 +266,7 @@
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
 #define VAR_SURF_MON_SLOT                                0x40F7 // Surfing Mon party slot
 #define VAR_FREEZESURFBLOB                               0x40F8 // Set on surf init to stop blob overlay being offset incorrectly
-#define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
+#define VAR_DNS_FLASH_BLEND                              0x40F9 //Better-Flash - As Bitmask: Store current custom DNS blend
 #define VAR_FOLLOW_MON_0                     			 0x40FA
 #define VAR_FOLLOW_MON_1                    			 0x40FB
 #define VAR_FOLLOW_MON_2                     			 0x40FC

@@ -82,6 +82,21 @@ bool8 SetUpFieldMove_Flash(void)
     }
     else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH))
     {
+        u8 flashUser = GetCursorSelectionMonId();
+        u8 userFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[flashUser], MON_DATA_SPECIES)].flashTint;
+        u8 userShinyFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[flashUser], MON_DATA_SPECIES)].flashTintShiny;
+        if ((GetMonData(&gPlayerParty[flashUser], MON_DATA_IS_SHINY)) && (userShinyFlashTint > 0))
+        {
+            VarSet(VAR_DNS_FLASH_BLEND, userShinyFlashTint);
+        }
+        else if (userFlashTint > 0)
+        {
+            VarSet(VAR_DNS_FLASH_BLEND, userFlashTint);
+        }
+        else
+        {
+            VarSet(VAR_DNS_FLASH_BLEND, 1);
+        }
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
         return TRUE;
@@ -102,7 +117,7 @@ static void FldEff_UseFlash(void)
 {
     PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
-	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
+    DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     ScriptContext_SetupScript(EventScript_UseFlash);
 }
 
