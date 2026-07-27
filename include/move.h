@@ -162,6 +162,7 @@ struct MoveInfo
     u8 contestComboMoves[MAX_COMBO_MOVES];
     const u8 *battleAnimScript;	// field move effects
 	u32 fieldMoveFlags;
+    u8 flashTint;
 };
 
 enum FieldMoveType
