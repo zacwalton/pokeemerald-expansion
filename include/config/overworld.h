@@ -99,6 +99,10 @@
 #define OW_OBJECT_SUBPRIORITY           148     // The higher the value, the farther back compared to other sprites. Shadows should be behind object events.
 #define OW_ENABLE_DNS                   TRUE    // If set to TRUE, the overworld will be tinted depending on time of day.
 
+//Better-Flash
+#define OW_DARKER_CAVES                 TRUE    //When TRUE, Caves and underwater will be tinted darker, with flash caves being darker still
+#define OW_CUSTOM_FLASH_TINTS           TRUE    //When TRUE, Using flash will tint the screen to reflect the user's species, supports shiny mons - requires OW_DARKER_CAVES to be TRUE
+
 // Object Event Shadows
 #define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.
 

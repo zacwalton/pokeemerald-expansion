@@ -1620,14 +1620,23 @@ void UpdateTimeOfDay(void)
     hours = sHoursOverride ? sHoursOverride : gLocalTime.hours;
     minutes = sHoursOverride ? 0 : gLocalTime.minutes;
     
-    if (IsMapTypePermaDark(gMapHeader.mapType))
+    if (OW_DARKER_CAVES &&  (IsMapTypePermaDark(gMapHeader.mapType)))
     {
         if (gMapHeader.cave)
         {
+            if (OW_CUSTOM_FLASH_TINTS)
+            {
                 u8 flashTint = VarGet(VAR_DNS_FLASH_BLEND);
                 gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
                 gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
                 gTimeOfDay = flashTint;  
+            }
+            else
+            {
+                gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
+                gTimeOfDay = DNS_BLEND_CAVE_DARK;  
+            }
         }
         else
         {
@@ -1691,13 +1700,21 @@ void UpdateTimeOfDay(void)
 // Whether a map type is naturally lit/outside
 bool32 MapHasNaturalLight(u8 mapType)
 {
-    return (OW_ENABLE_DNS
+    if (OW_DARKER_CAVES)
+    {
+        return (OW_ENABLE_DNS
+            && (mapType == MAP_TYPE_TOWN
+                || mapType == MAP_TYPE_CITY
+                || mapType == MAP_TYPE_ROUTE
+                || mapType == MAP_TYPE_OCEAN_ROUTE
+                || mapType == MAP_TYPE_UNDERGROUND
+                || mapType == MAP_TYPE_UNDERWATER));
+    }
+    else return (OW_ENABLE_DNS
          && (mapType == MAP_TYPE_TOWN
           || mapType == MAP_TYPE_CITY
           || mapType == MAP_TYPE_ROUTE
-          || mapType == MAP_TYPE_OCEAN_ROUTE
-          || mapType == MAP_TYPE_UNDERGROUND
-          || mapType == MAP_TYPE_UNDERWATER));
+          || mapType == MAP_TYPE_OCEAN_ROUTE));
 }
 
 bool32 CurrentMapHasShadows(void)
