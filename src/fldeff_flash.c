@@ -3,9 +3,11 @@
 #include "event_data.h"
 #include "event_scripts.h"
 #include "field_effect.h"
+#include "field_weather.h"
 #include "fldeff.h"
 #include "gpu_regs.h"
 #include "main.h"
+#include "move.h"
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -82,21 +84,6 @@ bool8 SetUpFieldMove_Flash(void)
     }
     else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH))
     {
-        u8 flashUser = GetCursorSelectionMonId();
-        u8 userFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[flashUser], MON_DATA_SPECIES)].flashTint;
-        u8 userShinyFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[flashUser], MON_DATA_SPECIES)].flashTintShiny;
-        if ((GetMonData(&gPlayerParty[flashUser], MON_DATA_IS_SHINY)) && (userShinyFlashTint > 0))
-        {
-            VarSet(VAR_DNS_FLASH_BLEND, userShinyFlashTint);
-        }
-        else if (userFlashTint > 0)
-        {
-            VarSet(VAR_DNS_FLASH_BLEND, userFlashTint);
-        }
-        else
-        {
-            VarSet(VAR_DNS_FLASH_BLEND, 1);
-        }
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
         return TRUE;
@@ -116,6 +103,9 @@ static void FieldCallback_Flash(void)
 static void FldEff_UseFlash(void)
 {
     PlaySE(SE_M_REFLECT);
+    u16 moveId = VarGet(VAR_0x8008);
+    VarSet(VAR_DNS_FLASH_BLEND, gMovesInfo[moveId].flashTint);
+    UpdatePaletteFade();
     FlagSet(FLAG_SYS_USE_FLASH);
     DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     ScriptContext_SetupScript(EventScript_UseFlash);

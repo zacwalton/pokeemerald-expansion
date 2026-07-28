@@ -101,7 +101,7 @@
 
 //Better-Flash
 #define OW_DARKER_CAVES                 TRUE    //When TRUE, Caves and underwater will be tinted darker, with flash caves being darker still
-#define OW_CUSTOM_FLASH_TINTS           TRUE    //When TRUE, Using flash will tint the screen to reflect the user's species, supports shiny mons - requires OW_DARKER_CAVES to be TRUE
+#define OW_CUSTOM_FLASH_TINTS           TRUE    //When TRUE, Using flash will tint the screen to reflect the move's colour - requires OW_DARKER_CAVES to be TRUE
 
 // Object Event Shadows
 #define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.
