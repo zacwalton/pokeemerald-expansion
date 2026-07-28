@@ -162,7 +162,7 @@ struct MoveInfo
     u8 contestComboMoves[MAX_COMBO_MOVES];
     const u8 *battleAnimScript;	// field move effects
 	u32 fieldMoveFlags;
-    u8 flashTint;
+    u8 flashTint; //Better-Flash - Uses DNS_BLEND_[VALUE] from const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT] =
 };
 
 enum FieldMoveType

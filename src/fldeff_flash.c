@@ -71,6 +71,16 @@ static const u16 sCaveTransitionPalette_Enter[] = INCBIN_U16("graphics/cave_tran
 static const u32 sCaveTransitionTilemap[] = INCBIN_U32("graphics/cave_transition/tilemap.bin.lz");
 static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/tiles.4bpp.lz");
 
+void ResetFlashBlends(void)
+{
+    
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+    SET_MOVE_TINT(flashTrackerPacked, 1);
+    SET_FOLLOWER_TINT(flashTrackerPacked, 1);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+}
+
+
 bool8 SetUpFieldMove_Flash(void)
 {
     // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
@@ -102,10 +112,13 @@ static void FieldCallback_Flash(void)
 
 static void FldEff_UseFlash(void)
 {
-    PlaySE(SE_M_REFLECT);
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     u16 moveId = VarGet(VAR_0x8008);
-    VarSet(VAR_DNS_FLASH_BLEND, gMovesInfo[moveId].flashTint);
+    SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     UpdatePaletteFade();
+
+    PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
     DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     ScriptContext_SetupScript(EventScript_UseFlash);

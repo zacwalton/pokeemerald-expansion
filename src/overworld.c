@@ -396,7 +396,7 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-    VarSet(VAR_DNS_FLASH_BLEND, 1);
+    ResetFlashBlends();
 }
 
 void Overworld_ResetStateAfterTeleport(void)
@@ -409,7 +409,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-    VarSet(VAR_DNS_FLASH_BLEND, 1);
+    ResetFlashBlends();
     RunScriptImmediately(EventScript_ResetMrBriney);
 }
 
@@ -423,7 +423,7 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-    VarSet(VAR_DNS_FLASH_BLEND, 1);
+    ResetFlashBlends();
 }
 
 #if B_RESET_FLAGS_VARS_AFTER_WHITEOUT  == TRUE
@@ -463,7 +463,7 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
-    VarSet(VAR_DNS_FLASH_BLEND, 1);
+    ResetFlashBlends();
     if (B_RESET_FLAGS_VARS_AFTER_WHITEOUT == TRUE)
         Overworld_ResetBattleFlagsAndVars();
     // If you were defeated by Kyogre/Groudon and the step counter has
@@ -948,7 +948,7 @@ if (I_VS_SEEKER_CHARGING != 0)
     if (isOutdoors)
     {
         FlagClear(FLAG_SYS_USE_FLASH);
-        VarSet(VAR_DNS_FLASH_BLEND, 1);
+        ResetFlashBlends();
     }
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
@@ -1626,7 +1626,8 @@ void UpdateTimeOfDay(void)
         {
             if (OW_CUSTOM_FLASH_TINTS)
             {
-                u8 flashTint = VarGet(VAR_DNS_FLASH_BLEND);
+                u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+                u8 flashTint = GET_MOVE_TINT(flashTrackerPacked);
                 gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
                 gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
                 gTimeOfDay = flashTint;  
