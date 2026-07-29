@@ -116,7 +116,7 @@ static void FldEff_UseFlash(void)
     u16 moveId = VarGet(VAR_0x8008);
     SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
     VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
-    UpdatePaletteFade();
+    ForceUpdateDNSBlend();
 
     PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);

@@ -1780,6 +1780,14 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
     return paletteNum;
 }
 
+void ForceUpdateDNSBlend(void)
+{
+    UpdateTimeOfDay();
+    UpdatePaletteFade();
+    UpdateAltBgPalettes(PALETTES_BG);
+    UpdatePalettesWithTime(PALETTES_ALL);
+}
+
 static void OverworldBasic(void)
 {
     ScriptContext_RunScript();

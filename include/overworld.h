@@ -149,6 +149,7 @@ bool32 MapHasNaturalLight(u8 mapType);
 bool32 CurrentMapHasShadows(void);
 void UpdateAltBgPalettes(u16 palettes);
 void UpdatePalettesWithTime(u32);
+void ForceUpdateDNSBlend(void);
 void CB2_Overworld(void);
 void SetMainCallback1(void (*cb)(void));
 void SetUnusedCallback(void *func);
