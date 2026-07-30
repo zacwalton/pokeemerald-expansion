@@ -1626,11 +1626,40 @@ void UpdateTimeOfDay(void)
         {
             if (OW_CUSTOM_FLASH_TINTS)
             {
+                u8 followerIndex = GetFollowerMonIndex();
+                u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
+                u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
                 u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+
+                if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && followerFlashTintShiny > 0)
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, followerFlashTintShiny);
+                }
+                else if (followerFlashTint > 0)
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, followerFlashTint);
+                }
+                else
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, 1);
+                }
+                
+                u8 followerTint = GET_FOLLOWER_TINT(flashTrackerPacked);
                 u8 flashTint = GET_MOVE_TINT(flashTrackerPacked);
-                gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
-                gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
-                gTimeOfDay = flashTint;  
+                struct ObjectEvent *objEvent = GetFollowerObject();
+
+                if ((followerTint > 1) &&(objEvent->invisible != TRUE))
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[followerTint];
+                    gTimeOfDay = followerTint;  
+                }
+                else
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
+                    gTimeOfDay = flashTint; 
+                }
             }
             else
             {
