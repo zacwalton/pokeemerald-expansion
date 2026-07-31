@@ -17,6 +17,7 @@
 #include "field_effect.h"
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
+#include "field_screen_effect.h"
 #include "field_weather.h"
 #include "field_specials.h"
 #include "fieldmap.h"
@@ -2283,9 +2284,33 @@ void UpdateFollowingPokemon(void)
         {
             FollowerSetGraphics(objEvent, species, shiny, female);
             ForceUpdateDNSBlend();
+            if (!FlagGet(FLAG_SYS_USE_FLASH) && gMapHeader.cave)
+            {
+                u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
+                if (followerFlashLevel == 0)
+                    followerFlashLevel = (gMaxFlashLevel - 1);
+                {
+                    if (objEvent->invisible != TRUE)
+                    {
+                        AnimateFlash(followerFlashLevel);
+                        SetFlashLevel(followerFlashLevel);
+                    }
+                    else
+                    {
+                        followerFlashLevel = (gMaxFlashLevel - 1);
+                        SetFlashLevel(followerFlashLevel);
+                    }
+                }
+            }
         }
         else
         {
+            if ((!FlagGet(FLAG_SYS_USE_FLASH) && gMapHeader.cave))
+            {
+                u8 followerFlashLevel = (gMaxFlashLevel - 1);
+                AnimateFlash(followerFlashLevel);
+                SetFlashLevel(followerFlashLevel);
+            }
             MoveObjectEventToMapCoords(objEvent,
                                     gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x,
                                     gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
@@ -7665,6 +7690,17 @@ bool8 MovementAction_ExitPokeball_Step0(struct ObjectEvent *objectEvent, struct 
     objectEvent->graphicsId = graphicsId;
     objectEvent->inanimate = FALSE;
     ForceUpdateDNSBlend();
+    u8 followerFlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
+            if (followerFlashLevel == 0)
+                followerFlashLevel = (gMaxFlashLevel - 1);
+            if (!FlagGet(FLAG_SYS_USE_FLASH))
+            {
+                if (gMapHeader.cave)
+                {
+                    AnimateFlash(followerFlashLevel);
+                    SetFlashLevel(followerFlashLevel);
+                }
+            }
     return MovementAction_ExitPokeball_Step1(objectEvent, sprite);
 }
 

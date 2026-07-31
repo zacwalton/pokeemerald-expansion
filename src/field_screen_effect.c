@@ -865,26 +865,61 @@ static void SetFlashScanlineEffectWindowBoundary(u16 *dest, u32 y, s32 left, s32
     }
 }
 
+//Better Flash - Bitwise digit by digit integer square root algorithm for x
+//The math is beyond me but we need it for the circle equation in SetFlashScanlineEffectWindowBoundaries
+static s32 Sqrt32(s32 x)
+{
+    s32 root = 0;
+    s32 bit = 1 << 30;
+
+    //Find the highest power of 4 <= x
+    while (bit > x)
+        bit >>= 2;
+
+    while (bit != 0)
+    {
+        if (x >= root + bit)
+        {
+            x -= root + bit;
+            root = (root >> 1) + bit;
+        }
+        else
+        {
+            root >>= 1;
+        }
+        bit >>= 2;
+    }
+
+    return root;
+}
+
+//Better Flash - Reworks function to allow flash circle mask to animate to a smaller radius (shrinking)
 static void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 centerY, s32 radius)
 {
-    s32 r = radius;
-    s32 v2 = radius;
-    s32 v3 = 0;
-    while (r >= v3)
+    for (s32 y = 0; y < DISPLAY_HEIGHT; y++)
+        dest[y] = 0;  // Mask all lines initially
+
+    for (s32 y = centerY - radius; y <= centerY + radius; y++)
     {
-        SetFlashScanlineEffectWindowBoundary(dest, centerY - v3, centerX - r, centerX + r);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY + v3, centerX - r, centerX + r);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY - r, centerX - v3, centerX + v3);
-        SetFlashScanlineEffectWindowBoundary(dest, centerY + r, centerX - v3, centerX + v3);
-        v2 -= (v3 * 2) - 1;
-        v3++;
-        if (v2 < 0)
-        {
-            v2 += 2 * (r - 1);
-            r--;
-        }
+        if (y < 0 || y >= DISPLAY_HEIGHT)               // y distance (scanline) increments each loop
+            continue;
+
+        s32 dy = y - centerY;
+        s32 dxSquared = radius * radius - dy * dy;      //Better Flash - uses circle equation to find x from radius and y (assuming the center is at the origin)
+        if (dxSquared < 0)
+            continue;
+
+        s32 dx = Sqrt32(dxSquared);                     //Better Flash - Calculate square root to find x distance
+        s32 x1 = centerX - dx;
+        s32 x2 = centerX + dx;                          //x bounds for flash mask per scanline
+
+        if (x1 < 0) x1 = 0;
+        if (x2 >= DISPLAY_WIDTH) x2 = DISPLAY_WIDTH - 1;
+
+        SetFlashScanlineEffectWindowBoundary(dest, y, x1, x2);
     }
 }
+
 
 static void SetOrbFlashScanlineEffectWindowBoundary(u16 *dest, u32 y, s32 left, s32 right)
 {
@@ -944,7 +979,8 @@ static void UpdateFlashLevelEffect(u8 taskId)
         SetFlashScanlineEffectWindowBoundaries(gScanlineEffectRegBuffers[gScanlineEffect.srcBuffer], tFlashCenterX, tFlashCenterY, tCurFlashRadius);
         tState = 0;
         tCurFlashRadius += tFlashRadiusDelta;
-        if (tCurFlashRadius > tDestFlashRadius)
+        if ((tFlashRadiusDelta > 0 && tCurFlashRadius >= tDestFlashRadius) ||
+			(tFlashRadiusDelta < 0 && tCurFlashRadius <= tDestFlashRadius))			//Better Flash - Allow flash radius change to work both ways (growing and shrinking)
         {
             if (tClearScanlineEffect == 1)
             {
@@ -1064,8 +1100,11 @@ void AnimateFlash(u8 newFlashLevel)
     if (newFlashLevel == 0)
         fullBrightness = TRUE;
     StartUpdateFlashLevelEffect(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sFlashLevelToRadius[curFlashLevel], sFlashLevelToRadius[newFlashLevel], fullBrightness, 1);
-    StartWaitForFlashUpdate();
-    LockPlayerFieldControls();
+    if (FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        StartWaitForFlashUpdate();
+        LockPlayerFieldControls();
+    }
 }
 
 void WriteFlashScanlineEffectBuffer(u8 flashLevel)
