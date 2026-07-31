@@ -1613,6 +1613,18 @@ const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT] =
 
 #define MORNING_HOUR_MIDDLE (MORNING_HOUR_BEGIN + ((MORNING_HOUR_END - MORNING_HOUR_BEGIN) / 2))
 
+static void UpdateCurrentTimeOfDay(s32 hours)
+{
+    if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_END))
+        gTimeOfDay = TIME_MORNING;
+    else if (IsBetweenHours(hours, EVENING_HOUR_BEGIN, EVENING_HOUR_END))
+        gTimeOfDay = TIME_EVENING;
+    else if (IsBetweenHours(hours, NIGHT_HOUR_BEGIN, NIGHT_HOUR_END))
+        gTimeOfDay = TIME_NIGHT;
+    else
+        gTimeOfDay = TIME_DAY;
+}
+
 void UpdateTimeOfDay(void)
 {
     s32 hours, minutes;
@@ -1622,6 +1634,7 @@ void UpdateTimeOfDay(void)
     
     if (OW_DARKER_CAVES &&  (IsMapTypePermaDark(gMapHeader.mapType)))
     {
+        UpdateCurrentTimeOfDay(hours);
         if (gMapHeader.cave)
         {
             if (OW_CUSTOM_FLASH_TINTS)
@@ -1651,14 +1664,12 @@ void UpdateTimeOfDay(void)
                 if ((followerTint > 1) &&(objEvent->invisible != TRUE))
                 {
                     gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
-                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[followerTint];
-                    gTimeOfDay = followerTint;  
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[followerTint]; 
                 }
                 else
                 {
                     gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
                     gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
-                    gTimeOfDay = flashTint; 
                 }
             }
             else
