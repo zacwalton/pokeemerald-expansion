@@ -130,7 +130,12 @@ static void FldEff_UseFlash(void)
     SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
     VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
 
-    PlaySE(SE_M_REFLECT);
+    if (gMovesInfo[moveId].type == TYPE_FIRE)
+        PlaySE(SE_M_FLAME_WHEEL);
+    else if (gMovesInfo[moveId].type == TYPE_ELECTRIC)
+        PlaySE(SE_M_CHARGE);
+    else
+        PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
     if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
     {
@@ -426,7 +431,6 @@ void CalculateAndSetFlashLevel(void)
             u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
             if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1))
             {
-                PlaySE (SE_M_REFLECT);
                 if (FlashLevel - OW_FLASH_ABILITY_BONUS > 0)
                     FlashLevel -= OW_FLASH_ABILITY_BONUS;
                 else
