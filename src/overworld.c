@@ -1637,7 +1637,7 @@ void UpdateTimeOfDay(void)
         UpdateCurrentTimeOfDay(hours);
         if (gMapHeader.cave)
         {
-            if (OW_CUSTOM_FLASH_TINTS)
+            if (OW_CUSTOM_FLASH_TINTS || OW_FOLLOWER_FLASH_TINTS)
             {
                 u8 followerIndex = GetFollowerMonIndex();
                 u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
@@ -1661,15 +1661,25 @@ void UpdateTimeOfDay(void)
                 u8 flashTint = GET_MOVE_TINT(flashTrackerPacked);
                 struct ObjectEvent *objEvent = GetFollowerObject();
 
-                if ((followerTint > 1) &&(objEvent->invisible != TRUE))
+                if ((followerTint > 1) && (objEvent->invisible != TRUE) && OW_FOLLOWER_FLASH_TINTS)
                 {
                     gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
                     gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[followerTint]; 
                 }
-                else
+                else if (OW_CUSTOM_FLASH_TINTS)
                 {
                     gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
                     gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
+                }
+                else if (FlagGet(FLAG_SYS_USE_FLASH))
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE];
+                }
+                else
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
                 }
             }
             else
