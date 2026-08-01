@@ -8,6 +8,7 @@
 #include "event_object_lock.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
+#include "field_specials.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "field_special_scene.h"
@@ -35,6 +36,7 @@
 #include "task.h"
 #include "text.h"
 #include "config/overworld.h"
+#include "constants/abilities.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/field_effects.h"
@@ -978,9 +980,12 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 void DoFlashScanlineDarken(void)
 {
     s32 flashLevel = GetFlashLevel();
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     s32 flashDarkenLevel = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / OW_FLASH_ALPHA_SCALE);
     if (FlagGet(FLAG_SYS_USE_FLASH))
         flashDarkenLevel -= OW_FLASH_FIELDMOVE_ALPHABONUS;          //Better Flash - If FLASH move is active, add bonus light level
+     if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1))
+        flashDarkenLevel -= OW_FLASH_ABILITY_BONUS;                 //Better Flash - If Follower mon or FLASH user has Illuminate, add bonus light level
     if (flashDarkenLevel < 0)
         flashDarkenLevel = 0;
 

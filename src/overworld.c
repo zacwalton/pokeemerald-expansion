@@ -1079,10 +1079,18 @@ void SetDefaultFlashLevel(void)
     if (FlagGet(FLAG_SYS_USE_FLASH))
     {
         if (OW_VARIABLE_FLASH_LEVELS)
-        {
+        {  
+            u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
             baseLevel -= OW_FLASH_FIELDMOVE_BONUS;
             if (baseLevel < 1)
                 baseLevel = 1;
+            if (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1)
+            {
+                if (baseLevel - OW_FLASH_ABILITY_BONUS > 0)
+                    baseLevel -= OW_FLASH_ABILITY_BONUS;
+                else
+                    baseLevel = 1;
+            }
             gSaveBlock1Ptr->flashLevel = baseLevel;
         }
         else

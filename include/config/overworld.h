@@ -109,6 +109,8 @@
 #define OW_FLASH_ALPHA_SCALE            3       //recommend 1-3, 1 = biggest light difference, 4+ will barely change light levels - blend = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / OW_FLASH_ALPHA_SCALE)
 #define OW_FLASH_FIELDMOVE_BONUS        3       //Sets how much the Flash field move decreases the Flash level
 #define OW_FLASH_FIELDMOVE_ALPHABONUS   1       //recommend 0-4, Sets how much the Flash field move decreases the darkening effect (blend strength of the flash circle)
+#define OW_FLASH_ABILITY_BONUS          2       //recommend 0-3, Sets a bonus to Flash Level and Alpha Blend if user or follower has Illuminate
+#define OW_FLASH_BONUS_SECOND_USE       TRUE    //When TRUE, If the ability Bonus is not set for the flash user, Illuminate mons can use flash a second time to activate the bonus
 
 // Object Event Shadows
 #define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.
