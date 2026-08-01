@@ -2195,6 +2195,8 @@ static void InitCurrentFlashLevelScanlineEffect(void)
         WriteFlashScanlineEffectBuffer(flashLevel);
         ScanlineEffect_SetParams(sFlashEffectParams);
     }
+    if (OW_FLASH_CIRCLE_USE_ALPHA && gMapHeader.cave)
+        DoFlashScanlineDarken();
 }
 
 static bool32 LoadMapInStepsLink(u8 *state)
@@ -2226,8 +2228,11 @@ static bool32 LoadMapInStepsLink(u8 *state)
         (*state)++;
         break;
     case 4:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2301,8 +2306,11 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
         (*state)++;
         break;
     case 4:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2403,8 +2411,11 @@ static bool32 ReturnToFieldLink(u8 *state)
         (*state)++;
         break;
     case 3:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2483,8 +2494,11 @@ static void ResetScreenForMapLoad(void)
 
 static void InitViewGraphics(void)
 {
+    if (OW_FLASH_CIRCLE_USE_ALPHA)
+        InitOverworldGraphicsRegisters();
     InitCurrentFlashLevelScanlineEffect();
-    InitOverworldGraphicsRegisters();
+    if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+        InitOverworldGraphicsRegisters();
     InitTextBoxGfxAndPrinters();
     InitMapView();
 }

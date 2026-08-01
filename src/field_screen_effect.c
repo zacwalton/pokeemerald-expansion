@@ -34,8 +34,10 @@
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
+#include "config/overworld.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
+#include "constants/field_effects.h"
 #include "constants/heal_locations.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
@@ -918,6 +920,12 @@ static void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 c
 
         SetFlashScanlineEffectWindowBoundary(dest, y, x1, x2);
     }
+
+    if (FlagGet(FLAG_SYS_FIELDMOVEBANNER) && OW_FLASH_CIRCLE_USE_ALPHA)                             //Better Flash - If Field Move Banner is drawn, we do not mask out these scanlines
+    {
+        for (s32 y = DISPLAY_HEIGHT / 4; y <= (DISPLAY_HEIGHT - 1) - (DISPLAY_HEIGHT / 4); y++)     // This is the area the Field Move Banner occupies (see FieldMoveShowMonOutdoorsEffect_CreateBanner)
+            SetFlashScanlineEffectWindowBoundary(dest, y, 0, DISPLAY_WIDTH - 1);
+    }
 }
 
 
@@ -965,6 +973,21 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 #define tFlashRadiusDelta    data[5]
 #define tClearScanlineEffect data[6]
 
+#define BLDCNT_TGT1_ALL_EXCEPT_BG0 (BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD) //Excludes BG0 for UI layers
+
+void DoFlashScanlineDarken(void)
+{
+    u16 bldcnt = GetGpuReg(REG_OFFSET_BLDCNT);
+    bldcnt |= BLDCNT_EFFECT_DARKEN;
+    bldcnt |= BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD;       //Beter Flash - BGs and OBJ as blending targets
+
+    SetGpuReg(REG_OFFSET_BLDCNT, bldcnt);
+    SetGpuReg(REG_OFFSET_BLDY, OW_FLASH_DARKEN_STRENGTH);
+    SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ);
+    SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ | WINOUT_WIN01_CLR);
+    SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
+}
+
 static void UpdateFlashLevelEffect(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -972,6 +995,8 @@ static void UpdateFlashLevelEffect(u8 taskId)
     switch (tState)
     {
     case 0:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            DoFlashScanlineDarken();
         SetFlashScanlineEffectWindowBoundaries(gScanlineEffectRegBuffers[gScanlineEffect.srcBuffer], tFlashCenterX, tFlashCenterY, tCurFlashRadius);
         tState = 1;
         break;
@@ -995,6 +1020,15 @@ static void UpdateFlashLevelEffect(u8 taskId)
         break;
     case 2:
         ScanlineEffect_Clear();
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+        {
+            // Restore graphics state to default
+            SetGpuReg(REG_OFFSET_BLDY, 0); 
+            SetGpuReg(REG_OFFSET_BLDCNT, 0);
+            ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
+            SetGpuReg(REG_OFFSET_WININ, 0);
+            SetGpuReg(REG_OFFSET_WINOUT, 0);
+        }
         DestroyTask(taskId);
         break;
     }
