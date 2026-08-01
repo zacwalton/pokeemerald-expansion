@@ -105,8 +105,10 @@
 #define OW_CUSTOM_FLASH_TINTS           TRUE    //When TRUE, Using flash will tint the screen to reflect the move's colour - requires OW_DARKER_CAVES to be TRUE
 #define OW_FLASH_CIRCLE_USE_ALPHA       TRUE    //When TRUE, The area outside of the flash light radius will be translucent instead of solid black (will conflict if Blend register is used elsewhere on the map)
 #define OW_FLASH_DARKEN_STRENGTH        14      //Valid values = 1–16 (darker as it increases) [13-14 are good near-black values]
-#define OW_VARIABLE_FLASH_LEVELS        TRUE    //When TRUE, flash does not automatically give max light level
+#define OW_VARIABLE_FLASH_LEVELS        TRUE    //When TRUE, flash does not automatically give max light level. Flash blend strength is derrived from light level
+#define OW_FLASH_ALPHA_SCALE            3       //recommend 1-3, 1 = biggest light difference, 4+ will barely change light levels - blend = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / OW_FLASH_ALPHA_SCALE)
 #define OW_FLASH_FIELDMOVE_BONUS        3       //Sets how much the Flash field move decreases the Flash level
+#define OW_FLASH_FIELDMOVE_ALPHABONUS   1       //recommend 0-4, Sets how much the Flash field move decreases the darkening effect (blend strength of the flash circle)
 
 // Object Event Shadows
 #define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.

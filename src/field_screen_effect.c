@@ -977,12 +977,22 @@ static void SetOrbFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s3
 
 void DoFlashScanlineDarken(void)
 {
+    s32 flashLevel = GetFlashLevel();
+    s32 flashDarkenLevel = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / OW_FLASH_ALPHA_SCALE);
+    if (FlagGet(FLAG_SYS_USE_FLASH))
+        flashDarkenLevel -= OW_FLASH_FIELDMOVE_ALPHABONUS;          //Better Flash - If FLASH move is active, add bonus light level
+    if (flashDarkenLevel < 0)
+        flashDarkenLevel = 0;
+
     u16 bldcnt = GetGpuReg(REG_OFFSET_BLDCNT);
     bldcnt |= BLDCNT_EFFECT_DARKEN;
     bldcnt |= BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD;       //Beter Flash - BGs and OBJ as blending targets
 
     SetGpuReg(REG_OFFSET_BLDCNT, bldcnt);
-    SetGpuReg(REG_OFFSET_BLDY, OW_FLASH_DARKEN_STRENGTH);
+    if (OW_VARIABLE_FLASH_LEVELS)
+        SetGpuReg(REG_OFFSET_BLDY, flashDarkenLevel);       //Better Flash - Maps the darkening circle alpha strength to flash level
+    else
+        SetGpuReg(REG_OFFSET_BLDY, OW_FLASH_DARKEN_STRENGTH);
     SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ);
     SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ | WINOUT_WIN01_CLR);
     SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
