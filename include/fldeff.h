@@ -38,6 +38,7 @@ void CB2_DoChangeMap(void);
 bool8 GetMapPairFadeToType(u8 _fromType, u8 _toType);
 bool8 GetMapPairFadeFromType(u8 _fromType, u8 _toType);
 void UpdateFlashTint(void);
+void CalculateAndSetFlashLevel(void);
 
 // strength
 bool8 SetUpFieldMove_Strength(void);

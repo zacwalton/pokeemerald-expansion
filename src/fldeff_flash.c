@@ -1,8 +1,11 @@
 #include "global.h"
 #include "braille_puzzles.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "event_scripts.h"
 #include "field_effect.h"
+#include "field_screen_effect.h"
+#include "field_specials.h"
 #include "field_weather.h"
 #include "fldeff.h"
 #include "gpu_regs.h"
@@ -15,6 +18,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "config/overworld.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
 
@@ -381,4 +385,39 @@ static void Task_EnterCaveTransition4(u8 taskId)
         LoadPalette(sCaveTransitionPalette_Black, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
         SetMainCallback2(gMain.savedCallback);
     }
+}
+void CalculateAndSetFlashLevel(void)
+{
+    if (gMapHeader.cave)
+    {
+        u8 FlashLevel = gMaxFlashLevel - 1;
+        if (OW_VARIABLE_FLASH_LEVELS)
+        {
+            struct ObjectEvent *objEvent = GetFollowerObject();
+            if (objEvent->invisible != TRUE)
+            {
+                FlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
+                if (FlashLevel == 0)
+                    FlashLevel = (gMaxFlashLevel - 1);
+            }
+            if (FlagGet(FLAG_SYS_USE_FLASH))
+            {
+                if (FlashLevel - OW_FLASH_FIELDMOVE_BONUS > 0)
+                    FlashLevel -= OW_FLASH_FIELDMOVE_BONUS;
+                else
+                    FlashLevel = 1;
+            }
+            AnimateFlash(FlashLevel);
+            SetFlashLevel(FlashLevel);
+        }
+        else
+        {
+            if (FlagGet(FLAG_SYS_USE_FLASH))
+                    FlashLevel = 1;
+            AnimateFlash(FlashLevel);
+            SetFlashLevel(FlashLevel);
+        }
+    }
+    else
+        SetFlashLevel(0);
 }

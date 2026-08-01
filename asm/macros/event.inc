@@ -2852,3 +2852,7 @@
 	.2byte \fieldEffectFlag
 	.endm
 
+	@ Calculates and Sets Flash Level
+	.macro calculateandsetflashlevel 
+	callnative CalculateAndSetFlashLevel
+	.endm

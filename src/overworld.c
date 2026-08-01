@@ -1070,12 +1070,26 @@ bool32 Overworld_IsBikingAllowed(void)
 // Flash level of 8 is fully black
 void SetDefaultFlashLevel(void)
 {
+    u8 baseLevel = gMaxFlashLevel - 1;      //Better Flash - Base Flash level is 1 (small radius)
     if (!gMapHeader.cave)
+    {
         gSaveBlock1Ptr->flashLevel = 0;
-    else if (FlagGet(FLAG_SYS_USE_FLASH))
-        gSaveBlock1Ptr->flashLevel = 1;
+        return;
+    }
+    if (FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        if (OW_VARIABLE_FLASH_LEVELS)
+        {
+            baseLevel -= OW_FLASH_FIELDMOVE_BONUS;
+            if (baseLevel < 1)
+                baseLevel = 1;
+            gSaveBlock1Ptr->flashLevel = baseLevel;
+        }
+        else
+            gSaveBlock1Ptr->flashLevel = 1;
+    }
     else
-        gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+        gSaveBlock1Ptr->flashLevel = baseLevel;
 }
 
 void SetFlashLevel(s32 flashLevel)
