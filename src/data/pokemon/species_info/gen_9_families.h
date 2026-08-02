@@ -325,6 +325,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sCrocalorLevelUpLearnset,
         .teachableLearnset = sCrocalorTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SKELEDIRGE}),
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_SKELEDIRGE] =
@@ -388,6 +390,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sSkeledirgeLevelUpLearnset,
         .teachableLearnset = sSkeledirgeTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_FUECOCO
 
@@ -2277,6 +2281,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggMoveLearnset = sCharcadetEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_AUSPICIOUS_ARMOR, SPECIES_ARMAROUGE},
                                 {EVO_ITEM, ITEM_MALICIOUS_ARMOR, SPECIES_CERULEDGE}),
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_RED,
     },
 
     [SPECIES_ARMAROUGE] =
@@ -2340,6 +2346,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sArmarougeLevelUpLearnset,
         .teachableLearnset = sArmarougeTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_CERULEDGE] =
@@ -2403,6 +2411,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sCeruledgeLevelUpLearnset,
         .teachableLearnset = sCeruledgeTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_PURPLE,
     },
 #endif //P_FAMILY_CHARCADET
 
@@ -2471,6 +2481,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sTadbulbTeachableLearnset,
         .eggMoveLearnset = sTadbulbEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_BELLIBOLT}),
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_YELLOW
     },
 
     [SPECIES_BELLIBOLT] =
@@ -2534,6 +2546,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sBelliboltLevelUpLearnset,
         .teachableLearnset = sBelliboltTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_TADBULB
 
@@ -6749,6 +6763,9 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sChiYuLevelUpLearnset,
         .teachableLearnset = sChiYuTeachableLearnset,
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 #endif //P_FAMILY_CHI_YU
 
@@ -7020,6 +7037,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sMiraidonLevelUpLearnset,
         .teachableLearnset = sMiraidonTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_MIRAIDON
 

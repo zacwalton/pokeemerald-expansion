@@ -467,6 +467,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         )
         .levelUpLearnset = sIncineroarLevelUpLearnset,
         .teachableLearnset = sIncineroarTeachableLearnset,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_LITTEN
 
@@ -3157,6 +3159,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .teachableLearnset = sMorelullTeachableLearnset,
         .eggMoveLearnset = sMorelullEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_SHIINOTIC}),
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
     [SPECIES_SHIINOTIC] =
@@ -3222,6 +3226,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         )
         .levelUpLearnset = sShiinoticLevelUpLearnset,
         .teachableLearnset = sShiinoticTeachableLearnset,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_MORELULL
 
@@ -4709,6 +4715,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .levelUpLearnset = sTurtonatorLevelUpLearnset,
         .teachableLearnset = sTurtonatorTeachableLearnset,
         .eggMoveLearnset = sTurtonatorEggMoveLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_TURTONATOR
 
@@ -6394,6 +6402,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sXurkitreeLevelUpLearnset,
         .teachableLearnset = sXurkitreeTeachableLearnset,
+        .flashLevel = 2,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_XURKITREE
 

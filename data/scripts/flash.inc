@@ -6,7 +6,6 @@ EventScript_UseFlash::
     call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
     waitmovement 0
     setfieldeffectargument 0, VAR_0x8007
-	animateflash 1
-	setflashlevel 1
+	calculateandsetflashlevel
 	releaseall
 	end

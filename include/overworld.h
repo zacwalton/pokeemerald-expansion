@@ -45,6 +45,9 @@ struct LinkPlayerObjectEvent
     u8 movementMode;
 };
 
+#include "palette.h"
+extern const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT];
+
 // Exported RAM declarations
 extern struct WarpData gLastUsedWarp;
 extern struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4];
@@ -133,6 +136,7 @@ u8 GetLastUsedWarpMapType(void);
 bool8 IsMapTypeOutdoors(u8 mapType);
 bool8 Overworld_MapTypeAllowsTeleportAndFly(u8 mapType);
 bool8 IsMapTypeIndoors(u8 mapType);
+bool8 IsMapTypePermaDark(u8 mapType);
 u8 GetSavedWarpRegionMapSectionId(void);
 u8 GetCurrentRegionMapSectionId(void);
 u8 GetCurrentMapBattleScene(void);
@@ -145,6 +149,7 @@ bool32 MapHasNaturalLight(u8 mapType);
 bool32 CurrentMapHasShadows(void);
 void UpdateAltBgPalettes(u16 palettes);
 void UpdatePalettesWithTime(u32);
+void ForceUpdateDNSBlend(void);
 void CB2_Overworld(void);
 void SetMainCallback1(void (*cb)(void));
 void SetUnusedCallback(void *func);

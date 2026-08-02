@@ -17,8 +17,11 @@
 #include "field_effect.h"
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
+#include "field_screen_effect.h"
 #include "field_weather.h"
+#include "field_specials.h"
 #include "fieldmap.h"
+#include "fldeff.h"
 #include "follower_npc.h"
 #include "follower_helper.h"
 #include "followmon.h"
@@ -2280,9 +2283,14 @@ void UpdateFollowingPokemon(void)
         if (OW_SHOW_FOLLOWER_AFTER_CHANGE) //Do not hide followers if follower form or species changes (use HGSS behaviour)
         {
             FollowerSetGraphics(objEvent, species, shiny, female);
+            ForceUpdateDNSBlend();
+            if (OW_VARIABLE_FLASH_LEVELS)
+                CalculateAndSetFlashLevel();
         }
         else
         {
+            if (OW_VARIABLE_FLASH_LEVELS)
+                CalculateAndSetFlashLevel();
             MoveObjectEventToMapCoords(objEvent,
                                     gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x,
                                     gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
@@ -7661,6 +7669,9 @@ bool8 MovementAction_ExitPokeball_Step0(struct ObjectEvent *objectEvent, struct 
     ObjectEventSetPokeballGfx(objectEvent);
     objectEvent->graphicsId = graphicsId;
     objectEvent->inanimate = FALSE;
+    ForceUpdateDNSBlend();
+    if (OW_VARIABLE_FLASH_LEVELS)
+        CalculateAndSetFlashLevel();
     return MovementAction_ExitPokeball_Step1(objectEvent, sprite);
 }
 

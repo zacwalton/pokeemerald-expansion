@@ -430,6 +430,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sCharmanderTeachableLearnset,
         .eggMoveLearnset = sCharmanderEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_CHARMELEON}),
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_CHARMELEON] =
@@ -499,6 +501,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sCharmeleonLevelUpLearnset,
         .teachableLearnset = sCharmeleonTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_CHARIZARD}),
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_CHARIZARD] =
@@ -573,6 +577,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sCharizardTeachableLearnset,
         .formSpeciesIdTable = sCharizardFormSpeciesIdTable,
         .formChangeTable = sCharizardFormChangeTable,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_MEGA_EVOLUTIONS
@@ -641,6 +647,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sCharizardTeachableLearnset,
         .formSpeciesIdTable = sCharizardFormSpeciesIdTable,
         .formChangeTable = sCharizardFormChangeTable,
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
     [SPECIES_CHARIZARD_MEGA_Y] =
@@ -709,6 +717,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sCharizardTeachableLearnset,
         .formSpeciesIdTable = sCharizardFormSpeciesIdTable,
         .formChangeTable = sCharizardFormChangeTable,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_MEGA_EVOLUTIONS
 
@@ -768,6 +778,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sCharizardTeachableLearnset,
         .formSpeciesIdTable = sCharizardFormSpeciesIdTable,
         .formChangeTable = sCharizardFormChangeTable,
+        .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_GIGANTAMAX_FORMS
 #endif //P_FAMILY_CHARMANDER
@@ -9782,6 +9794,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sPonytaEggMoveLearnset,
         .formSpeciesIdTable = sPonytaFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 40, SPECIES_RAPIDASH}),
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 
     [SPECIES_RAPIDASH] =
@@ -9850,6 +9865,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sRapidashLevelUpLearnset,
         .teachableLearnset = sRapidashTeachableLearnset,
         .formSpeciesIdTable = sRapidashFormSpeciesIdTable,
+        .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_BLUE,
     },
 
 #if P_GALARIAN_FORMS
@@ -9918,6 +9936,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sPonytaGalarEggMoveLearnset,
         .formSpeciesIdTable = sPonytaFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 40, SPECIES_RAPIDASH_GALAR}),
+        .flashLevel = 6,
     },
 
     [SPECIES_RAPIDASH_GALAR] =
@@ -9983,6 +10002,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sRapidashGalarLevelUpLearnset,
         .teachableLearnset = sRapidashGalarTeachableLearnset,
         .formSpeciesIdTable = sRapidashFormSpeciesIdTable,
+        .flashLevel = 6,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_PONYTA
@@ -13389,6 +13409,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMarowakAlolaLevelUpLearnset,
         .teachableLearnset = sMarowakAlolaTeachableLearnset,
         .formSpeciesIdTable = sMarowakFormSpeciesIdTable,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 
     [SPECIES_MAROWAK_ALOLA_TOTEM] =
@@ -13453,6 +13476,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMarowakAlolaLevelUpLearnset,
         .teachableLearnset = sMarowakAlolaTeachableLearnset,
         .formSpeciesIdTable = sMarowakFormSpeciesIdTable,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 #endif //P_ALOLAN_FORMS
 #endif //P_FAMILY_CUBONE
@@ -15404,6 +15430,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sStaryuTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_WATER_STONE, SPECIES_STARMIE}),
         .surfApplyWet = TRUE,
+        .flashLevel = 6,
     },
 
     [SPECIES_STARMIE] =
@@ -15477,6 +15504,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sStarmieTeachableLearnset,
         .surfSpeed = 3,
         .surfApplyWet = TRUE,
+        .flashLevel = 6,
     },
 #endif //P_FAMILY_STARYU
 
@@ -16533,6 +16561,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sMagbyTeachableLearnset,
         .eggMoveLearnset = sMagbyEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_MAGMAR}),
+        .flashLevel = 6,
     },
 #endif //P_GEN_2_CROSS_EVOS
 
@@ -16603,6 +16632,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sMagmarTeachableLearnset,
         .evolutions = EVOLUTION({EVO_TRADE, 0, SPECIES_MAGMORTAR, CONDITIONS({IF_HOLD_ITEM, ITEM_MAGMARIZER})},
                                 {EVO_ITEM, ITEM_MAGMARIZER, SPECIES_MAGMORTAR}),
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
 #if P_GEN_4_CROSS_EVOS
@@ -16678,6 +16710,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .levelUpLearnset = sMagmortarLevelUpLearnset,
         .teachableLearnset = sMagmortarTeachableLearnset,
+        .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_GEN_4_CROSS_EVOS
 #endif //P_FAMILY_MAGMAR
@@ -17987,6 +18022,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .levelUpLearnset = sFlareonLevelUpLearnset,
         .teachableLearnset = sFlareonTeachableLearnset,
+        .flashLevel = 6,
     },
 
 #if P_GEN_2_CROSS_EVOS
@@ -19460,6 +19496,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sZapdosLevelUpLearnset,
         .teachableLearnset = sZapdosTeachableLearnset,
         .formSpeciesIdTable = sZapdosFormSpeciesIdTable,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
     },
 
 #if P_GALARIAN_FORMS
@@ -19637,6 +19675,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMoltresLevelUpLearnset,
         .teachableLearnset = sMoltresTeachableLearnset,
         .formSpeciesIdTable = sMoltresFormSpeciesIdTable,
+        .flashLevel = 3,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
 #if P_GALARIAN_FORMS
@@ -19705,6 +19745,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMoltresGalarLevelUpLearnset,
         .teachableLearnset = sMoltresGalarTeachableLearnset,
         .formSpeciesIdTable = sMoltresFormSpeciesIdTable,
+		.flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_PINK,
+		.flashTintShiny = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_MOLTRES

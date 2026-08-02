@@ -19,6 +19,20 @@
 #define AFFECTION_THRESHOLD_FOUR_HEARTS 220
 #define AFFECTION_THRESHOLD_FIVE_HEARTS 250
 
+//Better Flash- Piggybacks off the DNS system to use custom blend caves
+enum CustomDNSTint
+{
+    DNS_BLEND_CAVE,
+    DNS_BLEND_CAVE_DARK,
+    DNS_BLEND_FLASH_YELLOW,
+    DNS_BLEND_FLASH_ORANGE,
+    DNS_BLEND_FLASH_RED,
+    DNS_BLEND_FLASH_PINK,
+    DNS_BLEND_FLASH_PURPLE,
+    DNS_BLEND_FLASH_BLUE,
+    DNS_BLEND_FLASH_GREEN,
+    DNS_BLEND_COUNT,
+};
 
 // Property labels for Get(Box)MonData / Set(Box)MonData
 enum {
@@ -499,6 +513,9 @@ struct SpeciesInfo /*0xC4*/
     u8 surfSpeed;
     bool8 surfApplyWet;
     bool8 surfBlockFishing;
+	u8 flashLevel;					//Better Flash - Defines Flash radius of a Pokémon
+    u8 flashTint;					//Better Flash - Defines flash tint (custom dns blend)
+    u8 flashTintShiny;				//Better Flash - Defines flash tint for shiny Pokémon (for species like Rapidash and Emboar that have different flame colours when shiny)
 };
 
 struct Ability

@@ -25,6 +25,7 @@
 #include "field_tasks.h"
 #include "field_weather.h"
 #include "fieldmap.h"
+#include "fldeff.h"
 #include "harvestable_item.h"
 #include "follower_npc.h"
 #include "gpu_regs.h"
@@ -3454,3 +3455,14 @@ bool8 ScrCmd_doesmovehavefieldeffect(struct ScriptContext *ctx)
     return FALSE;
 }
 
+u8 ScrCmd_calculateandsetflashlevel(struct ScriptContext *ctx)
+{    
+    if (OW_VARIABLE_FLASH_LEVELS)
+        CalculateAndSetFlashLevel();
+    else
+    {
+        AnimateFlash(1);
+        SetFlashLevel(1);
+    }
+    return FALSE;
+}

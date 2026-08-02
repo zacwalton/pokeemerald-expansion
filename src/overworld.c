@@ -46,6 +46,7 @@
 #include "new_game.h"
 #include "palette.h"
 #include "play_time.h"
+#include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
 #include "rotating_gate.h"
@@ -395,6 +396,7 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ResetFlashBlends();
 }
 
 void Overworld_ResetStateAfterTeleport(void)
@@ -407,6 +409,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ResetFlashBlends();
     RunScriptImmediately(EventScript_ResetMrBriney);
 }
 
@@ -420,6 +423,7 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ResetFlashBlends();
 }
 
 #if B_RESET_FLAGS_VARS_AFTER_WHITEOUT  == TRUE
@@ -459,6 +463,7 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_USE_WHIRLPOOL);
     FlagClear(FLAG_SYS_USE_WATERFALL);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ResetFlashBlends();
     if (B_RESET_FLAGS_VARS_AFTER_WHITEOUT == TRUE)
         Overworld_ResetBattleFlagsAndVars();
     // If you were defeated by Kyogre/Groudon and the step counter has
@@ -941,7 +946,10 @@ if (I_VS_SEEKER_CHARGING != 0)
     SetSavedWeatherFromCurrMapHeader();
     ChooseAmbientCrySpecies();
     if (isOutdoors)
+    {
         FlagClear(FLAG_SYS_USE_FLASH);
+        ResetFlashBlends();
+    }
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
@@ -1062,12 +1070,34 @@ bool32 Overworld_IsBikingAllowed(void)
 // Flash level of 8 is fully black
 void SetDefaultFlashLevel(void)
 {
+    u8 baseLevel = gMaxFlashLevel - 1;      //Better Flash - Base Flash level is 1 (small radius)
     if (!gMapHeader.cave)
+    {
         gSaveBlock1Ptr->flashLevel = 0;
-    else if (FlagGet(FLAG_SYS_USE_FLASH))
-        gSaveBlock1Ptr->flashLevel = 1;
+        return;
+    }
+    if (FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        if (OW_VARIABLE_FLASH_LEVELS)
+        {  
+            u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+            baseLevel -= OW_FLASH_FIELDMOVE_BONUS;
+            if (baseLevel < 1)
+                baseLevel = 1;
+            if (GET_FLASH_BOOST(flashTrackerPacked) == 1)
+            {
+                if (baseLevel - OW_FLASH_ABILITY_BONUS > 0)
+                    baseLevel -= OW_FLASH_ABILITY_BONUS;
+                else
+                    baseLevel = 1;
+            }
+            gSaveBlock1Ptr->flashLevel = baseLevel;
+        }
+        else
+            gSaveBlock1Ptr->flashLevel = 1;
+    }
     else
-        gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+        gSaveBlock1Ptr->flashLevel = baseLevel;
 }
 
 void SetFlashLevel(s32 flashLevel)
@@ -1475,6 +1505,15 @@ bool8 IsMapTypeIndoors(u8 mapType)
         return FALSE;
 }
 
+bool8 IsMapTypePermaDark(u8 mapType)
+{
+    if (mapType == MAP_TYPE_UNDERGROUND
+     || mapType == MAP_TYPE_UNDERWATER)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 u8 GetSavedWarpRegionMapSectionId(void)
 {
     return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->dynamicWarp.mapGroup, gSaveBlock1Ptr->dynamicWarp.mapNum)->regionMapSectionId;
@@ -1561,6 +1600,16 @@ void CB1_Overworld(void)
 
 #define TINT_NIGHT Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16
 
+#define DNS_TINTCOLOUR_CAVE              Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16    // 0x9D7474
+#define DNS_TINTCOLOUR_CAVE_DARK         Q_8_8(0.30)  | Q_8_8(0.30)  << 8 | Q_8_8(0.40)  << 16    // 0x664D4D
+#define DNS_TINTCOLOUR_FLASH_YELLOW      Q_8_8(0.568) | Q_8_8(0.510) << 8 | Q_8_8(0.267) << 16    // 0x448291
+#define DNS_TINTCOLOUR_FLASH_ORANGE      Q_8_8(0.568) | Q_8_8(0.431) << 8 | Q_8_8(0.267) << 16    // 0x446E91
+#define DNS_TINTCOLOUR_FLASH_RED         Q_8_8(0.568) | Q_8_8(0.325) << 8 | Q_8_8(0.267) << 16    // 0x445391
+#define DNS_TINTCOLOUR_FLASH_PINK        Q_8_8(0.58)  | Q_8_8(0.35)  << 8 | Q_8_8(0.56)  << 16    // 0x8F5994
+#define DNS_TINTCOLOUR_FLASH_PURPLE      Q_8_8(0.368) | Q_8_8(0.267) << 8 | Q_8_8(0.568) << 16    // 0x91445E
+#define DNS_TINTCOLOUR_FLASH_BLUE        Q_8_8(0.267) | Q_8_8(0.459) << 8 | Q_8_8(0.568) << 16    // 0x917544
+#define DNS_TINTCOLOUR_FLASH_GREEN       Q_8_8(0.267) | Q_8_8(0.568) << 8 | Q_8_8(0.451) << 16    // 0x734591
+
 const struct BlendSettings gTimeOfDayBlend[] =
 {
     [TIME_MORNING] = {.coeff = 4,  .blendColor = 0xA8B0E0,   .isTint = TRUE},
@@ -1569,10 +1618,34 @@ const struct BlendSettings gTimeOfDayBlend[] =
     [TIME_NIGHT]   = {.coeff = 10, .blendColor = TINT_NIGHT, .isTint = TRUE},
 };
 
+const struct BlendSettings gCustomDNSTintBlend[DNS_BLEND_COUNT] =
+{
+    [DNS_BLEND_CAVE]        = {.coeff = 10, .blendColor = DNS_TINTCOLOUR_CAVE, .isTint = TRUE},
+    [DNS_BLEND_CAVE_DARK]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_CAVE_DARK, .isTint = TRUE},
+    [DNS_BLEND_FLASH_YELLOW]    = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_YELLOW, .isTint = TRUE},
+    [DNS_BLEND_FLASH_ORANGE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_ORANGE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_RED]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_RED, .isTint = TRUE},
+    [DNS_BLEND_FLASH_PINK]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_PINK, .isTint = TRUE},
+    [DNS_BLEND_FLASH_PURPLE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_PURPLE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_BLUE]   = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_BLUE, .isTint = TRUE},
+    [DNS_BLEND_FLASH_GREEN]    = {.coeff = 12, .blendColor = DNS_TINTCOLOUR_FLASH_GREEN, .isTint = TRUE},
+};
 #define DEFAULT_WEIGHT 256
 #define TIME_BLEND_WEIGHT(begin, end) (DEFAULT_WEIGHT - (DEFAULT_WEIGHT * ((hours - begin) * MINUTES_PER_HOUR + minutes) / ((end - begin) * MINUTES_PER_HOUR)))
 
 #define MORNING_HOUR_MIDDLE (MORNING_HOUR_BEGIN + ((MORNING_HOUR_END - MORNING_HOUR_BEGIN) / 2))
+
+static void UpdateCurrentTimeOfDay(s32 hours)
+{
+    if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_END))
+        gTimeOfDay = TIME_MORNING;
+    else if (IsBetweenHours(hours, EVENING_HOUR_BEGIN, EVENING_HOUR_END))
+        gTimeOfDay = TIME_EVENING;
+    else if (IsBetweenHours(hours, NIGHT_HOUR_BEGIN, NIGHT_HOUR_END))
+        gTimeOfDay = TIME_NIGHT;
+    else
+        gTimeOfDay = TIME_DAY;
+}
 
 void UpdateTimeOfDay(void)
 {
@@ -1580,8 +1653,73 @@ void UpdateTimeOfDay(void)
     RtcCalcLocalTime();
     hours = sHoursOverride ? sHoursOverride : gLocalTime.hours;
     minutes = sHoursOverride ? 0 : gLocalTime.minutes;
+    
+    if (OW_DARKER_CAVES &&  (IsMapTypePermaDark(gMapHeader.mapType)))
+    {
+        UpdateCurrentTimeOfDay(hours);
+        if (gMapHeader.cave)
+        {
+            if (OW_CUSTOM_FLASH_TINTS || OW_FOLLOWER_FLASH_TINTS)
+            {
+                u8 followerIndex = GetFollowerMonIndex();
+                u8 followerFlashTint = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTint;
+                u8 followerFlashTintShiny = gSpeciesInfo[GetMonData(&gPlayerParty[followerIndex], MON_DATA_SPECIES)].flashTintShiny;
+                u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
 
-    if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_MIDDLE)) // night->morning
+                if (GetMonData(&gPlayerParty[followerIndex], MON_DATA_IS_SHINY) && followerFlashTintShiny > 0)
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, followerFlashTintShiny);
+                }
+                else if (followerFlashTint > 0)
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, followerFlashTint);
+                }
+                else
+                {
+                    SET_FOLLOWER_TINT(flashTrackerPacked, 1);
+                }
+                
+                u8 followerTint = GET_FOLLOWER_TINT(flashTrackerPacked);
+                u8 flashTint = GET_MOVE_TINT(flashTrackerPacked);
+                struct ObjectEvent *objEvent = GetFollowerObject();
+
+                if ((followerTint > 1) && (objEvent->invisible != TRUE) && OW_FOLLOWER_FLASH_TINTS)
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[followerTint]; 
+                }
+                else if (OW_CUSTOM_FLASH_TINTS)
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[flashTint];
+                }
+                else if (FlagGet(FLAG_SYS_USE_FLASH))
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE];
+                }
+                else
+                {
+                    gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                    gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
+                }
+            }
+            else
+            {
+                gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+                gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE_DARK];
+                gTimeOfDay = DNS_BLEND_CAVE_DARK;  
+            }
+        }
+        else
+        {
+            gTimeBlend.weight = gTimeBlend.altWeight = DEFAULT_WEIGHT;
+            gTimeBlend.startBlend = gTimeBlend.endBlend = gCustomDNSTintBlend[DNS_BLEND_CAVE];
+            gTimeOfDay = DNS_BLEND_CAVE;
+        }  
+    }
+
+    else if (IsBetweenHours(hours, MORNING_HOUR_BEGIN, MORNING_HOUR_MIDDLE)) // night->morning
     {
         gTimeBlend.startBlend = gTimeOfDayBlend[TIME_NIGHT];
         gTimeBlend.endBlend = gTimeOfDayBlend[TIME_MORNING];
@@ -1635,7 +1773,17 @@ void UpdateTimeOfDay(void)
 // Whether a map type is naturally lit/outside
 bool32 MapHasNaturalLight(u8 mapType)
 {
-    return (OW_ENABLE_DNS
+    if (OW_DARKER_CAVES)
+    {
+        return (OW_ENABLE_DNS
+            && (mapType == MAP_TYPE_TOWN
+                || mapType == MAP_TYPE_CITY
+                || mapType == MAP_TYPE_ROUTE
+                || mapType == MAP_TYPE_OCEAN_ROUTE
+                || mapType == MAP_TYPE_UNDERGROUND
+                || mapType == MAP_TYPE_UNDERWATER));
+    }
+    else return (OW_ENABLE_DNS
          && (mapType == MAP_TYPE_TOWN
           || mapType == MAP_TYPE_CITY
           || mapType == MAP_TYPE_ROUTE
@@ -1702,6 +1850,14 @@ u8 UpdateSpritePaletteWithTime(u8 paletteNum)
      && !IS_BLEND_IMMUNE_TAG(GetSpritePaletteTagByPaletteNum(paletteNum)))
         TimeMixPalettes(1, &gPlttBufferUnfaded[OBJ_PLTT_ID(paletteNum)], &gPlttBufferFaded[OBJ_PLTT_ID(paletteNum)], &gTimeBlend.startBlend, &gTimeBlend.endBlend, gTimeBlend.weight);
     return paletteNum;
+}
+
+void ForceUpdateDNSBlend(void)
+{
+    UpdateTimeOfDay();
+    UpdatePaletteFade();
+    UpdateAltBgPalettes(PALETTES_BG);
+    UpdatePalettesWithTime(PALETTES_ALL);
 }
 
 static void OverworldBasic(void)
@@ -2071,6 +2227,8 @@ static void InitCurrentFlashLevelScanlineEffect(void)
         WriteFlashScanlineEffectBuffer(flashLevel);
         ScanlineEffect_SetParams(sFlashEffectParams);
     }
+    if (OW_FLASH_CIRCLE_USE_ALPHA && gMapHeader.cave)
+        DoFlashScanlineDarken();
 }
 
 static bool32 LoadMapInStepsLink(u8 *state)
@@ -2102,8 +2260,11 @@ static bool32 LoadMapInStepsLink(u8 *state)
         (*state)++;
         break;
     case 4:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2177,8 +2338,11 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
         (*state)++;
         break;
     case 4:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2279,8 +2443,11 @@ static bool32 ReturnToFieldLink(u8 *state)
         (*state)++;
         break;
     case 3:
+        if (OW_FLASH_CIRCLE_USE_ALPHA)
+            InitOverworldGraphicsRegisters();
         InitCurrentFlashLevelScanlineEffect();
-        InitOverworldGraphicsRegisters();
+        if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+            InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
@@ -2359,8 +2526,11 @@ static void ResetScreenForMapLoad(void)
 
 static void InitViewGraphics(void)
 {
+    if (OW_FLASH_CIRCLE_USE_ALPHA)
+        InitOverworldGraphicsRegisters();
     InitCurrentFlashLevelScanlineEffect();
-    InitOverworldGraphicsRegisters();
+    if (!OW_FLASH_CIRCLE_USE_ALPHA)   
+        InitOverworldGraphicsRegisters();
     InitTextBoxGfxAndPrinters();
     InitMapView();
 }

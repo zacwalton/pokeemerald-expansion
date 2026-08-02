@@ -289,6 +289,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sChimcharTeachableLearnset,
         .eggMoveLearnset = sChimcharEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 14, SPECIES_MONFERNO}),
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_MONFERNO] =
@@ -361,6 +363,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .levelUpLearnset = sMonfernoLevelUpLearnset,
         .teachableLearnset = sMonfernoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_INFERNAPE}),
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [SPECIES_INFERNAPE] =
@@ -436,6 +440,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sInfernapeLevelUpLearnset,
         .teachableLearnset = sInfernapeTeachableLearnset,
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_CHIMCHAR
 
@@ -1529,6 +1535,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         )
         .levelUpLearnset = sLuxrayLevelUpLearnset,
         .teachableLearnset = sLuxrayTeachableLearnset,
+        .flashLevel = 6,
     },
 #endif //P_FAMILY_SHINX
 
@@ -5315,6 +5322,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .eggMoveLearnset = sFinneonEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 31, SPECIES_LUMINEON}),
         .surfApplyWet = TRUE,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_LUMINEON] =
@@ -5400,6 +5409,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .levelUpLearnset = sLumineonLevelUpLearnset,
         .teachableLearnset = sLumineonTeachableLearnset,
         .surfApplyWet = TRUE,
+        .flashLevel = 4,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_YELLOW,
     },
 #endif //P_FAMILY_FINNEON
 
@@ -5714,6 +5726,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
 #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -5793,6 +5808,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_RED,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_ROTOM_WASH] =
@@ -5865,6 +5883,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_ROTOM_FROST] =
@@ -5935,6 +5956,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_BLUE,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_ROTOM_FAN] =
@@ -6030,6 +6054,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_YELLOW,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 
     [SPECIES_ROTOM_MOW] =
@@ -6103,6 +6130,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sRotomTeachableLearnset,
         .formSpeciesIdTable = sRotomFormSpeciesIdTable,
         .formChangeTable = sRotomFormChangeTable,
+        .flashLevel = 6,
+		.flashTint = DNS_BLEND_FLASH_GREEN,
+		.flashTintShiny = DNS_BLEND_FLASH_PINK,
     },
 #endif //P_FAMILY_ROTOM
 
@@ -6721,6 +6751,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sHeatranLevelUpLearnset,
         .teachableLearnset = sHeatranTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 #endif //P_FAMILY_HEATRAN
 
@@ -7035,6 +7067,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sCresseliaLevelUpLearnset,
         .teachableLearnset = sCresseliaTeachableLearnset,
+        .flashLevel = 5,
+		.flashTint = DNS_BLEND_FLASH_PINK,
+		.flashTintShiny = DNS_BLEND_FLASH_GREEN,
     },
 #endif //P_FAMILY_CRESSELIA
 
@@ -7517,7 +7552,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .formChangeTable = sArceusFormChangeTable,                                  \
         .isMythical = TRUE,                                                         \
         .isFrontierBanned = TRUE,                                                   \
-        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT, \
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,                               \
+        .flashLevel = 2,                                                            \
+		.flashTint = DNS_BLEND_FLASH_YELLOW,										\
     }
 
     [SPECIES_ARCEUS_NORMAL]   = ARCEUS_SPECIES_INFO(TYPE_NORMAL,   Normal,   1),

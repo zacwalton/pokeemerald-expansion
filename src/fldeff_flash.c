@@ -1,11 +1,16 @@
 #include "global.h"
 #include "braille_puzzles.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "event_scripts.h"
 #include "field_effect.h"
+#include "field_screen_effect.h"
+#include "field_specials.h"
+#include "field_weather.h"
 #include "fldeff.h"
 #include "gpu_regs.h"
 #include "main.h"
+#include "move.h"
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -13,6 +18,8 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "config/overworld.h"
+#include "constants/abilities.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
 
@@ -69,8 +76,21 @@ static const u16 sCaveTransitionPalette_Enter[] = INCBIN_U16("graphics/cave_tran
 static const u32 sCaveTransitionTilemap[] = INCBIN_U32("graphics/cave_transition/tilemap.bin.lz");
 static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/tiles.4bpp.lz");
 
+void ResetFlashBlends(void)
+{
+    
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+    SET_MOVE_TINT(flashTrackerPacked, 1);
+    SET_FOLLOWER_TINT(flashTrackerPacked, 1);
+    SET_FLASH_BOOST(flashTrackerPacked, 0);
+    SET_FIELDBANNERACTIVE(flashTrackerPacked, 0);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+}
+
+
 bool8 SetUpFieldMove_Flash(void)
 {
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
     // Flash is used instead.
     if (ShouldDoBrailleRegisteelEffect())
@@ -81,6 +101,12 @@ bool8 SetUpFieldMove_Flash(void)
         return TRUE;
     }
     else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH))
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Flash;
+        return TRUE;
+    }
+    else if (OW_FLASH_BONUS_SECOND_USE && (FlagGet(FLAG_SYS_USE_FLASH)) && (GET_FLASH_BOOST(flashTrackerPacked) == 0) && (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE))
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
@@ -100,9 +126,27 @@ static void FieldCallback_Flash(void)
 
 static void FldEff_UseFlash(void)
 {
-    PlaySE(SE_M_REFLECT);
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+    u16 moveId = VarGet(VAR_0x8008);
+    SET_MOVE_TINT(flashTrackerPacked, gMovesInfo[moveId].flashTint);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+
+    if (gMovesInfo[moveId].type == TYPE_FIRE)
+        PlaySE(SE_M_FLAME_WHEEL);
+    else if (gMovesInfo[moveId].type == TYPE_ELECTRIC)
+        PlaySE(SE_M_CHARGE);
+    else
+        PlaySE(SE_M_REFLECT);
     FlagSet(FLAG_SYS_USE_FLASH);
-	DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
+    if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
+    {
+        SET_FLASH_BOOST(flashTrackerPacked, 1);
+    }
+    else
+        SET_FLASH_BOOST(flashTrackerPacked, 0);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
+    ForceUpdateDNSBlend();
+    DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
     ScriptContext_SetupScript(EventScript_UseFlash);
 }
 
@@ -363,4 +407,47 @@ static void Task_EnterCaveTransition4(u8 taskId)
         LoadPalette(sCaveTransitionPalette_Black, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
         SetMainCallback2(gMain.savedCallback);
     }
+}
+void CalculateAndSetFlashLevel(void)
+{
+    if (gMapHeader.cave)
+    {
+        u8 FlashLevel = gMaxFlashLevel - 1;
+        if (OW_VARIABLE_FLASH_LEVELS)
+        {
+            struct ObjectEvent *objEvent = GetFollowerObject();
+            if (objEvent->invisible != TRUE)
+            {
+                FlashLevel = gSpeciesInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flashLevel;
+                if (FlashLevel == 0)
+                    FlashLevel = (gMaxFlashLevel - 1);
+            }
+            if (FlagGet(FLAG_SYS_USE_FLASH))
+            {
+                if (FlashLevel - OW_FLASH_FIELDMOVE_BONUS > 0)
+                    FlashLevel -= OW_FLASH_FIELDMOVE_BONUS;
+                else
+                    FlashLevel = 1;
+            }
+            u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+            if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_FLASH_BOOST(flashTrackerPacked) == 1))
+            {
+                if (FlashLevel - OW_FLASH_ABILITY_BONUS > 0)
+                    FlashLevel -= OW_FLASH_ABILITY_BONUS;
+                else
+                    FlashLevel = 1;
+            }
+            AnimateFlash(FlashLevel);
+            SetFlashLevel(FlashLevel);
+        }
+        else
+        {
+            if (FlagGet(FLAG_SYS_USE_FLASH))
+                    FlashLevel = 1;
+            AnimateFlash(FlashLevel);
+            SetFlashLevel(FlashLevel);
+        }
+    }
+    else
+        SetFlashLevel(0);
 }
