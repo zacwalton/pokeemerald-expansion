@@ -2918,6 +2918,8 @@ static void FieldMoveShowMonOutdoorsEffect_LoadGfx(struct Task *task)
 
 static void FieldMoveShowMonOutdoorsEffect_CreateBanner(struct Task *task)
 {
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);      //Better Flash - fetch and set field move banner bit here ready for the var to be set
+    SET_FIELDBANNERACTIVE(flashTrackerPacked, 1);
     s16 horiz;
     s16 vertHi;
     s16 vertLo;
@@ -2937,7 +2939,7 @@ static void FieldMoveShowMonOutdoorsEffect_CreateBanner(struct Task *task)
 
     if (vertLo > DISPLAY_WIDTH / 2)
         vertLo = DISPLAY_WIDTH / 2;
-    FlagSet(FLAG_SYS_FIELDMOVEBANNER);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);               //Better Flash - set the flash tracker var here exactly as the banner reaches its full size
     if (gMapHeader.cave && OW_FLASH_CIRCLE_USE_ALPHA)
         WriteFlashScanlineEffectBuffer(gSaveBlock1Ptr->flashLevel);     //Better Flash - unlikely to ever be outdoors and require flash but prevents blend conflict by redrawing flash mask
 
@@ -2988,7 +2990,9 @@ static void FieldMoveShowMonOutdoorsEffect_RestoreBg(struct Task *task)
     task->tWinVert = DISPLAY_HEIGHT + 1;
     task->tWinIn = task->data[11];
     task->tWinOut = task->data[12];
-    FlagClear(FLAG_SYS_FIELDMOVEBANNER);
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);      //Better Flash - fetch and set (clear) field move banner bit
+    SET_FIELDBANNERACTIVE(flashTrackerPacked, 0);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     if (gMapHeader.cave && OW_FLASH_CIRCLE_USE_ALPHA)
         WriteFlashScanlineEffectBuffer(gSaveBlock1Ptr->flashLevel); //Better Flash - Redraw flash mask again as field move banner is cleared
     task->tState++;
@@ -3088,7 +3092,9 @@ static void FieldMoveShowMonIndoorsEffect_SlideBannerOn(struct Task *task)
 {
     if (SlideIndoorBannerOnscreen(task))
     {
-        FlagSet(FLAG_SYS_FIELDMOVEBANNER);                                      //Better Flash - Hacky but we set a flag to store when the field move banner is active
+        u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+        SET_FIELDBANNERACTIVE(flashTrackerPacked, 1);
+        VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);                                      //Better Flash - Hacky but we set a bitflag in the flash tracker var to store when the field move banner is active
         SetGpuReg(REG_OFFSET_WIN1H, WIN_RANGE(0, DISPLAY_WIDTH));
         SetGpuReg(REG_OFFSET_WIN1V, WIN_RANGE(DISPLAY_HEIGHT / 4, DISPLAY_HEIGHT - DISPLAY_HEIGHT / 4));
         gSprites[task->tMonSpriteId].callback = SpriteCB_FieldMoveMonSlideOnscreen;
@@ -3113,7 +3119,9 @@ static void FieldMoveShowMonIndoorsEffect_RestoreBg(struct Task *task)
     task->tBgOffset = 0;
     SetGpuReg(REG_OFFSET_WIN1H, WIN_RANGE(0xFF, 0xFF));
     SetGpuReg(REG_OFFSET_WIN1V, WIN_RANGE(0xFF, 0xFF));
-    FlagClear(FLAG_SYS_FIELDMOVEBANNER);
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);          //Better Flash - fetch and set (clear) field move banner bitflag
+    SET_FIELDBANNERACTIVE(flashTrackerPacked, 0);
+    VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     if (gMapHeader.cave && OW_FLASH_CIRCLE_USE_ALPHA)
         WriteFlashScanlineEffectBuffer(gSaveBlock1Ptr->flashLevel);     //Better Flash - Redraw flash scanlines again to prevent the banner exclusion from remaining on screen after banner is cleared
     task->tState++;

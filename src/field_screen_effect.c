@@ -923,7 +923,8 @@ static void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 c
         SetFlashScanlineEffectWindowBoundary(dest, y, x1, x2);
     }
 
-    if (FlagGet(FLAG_SYS_FIELDMOVEBANNER) && OW_FLASH_CIRCLE_USE_ALPHA)                             //Better Flash - If Field Move Banner is drawn, we do not mask out these scanlines
+    u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
+    if ((GET_FIELDBANNERACTIVE(flashTrackerPacked) == 1) && OW_FLASH_CIRCLE_USE_ALPHA)                             //Better Flash - If Field Move Banner is drawn, we do not mask out these scanlines
     {
         for (s32 y = DISPLAY_HEIGHT / 4; y <= (DISPLAY_HEIGHT - 1) - (DISPLAY_HEIGHT / 4); y++)     // This is the area the Field Move Banner occupies (see FieldMoveShowMonOutdoorsEffect_CreateBanner)
             SetFlashScanlineEffectWindowBoundary(dest, y, 0, DISPLAY_WIDTH - 1);
@@ -984,7 +985,7 @@ void DoFlashScanlineDarken(void)
     s32 flashDarkenLevel = OW_FLASH_DARKEN_STRENGTH - ((gMaxFlashLevel  - flashLevel) / OW_FLASH_ALPHA_SCALE);
     if (FlagGet(FLAG_SYS_USE_FLASH))
         flashDarkenLevel -= OW_FLASH_FIELDMOVE_ALPHABONUS;          //Better Flash - If FLASH move is active, add bonus light level
-     if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1))
+     if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_FLASH_BOOST(flashTrackerPacked) == 1))
         flashDarkenLevel -= OW_FLASH_ABILITY_BONUS;                 //Better Flash - If Follower mon or FLASH user has Illuminate, add bonus light level
     if (flashDarkenLevel < 0)
         flashDarkenLevel = 0;

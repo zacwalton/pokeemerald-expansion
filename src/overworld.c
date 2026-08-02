@@ -1084,7 +1084,7 @@ void SetDefaultFlashLevel(void)
             baseLevel -= OW_FLASH_FIELDMOVE_BONUS;
             if (baseLevel < 1)
                 baseLevel = 1;
-            if (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1)
+            if (GET_FLASH_BOOST(flashTrackerPacked) == 1)
             {
                 if (baseLevel - OW_FLASH_ABILITY_BONUS > 0)
                     baseLevel -= OW_FLASH_ABILITY_BONUS;

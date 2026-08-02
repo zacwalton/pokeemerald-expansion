@@ -82,7 +82,8 @@ void ResetFlashBlends(void)
     u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     SET_MOVE_TINT(flashTrackerPacked, 1);
     SET_FOLLOWER_TINT(flashTrackerPacked, 1);
-    SET_SHADOW_STRENGTH(flashTrackerPacked, 0);
+    SET_FLASH_BOOST(flashTrackerPacked, 0);
+    SET_FIELDBANNERACTIVE(flashTrackerPacked, 0);
     VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
 }
 
@@ -105,7 +106,7 @@ bool8 SetUpFieldMove_Flash(void)
         gPostMenuFieldCallback = FieldCallback_Flash;
         return TRUE;
     }
-    else if (OW_FLASH_BONUS_SECOND_USE && (FlagGet(FLAG_SYS_USE_FLASH)) && (GET_SHADOW_STRENGTH(flashTrackerPacked) == 0) && (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE))
+    else if (OW_FLASH_BONUS_SECOND_USE && (FlagGet(FLAG_SYS_USE_FLASH)) && (GET_FLASH_BOOST(flashTrackerPacked) == 0) && (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE))
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Flash;
@@ -139,10 +140,10 @@ static void FldEff_UseFlash(void)
     FlagSet(FLAG_SYS_USE_FLASH);
     if (GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]) == ABILITY_ILLUMINATE)
     {
-        SET_SHADOW_STRENGTH(flashTrackerPacked, 1);
+        SET_FLASH_BOOST(flashTrackerPacked, 1);
     }
     else
-        SET_SHADOW_STRENGTH(flashTrackerPacked, 0);
+        SET_FLASH_BOOST(flashTrackerPacked, 0);
     VarSet(VAR_FLASH_TRACKER_PACKED, flashTrackerPacked);
     ForceUpdateDNSBlend();
     DoFieldMoveFriendshipChance(&gPlayerParty[gFieldEffectArguments[0]]);
@@ -429,7 +430,7 @@ void CalculateAndSetFlashLevel(void)
                     FlashLevel = 1;
             }
             u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
-            if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_SHADOW_STRENGTH(flashTrackerPacked) == 1))
+            if ((GetMonAbility(&gPlayerParty[GetFollowerMonIndex()]) == ABILITY_ILLUMINATE) || (GET_FLASH_BOOST(flashTrackerPacked) == 1))
             {
                 if (FlashLevel - OW_FLASH_ABILITY_BONUS > 0)
                     FlashLevel -= OW_FLASH_ABILITY_BONUS;
