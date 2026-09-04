@@ -12217,7 +12217,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_ShadowForce,
-		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_ESCAPE,
+		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_ESCAPE | IS_FIELD_MOVE_REVEAL,
     },
 
     [MOVE_HONE_CLAWS] =
@@ -12576,7 +12576,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SludgeWave,
-		.fieldMoveFlags = IS_FIELD_MOVE_SLUDGE,
+		.fieldMoveFlags = IS_FIELD_MOVE_SLUDGE | IS_FIELD_MOVE_SURF,
     },
 
     [MOVE_QUIVER_DANCE] =
@@ -14649,7 +14649,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_PhantomForce,
-		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_ESCAPE,
+		.fieldMoveFlags = IS_FIELD_MOVE_HACK | IS_FIELD_MOVE_ESCAPE | IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_REVEAL,
     },
 
     [MOVE_TRICK_OR_TREAT] =
@@ -15940,7 +15940,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_OriginPulse,
-		.fieldMoveFlags = IS_FIELD_MOVE_FLASH,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH 
+        | IS_FIELD_MOVE_SURF 
+        | IS_FIELD_MOVE_DIVE 
+        | IS_FIELD_MOVE_WHIRLPOOL 
+        | IS_FIELD_MOVE_WATERFALL 
+        | IS_FIELD_MOVE_DOUSE 
+        | IS_FIELD_MOVE_SHAKE,
         .flashTint = DNS_BLEND_FLASH_BLUE,
     },
 
@@ -15964,6 +15970,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_PrecipiceBlades,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH 
+        | IS_FIELD_MOVE_SMASH 
+        | IS_FIELD_MOVE_CUT 
+        | IS_FIELD_MOVE_DIG 
+        | IS_FIELD_MOVE_PUSH 
+        | IS_FIELD_MOVE_LAVA
+        | IS_FIELD_MOVE_SHAKE,
+        .flashTint = DNS_BLEND_FLASH_ORANGE,
     },
 
     [MOVE_DRAGON_ASCENT] =
@@ -21564,7 +21578,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = COMBO_STARTER_LOCK_ON,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_LockOn,
-		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL | IS_FIELD_MOVE_CUT | IS_FIELD_MOVE_SMASH,
+		.fieldMoveFlags = IS_FIELD_MOVE_REVEAL | IS_FIELD_MOVE_CUT | IS_FIELD_MOVE_SMASH | IS_FIELD_MOVE_FLASH,
+        .flashTint = DNS_BLEND_FLASH_GREEN,
         .validApprenticeMove = TRUE,
     },
 
