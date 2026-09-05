@@ -1,4 +1,5 @@
 #include "global.h"
+#include "braille_puzzles.h"
 #include "gpu_regs.h"
 #include "palette.h"
 #include "script.h"
@@ -7,6 +8,7 @@
 #include "strings.h"
 #include "party_menu.h"
 #include "fieldmap.h"
+#include "field_control_avatar.h"
 #include "field_effect.h"
 #include "field_camera.h"
 #include "field_player_avatar.h"
@@ -19,7 +21,9 @@
 #include "event_object_movement.h"
 #include "metatile_behavior.h"
 #include "string_util.h"
+#include "constants/event_objects.h"
 #include "constants/field_effects.h"
+#include "constants/map_types.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/metatile_labels.h"
 #include "constants/songs.h"
@@ -1532,4 +1536,70 @@ void FldEffBurn_Start(void)
 bool32 FldEffBurn_IsActive(void)
 {
     return FuncIsActiveTask(Task_FieldBurnEffect);
+}
+
+bool8 SetUpFieldMove_PrecipiceBlades(void) //FLASH, SMASH, DIG, PUSH, LAVA, SHAKE, CUT
+{
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+
+    //FLASH
+    if (ShouldDoBrailleRegisteelEffect() || (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH)))
+        return SetUpFieldMove_Flash();
+
+    //SMASH
+    else if (ShouldDoBrailleRegirockEffect() || (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_BREAKABLE_ROCK) == TRUE))
+        return SetUpFieldMove_RockSmash();
+    
+    //PUSH
+    else if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) == TRUE)
+        return SetUpFieldMove_Strength();
+
+    //LAVA
+    else if (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_LAVA)
+        return SetUpFieldMove_Lava();
+
+    //SHAKE
+    else if (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_HEADBUTT)
+        return SetUpFieldMove_Headbutt();
+
+    //CUT
+    else
+        return SetUpFieldMove_Cut();
+}
+
+bool8 SetUpFieldMove_OriginPulse(void) //FLASH, SURF, WHIRLPOOL, DIVE, WATERFALL, DOUSE, SHAKE
+{
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+    s16 x, y;
+    u8 metatileBehavior;
+
+    PlayerGetDestCoords(&x, &y);
+    metatileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+
+
+    //FLASH
+    if (ShouldDoBrailleRegisteelEffect() || (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH)))
+        return SetUpFieldMove_Flash();
+
+    //DIVE
+    else if ((gMapHeader.mapType == MAP_TYPE_UNDERWATER && !MetatileBehavior_IsUnableToEmerge(metatileBehavior)) || (MetatileBehavior_IsDiveable(metatileBehavior) == TRUE))
+        return SetUpFieldMove_Dive();
+    
+    //WATERFALL
+    else if (MetatileBehavior_IsWaterfall(MapGridGetMetatileBehaviorAt(x, y)) == TRUE && IsPlayerSurfingNorth() == TRUE)
+        return SetUpFieldMove_Waterfall();
+
+    //SURF
+    else if (PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+        return SetUpFieldMove_Surf();
+    
+    //DOUSE
+    else if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_LARGE_FIRE) == TRUE)
+        return SetUpFieldMove_Douse();
+
+    //SHAKE
+    else if (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_HEADBUTT)
+        return SetUpFieldMove_Headbutt();
+
+    else return FALSE;
 }

@@ -93,4 +93,7 @@ bool8 FldEff_UseReveal(void);
 void StartRevealFieldEffect(void);
 
 
+bool8 SetUpFieldMove_PrecipiceBlades(void);
+bool8 SetUpFieldMove_OriginPulse(void);
+
 #endif // GUARD_FLDEFF_H
