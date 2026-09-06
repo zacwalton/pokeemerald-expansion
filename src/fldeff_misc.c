@@ -1787,8 +1787,15 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(enum FieldMoveCallback *callback)
     //HEAL[HP]
     else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_HP)
     {
-        *callback = FIELD_MOVE_CALLBACK_CHOOSE_MON;
+        *callback = FIELD_MOVE_CALLBACK_HP;
         return SetUpFieldMove_SoftBoiled();
+    }
+
+    //HEAL[STATUS]
+    else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_STATUS)
+    {
+        *callback = FIELD_MOVE_CALLBACK_STATUS_HEAL;
+        return SetUpFieldMove_StatusHeal();
     }
 
     else 

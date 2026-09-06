@@ -988,6 +988,10 @@ static const u16 sFieldMoves[FIELD_MOVES_COUNT + 1] =
     [FIELD_MOVE_LIDAR_LOCK]  		= MOVE_LIDAR_LOCK,
     [FIELD_MOVE_EXTRASENSORY]  		= MOVE_EXTRASENSORY,
     [FIELD_MOVE_EERIE_IMPULSE]  	= MOVE_EERIE_IMPULSE,
+    [FIELD_MOVE_SMELLING_SALTS]  	= MOVE_SMELLING_SALTS,
+    [FIELD_MOVE_AROMATHERAPY]  	    = MOVE_AROMATHERAPY,
+    [FIELD_MOVE_WAKE_UP_SLAP]  	    = MOVE_WAKE_UP_SLAP,
+    [FIELD_MOVE_SPARKLING_ARIA]  	= MOVE_SPARKLING_ARIA,
     // NOTE: This value is used as the terminal value for the table. There's no reason to do this, as the size of the table is known.
     //       Whichever move shares this value (MOVE_SWORDS_DANCE by default) if present will be treated as the end of the array rather than a field move.
     [FIELD_MOVES_COUNT]       = FIELD_MOVES_COUNT
@@ -1189,6 +1193,11 @@ struct
     [FIELD_MOVE_LIDAR_LOCK]  			= {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_EXTRASENSORY]  			= {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_EERIE_IMPULSE]  		= {SetUpFieldMove_Reveal,  PARTY_MSG_CANT_USE_HERE},
+    //Status Heal
+    [FIELD_MOVE_SMELLING_SALTS]  		= {SetUpFieldMove_StatusHeal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_AROMATHERAPY]  		    = {SetUpFieldMove_StatusHeal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_WAKE_UP_SLAP]  		    = {SetUpFieldMove_StatusHeal,  PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_SPARKLING_ARIA]  		= {SetUpFieldMove_StatusHeal,  PARTY_MSG_CANT_USE_HERE},
 };
 
 static const u8 *const sUnionRoomTradeMessages[] =

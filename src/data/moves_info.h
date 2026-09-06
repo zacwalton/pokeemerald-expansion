@@ -7,6 +7,7 @@
 #include "constants/battle_z_move_effects.h"
 #include "constants/hold_effects.h"
 #include "constants/moves.h"
+#include "constants/party_menu.h"
 #include "constants/contest.h"
 
 // The Gen. 4+ contest data comes from urpg's contest movedex.
@@ -7098,6 +7099,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_SmellingSalts,
+		.fieldMoveFlags = IS_FIELD_MOVE_STATUS,
+        .fieldStatusHeal = { AILMENT_PRZ},
         .validApprenticeMove = TRUE,
     },
 
@@ -8340,6 +8343,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_Aromatherapy,
+		.fieldMoveFlags = IS_FIELD_MOVE_STATUS,
+        .fieldStatusHeal = { AILMENT_PSN, AILMENT_PRZ, AILMENT_SLP, AILMENT_FRZ, AILMENT_BRN, AILMENT_FRB },
         .validApprenticeMove = TRUE,
     },
 
@@ -9532,6 +9537,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_WakeUpSlap,
+		.fieldMoveFlags = IS_FIELD_MOVE_STATUS,
+        .fieldStatusHeal = { AILMENT_SLP },
     },
 
     [MOVE_HAMMER_ARM] =
@@ -16185,6 +16192,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .contestComboStarterId = 0,
         .contestComboMoves = {COMBO_STARTER_SCALD},
         .battleAnimScript = gBattleAnimMove_SparklingAria,
+		.fieldMoveFlags = IS_FIELD_MOVE_STATUS,
+        .fieldStatusHeal = { AILMENT_BRN },
     },
 
     [MOVE_ICE_HAMMER] =

@@ -110,5 +110,6 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
+void UpdatePartyMonStatusGfx(u8 partyId);
 
 #endif // GUARD_PARTY_MENU_H

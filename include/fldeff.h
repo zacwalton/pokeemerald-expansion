@@ -22,6 +22,11 @@ bool8 SetUpFieldMove_SoftBoiled(void);
 void Task_TryUseSoftboiledOnPartyMon(u8 taskId);
 void ChooseMonForSoftboiled(u8 taskId);
 
+// status heal
+bool8 SetUpFieldMove_StatusHeal(void);
+void Task_TryUseStatusHealOnPartyMon(u8 taskId);
+void ChooseMonForStatusHeal(u8 taskId);
+
 //Better Flash
 //Pack flash values into VAR - moveTint:6; followerTint:6; unused:2; fieldBanner:1; flashBoost:1
 //`u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);`  used to get var
@@ -92,16 +97,16 @@ bool8 SetUpFieldMove_Reveal(void);
 bool8 FldEff_UseReveal(void);
 void StartRevealFieldEffect(void);
 
-
 bool8 SetUpFieldMove_PrecipiceBlades(void);
 bool8 SetUpFieldMove_OriginPulse(void);
 
 enum FieldMoveCallback
 {
     FIELD_MOVE_CALLBACK_DEFAULT,
-    FIELD_MOVE_CALLBACK_CHOOSE_MON,
+    FIELD_MOVE_CALLBACK_HP,
     FIELD_MOVE_CALLBACK_ESCAPE,
     FIELD_MOVE_CALLBACK_FLY,
+    FIELD_MOVE_CALLBACK_STATUS_HEAL,
 };
 
 bool8 SetUpFieldMove_CheckAllFieldEffects(enum FieldMoveCallback *callback);

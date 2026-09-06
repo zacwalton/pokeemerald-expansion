@@ -322,6 +322,10 @@ enum {
     FIELD_MOVE_LIDAR_LOCK,
     FIELD_MOVE_EXTRASENSORY,
     FIELD_MOVE_EERIE_IMPULSE,
+    FIELD_MOVE_SMELLING_SALTS,
+    FIELD_MOVE_AROMATHERAPY,
+    FIELD_MOVE_WAKE_UP_SLAP,
+    FIELD_MOVE_SPARKLING_ARIA,
     FIELD_MOVES_COUNT
 };
 
@@ -1619,7 +1623,7 @@ void Task_HandleChooseMonInput(u8 taskId)
 
 static s8 *GetCurrentPartySlotPtr(void)
 {
-    if (gPartyMenu.action == PARTY_ACTION_SWITCH || gPartyMenu.action == PARTY_ACTION_SOFTBOILED)
+    if (gPartyMenu.action == PARTY_ACTION_SWITCH || gPartyMenu.action == PARTY_ACTION_SOFTBOILED || gPartyMenu.action == PARTY_ACTION_STATUS_HEAL)
         return &gPartyMenu.slotId2;
     else
         return &gPartyMenu.slotId;
@@ -1640,6 +1644,13 @@ static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr)
             {
                 PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
                 Task_TryUseSoftboiledOnPartyMon(taskId);
+            }
+            break;
+        case PARTY_ACTION_STATUS_HEAL:
+            if (IsSelectedMonNotEgg((u8 *)slotPtr))
+            {
+                PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+                Task_TryUseStatusHealOnPartyMon(taskId);
             }
             break;
         case PARTY_ACTION_USE_ITEM:
@@ -4204,8 +4215,11 @@ static void CursorCb_FieldMove(u8 taskId)
         {
             switch(callback)
             {
-                case FIELD_MOVE_CALLBACK_CHOOSE_MON:
+                case FIELD_MOVE_CALLBACK_HP:
                     ChooseMonForSoftboiled(taskId);
+                    break;
+                case FIELD_MOVE_CALLBACK_STATUS_HEAL:
+                    ChooseMonForStatusHeal(taskId);
                     break;
                 case FIELD_MOVE_CALLBACK_ESCAPE:
                     mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
@@ -8244,3 +8258,9 @@ void CursorCb_MoveItem(u8 taskId)
         gTasks[taskId].func = Task_UpdateHeldItemSprite;
     }
 }
+
+void UpdatePartyMonStatusGfx(u8 partyId)
+{
+    SetPartyMonAilmentGfx(&gPlayerParty[partyId], &sPartyMenuBoxes[partyId]);
+}
+
