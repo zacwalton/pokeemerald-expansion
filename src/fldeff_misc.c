@@ -1,6 +1,8 @@
 #include "global.h"
 #include "braille_puzzles.h"
 #include "gpu_regs.h"
+#include "item_use.h"
+#include "move.h"
 #include "palette.h"
 #include "script.h"
 #include "sound.h"
@@ -15,6 +17,7 @@
 #include "field_weather.h"
 #include "fldeff.h"
 #include "fldeff_misc.h"
+#include "follower_npc.h"
 #include "secret_base.h"
 #include "event_data.h"
 #include "event_scripts.h"
@@ -26,6 +29,7 @@
 #include "constants/map_types.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/metatile_labels.h"
+#include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/weather.h"
 #include "overworld.h"
@@ -1415,10 +1419,7 @@ bool8 FldEff_UseWhirlpool(void)
 bool8 SetUpFieldMove_Whirlpool(void)
 {
     GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
-    if (((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_NORTHWARD_CURRENT)
-		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SOUTHWARD_CURRENT)
-		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_WESTWARD_CURRENT)
-		|| (MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_EASTWARD_CURRENT))
+    if ((MetatileBehavior_IsCurrentWater(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
 		/*&& (gPlayerAvatar.flags &= PLAYER_AVATAR_FLAG_SURFING)*/)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
@@ -1586,7 +1587,7 @@ bool8 SetUpFieldMove_OriginPulse(void) //FLASH, SURF, WHIRLPOOL, DIVE, WATERFALL
         return SetUpFieldMove_Dive();
     
     //WATERFALL
-    else if (MetatileBehavior_IsWaterfall(MapGridGetMetatileBehaviorAt(x, y)) == TRUE && IsPlayerSurfingNorth() == TRUE)
+    else if (MetatileBehavior_IsWaterfall(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE && IsPlayerSurfingNorth() == TRUE)
         return SetUpFieldMove_Waterfall();
 
     //SURF
@@ -1603,3 +1604,175 @@ bool8 SetUpFieldMove_OriginPulse(void) //FLASH, SURF, WHIRLPOOL, DIVE, WATERFALL
 
     else return FALSE;
 }
+
+
+
+//FLASH>DIVE>WHIRLPOOL>WATERFALL>SURF>SLUDGE>LAVA>PUSH>CLIMB>SECRET>REVEAL>DOUSE>SMASH>SHAKE>HACK>DEFOG>CUT[TREE]>ESCAPE>LURE>CUT
+bool8 SetUpFieldMove_CheckAllFieldEffects(void)
+{
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+    s16 x, y;
+    u8 metatileBehavior;
+    u16 moveId = VarGet(VAR_0x8008);
+
+    PlayerGetDestCoords(&x, &y);
+    metatileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+
+
+    //FLASH
+    if ((ShouldDoBrailleRegisteelEffect() 
+    || (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH)))
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_FLASH))
+    {
+        return SetUpFieldMove_Flash();
+    }
+
+    //DIVE
+    else if (((gMapHeader.mapType == MAP_TYPE_UNDERWATER && !MetatileBehavior_IsUnableToEmerge(metatileBehavior)) 
+    || (MetatileBehavior_IsDiveable(metatileBehavior) == TRUE))
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DIVE))
+    {
+        return SetUpFieldMove_Dive();
+    }
+
+    //WHIRLPOOL
+    else if ((MetatileBehavior_IsCurrentWater(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WATERFALL)
+    && !FlagGet(FLAG_SYS_USE_WHIRLPOOL))
+    {
+        return SetUpFieldMove_Waterfall();
+    }
+
+    //WATERFALL
+    else if ((MetatileBehavior_IsWaterfall(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE && IsPlayerSurfingNorth() == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WATERFALL))
+    {
+        return SetUpFieldMove_Waterfall();
+    }
+
+    //SURF
+    else if ((PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    && (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING))
+    && gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SURF)
+    {
+        return SetUpFieldMove_Surf();
+    }    
+
+    //SLUDGE
+    else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SLUDGE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SLUDGE))
+    {
+        return SetUpFieldMove_Sludge();
+    }
+
+    //LAVA
+    else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_LAVA)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_LAVA))
+    {
+        return SetUpFieldMove_Lava();
+    }
+    
+    //PUSH
+    else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_PUSH))
+    {
+        return SetUpFieldMove_Strength();
+    }
+
+    //CLIMB
+    else if ((MetatileBehavior_IsRockClimbable(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CLIMB))
+    {
+        return SetUpFieldMove_RockClimb();
+    }
+
+    //SECRET
+    else if (((MetatileBehavior_IsSecretBaseCave(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
+    || (MetatileBehavior_IsSecretBaseTree(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
+    || (MetatileBehavior_IsSecretBaseShrub(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE))
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SECRET))
+    {
+        return SetUpFieldMove_RockClimb();
+    }
+
+    //REVEAL
+    else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_KECLEON) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_REVEAL))
+    {
+        return SetUpFieldMove_Reveal();
+    }
+
+    //DOUSE
+    else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_LARGE_FIRE) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DOUSE))
+    {
+        return SetUpFieldMove_Douse();
+    }
+
+    //SMASH
+    else if ((ShouldDoBrailleRegirockEffect() || (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_BREAKABLE_ROCK) == TRUE))
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SMASH))
+    {
+        return SetUpFieldMove_RockSmash();
+    }
+
+    //SHAKE
+    else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_HEADBUTT)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SHAKE))
+    {
+        return SetUpFieldMove_Headbutt();
+    }
+
+    //DEFOG
+    else if ((gWeather.currWeather != WEATHER_FOG_HORIZONTAL && gWeather.currWeather != WEATHER_FOG_DIAGONAL)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DEFOG))
+    {
+        return SetUpFieldMove_Defog();
+    }
+
+    //CUT [TREES]
+    else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUTTABLE_TREE) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CUT))
+    {
+        return SetUpFieldMove_Cut();
+    }
+
+    //ESCAPE
+    else if ((CanUseDigOrEscapeRopeOnCurMap() == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_ESCAPE))
+    {
+        return SetUpFieldMove_Dig();
+    }
+
+    //LURE
+    else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_LURE)
+    {
+        return SetUpFieldMove_SweetScent();
+    }
+
+    //CUT [Grass]
+    else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CUT)
+    {
+        return SetUpFieldMove_Cut();
+    }
+
+    //WARP
+    else if ((Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WARP))
+    {
+        return SetUpFieldMove_Fly();
+    }
+
+    //HEAL[HP]
+    else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_HP)
+    {
+        return SetUpFieldMove_SoftBoiled();
+    }
+
+    else 
+    {
+        return FALSE;
+    }
+}
+
+
