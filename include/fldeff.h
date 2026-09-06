@@ -95,6 +95,15 @@ void StartRevealFieldEffect(void);
 
 bool8 SetUpFieldMove_PrecipiceBlades(void);
 bool8 SetUpFieldMove_OriginPulse(void);
-bool8 SetUpFieldMove_CheckAllFieldEffects(void);
+
+enum FieldMoveCallback
+{
+    FIELD_MOVE_CALLBACK_DEFAULT,
+    FIELD_MOVE_CALLBACK_CHOOSE_MON,
+    FIELD_MOVE_CALLBACK_ESCAPE,
+    FIELD_MOVE_CALLBACK_FLY,
+};
+
+bool8 SetUpFieldMove_CheckAllFieldEffects(enum FieldMoveCallback *callback);
 
 #endif // GUARD_FLDEFF_H

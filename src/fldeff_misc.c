@@ -1608,7 +1608,7 @@ bool8 SetUpFieldMove_OriginPulse(void) //FLASH, SURF, WHIRLPOOL, DIVE, WATERFALL
 
 
 //FLASH>DIVE>WHIRLPOOL>WATERFALL>SURF>SLUDGE>LAVA>PUSH>CLIMB>SECRET>REVEAL>DOUSE>SMASH>SHAKE>HACK>DEFOG>CUT[TREE]>ESCAPE>LURE>CUT
-bool8 SetUpFieldMove_CheckAllFieldEffects(void)
+bool8 SetUpFieldMove_CheckAllFieldEffects(enum FieldMoveCallback *callback)
 {
     GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
     s16 x, y;
@@ -1618,12 +1618,14 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     PlayerGetDestCoords(&x, &y);
     metatileBehavior = MapGridGetMetatileBehaviorAt(x, y);
 
+    *callback = FIELD_MOVE_CALLBACK_DEFAULT;
 
     //FLASH
     if ((ShouldDoBrailleRegisteelEffect() 
     || (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH)))
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_FLASH))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Flash();
     }
 
@@ -1632,21 +1634,15 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     || (MetatileBehavior_IsDiveable(metatileBehavior) == TRUE))
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DIVE))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Dive();
-    }
-
-    //WHIRLPOOL
-    else if ((MetatileBehavior_IsCurrentWater(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
-    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WATERFALL)
-    && !FlagGet(FLAG_SYS_USE_WHIRLPOOL))
-    {
-        return SetUpFieldMove_Waterfall();
     }
 
     //WATERFALL
     else if ((MetatileBehavior_IsWaterfall(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE && IsPlayerSurfingNorth() == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WATERFALL))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Waterfall();
     }
 
@@ -1655,13 +1651,24 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     && (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING))
     && gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SURF)
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Surf();
     }    
+
+    //WHIRLPOOL
+    else if ((MetatileBehavior_IsCurrentWater(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
+    && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WHIRLPOOL)
+    && !FlagGet(FLAG_SYS_USE_WHIRLPOOL))
+    {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
+        return SetUpFieldMove_Whirlpool();
+    }
 
     //SLUDGE
     else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_SLUDGE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SLUDGE))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Sludge();
     }
 
@@ -1669,6 +1676,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_LAVA)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_LAVA))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Lava();
     }
     
@@ -1676,6 +1684,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_PUSH))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Strength();
     }
 
@@ -1683,6 +1692,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((MetatileBehavior_IsRockClimbable(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CLIMB))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_RockClimb();
     }
 
@@ -1692,6 +1702,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     || (MetatileBehavior_IsSecretBaseShrub(MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y)) == TRUE))
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SECRET))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_RockClimb();
     }
 
@@ -1699,6 +1710,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_KECLEON) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_REVEAL))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Reveal();
     }
 
@@ -1706,6 +1718,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_LARGE_FIRE) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DOUSE))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Douse();
     }
 
@@ -1713,6 +1726,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((ShouldDoBrailleRegirockEffect() || (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_BREAKABLE_ROCK) == TRUE))
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SMASH))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_RockSmash();
     }
 
@@ -1720,6 +1734,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((MapGridGetMetatileBehaviorAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == MB_HEADBUTT)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_SHAKE))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Headbutt();
     }
 
@@ -1727,6 +1742,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((gWeather.currWeather != WEATHER_FOG_HORIZONTAL && gWeather.currWeather != WEATHER_FOG_DIAGONAL)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_DEFOG))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Defog();
     }
 
@@ -1734,6 +1750,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUTTABLE_TREE) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CUT))
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Cut();
     }
 
@@ -1741,18 +1758,21 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((CanUseDigOrEscapeRopeOnCurMap() == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_ESCAPE))
     {
+        *callback = FIELD_MOVE_CALLBACK_ESCAPE;
         return SetUpFieldMove_Dig();
     }
 
     //LURE
     else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_LURE)
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_SweetScent();
     }
 
     //CUT [Grass]
     else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_CUT)
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return SetUpFieldMove_Cut();
     }
 
@@ -1760,17 +1780,20 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(void)
     else if ((Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_WARP))
     {
+        *callback = FIELD_MOVE_CALLBACK_FLY;
         return SetUpFieldMove_Fly();
     }
 
     //HEAL[HP]
     else if (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_HP)
     {
+        *callback = FIELD_MOVE_CALLBACK_CHOOSE_MON;
         return SetUpFieldMove_SoftBoiled();
     }
 
     else 
     {
+        *callback = FIELD_MOVE_CALLBACK_DEFAULT;
         return FALSE;
     }
 }

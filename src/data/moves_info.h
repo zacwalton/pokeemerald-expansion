@@ -19847,7 +19847,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .mirrorMoveBanned = TRUE,
         .healingMove = TRUE,
         .battleAnimScript = gBattleAnimMove_LunarBlessing,
-		.fieldMoveFlags = IS_FIELD_MOVE_HP,
+		.fieldMoveFlags = IS_FIELD_MOVE_FLASH | IS_FIELD_MOVE_HP,
+        .flashTint = DNS_BLEND_FLASH_PINK,
     },
 
     [MOVE_TAKE_HEART] =
