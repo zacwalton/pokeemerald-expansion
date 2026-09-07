@@ -21394,7 +21394,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .magicCoatAffected = TRUE,
         .contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
-        .battleAnimScript = gBattleAnimMove_FlashFreeze,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {COMBO_STARTER_HAIL},
+        .battleAnimScript = gBattleAnimMove_IcyWind,
+        //.battleAnimScript = gBattleAnimMove_FlashFreeze,
 		.fieldMoveFlags = IS_FIELD_MOVE_DOUSE,
     },
 	// Ice-type Close Combat

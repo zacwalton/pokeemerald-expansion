@@ -3561,10 +3561,10 @@ BattleScript_AlreadyParalyzed::
 	goto BattleScript_MoveEnd
 
 
-BattleScript_AlreadyFrozen:
+BattleScript_AlreadyFrozen::
 	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNISALREADYFROZEN
+	printstring STRINGID_PKMNALREADYFROZEN
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
@@ -7088,6 +7088,7 @@ BattleScript_MoveUsedIsFrozen::
 	printstring STRINGID_PKMNISFROZEN
 	waitmessage B_WAIT_TIME_LONG
 	statusanimation BS_ATTACKER
+	cancelmultiturnmoves BS_ATTACKER
 	goto BattleScript_MoveEnd
 
 BattleScript_MoveUsedUnfroze::
@@ -7106,6 +7107,12 @@ BattleScript_DefrostedViaFireMove::
 	printstring STRINGID_PKMNWASDEFROSTED
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_TARGET
+	return
+
+BattleScript_MoveUsedDefrostViaSun::
+	printfromtable STRINGID_PKMNWASDEFROSTEDSUN
+	waitmessage B_WAIT_TIME_LONG
+	updatestatusicon BS_ATTACKER
 	return
 
 BattleScript_FrostbiteHealedViaFireMove::

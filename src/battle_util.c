@@ -1937,51 +1937,45 @@ static void CancellerFrozen(u32 *effect)
     if (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE && !MoveThawsUser(gCurrentMove))
     {
 		if (gBattleWeather & B_WEATHER_SUN)									//ZETA- Defrost in Sun
-                {
-                    gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
-                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
-					*effect = 2;
+        {
+            gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_MoveUsedDefrostViaSun;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
+			*effect = 2;
 
-                }
-				else if (gBattleWeather & B_WEATHER_HAIL)					//ZETA- Never defrost in Hail
+        }
+		else if (gBattleWeather & B_WEATHER_HAIL)					//ZETA- Never defrost in Hail
+		{
+			if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) && (!RandomPercentage(RNG_FROZEN_MOVE, 75))) //ZETA- 50% Chance to immobilise
+			{
+				gProtectStructs[gBattlerAttacker].nonVolatileStatusImmobility = TRUE;
+				gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
+				gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+				*effect = 1;
+			}
+		}
+		else 
+		{
+			if (!RandomPercentage(RNG_FROZEN, 10))					//ZETA- 10% Thaw chance
+			{
+				if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) && !RandomPercentage(RNG_FROZEN_MOVE, 75))   //ZETA- 50% Chance to immobilise
 				{
-					if (!gBattleStruct->isAtkCancelerForCalledMove 
-					&& (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE))
-					{
-						if (!RandomPercentage(RNG_FROZEN_MOVE, 75))			//ZETA- 75% Chance to immobilise
-						{
-							gProtectStructs[gBattlerAttacker].nonVolatileStatusImmobility = TRUE;
-							gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
-							gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
-							*effect = 2;
-						}
-					}
+					gProtectStructs[gBattlerAttacker].nonVolatileStatusImmobility = TRUE;
+					gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
+					gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+					*effect = 1;
 				}
-				else 
-				{
-					if (!RandomPercentage(RNG_FROZEN, 10))					//ZETA- 10% Thaw chance
-					{
-						if (!gBattleStruct->isAtkCancelerForCalledMove 
-						&& (gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE) 
-						&& !RandomPercentage(RNG_FROZEN_MOVE, 75))			//ZETA- 75% Chance to immobilise
-						{
-							gProtectStructs[gBattlerAttacker].nonVolatileStatusImmobility = TRUE;
-							gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
-							gHitMarker |= (HITMARKER_NO_ATTACKSTRING | HITMARKER_UNABLE_TO_USE_MOVE);
-							*effect = 2;
-						}
-					}
-					else // unfreeze
-					{
-						gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
-						BattleScriptPushCursor();
-						gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
-						gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
-						*effect = 2;
-					}
-				}
+			}
+			else // unfreeze
+			{
+				gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
+				BattleScriptPushCursor();
+				gBattlescriptCurrInstr = BattleScript_MoveUsedUnfroze;
+				gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
+				*effect = 2;
+			}
+		}
     }
 }
 
@@ -5802,8 +5796,22 @@ bool32 CanSetNonVolatileStatus(u32 battlerAtk, u32 battlerDef, u32 abilityAtk, u
         }
         break;
     case MOVE_EFFECT_FREEZE:
+        if (gBattleMons[battlerDef].status1 & (STATUS1_FREEZE))
+        {
+            battleScript = BattleScript_AlreadyFrozen;
+        }
+        else if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE) || IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN))
+        {
+            battleScript = BattleScript_NotAffected;
+        }
+        else if (abilityDef == ABILITY_MAGMA_ARMOR)
+        {
+            abilityAffected = TRUE;
+            battleScript = BattleScript_NotAffected;
+        }
+        break;
     case MOVE_EFFECT_FROSTBITE:
-        if (gBattleMons[battlerDef].status1 & (STATUS1_FREEZE | STATUS1_FROSTBITE))
+        if (gBattleMons[battlerDef].status1 & (STATUS1_FROSTBITE))
         {
             battleScript = BattleScript_AlreadyBurned;
         }

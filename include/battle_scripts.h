@@ -130,6 +130,7 @@ extern const u8 BattleScript_MoveUsedUnfroze[];
 extern const u8 BattleScript_MoveUsedUnfrostbite[];
 extern const u8 BattleScript_DefrostedViaFireMove[];
 extern const u8 BattleScript_FrostbiteHealedViaFireMove[];
+extern const u8 BattleScript_MoveUsedDefrostViaSun[];
 extern const u8 BattleScript_MoveUsedIsParalyzed[];
 extern const u8 BattleScript_MoveUsedFlinched[];
 extern const u8 BattleScript_PrintUproarOverTurns[];
@@ -531,6 +532,7 @@ extern const u8 BattleScript_AlreadyAsleep[];
 extern const u8 BattleScript_CantMakeAsleep[];
 extern const u8 BattleScript_AlreadyPoisoned[];
 extern const u8 BattleScript_AlreadyParalyzed[];
+extern const u8 BattleScript_AlreadyFrozen[];
 extern const u8 BattleScript_AlreadyBurned[];
 extern const u8 BattleScript_PrintAbilityMadeIneffective[];
 
