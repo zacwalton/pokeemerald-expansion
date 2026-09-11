@@ -1,6 +1,7 @@
 #include "global.h"
 #include "event_object_lock.h"
 #include "event_object_movement.h"
+#include "event_data.h"
 #include "event_scripts.h"
 #include "faraway_island.h"
 #include "field_camera.h"
@@ -26,6 +27,7 @@
 
 // this file's functions
 static void FieldCallback_Reveal_Kecleon(void);
+static void FieldCallback_Reveal_Mimikyu(void);
 void StartRevealFieldEffect(void);
 
 
@@ -33,15 +35,32 @@ bool8 SetUpFieldMove_Reveal(void)
 {
     if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_KECLEON) == TRUE)
     {
-        // Standing in front of large fire.
+        // Standing in front of Kecleon.
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Reveal_Kecleon;
+        return TRUE;
+    }
+    else if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_SPECIES(MIMIKYU)) == TRUE)
+    {
+        // Standing in front of Mmikyu.
+        GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+        gPlayerFacingPosition.elevation = PlayerGetElevation();
+        VarSet(VAR_0x8007, GetObjectEventIdByPosition(gPlayerFacingPosition.x, gPlayerFacingPosition.y, gPlayerFacingPosition.elevation));
+
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_Reveal_Mimikyu;
         return TRUE;
     }
     else
     {
         return FALSE;
     }
+}
+
+static void FieldCallback_Reveal_Mimikyu(void)
+{
+    gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    ScriptContext_SetupScript(EventScript_UseReveal_Mimikyu);
 }
 
 static void FieldCallback_Reveal_Kecleon(void)
@@ -66,5 +85,13 @@ void StartRevealFieldEffect(void)
     PlaySE(SE_SHIP);
     FieldEffectActiveListRemove(FLDEFF_USE_REVEAL);
     ScriptContext_Enable();
+}
+
+void RevealMimikyuSetBustedObjectEvent(void)
+{
+    u8 objEventId;
+    objEventId = VarGet(VAR_0x8007);
+
+    ObjectEventSetGraphicsId(&gObjectEvents[objEventId], OBJ_EVENT_GFX_SPECIES(MIMIKYU_BUSTED));
 }
 

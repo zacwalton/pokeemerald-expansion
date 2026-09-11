@@ -3627,6 +3627,9 @@ $(POKEMONGFXDIR)/togedemaru/overworld.4bpp: %.4bpp: %.png
 $(POKEMONGFXDIR)/mimikyu/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
+$(POKEMONGFXDIR)/mimikyu/busted/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
 $(POKEMONGFXDIR)/bruxish/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 

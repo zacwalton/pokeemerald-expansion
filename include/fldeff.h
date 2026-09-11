@@ -92,10 +92,11 @@ bool8 FldEff_UseDouse(void);
 bool8 SetUpFieldMove_Defog(void);
 bool8 FldEff_Defog(void);
 
-// detect
+// Reveal
 bool8 SetUpFieldMove_Reveal(void);
 bool8 FldEff_UseReveal(void);
 void StartRevealFieldEffect(void);
+void RevealMimikyuSetBustedObjectEvent(void);
 
 bool8 SetUpFieldMove_PrecipiceBlades(void);
 bool8 SetUpFieldMove_OriginPulse(void);

@@ -21952,7 +21952,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u16 gMonShinyPalette_MimikyuBusted[] = INCBIN_U16("graphics/pokemon/mimikyu/busted/shiny.gbapal");
     const u8 gMonIcon_MimikyuBusted[] = INCBIN_U8("graphics/pokemon/mimikyu/busted/icon.4bpp");
 #if OW_POKEMON_OBJECT_EVENTS
-    // const u32 gObjectEventPic_MimikyuBusted[] = INCBIN_COMP("graphics/pokemon/mimikyu/busted/overworld.4bpp");
+     const u32 gObjectEventPic_MimikyuBusted[] = INCBIN_COMP("graphics/pokemon/mimikyu/busted/overworld.4bpp");
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     // const u16 gOverworldPalette_MimikyuBusted[] = INCBIN_U16("graphics/pokemon/mimikyu/busted/overworld_normal.gbapal");
     // const u16 gShinyOverworldPalette_MimikyuBusted[] = INCBIN_U16("graphics/pokemon/mimikyu/busted/overworld_shiny.gbapal");

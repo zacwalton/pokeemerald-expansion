@@ -930,6 +930,12 @@ gText_PlayerWhitedOut::
 	.string "{PLAYER} is out of usable\n"
 	.string "POKéMON!\p{PLAYER} whited out!$"
 
+gText_PlayerWhitedOutMimikyu::
+	.string "{STR_VAR_1}{COLOR DYNAMIC_COLOR4} revealed{COLOR DARK_GRAY} the Mimikyu.$"
+	
+gText_PlayerWhitedOutMimikyuRevealed::
+	.string "{PLAYER} looked upon the Mimikyu.$"
+	
 gText_FirstShouldRestoreMonsHealth::
 	.string "First, you should restore your\n"
 	.string "POKéMON to full health.$"

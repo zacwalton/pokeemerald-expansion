@@ -1707,7 +1707,7 @@ bool8 SetUpFieldMove_CheckAllFieldEffects(enum FieldMoveCallback *callback)
     }
 
     //REVEAL
-    else if ((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_KECLEON) == TRUE)
+    else if (((CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_KECLEON) || (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_SPECIES(MIMIKYU)))) == TRUE)
     && (gMovesInfo[moveId].fieldMoveFlags & IS_FIELD_MOVE_REVEAL))
     {
         *callback = FIELD_MOVE_CALLBACK_DEFAULT;

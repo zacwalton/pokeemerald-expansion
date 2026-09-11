@@ -992,6 +992,35 @@ EventScript_CancelReveal::
 	closemessage
 	releaseall
 	end
+	
+@ Use reveal from party menu
+EventScript_UseReveal_Mimikyu::
+	lockall
+	goto EventScript_RevealMimikyuCommon
+	
+EventScript_RevealMimikyuCommon:
+	isfollowerfieldmoveuser VAR_0x8004
+	setfieldeffectargument 3, VAR_0x8004 @ skip pose if so
+	dofieldeffect FLDEFF_USE_REVEAL
+	waitstate
+EventScript_RevealedMimikyu:: @ fallthrough
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
+	call_if_eq VAR_0x8004, TRUE, EventScript_FollowerFieldMove
+	waitmovement 0
+	releaseall
+@	msgbox gText_PlayerWhitedOutMimikyu, MSGBOX_DEFAULT
+@	waitmessage
+@	waitbuttonpress
+	callnative RevealMimikyuSetBustedObjectEvent
+	message gText_PlayerWhitedOutMimikyu
+	special Script_FadeOutMapMusic
+	waitstate
+	fadescreen FADE_TO_BLACK
+	call_if_set FLAG_WHITEOUT_TO_LAVARIDGE, EventScript_SetRespawnLavaridgePkmnCenter
+	special SetCB2WhiteOut
+	waitstate
+	end
+
 
 Text_WantToReveal:
 	.string "Something unseeable is in the way.\p"
@@ -1021,4 +1050,6 @@ Text_UseDevonScopeMonAttacked::
 Text_CantReveal:
 	.string "Something unseeable is in the way.$"
 	
-
+Text_WantToRevealMimikyu:
+	.string "Mimikyu is concealing itself.\p"
+	.string "Want to{COLOR DYNAMIC_COLOR4} reveal{COLOR DARK_GRAY} it?$"
