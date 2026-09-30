@@ -22,16 +22,16 @@ RustboroCity_CuttersHouse_EventScript_Lass::
 	end
 
 RustboroCity_CuttersHouse_Text_YouCanPutThisHMToGoodUse:
-	.string "That determined expression…\n"
-	.string "That limber way you move…\l"
-	.string "And your well-trained POKéMON…\p"
-	.string "You're obviously a skilled TRAINER!\p"
-	.string "No, wait, don't say a word.\n"
-	.string "I can tell just by looking at you.\p"
-	.string "I'm sure that you can put this\n"
-	.string "HIDDEN MACHINE to good use.\p"
-	.string "No need to be modest or shy.\n"
-	.string "Go on, take it!$"
+	.string "I suppose you are seeking \n"
+	.string "the Cutting Guru…\p"
+	.string "People have been coming here\n"
+	.string "For decades at this point.\l"
+	.string "But my bones are aged and weary…\l"
+	.string "… … …\l"
+	.string "I'll tell you what…\p"
+	.string "If you can bring me the wood,\n"
+	.string "I can teach you the old ways.\p"
+	.string "I reckon a good 20 or so should do it.$"
 
 RustboroCity_CuttersHouse_Text_ExplainCut:
 	.string "That HIDDEN MACHINE, or HM for\n"
