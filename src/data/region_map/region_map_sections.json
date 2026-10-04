@@ -1238,6 +1238,166 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "MAPSEC_SLATEPORT_LIGHTHOUSE",
+      "name": "SLATEPORT CITY",
+      "x": 9,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_ROUTE_111_DESERT",
+      "name": "DESERT",
+      "x": 9,
+      "y": 2,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "id": "MAPSEC_PETALBURG_WOODS2",
+      "name": "PETALBURG WOODS",
+      "x": 1,
+      "y": 7,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_METEOR_FALLS3",
+      "name": "METEOR FALLS",
+      "x": 2,
+      "y": 1,
+      "width": 2,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_FORINA",
+      "name": "FORINA",
+      "x": 1,
+      "y": 3,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_DEWFORD_ISLAND",
+      "name": "DEWFORD ISLAND",
+      "x": 0,
+      "y": 14,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_OLDALE_RUINS",
+      "name": "OLDALE RUINS",
+      "x": 5,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_OLD_POWER_PLANT",
+      "name": "OLD POWER PLANT",
+      "x": 6,
+      "y": 10,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_DONTO_ISLAND",
+      "name": "DONTO ISLAND",
+      "x": 17,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_GIBAN_ISLAND",
+      "name": "GIBAN ISLAND",
+      "x": 20,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_VALLEY_OF_STEEL",
+      "name": "VALLEY OF STEEL",
+      "x": 4,
+      "y": 4,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_WILD_ISLAND",
+      "name": "WILD ISLAND",
+      "x": 9,
+      "y": 7,
+      "width": 4,
+      "height": 3
+    },
+    {
+      "id": "MAPSEC_VERDALE_FALLS",
+      "name": "VERDALE FALLS",
+      "x": 4,
+      "y": 7,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_ROUTE_111_SOUTH",
+      "name": "ROUTE 111",
+      "x": 8,
+      "y": 5,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_MT_CHIMNEY_BASE",
+      "name": "MT. CHIMNEY",
+      "x": 7,
+      "y": 1,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_BOMBA_ISLAND",
+      "name": "BOMBA ISLAND",
+      "x": 24,
+      "y": 12,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "id": "MAPSEC_IZABE_ISLAND",
+      "name": "IZABE ISLAND",
+      "x": 17,
+      "y": 11,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "MAPSEC_IZABE_ISLAND2",
+      "name": "IZABE ISLAND",
+      "x": 19,
+      "y": 13,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_RIYADO_TOWN",
+      "name": "RIYADO TOWN",
+      "x": 18,
+      "y": 13,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_ROUTE_135",
+      "name": "ROUTE 135",
+      "x": 19,
+      "y": 12,
+      "width": 5,
+      "height": 1
     }
   ]
 }
