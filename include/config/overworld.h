@@ -113,7 +113,7 @@
 #define OW_FLASH_BONUS_SECOND_USE       TRUE    //When TRUE, If the ability Bonus is not set for the flash user, Illuminate mons can use flash a second time to activate the bonus
 
 // Object Event Shadows
-#define OW_OBJECT_VANILLA_SHADOWS      FALSE    // In vanilla shadows in the overworld are only shown when jumping.
+#define OW_OBJECT_VANILLA_SHADOWS      FALSE    // When FALSE, every object in the overworld has a shadow. WARNING: This means every object will take up two sprites instead of one. When TRUE, an object's shadow is only shown when jumping.
 
 // Overworld flags
 // To use the following features in scripting, replace the 0s with the flag ID you're assigning it to.
