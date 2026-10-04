@@ -866,6 +866,7 @@ u32 GetDisobedienceRateFromMon(struct Pokemon *mon);
 u32 GetDisobedienceRateFromBattler(u32 battler);
 
 u32 GetTeraTypeFromPersonality(struct Pokemon *mon);
+bool8 ShouldSkipFriendshipChange(void);
 
 
 #endif // GUARD_POKEMON_H
