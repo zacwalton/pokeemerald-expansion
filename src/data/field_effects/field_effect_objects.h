@@ -1386,6 +1386,26 @@ const struct SpriteTemplate gFieldEffectObjectTemplate_Rayquaza = {
 static const struct SpritePalette sSpritePalette_Unused = {gObjectEventPal_Npc3, FLDEFF_PAL_TAG_UNKNOWN};
 
 
+
+// cave dust
+static const struct SpriteFrameImage sPicTable_CaveDust[] =
+{
+    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 0),
+    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 1),
+    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 2),
+    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 3),
+};
+const struct SpriteTemplate gFieldEffectObjectTemplate_CaveDust = {
+    .tileTag = 0xFFFF,
+    .paletteTag = FLDEFF_PAL_TAG_CAVE_DUST,
+    .oam = &gObjectEventBaseOam_16x16,
+    .anims = sAnimTable_WaterSurfacing,
+    .images = sPicTable_CaveDust,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = WaitFieldEffectSpriteAnim,
+};
+
+const struct SpritePalette gSpritePalette_CaveDust = {gFieldEffectObjectPalette_CaveDust, FLDEFF_PAL_TAG_CAVE_DUST};
 static const struct SpriteFrameImage sPicTable_RockClimbBlob[] = {
     overworld_frame(gFieldEffectObjectPic_RockClimbBlob, 4, 4, 1),
     overworld_frame(gFieldEffectObjectPic_RockClimbBlob, 4, 4, 0),
@@ -1430,24 +1450,3 @@ const struct SpriteTemplate gFieldEffectObjectTemplate_RockClimbDust = {
 };
 
 const struct SpritePalette gSpritePalette_BigDust = {gFieldEffectPal_DustCloud, FLDEFF_PAL_TAG_DUST_CLOUD};
-
-// cave dust
-static const struct SpriteFrameImage sPicTable_CaveDust[] = 
-{
-    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 0),
-    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 1),
-    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 2),
-    overworld_frame(gFieldEffectObjectPic_CaveDust, 2, 2, 3),
-};
-const struct SpriteTemplate gFieldEffectObjectTemplate_CaveDust = {
-    .tileTag = 0xFFFF,
-    .paletteTag = FLDEFF_PAL_TAG_CAVE_DUST,
-    .oam = &gObjectEventBaseOam_16x16,
-    .anims = sAnimTable_WaterSurfacing,
-    .images = sPicTable_CaveDust,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = WaitFieldEffectSpriteAnim,
-};
-
-const struct SpritePalette gSpritePalette_CaveDust = {gFieldEffectObjectPalette_CaveDust, FLDEFF_PAL_TAG_CAVE_DUST};
-

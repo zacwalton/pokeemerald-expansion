@@ -155,9 +155,8 @@ enum ItemHoldEffect
 	HOLD_EFFECT_NEON_SCALE,			//Finneon + Lumineon 20% chance to flinch
 	HOLD_EFFECT_HEART_SCALE,		//Luvdisc Fairy dmg buff?
 	HOLD_EFFECT_NANAB_BERRY,		//Tropius 1/3 Health Recovery
+    HOLD_EFFECT_COUNT
 };
-
-#define HOLD_EFFECT_CHOICE(holdEffect) ((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
 
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0

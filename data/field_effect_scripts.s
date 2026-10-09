@@ -81,8 +81,6 @@ gFieldEffectScriptPointers::
 	.4byte gFieldEffectScript_TracksSpot                @ FLDEFF_TRACKS_SPOT
 
 	.4byte gFieldEffectScript_UseHeadbutt               @ FLDEFF_USE_HEADBUTT
-	.4byte gFieldEffectScript_UseRockClimb              @ FLDEFF_USE_ROCK_CLIMB
-	.4byte gFieldEffectScript_RockClimbDust             @ FLDEFF_ROCK_CLIMB_DUST
 	.4byte gFieldEffectScript_UseWhirlpool             	@ FLDEFF_USE_WHIRLPOOL
 	.4byte gFieldEffectScript_UseLava        	        @ FLDEFF_USE_LAVA
 	.4byte gFieldEffectScript_UseSludge        	        @ FLDEFF_USE_SLUDGE
@@ -91,6 +89,8 @@ gFieldEffectScriptPointers::
 	.4byte gFieldEffectScript_CaveDust                  @ FLDEFF_CAVE_DUST
 	.4byte gFieldEffectScript_Defog                     @ FLDEFF_DEFOG
 	.4byte gFieldEffectScript_UseReveal        	        @ FLDEFF_USE_REVEAL
+	.4byte gFieldEffectScript_UseRockClimb              @ FLDEFF_USE_ROCK_CLIMB
+	.4byte gFieldEffectScript_RockClimbDust             @ FLDEFF_ROCK_CLIMB_DUST
 
 gFieldEffectScript_ExclamationMarkIcon1::
 	field_eff_callnative FldEff_ExclamationMarkIcon
@@ -395,14 +395,6 @@ gFieldEffectScript_TracksSlither::
 gFieldEffectScript_UseHeadbutt::
 	field_eff_callnative FldEff_UseHeadbutt
 	field_eff_end
-
-gFieldEffectScript_UseRockClimb:: @ 82DBC3F
-	field_eff_callnative FldEff_UseRockClimb
-	field_eff_end
-
-gFieldEffectScript_RockClimbDust:: @ 82DBB28
-	field_eff_loadfadedpal_callnative gSpritePalette_BigDust, FldEff_RockClimbDust
-	field_eff_end
 	
 gFieldEffectScript_UseLava:: 
 	field_eff_callnative FldEff_UseLava
@@ -429,3 +421,11 @@ gFieldEffectScript_Defog::
 gFieldEffectScript_UseReveal:: 
 	field_eff_callnative FldEff_UseReveal
 	field_eff_end
+gFieldEffectScript_UseRockClimb:: @ 82DBC3F
+	field_eff_callnative FldEff_UseRockClimb
+	field_eff_end
+
+gFieldEffectScript_RockClimbDust:: @ 82DBB28
+	field_eff_loadfadedpal_callnative gSpritePalette_BigDust, FldEff_RockClimbDust
+	field_eff_end
+

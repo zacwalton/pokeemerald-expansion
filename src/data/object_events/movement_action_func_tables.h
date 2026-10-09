@@ -665,6 +665,7 @@ u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *)
     [MOVEMENT_ACTION_WALK_FAST_DIAGONAL_UP_RIGHT] = gMovementActionFuncs_WalkFastDiagonalUpRight,
     [MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_LEFT] = gMovementActionFuncs_WalkFastDiagonalDownLeft,
     [MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_RIGHT] = gMovementActionFuncs_WalkFastDiagonalDownRight,
+
     [MOVEMENT_ACTION_DOUSE_FIRE] = gMovementActionFuncs_DouseFire,
 
     [MOVEMENT_ACTION_WALK_SLOW_STAIRS_DOWN] = gMovementActionFuncs_WalkSlowStairsDown,
@@ -1722,28 +1723,28 @@ bool8 (*const gMovementActionFuncs_WalkSlowStairsRight[])(struct ObjectEvent *, 
     MovementAction_PauseSpriteAnim,
 };
 
-u8 (*const gMovementActionFuncs_SurfStillDown[])(struct ObjectEvent *, struct Sprite *) = 
+u8 (*const gMovementActionFuncs_SurfStillDown[])(struct ObjectEvent *, struct Sprite *) =
 {
     MovementAction_SurfStillDown_Step0,
     MovementAction_SurfStillDown_Step1,
     MovementAction_PauseSpriteAnim,
 };
 
-u8 (*const gMovementActionFuncs_SurfStillUp[])(struct ObjectEvent *, struct Sprite *) = 
+u8 (*const gMovementActionFuncs_SurfStillUp[])(struct ObjectEvent *, struct Sprite *) =
 {
     MovementAction_SurfStillUp_Step0,
     MovementAction_SurfStillUp_Step1,
     MovementAction_PauseSpriteAnim,
 };
 
-u8 (*const gMovementActionFuncs_SurfStillLeft[])(struct ObjectEvent *, struct Sprite *) = 
+u8 (*const gMovementActionFuncs_SurfStillLeft[])(struct ObjectEvent *, struct Sprite *) =
 {
     MovementAction_SurfStillLeft_Step0,
     MovementAction_SurfStillLeft_Step1,
     MovementAction_PauseSpriteAnim,
 };
 
-u8 (*const gMovementActionFuncs_SurfStillRight[])(struct ObjectEvent *, struct Sprite *) = 
+u8 (*const gMovementActionFuncs_SurfStillRight[])(struct ObjectEvent *, struct Sprite *) =
 {
     MovementAction_SurfStillRight_Step0,
     MovementAction_SurfStillRight_Step1,
@@ -1761,4 +1762,3 @@ u8 (*const gMovementActionFuncs_ShakeVertical[])(struct ObjectEvent *, struct Sp
     MovementAction_ShakeVertical_Step1,
     MovementAction_Finish,
 };
-

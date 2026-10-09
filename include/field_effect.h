@@ -54,6 +54,7 @@ void StartEscapeRopeFieldEffect(void);
 bool8 IsRockClimbActive(void);
 
 void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
+
 void FieldEff_CaveDust(void);
 void DoFieldMoveFriendshipChance(struct Pokemon *mon);
 

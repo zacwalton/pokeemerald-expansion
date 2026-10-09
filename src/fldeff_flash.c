@@ -1,5 +1,6 @@
 #include "global.h"
 #include "braille_puzzles.h"
+#include "decompress.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -21,7 +22,6 @@
 #include "config/overworld.h"
 #include "constants/abilities.h"
 #include "constants/songs.h"
-#include "constants/map_types.h"
 
 struct FlashStruct
 {
@@ -73,8 +73,8 @@ static const u16 sCaveTransitionPalette_Black[] = INCBIN_U16("graphics/cave_tran
 
 static const u16 sCaveTransitionPalette_Enter[] = INCBIN_U16("graphics/cave_transition/enter.gbapal");
 
-static const u32 sCaveTransitionTilemap[] = INCBIN_U32("graphics/cave_transition/tilemap.bin.lz");
-static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/tiles.4bpp.lz");
+static const u32 sCaveTransitionTilemap[] = INCBIN_U32("graphics/cave_transition/tilemap.bin.smolTM");
+static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/tiles.4bpp.smol");
 
 void ResetFlashBlends(void)
 {
@@ -88,7 +88,7 @@ void ResetFlashBlends(void)
 }
 
 
-bool8 SetUpFieldMove_Flash(void)
+bool32 SetUpFieldMove_Flash(void)
 {
     u16 flashTrackerPacked = VarGet(VAR_FLASH_TRACKER_PACKED);
     // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
@@ -199,8 +199,8 @@ void CB2_DoChangeMap(void)
 static bool8 TryDoMapTransition(void)
 {
     u8 i;
-    u8 fromType = GetLastUsedWarpMapType();
-    u8 toType = GetCurrentMapType();
+    enum MapType fromType = GetLastUsedWarpMapType();
+    enum MapType toType = GetCurrentMapType();
 
     for (i = 0; sTransitionTypes[i].fromType; i++)
     {
@@ -261,8 +261,8 @@ static void Task_ExitCaveTransition1(u8 taskId)
 static void Task_ExitCaveTransition2(u8 taskId)
 {
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
-    LZ77UnCompVram(sCaveTransitionTiles, (void *)(VRAM + 0xC000));
-    LZ77UnCompVram(sCaveTransitionTilemap, (void *)(VRAM + 0xF800));
+    DecompressDataWithHeaderVram(sCaveTransitionTiles, (void *)(VRAM + 0xC000));
+    DecompressDataWithHeaderVram(sCaveTransitionTilemap, (void *)(VRAM + 0xF800));
     LoadPalette(sCaveTransitionPalette_White, BG_PLTT_ID(14), PLTT_SIZE_4BPP);
     LoadPalette(&sCaveTransitionPalette_Enter[8], BG_PLTT_ID(14), PLTT_SIZEOF(8));
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0
@@ -346,8 +346,8 @@ static void Task_EnterCaveTransition1(u8 taskId)
 static void Task_EnterCaveTransition2(u8 taskId)
 {
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
-    LZ77UnCompVram(sCaveTransitionTiles, (void *)(VRAM + 0xC000));
-    LZ77UnCompVram(sCaveTransitionTilemap, (void *)(VRAM + 0xF800));
+    DecompressDataWithHeaderVram(sCaveTransitionTiles, (void *)(VRAM + 0xC000));
+    DecompressDataWithHeaderVram(sCaveTransitionTilemap, (void *)(VRAM + 0xF800));
     SetGpuReg(REG_OFFSET_BLDCNT, 0);
     SetGpuReg(REG_OFFSET_BLDALPHA, 0);
     SetGpuReg(REG_OFFSET_BLDY, 0);
