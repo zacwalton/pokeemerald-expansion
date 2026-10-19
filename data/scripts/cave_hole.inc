@@ -5,7 +5,11 @@ CaveHole_CheckFallDownHole: @ If the player can fall in a hole an object probabl
 
 CaveHole_FixCrackedGround:
 	copyvar VAR_OBJECT_HOLE, 0
-	copyvar VAR_ICE_STEP_COUNT, 1
+#ifdef UBFIX
+	setvar VAR_ICE_STEP_COUNT, 1
+#else
+	copyvar VAR_ICE_STEP_COUNT, 1, warn=FALSE
+#endif
 	end
 
 EventScript_FallDownHole::
