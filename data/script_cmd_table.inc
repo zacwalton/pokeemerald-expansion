@@ -262,6 +262,7 @@ gScriptCmdTable::
 	script_cmd_table_entry SCR_OP_SETALLHARVESTABLEMETATILES    ScrCmd_setallharvestablemetatiles  	requests_effects=0  @ 0xeC
 	script_cmd_table_entry SCR_OP_DOESMOVEHAVEFIELDEFFECT  		ScrCmd_doesmovehavefieldeffect		requests_effects=0  @ 0xeD
 	script_cmd_table_entry SCR_OP_CALCULATEANDSETFLASHLEVEL		ScrCmd_doesmovehavefieldeffect		requests_effects=0  @ 0xeE
+	script_cmd_table_entry SCR_OP_HIDEFOLLOWER                  ScrCmd_hidefollower,                requests_effects=1  @ 0xe5
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::
