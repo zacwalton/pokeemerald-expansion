@@ -1631,13 +1631,13 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
     }
     else
     {
-        critChance  = 2 * (gBattleMons[battlerAtk].volatiles.focusEnergy != 0)
-                    + 1 * (gBattleMons[battlerAtk].volatiles.dragonCheer != 0)
-                    + 1 * (HasWeatherEffect() && gBattleWeather & B_WEATHER_FOG)
+        critChance  = (gBattleMons[battlerAtk].volatiles.focusEnergy != 0 ? 2 : 0)
+                    + (gBattleMons[battlerAtk].volatiles.dragonCheer != 0 ? 1 : 0)
+                    + ((HasWeatherEffect() && gBattleWeather & B_WEATHER_FOG) ? 1 : 0)
                     + GetMoveCriticalHitStage(move)
                     + GetHoldEffectCritChanceIncrease(battlerAtk, holdEffectAtk)
-                    + 1 * (B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) >= AFFECTION_FOUR_HEARTS) //ZETA- to remove, to move effect to move mastery
-                    + (abilityAtk == ABILITY_SUPER_LUCK)
+                    + ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) == AFFECTION_FOUR_HEARTS) ? 1 : 0) //ZETA- rebalnced - to remove, to move effect to move mastery
+                    + (abilityAtk == ABILITY_SUPER_LUCK ? 1 : 0)
                     + gBattleStruct->bonusCritStages[gBattlerAttacker];
 
         if (critChance >= ARRAY_COUNT(sCriticalHitOdds))
