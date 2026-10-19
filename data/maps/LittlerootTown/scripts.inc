@@ -1337,7 +1337,7 @@ LittlerootTown_EventScript_StartRecruit_TreeckoConfirmed:
 	closemessage
 	checkfollowernpc 
 	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerTreecko
-	setfollowernpc LOCALID_STARTER_TREECKO, FNPC_NONE, LittlerootTown_EventScript_Interact_Treecko, 0
+	setfollowernpc LOCALID_STARTER_TREECKO, 0, LittlerootTown_EventScript_Interact_Treecko, 0
 	removeobject LOCALID_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_MUDKIP
@@ -1376,7 +1376,7 @@ LittlerootTown_EventScript_StartRecruit_TorchicConfirmed:
 	closemessage
 	checkfollowernpc 
 	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerTorchic
-	setfollowernpc LOCALID_STARTER_TORCHIC, FNPC_NONE, LittlerootTown_EventScript_Interact_Torchic, 0
+	setfollowernpc LOCALID_STARTER_TORCHIC, 0, LittlerootTown_EventScript_Interact_Torchic, 0
 	removeobject LOCALID_STARTER_TORCHIC
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_MUDKIP
@@ -1415,7 +1415,7 @@ LittlerootTown_EventScript_StartRecruit_MudkipConfirmed:
 	closemessage
 	checkfollowernpc 
 	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerMudkip
-	setfollowernpc LOCALID_STARTER_MUDKIP, FNPC_NONE, LittlerootTown_EventScript_Interact_Mudkip, 0
+	setfollowernpc LOCALID_STARTER_MUDKIP, 0, LittlerootTown_EventScript_Interact_Mudkip, 0
 	removeobject LOCALID_STARTER_MUDKIP
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC
@@ -1621,7 +1621,7 @@ LittlerootTown_EventScript_StartRecruit_HiddenConfirmed:
 	closemessage
 	checkfollowernpc 
 	call_if_eq VAR_RESULT, TRUE, LittlerootTown_EventScript_DestroyStarterFollowerHidden
-	setfollowernpc LOCALID_STARTER_HIDDEN, FNPC_NONE, LittlerootTown_EventScript_Interact_Hidden, 0
+	setfollowernpc LOCALID_STARTER_HIDDEN, 0, LittlerootTown_EventScript_Interact_Hidden, 0
 	removeobject LOCALID_STARTER_HIDDEN
 	clearflag FLAG_HIDE_STARTER_TREECKO
 	clearflag FLAG_HIDE_STARTER_TORCHIC

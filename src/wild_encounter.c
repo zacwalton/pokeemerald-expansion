@@ -351,7 +351,7 @@ u32 ChooseWildMonIndex_Water(void)
     }
     return wildMonIndex;
 }
-
+/*
 // ROCK_WILD_COUNT
 u32 ChooseWildMonIndex_Rocks(void)
 {
@@ -377,7 +377,7 @@ u32 ChooseWildMonIndex_Rocks(void)
         wildMonIndex = 4 - wildMonIndex;
 
     return wildMonIndex;
-}
+}*/
 
 // FISH_WILD_COUNT
 static u32 ChooseWildMonIndex_Fishing(u8 rod)
@@ -433,7 +433,7 @@ static u32 ChooseWildMonIndex_Fishing(u8 rod)
 
 // Rock Smash, Cut and Douse Encounters 
 // ROCK_WILD_COUNT
-static u8 ChooseWildMonIndex_FieldObject(u8 method)
+static u32 ChooseWildMonIndex_FieldObject(u8 method)
 {
 	#define SMASH  	0
 	#define CUT  	1
@@ -1033,10 +1033,8 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
 
         wildMonIndex = ChooseWildMonIndex_Water();
         break;
-    case WILD_AREA_ROCKS:
-        wildMonIndex = ChooseWildMonIndex_Rocks();
-        break;
     default:
+    case WILD_AREA_ROCKS:
     case WILD_AREA_FISHING:
     case WILD_AREA_FISHING_POND:
     case WILD_AREA_HIDDEN:

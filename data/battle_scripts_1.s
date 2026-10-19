@@ -783,7 +783,7 @@ BattleScript_FlingFlameOrb:
 	seteffectsecondary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_BURN
 	goto BattleScript_FlingEnd
 BattleScript_FlingSnowball:
-	seteffectsecondary MOVE_EFFECT_FREEZE
+	seteffectsecondary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_FREEZE
 	goto BattleScript_FlingEnd
 BattleScript_FlingFlinch:
 	seteffectsecondary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_FLINCH
@@ -1782,27 +1782,25 @@ BattleScript_EffectFlashFreeze::
 	setstatchanger STAT_SPEED, 1, TRUE
 	attackcanceler
 	jumpifsubstituteblocks BattleScript_FailedFromAtkString
-	jumpifstat BS_TARGET, CMP_NOT_EQUAL, STAT_SPEED, MIN_STAT_STAGE, BattleScript_ToxicThreadWorks
-	jumpifstatus BS_TARGET, STATUS1_PSN_ANY, BattleScript_FailedFromAtkString
-BattleScript_FlashFreezeWorks:
+	checknonvolatiletrigger MOVE_EFFECT_FREEZE, BattleScript_EffectStatDownFromAccCheck
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
-	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_ToxicThreadTryPsn
-	jumpifbyte CMP_LESS_THAN, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_ToxicThreadDoAnim
-	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY, BattleScript_ToxicThreadTryPsn
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPEED, 1, TRUE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_ONLY_CHECKING, BattleScript_FlashFreezeTryFrz
+	jumpifbyte CMP_LESS_THAN, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_FlashFreezeDoAnim
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY, BattleScript_FlashFreezeTryFrz
 	pause B_WAIT_TIME_SHORT
 	goto BattleScript_ToxicThreadPrintString
 BattleScript_FlashFreezeDoAnim::
-	attackanimation
-	waitanimation
-	setgraphicalstatchangevalues
-	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_FlashFreezeTryFrz
 BattleScript_FlashFreezePrintString::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_FlashFreezeTryFrz::
-	seteffectprimary MOVE_EFFECT_FREEZE
+	seteffectprimary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_FREEZE
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectVenomDrench::
@@ -3395,7 +3393,7 @@ BattleScript_AlreadyParalyzed::
 
 
 BattleScript_AlreadyFrozen::
-	setalreadystatusedmoveattempt BS_ATTACKER
+	setalreadystatusedmoveattempt
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYFROZEN
 	waitmessage B_WAIT_TIME_LONG
@@ -3937,8 +3935,8 @@ BattleScript_EffectAuraSense::
 	attackstring
 	ppreduce
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
-	jumpifstatus2 BS_TARGET, STATUS2_FORESIGHT, BattleScript_ButItFailed
-	setforesight
+	jumpifvolatile BS_TARGET, VOLATILE_FORESIGHT, BattleScript_ButItFailed
+	setvolatile BS_TARGET, VOLATILE_FORESIGHT
 BattleScript_IdentifiedFoeAura:
 	attackanimation
 	waitanimation
@@ -3946,7 +3944,7 @@ BattleScript_IdentifiedFoeAura:
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_EffectAuraSenseTryAcc:
 	setstatchanger STAT_ACC, 1, FALSE
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_EffectAuraSenseEnd
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_EffectAuraSenseEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_EffectAuraSenseEnd
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
@@ -6807,7 +6805,7 @@ BattleScript_MoveUsedIsFrozen::
 	printstring STRINGID_PKMNISFROZEN
 	waitmessage B_WAIT_TIME_LONG
 	statusanimation BS_ATTACKER
-	cancelmultiturnmoves BS_ATTACKER
+	cancelmultiturnmoves
 	goto BattleScript_MoveEnd
 
 BattleScript_MoveUsedUnfroze::

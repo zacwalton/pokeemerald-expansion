@@ -67,8 +67,8 @@ static const struct WindowTemplate sPopupWindowTemplate =
 
 // For now, just use the region map graphics
 static const u16 sRegionMapBkgnd_Pal[] = INCBIN_U16("graphics/soar/region_map.gbapal");
-static const u32 sRegionMapBkgnd_ImageLZ[] = INCBIN_U32("graphics/soar/region_map.8bpp.lz");
-static const u32 sRegionMapBkgnd_TilemapLZ[] = INCBIN_U32("graphics/soar/region_map_map.bin.lz");
+static const u32 sRegionMapBkgnd_ImageLZ[] = INCBIN_U32("graphics/soar/region_map.8bpp.smol");
+static const u32 sRegionMapBkgnd_TilemapLZ[] = INCBIN_U32("graphics/soar/region_map_map.bin.smolTM");
 
 //
 // Eon sprite data
@@ -76,14 +76,14 @@ static const u32 sRegionMapBkgnd_TilemapLZ[] = INCBIN_U32("graphics/soar/region_
 
 #define GFX_TAG_EON 9999
 
-static const u32 sEonBrendanSpriteTiles[] = INCBIN_U32("graphics/soar/latias_brendan.4bpp.lz");
+static const u32 sEonBrendanSpriteTiles[] = INCBIN_U32("graphics/soar/latias_brendan.4bpp.smol");
 static const u16 sEonBrendanSpritePaletteData[] = INCBIN_U16("graphics/soar/latias_brendan.gbapal");
-static const u32 sEonMaySpriteTiles[] = INCBIN_U32("graphics/soar/latias_may.4bpp.lz");
+static const u32 sEonMaySpriteTiles[] = INCBIN_U32("graphics/soar/latias_may.4bpp.smol");
 static const u16 sEonMaySpritePaletteData[] = INCBIN_U16("graphics/soar/latias_may.gbapal");
 
-static const u32 sEonBrendanSpriteTiles2[] = INCBIN_U32("graphics/soar/latios_brendan.4bpp.lz");
+static const u32 sEonBrendanSpriteTiles2[] = INCBIN_U32("graphics/soar/latios_brendan.4bpp.smol");
 static const u16 sEonBrendanSpritePaletteData2[] = INCBIN_U16("graphics/soar/latios_brendan.gbapal");
-static const u32 sEonMaySpriteTiles2[] = INCBIN_U32("graphics/soar/latios_may.4bpp.lz");
+static const u32 sEonMaySpriteTiles2[] = INCBIN_U32("graphics/soar/latios_may.4bpp.smol");
 static const u16 sEonMaySpritePaletteData2[] = INCBIN_U16("graphics/soar/latios_may.gbapal");
 
 static const struct OamData sEonSpriteOamData =
@@ -120,7 +120,7 @@ static const struct SpriteTemplate sEonSpriteTemplate =
 
 #define GFX_TAG_SHADOW 9998
 
-static const u32 sShadowSpriteTiles[] = INCBIN_U32("graphics/soar/shadow.4bpp.lz");
+static const u32 sShadowSpriteTiles[] = INCBIN_U32("graphics/soar/shadow.4bpp.smol");
 static const struct CompressedSpriteSheet sShadowSpriteSheet = {
 	.data = sShadowSpriteTiles,
 	.size = 1024,
@@ -280,7 +280,7 @@ static void CB2_LoadSoarGraphics(void)
 		SetHBlankCallback(SoarHBlankCallback);
 
 		// Load image data
-		LZ77UnCompVram(sRegionMapBkgnd_ImageLZ, (void *)(VRAM + BG2_IMAGE_OFFSET));
+		DecompressDataWithHeaderVram(sRegionMapBkgnd_ImageLZ, (void *)(VRAM + BG2_IMAGE_OFFSET));
 
 		// Load tilemap
 		void *buffer = malloc_and_decompress(sRegionMapBkgnd_TilemapLZ, NULL);

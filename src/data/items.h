@@ -11025,12 +11025,6 @@ const struct Item gItemsInfo[] =
     {
         .name = ITEM_NAME("TM07"),
         .price = 0,
-        #if B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW
-        .description = COMPOUND_STRING(
-            "Raises the Defense\n"
-            "of Ice type {PKMN}\n"
-            "for 5 turns."),
-        #else
         .description = COMPOUND_STRING(
             "Creates a hailstorm\n"
             "that damages all\n"
@@ -11545,7 +11539,7 @@ const struct Item gItemsInfo[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_TM_REST] =
+    [ITEM_TM_STEEL_WING] =
     {
         .name = ITEM_NAME("TM44"),
         .price = 3000,
@@ -11553,48 +11547,6 @@ const struct Item gItemsInfo[] =
             "The user sleeps for\n"
             "2 turns to restore\n"
             "health and status."),
-        .importance = I_REUSABLE_TMS,
-        .pocket = POCKET_TM_HM,
-        .type = ITEM_USE_PARTY_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-    },
-
-    [ITEM_TM_ATTRACT] =
-    {
-        .name = ITEM_NAME("TM45"),
-        .price = 3000,
-        .description = COMPOUND_STRING(
-            "Makes it tough to\n"
-            "attack a foe of the\n"
-            "opposite gender."),
-        .importance = I_REUSABLE_TMS,
-        .pocket = POCKET_TM_HM,
-        .type = ITEM_USE_PARTY_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-    },
-
-    [ITEM_TM_THIEF] =
-    {
-        .name = ITEM_NAME("TM46"),
-        .price = 3000,
-        .description = COMPOUND_STRING(
-            "While attacking,\n"
-            "it may steal the\n"
-            "foe's held item."),
-        .importance = I_REUSABLE_TMS,
-        .pocket = POCKET_TM_HM,
-        .type = ITEM_USE_PARTY_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-    },
-
-    [ITEM_TM_STEEL_WING] =
-    {
-        .name = ITEM_NAME("TM47"),
-        .price = 3000,
-        .description = COMPOUND_STRING(
-            "Spreads hard-\n"
-            "edged wings and\n"
-            "slams into the foe."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
@@ -14720,7 +14672,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_EON_FLUTE] =
     {
-        .name = _("Eon Flute"),
+        .name = ITEM_NAME("Eon Flute"),
         .price = 0,
         .description = COMPOUND_STRING(
             "A flute that can\n"
@@ -14736,8 +14688,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_WOOD] =
     {
-        .name = _("Wood"),
-        .pluralName = _("Wood"),
+        .name = ITEM_NAME("Wood"),
+        .pluralName = ITEM_PLURAL_NAME("Wood"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A chunk of wood."),
@@ -14751,8 +14703,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_STONE] =
     {
-        .name = _("Stone"),
-        .pluralName = _("Stone"),
+        .name = ITEM_NAME("Stone"),
+        .pluralName = ITEM_PLURAL_NAME("Stone"),
         .price = 20,
         .description = COMPOUND_STRING(
             "A chunk of stone."),
@@ -14766,8 +14718,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_PLANT_FIBRE] =
     {
-        .name = _("Plant Fibre"),
-        .pluralName = _("Plant Fibre"),
+        .name = ITEM_NAME("Plant Fibre"),
+        .pluralName = ITEM_PLURAL_NAME("Plant Fibre"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A bundle of plant fibre."),
@@ -14781,8 +14733,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_WHEAT] =
     {
-        .name = _("Wheat"),
-        .pluralName = _("Wheat"),
+        .name = ITEM_NAME("Wheat"),
+        .pluralName = ITEM_PLURAL_NAME("Wheat"),
         .price = 10,
         .description = COMPOUND_STRING(
             "A bundle of Wheat."),
@@ -14796,8 +14748,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_WOOL] =
     {
-        .name = _("Wool"),
-        .pluralName = _("Wool"),
+        .name = ITEM_NAME("Wool"),
+        .pluralName = ITEM_PLURAL_NAME("Wool"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A bundle of Wool."),
@@ -14811,8 +14763,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_YARN] =
     {
-        .name = _("Yarn"),
-        .pluralName = _("Yarn"),
+        .name = ITEM_NAME("Yarn"),
+        .pluralName = ITEM_PLURAL_NAME("Yarn"),
         .price = 100,
         .description = COMPOUND_STRING(
             "A spool of yarn."),
@@ -14826,7 +14778,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_IRON_CHUNK] =
     {
-        .name = _("Iron Chunk"),
+        .name = ITEM_NAME("Iron Chunk"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A chunk of iron."),
@@ -14840,7 +14792,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_GLASS_CHUNK] =
     {
-        .name = _("Glass Chunk"),
+        .name = ITEM_NAME("Glass Chunk"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A chunk of glass."),
@@ -14854,7 +14806,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_RED_ROOT] =
     {
-        .name = _("Red Root"),
+        .name = ITEM_NAME("Red Root"),
         .price = 100,
         .description = COMPOUND_STRING(
             "A red root."),
@@ -14868,8 +14820,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_LIMESTONE] =
     {
-        .name = _("Limestone"),
-        .pluralName = _("Limestone"),
+        .name = ITEM_NAME("Limestone"),
+        .pluralName = ITEM_PLURAL_NAME("Limestone"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A chunk of limestone."),
@@ -14883,8 +14835,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_MUD] =
     {
-        .name = _("Mud"),
-        .pluralName = _("Mud"),
+        .name = ITEM_NAME("Mud"),
+        .pluralName = ITEM_PLURAL_NAME("Mud"),
         .price = 2,
         .description = COMPOUND_STRING(
             "A ball of mud."),
@@ -14898,8 +14850,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_KINGS_LEAF] =
     {
-        .name = _("King's Leaf"),
-        .pluralName = _("King's Leaf"),
+        .name = ITEM_NAME("King's Leaf"),
+        .pluralName = ITEM_PLURAL_NAME("King's Leaf"),
         .price = 500,
         .description = COMPOUND_STRING(
             "A rare leaf."),
@@ -14913,7 +14865,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_VIVICHOKE] =
     {
-        .name = _("Vivichoke"),
+        .name = ITEM_NAME("Vivichoke"),
         .price = 50,
         .description = COMPOUND_STRING(
             "A nutritious plant."),
@@ -14927,8 +14879,8 @@ const struct Item gItemsInfo[] =
 
     [ITEM_WAX_HUSK] =
     {
-        .name = _("Wax Husk"),
-        .pluralName = _("Wax Husk"),
+        .name = ITEM_NAME("Wax Husk"),
+        .pluralName = ITEM_PLURAL_NAME("Wax Husk"),
         .price = (I_PRICE >= GEN_9) ? 20000 : ((I_PRICE >= GEN_7) ? 4000 : 1000),
         .holdEffect = HOLD_EFFECT_WAX_HUSK,
         .description = COMPOUND_STRING(
@@ -14945,7 +14897,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_SWEET_FRUIT] =
     {
-        .name = _("Sweet Fruit"),
+        .name = ITEM_NAME("Sweet Fruit"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 500,
         .holdEffect = HOLD_EFFECT_SWEET_FRUIT,
         .description = COMPOUND_STRING(
@@ -14962,7 +14914,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_HARD_FRUIT] =
     {
-        .name = _("Hard Fruit"),
+        .name = ITEM_NAME("Hard Fruit"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 500,
         .holdEffect = HOLD_EFFECT_HARD_FRUIT,
         .description = COMPOUND_STRING(
@@ -14979,7 +14931,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_SUNFLOWER] =
     {
-        .name = _("Sunflower"),
+        .name = ITEM_NAME("Sunflower"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 500,
         .holdEffect = HOLD_EFFECT_SUNFLOWER,
         .description = COMPOUND_STRING(
@@ -14996,7 +14948,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_SILK_HUSK] =
     {
-        .name = _("Silk Husk"),
+        .name = ITEM_NAME("Silk Husk"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 500,
         .holdEffect = HOLD_EFFECT_SILK_HUSK,
         .description = COMPOUND_STRING(
@@ -15013,7 +14965,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_PETRIFIED_LOG] =
     {
-        .name = _("Petrified Log"),
+        .name = ITEM_NAME("Petrified Log"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 500,
         .holdEffect = HOLD_EFFECT_PETRIFIED_LOG,
         .description = COMPOUND_STRING(
@@ -15030,7 +14982,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_NEON_SCALE] =
     {
-        .name = _("Neon Scale"),
+        .name = ITEM_NAME("Neon Scale"),
         .price = (I_PRICE >= GEN_9) ? 3000 : ((I_PRICE >= GEN_7) ? 2000 : 500),
         .holdEffect = HOLD_EFFECT_NEON_SCALE,
         .description = COMPOUND_STRING(

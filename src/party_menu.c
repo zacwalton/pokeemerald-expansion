@@ -2777,29 +2777,29 @@ static u8 DisplaySelectionWindow(u8 windowType)
         const u8 *text;
         u8 fontColorsId;
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
-				if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
+				if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
 					fontColorsId = 4; //Light Gray
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_REVEAL)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_REVEAL)
 					fontColorsId = 14; //Dynamic 4 (Pink)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SECRET)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_SECRET)
 					fontColorsId = 11; //Blue
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SMASH)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_SMASH)
 					fontColorsId = 5; //Red
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_FLASH)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_FLASH)
 					fontColorsId = 6; //Light Red
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_CUT)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_CUT)
 					fontColorsId = 7; //Green
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_WATERFALL))
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & (IS_FIELD_MOVE_CLIMB | IS_FIELD_MOVE_WATERFALL))
 					fontColorsId = 8; //Light Green
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_HACK)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_HACK)
 					fontColorsId = 9; //Dynamic 1 (Yellow)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_SOAR | IS_FIELD_MOVE_ESCAPE))
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & (IS_FIELD_MOVE_WARP | IS_FIELD_MOVE_DIG | IS_FIELD_MOVE_SOAR | IS_FIELD_MOVE_ESCAPE))
 					fontColorsId = 10; //Dynamic 3 (Purple)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & (IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_DIVE | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_LAVA | IS_FIELD_MOVE_SLUDGE))
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & (IS_FIELD_MOVE_SURF | IS_FIELD_MOVE_DIVE | IS_FIELD_MOVE_WHIRLPOOL | IS_FIELD_MOVE_LAVA | IS_FIELD_MOVE_SLUDGE))
 					fontColorsId = 12; //Dynamic 5 (Aquamarine)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_DOUSE)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_DOUSE)
 					fontColorsId = 13; //Dynamic 6 (Teal)
-				else if (gMovesInfo[sFieldMoves[sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES]].fieldMoveFlags & IS_FIELD_MOVE_SHAKE)
+				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_SHAKE)
 					fontColorsId = 15; //Ligh Blue
 				else
 					fontColorsId = 11; //Blue
@@ -3997,43 +3997,43 @@ static void CursorCb_FieldMove(u8 taskId)
     }
     else
     {
-/*        VarSet(VAR_0x8008, sFieldMoves[fieldMove]);
+        VarSet(VAR_0x8008, FieldMove_GetMoveId(fieldMove));
         enum FieldMoveCallback callback;
 
         if (SetUpFieldMove_CheckAllFieldEffects(&callback) == TRUE)
         {
-            switch(callback)*/
-        // All field moves before WATERFALL are HMs.
-        if (!IsFieldMoveUnlocked(fieldMove))
-        {
-            DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
-            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
-        }
-        else if (SetUpFieldMove(fieldMove) == TRUE)
-        {
-            switch (fieldMove)
+            // All field moves before WATERFALL are HMs.
+            if (!IsFieldMoveUnlocked(fieldMove))
             {
-                case FIELD_MOVE_CALLBACK_HP:
-                    ChooseMonForSoftboiled(taskId);
-                    break;
-                case FIELD_MOVE_CALLBACK_STATUS_HEAL:
-                    ChooseMonForStatusHeal(taskId);
-                    break;
-                case FIELD_MOVE_CALLBACK_ESCAPE:
-                    mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
-                    GetMapNameGeneric(gStringVar1, mapHeader->regionMapSectionId);
-                    StringExpandPlaceholders(gStringVar4, gText_EscapeFromHere);
-                    DisplayFieldMoveExitAreaMessage(taskId);
-                    sPartyMenuInternal->data[0] = fieldMove;
-                    break;
-                case FIELD_MOVE_CALLBACK_FLY:
-                    gPartyMenu.exitCallback = CB2_OpenFlyMap;
-                    Task_ClosePartyMenu(taskId);
-                    break;
-                default:
-                    gPartyMenu.exitCallback = CB2_ReturnToField;
-                    Task_ClosePartyMenu(taskId);
-                    break;
+                DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
+                gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+            }
+            else if (SetUpFieldMove(fieldMove) == TRUE)
+            {
+                switch (callback)
+                {
+                    case FIELD_MOVE_CALLBACK_HP:
+                        ChooseMonForSoftboiled(taskId);
+                        break;
+                    case FIELD_MOVE_CALLBACK_STATUS_HEAL:
+                        ChooseMonForStatusHeal(taskId);
+                        break;
+                    case FIELD_MOVE_CALLBACK_ESCAPE:
+                        mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
+                        GetMapNameGeneric(gStringVar1, mapHeader->regionMapSectionId);
+                        StringExpandPlaceholders(gStringVar4, gText_EscapeFromHere);
+                        DisplayFieldMoveExitAreaMessage(taskId);
+                        sPartyMenuInternal->data[0] = fieldMove;
+                        break;
+                    case FIELD_MOVE_CALLBACK_FLY:
+                        gPartyMenu.exitCallback = CB2_OpenFlyMap;
+                        Task_ClosePartyMenu(taskId);
+                        break;
+                    default:
+                        gPartyMenu.exitCallback = CB2_ReturnToField;
+                        Task_ClosePartyMenu(taskId);
+                        break;
+                }
             }
         }
         else
@@ -7967,21 +7967,6 @@ static void FieldCallback_RockClimb(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_ROCK_CLIMB);
-}
-
-bool8 SetUpFieldMove_RockClimb(void)
-{
-    s16 x, y;
-
-    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
-    if (MetatileBehavior_IsRockClimbable(MapGridGetMetatileBehaviorAt(x, y)))
-    {
-        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
-        gPostMenuFieldCallback = FieldCallback_RockClimb;
-        return TRUE;
-    }
-
-    return FALSE;
 }
 
 void CursorCb_MoveItemCallback(u8 taskId)

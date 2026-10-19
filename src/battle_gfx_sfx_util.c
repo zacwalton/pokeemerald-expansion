@@ -700,8 +700,7 @@ void DecompressTrainerFrontPic(u16 frontPicId, u8 battler)
 void DecompressTrainerBackPic(u16 backPicId, u8 battler)
 {
     u8 position = GetBattlerPosition(battler);
-    DecompressPicFromTable(&gTrainerBacksprites[backPicId].backPic,
-                           gMonSpritesGfxPtr->spritesGfx[position]);
+    CopyTrainerBackspriteFramesToDest(backPicId, gMonSpritesGfxPtr->spritesGfx[position]);
 
     // DYNPAL: Override pallete load for player back sprite (UPDATE IF USING RHH EXPANSION)
     if (backPicId == TRAINER_BACK_PIC_BRENDAN || backPicId == TRAINER_BACK_PIC_MAY) 
@@ -713,7 +712,6 @@ void DecompressTrainerBackPic(u16 backPicId, u8 battler)
         LoadPalette(gTrainerBacksprites[backPicId].palette.data,
             OBJ_PLTT_ID(battler), PLTT_SIZE_4BPP);
     }
-
 }
 
 void FreeTrainerFrontPicPalette(u16 frontPicId)

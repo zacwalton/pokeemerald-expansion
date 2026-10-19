@@ -1998,7 +1998,6 @@ static enum MoveCanceller CancellerAsleepOrFrozen(void)
             gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_FREEZE;
             BattleScriptCall(BattleScript_MoveUsedUnfroze);
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DEFROSTED;
-			*effect = 2;
 
         }
         return MOVE_STEP_REMOVES_STATUS;
@@ -6893,8 +6892,8 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler)
                 }
                 break;
             case HOLD_EFFECT_SUNFLOWER:
-                if (gBattleMons[battler].hp < gBattleMons[battler].maxHP && !moveTurn
-                  && (B_HEAL_BLOCKING < GEN_5 || !(gStatuses3[battler] & STATUS3_HEAL_BLOCK))
+                if (gBattleMons[battler].hp < gBattleMons[battler].maxHP
+                  && (B_HEAL_BLOCKING < GEN_5 || !gBattleMons[battler].volatiles.healBlock)
 				  && (gBattleMons[battler].species == SPECIES_SUNFLORA))
                 {
 					if ((gBattleWeather & B_WEATHER_SUN) && HasWeatherEffect())
@@ -7033,7 +7032,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler)
             case HOLD_EFFECT_BERRY_JUICE:
 				if ((gBattleMons[battler].species == SPECIES_SPINDA))
 					effect = ConsumeBerserkGene(battler, caseID);
-                if (!moveTurn)
+                else
                     effect = ItemHealHp(battler, gLastUsedItem, caseID, FALSE);
                 break;
             case HOLD_EFFECT_MIRROR_HERB:
@@ -7132,7 +7131,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler)
                 {
                     gBattleScripting.moveEffect = MOVE_EFFECT_FLINCH;
                     BattleScriptPushCursor();
-                    SetMoveEffect(FALSE, FALSE);
+                    SetMoveEffect(gBattlerAttacker, gBattlerTarget, FALSE, FALSE);
                     BattleScriptPop();
                 }
 				}
@@ -8126,6 +8125,23 @@ static inline u32 IsFieldWaterSportAffected(u32 moveType)
     return FALSE;
 }
 
+static inline u32 IsFieldApotropaismAffected(u32 moveType)
+{
+    if (moveType == TYPE_FAIRY && (gFieldStatuses & STATUS_FIELD_APOTROPAISM))
+        return TRUE;
+
+    if (B_SPORT_TURNS < GEN_6)
+    {
+        for (u32 battler = 0; battler < gBattlersCount; battler++)
+        {
+            if (gBattleMons[battler].volatiles.apotropaism)
+                return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
 static inline u32 CalcMoveBasePower(struct DamageContext *ctx)
 {
     u32 battlerAtk = ctx->battlerAtk;
@@ -8473,8 +8489,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
     if (IsFieldWaterSportAffected(ctx->moveType))
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
-    if (moveType == TYPE_FAIRY && ((gFieldStatuses & STATUS_FIELD_APOTROPAISM)							//ZETA- Fairy Sport variant
-    || AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_APOTROPAISM, 0)))
+    if (IsFieldApotropaismAffected(ctx->moveType))
         modifier = uq4_12_multiply(modifier, UQ_4_12(B_SPORT_DMG_REDUCTION >= GEN_5 ? 0.33 : 0.5));
 
     // attacker's abilities
@@ -9431,7 +9446,7 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(struct DamageContext *ctx)
         }
         break;
     case ABILITY_DIAMOND_SKIN:
-        if (IsBattleMovePhysical(move))
+        if (IsBattleMovePhysical(ctx->move))
             return UQ_4_12(0.5);
         break;
     }
@@ -9575,7 +9590,7 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
 
     if (ctx->randomFactor)
     {
-        if ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(battlerAtk) >= AFFECTION_FOUR_HEARTS))
+        if ((B_AFFECTION_MECHANICS == TRUE && GetBattlerAffectionHearts(ctx->battlerAtk) >= AFFECTION_FOUR_HEARTS))
         {
             
         dmg *= DMG_ROLL_PERCENT_HI - RandomUniform(RNG_DAMAGE_MODIFIER, 0, DMG_ROLL_PERCENT_HI - DMG_ROLL_PERCENT_LO_AFFECTION);
@@ -9821,7 +9836,7 @@ static inline void MulByTypeEffectiveness(struct DamageContext *ctx, uq4_12_t *m
     // added B_WEATHER_HAIL makes Ice-type Super Effective moves against Water-type Pokémon
     if (gBattleWeather & B_WEATHER_HAIL && HasWeatherEffect())
     {
-		if (moveType == TYPE_WATER && defType == TYPE_ICE && mod == UQ_4_12(1.0))
+		if (ctx->moveType == TYPE_WATER && defType == TYPE_ICE && mod == UQ_4_12(1.0))
 			mod = UQ_4_12(0.5);
     }
 
@@ -9921,29 +9936,29 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(struct DamageCont
             gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
             RecordAbilityBattle(ctx->battlerDef, ABILITY_LEVITATE);
         }
-		else if (recordAbilities && defAbility == ABILITY_DESERT_SPIRIT)
+		else if (ctx->updateFlags && ctx->abilityDef == ABILITY_DESERT_SPIRIT)
         {
-            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
-            gLastLandedMoves[battlerDef] = 0;
-            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
-            RecordAbilityBattle(battlerDef, ABILITY_DESERT_SPIRIT);
+            gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_DESERT_SPIRIT;
+            gLastLandedMoves[ctx->battlerDef] = 0;
+            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(ctx->battlerDef, ABILITY_DESERT_SPIRIT);
         }
-		else if (recordAbilities && defAbility == ABILITY_DAUNTING_WINGS)
+		else if (ctx->updateFlags && ctx->abilityDef == ABILITY_DAUNTING_WINGS)
         {
-            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
-            gLastLandedMoves[battlerDef] = 0;
-            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
-            RecordAbilityBattle(battlerDef, ABILITY_DAUNTING_WINGS);
+            gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_DAUNTING_WINGS;
+            gLastLandedMoves[ctx->battlerDef] = 0;
+            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(ctx->battlerDef, ABILITY_DAUNTING_WINGS);
         }
-		else if (recordAbilities && defAbility == ABILITY_WIND_CHIME)
+		else if (ctx->updateFlags && ctx->abilityDef == ABILITY_WIND_CHIME)
         {
-            gBattleStruct->moveResultFlags[battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-            gLastUsedAbility = ABILITY_LEVITATE;
-            gLastLandedMoves[battlerDef] = 0;
-            gBattleStruct->missStringId[battlerDef] = B_MSG_GROUND_MISS;
-            RecordAbilityBattle(battlerDef, ABILITY_WIND_CHIME);
+            gBattleStruct->moveResultFlags[ctx->battlerDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
+            gLastUsedAbility = ABILITY_WIND_CHIME;
+            gLastLandedMoves[ctx->battlerDef] = 0;
+            gBattleStruct->missStringId[ctx->battlerDef] = B_MSG_GROUND_MISS;
+            RecordAbilityBattle(ctx->battlerDef, ABILITY_WIND_CHIME);
         }
     }
     else if (B_SHEER_COLD_IMMUNITY >= GEN_7 && GetMoveEffect(ctx->move) == EFFECT_SHEER_COLD && IS_BATTLER_OF_TYPE(ctx->battlerDef, TYPE_ICE))

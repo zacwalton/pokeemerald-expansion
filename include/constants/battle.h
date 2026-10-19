@@ -173,6 +173,7 @@ enum VolatileFlags
     F(VOLATILE_ELECTRIFIED,                 electrified,                   (u32, 1)) \
     F(VOLATILE_MUD_SPORT,                   mudSport,                      (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_WATER_SPORT,                 waterSport,                    (u32, 1), V_BATON_PASSABLE) \
+    F(VOLATILE_APOTROPAISM,                 apotropaism,                   (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_INFINITE_CONFUSION,          infiniteConfusion,             (u32, 1), V_BATON_PASSABLE) \
     F(VOLATILE_SALT_CURE,                   saltCure,                      (u32, 1)) \
     F(VOLATILE_SYRUP_BOMB,                  syrupBomb,                     (u32, 1)) \
@@ -272,6 +273,8 @@ enum SemiInvulnerableExclusion
 #define SIDE_STATUS_RAINBOW                 (1 << 9)
 #define SIDE_STATUS_SEA_OF_FIRE             (1 << 10)
 #define SIDE_STATUS_SWAMP                   (1 << 11)
+#define SIDE_STATUS_FORESIGHT               (1 << 12)
+#define SIDE_STATUS_MIRACLE_EYED            (1 << 13)
 
 #define SIDE_STATUS_SCREEN_ANY     (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)
 #define SIDE_STATUS_PLEDGE_ANY     (SIDE_STATUS_RAINBOW | SIDE_STATUS_SEA_OF_FIRE | SIDE_STATUS_SWAMP)
