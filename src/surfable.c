@@ -18,8 +18,8 @@ extern const struct OamData gObjectEventBaseOam_32x32;
 extern const struct OamData gObjectEventBaseOam_64x64;
 extern const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[];
 
-extern void SynchroniseSurfAnim(struct ObjectEvent *playerObj, struct Sprite *sprite);
-extern void SynchroniseSurfPosition(struct ObjectEvent *playerObj, struct Sprite *sprite);
+extern void SynchronizeSurfAnim(struct ObjectEvent *playerObj, struct Sprite *sprite);
+extern void SynchronizeSurfPosition(struct ObjectEvent *playerObj, struct Sprite *sprite);
 extern void UpdateBobbingEffect(struct ObjectEvent *playerObj, struct Sprite *playerSprite, struct Sprite *sprite);
 
 static void CreateOverlaySprite(void);
@@ -145,13 +145,13 @@ static void UpdateSurfMonOverlay(struct Sprite *sprite)
     // Fix for Fishing whilst surfing having overlay sprite "bob" up and down appropriately, unfortunately breaks proper "jump" onto Surfing Pokemon - Needs further investigation to fix.
 	if (VarGet(VAR_FREEZESURFBLOB) == 1)
 	{
-		SynchroniseSurfAnim(playerObj, sprite);
-		SynchroniseSurfPosition(playerObj, sprite);
+		SynchronizeSurfAnim(playerObj, sprite);
+		SynchronizeSurfPosition(playerObj, sprite);
 	}
 	else
 	{
-    SynchroniseSurfAnim(playerObj, sprite);
-    SynchroniseSurfPosition(playerObj, sprite);
+    SynchronizeSurfAnim(playerObj, sprite);
+    SynchronizeSurfPosition(playerObj, sprite);
 	UpdateBobbingEffect(playerObj, linkedSprite, sprite);
 	}
 
