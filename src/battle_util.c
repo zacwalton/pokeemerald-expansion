@@ -10607,7 +10607,7 @@ u32 TryImmunityAbilityHealStatus(u32 battler, u32 caseID)
             effect = 1;
         }
         break;
-    case ABILITY_WAXY_SKIN
+    case ABILITY_WAXY_SKIN:
     case ABILITY_WATER_VEIL:
     case ABILITY_WATER_BUBBLE:
     case ABILITY_THERMAL_EXCHANGE:
