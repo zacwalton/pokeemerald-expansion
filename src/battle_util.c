@@ -4019,6 +4019,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 }
             }
             break;
+        case ABILITY_WIND_CHIME:                                                                            //ZETA - Wind Chime Ability (Wind Rider Variant)
         case ABILITY_WIND_RIDER:
             if (!gSpecialStatuses[battler].switchInAbilityDone
              && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility)
@@ -4026,19 +4027,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             {
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 SET_STATCHANGER(STAT_ATK, 1, FALSE);
-                BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
-                effect++;
-            }
-            break;
-        case ABILITY_WIND_CHIME:
-            if (!gSpecialStatuses[battler].switchInAbilityDone
-             && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
-             && gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
-            {
-                gBattleScripting.savedBattler = gBattlerAttacker;
-                gBattlerAttacker = battler;
-                gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                SET_STATCHANGER(STAT_SPATK, 1, FALSE);
                 BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                 effect++;
             }
