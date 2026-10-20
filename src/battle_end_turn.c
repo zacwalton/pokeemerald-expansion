@@ -142,7 +142,7 @@ static bool32 HandleEndTurnWeatherDamage(u32 battler)
          && ability != ABILITY_OVERCOAT
          && ability != ABILITY_DESERT_SPIRIT			//ZETA- Desert Spirit ability
          && ability != ABILITY_WAXY_SKIN				//ZETA- Waxy Skin ability
-		 && !((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_WAX_HUSK))	//ZETA- Shedinja signature item
+		 && !((gBattleMons[battler].species == SPECIES_SHEDINJA) && (GetBattlerHoldEffect(battler) == HOLD_EFFECT_WAX_HUSK))	//ZETA- Shedinja signature item
          && !IS_BATTLER_ANY_TYPE(battler, TYPE_ROCK, TYPE_GROUND, TYPE_STEEL)
          && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERGROUND
          && gBattleMons[battler].volatiles.semiInvulnerable != STATE_UNDERWATER
@@ -1157,9 +1157,9 @@ static bool32 HandleEndTurnApotropaism(u32 battler)				//ZETA- Fariy Sport varia
 {
     bool32 effect = FALSE;
 
-    gBattleStruct->endTurnEventsCounter++;
+    gBattleStruct->eventState.endTurn++;
 
-    if (gFieldStatuses & STATUS_FIELD_APOTROPAISM  && gFieldTimers.apotropaismTimer == gBattleTurnCounter)
+    if (gFieldTimers.apotropaismTimer > 0 && --gFieldTimers.apotropaismTimer == 0)
     {
         gFieldStatuses &= ~STATUS_FIELD_APOTROPAISM;
         BattleScriptExecute(BattleScript_ApotropaismEnds);

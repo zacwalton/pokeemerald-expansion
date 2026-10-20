@@ -3476,6 +3476,7 @@ u8 ScrCmd_calculateandsetflashlevel(struct ScriptContext *ctx)
         AnimateFlash(1);
         SetFlashLevel(1);
     }
+    return FALSE;
 }
 
 bool8 ScrCmd_setmoverelearnerstate(struct ScriptContext *ctx)

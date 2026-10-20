@@ -836,7 +836,7 @@
 #define	ITEM_HM15 696				
 						
 //	Charms					
-#define	ITEM_OVAL_CHARM	856				
+#define	ITEM_OVAL_CHARM	882				
 #define	ITEM_SHINY_CHARM 697				
 #define	ITEM_CATCHING_CHARM	698				
 #define	ITEM_EXP_CHARM 699				
@@ -1048,7 +1048,9 @@
 #define ITEM_DRAMPANITE 880
 #define ITEM_FALINKSITE 881
 
-#define ITEMS_COUNT 882
+//#define	ITEM_OVAL_CHARM	882	 - Defined with other charm items
+
+#define ITEMS_COUNT 883
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

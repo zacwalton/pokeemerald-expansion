@@ -2809,6 +2809,7 @@ static u8 DisplaySelectionWindow(u8 windowType)
         const u8 *text;
         u8 fontColorsId = 3;
 		if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)
+        {
 				if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_PUSH)
 					fontColorsId = 4; //Light Gray
 				else if (gMovesInfo[FieldMove_GetMoveId(sPartyMenuInternal->actions[i] - MENU_FIELD_MOVES)].fieldMoveFlags & IS_FIELD_MOVE_REVEAL)
@@ -2835,6 +2836,7 @@ static u8 DisplaySelectionWindow(u8 windowType)
 					fontColorsId = 15; //Ligh Blue
 				else
 					fontColorsId = 11; //Blue
+        }
 		if (sPartyMenuInternal->actions[i] >= MENU_LEVEL_UP_MOVES && sPartyMenuInternal->actions[i] <= MENU_SUB_MOVES)
             fontColorsId = 17;
         if (sPartyMenuInternal->actions[i] >= MENU_FIELD_MOVES)

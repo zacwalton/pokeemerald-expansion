@@ -1605,8 +1605,6 @@ BattleScript_EffectFlashFreeze::
 	jumpifsubstituteblocks BattleScript_FailedFromAtkString
 	checknonvolatiletrigger MOVE_EFFECT_FREEZE, BattleScript_EffectStatDownFromAccCheck
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
 	attackanimation
 	waitanimation
 	setstatchanger STAT_SPEED, 1, TRUE
@@ -3468,8 +3466,6 @@ BattleScript_IdentifiedFoe:
 
 BattleScript_EffectAuraSense::
 	attackcanceler
-	attackstring
-	ppreduce
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
 	jumpifvolatile BS_TARGET, VOLATILE_FORESIGHT, BattleScript_ButItFailed
 	setvolatile BS_TARGET, VOLATILE_FORESIGHT
