@@ -8,18 +8,14 @@
 #include "field_effect_helpers.h"
 #include "field_screen_effect.h"
 #include "field_player_avatar.h"
-#include "field_weather.h"
 #include "fieldmap.h"
 #include "follower_npc.h"
-#include "fishing_game.h"
 #include "menu.h"
 #include "metatile_behavior.h"
 #include "move.h"
 #include "oras_dowse.h"
 #include "overworld.h"
-#include "palette.h"
 #include "party_menu.h"
-#include "pokemon_icon.h"
 #include "random.h"
 #include "rotating_gate.h"
 #include "rtc.h"
@@ -31,7 +27,6 @@
 #include "task.h"
 #include "tv.h"
 #include "wild_encounter.h"
-#include "config/fishing_game.h"
 #include "constants/abilities.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
@@ -39,7 +34,6 @@
 #include "constants/items.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/moves.h"
-#include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
 #include "constants/vars.h"
@@ -156,39 +150,6 @@ static bool8 PlayerAvatar_SecretBaseMatSpinStep3(struct Task *, struct ObjectEve
 static void CreateStopSurfingTask(u8);
 static void Task_StopSurfingInit(u8);
 static void Task_WaitStopSurfing(u8);
-
-static bool32 Fishing_Init(struct Task *);
-static bool32 Fishing_GetRodOut(struct Task *);
-static bool32 Fishing_WaitBeforeDots(struct Task *);
-static bool32 Fishing_InitDots(struct Task *);
-static bool32 Fishing_ShowDots(struct Task *);
-static bool32 Fishing_CheckForBite(struct Task *);
-static bool32 Fishing_GotBite(struct Task *);
-static bool32 Fishing_ChangeMinigame(struct Task *);
-static bool32 Fishing_WaitForA(struct Task *);
-static bool32 Fishing_APressNoMinigame(struct Task *);
-static bool32 Fishing_CheckMoreDots(struct Task *);
-static bool32 Fishing_MonOnHook(struct Task *);
-static bool32 Fishing_StartEncounter(struct Task *);
-static bool32 Fishing_StartMinigame(struct Task *);
-static bool32 Fishing_NotEvenNibble(struct Task *);
-static bool32 Fishing_GotAway(struct Task *);
-static bool32 Fishing_NoMon(struct Task *);
-static bool32 Fishing_PutRodAway(struct Task *);
-static bool32 Fishing_EndNoMon(struct Task *);
-static bool32 DoesFishingMinigameAllowCancel(void);
-static bool32 Fishing_DoesFirstMonInPartyHaveSuctionCupsOrStickyHold(void);
-static bool32 Fishing_RollForBite(u32, bool32);
-static u32 CalculateFishingBiteOdds(u32, bool32);
-static u32 CalculateFishingFollowerBoost(void);
-static u32 CalculateFishingProximityBoost(u32 odds);
-static void GetCoordinatesAroundBobber(s16[], s16[][AXIS_COUNT], u32);
-static u32 CountQualifyingTiles(s16[][AXIS_COUNT], s16 player[], u8 facingDirection, struct ObjectEvent *objectEvent, bool32 isTileLand[]);
-static bool32 CheckTileQualification(s16 tile[], s16 player[], u32 facingDirection, struct ObjectEvent* objectEvent, bool32 isTileLand[], u32 direction);
-static u32 CountLandTiles(bool32 isTileLand[]);
-static bool32 IsPlayerHere(s16, s16, s16, s16);
-static bool32 IsMetatileBlocking(s16, s16, u32);
-static bool32 IsMetatileLand(s16, s16, u32);
 
 static u8 TrySpinPlayerForWarp(struct ObjectEvent *, s16 *);
 

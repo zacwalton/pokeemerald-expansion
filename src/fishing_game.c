@@ -17,6 +17,8 @@
 #include "field_control_avatar.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
+#include "field_weather.h"
+#include "fishing.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "item.h"
@@ -58,6 +60,8 @@ static void SetAbilityEffectData(u16 ability, u8 spriteId);
 static void SetFishingTreasureItem(u8 rod);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
+static void Task_FishingGameStartTutorial(u8 taskId);
+static void Task_FishingDoTutorial(u8 taskId);
 static void Task_FishingGame(u8 taskId);
 static void Task_FishingPauseUntilFadeIn(u8 taskId);
 static void Task_HandleFishingGameInput(u8 taskId);
@@ -104,6 +108,26 @@ static const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fish
 static const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.smolTM");
 static const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.smolTM");
 static const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.smol");
+
+static const u8 gText_Tutorial[] = _("Hold {A_BUTTON} to make the bar go right.\nRelease {A_BUTTON} to make the bar go left.\p");
+static const u8 gText_Tutorial2[] = _("Try to keep the POKéMON inside the bar\nuntil the score fills up.\p");
+static const u8 gText_Tutorial3[] = _("If the score runs out,\nthe POKéMON will escape.\p");
+static const u8 gText_TutorialReady[] = _("Ready?\p");
+static const u8 gText_TutorialGo[] = _("Go!");
+static const u8 gText_ReelItIn[] = _("Hold and release {A_BUTTON} to keep the\nPOKéMON inside the fishing bar!");
+static const u8 gText_HelpfulTextHigher0[] = _("Whew!\nThat was close!");
+static const u8 gText_HelpfulTextHigher1[] = _("That's it!\nKeep it up!");
+static const u8 gText_HelpfulTextHigher2[] = _("Just a little bit more!");
+static const u8 gText_HelpfulTextLower0[] = _("Uh oh!\nIt's about to escape!");
+static const u8 gText_HelpfulTextLower1[] = _("It sure is a fighter!");
+static const u8 gText_HelpfulTextLower2[] = _("Aw!\nYou almost had it.");
+static const u8 gText_FishingWantToQuit[] = _("Do you want to let this one go?");
+static const u8 gText_ReeledInAPokemon[] = _("{PLAYER} reeled in a POKéMON!{PAUSE_UNTIL_PRESS}");
+static const u8 gText_PokemonGotAway[] = _("Oh, no!\nThe POKéMON got away…{PAUSE_UNTIL_PRESS}");
+static const u8 gText_ReeledInTreasure[] = _("{PLAYER} reeled in a TREASURE!");
+static const u8 gText_FoundATreasureItem[] = _("{PLAYER} found one\n{STR_VAR_2}!");
+static const u8 gText_PutTreasureInPocket[] = _("{PLAYER} put away the {STR_VAR_2}\nin the {STR_VAR_3} POCKET.");
+static const u8 gText_NoRoomForTreasure[] = _("Too bad!\nThe BAG is full…");
 
 static const u16 gBarColors[] =
 {
@@ -803,7 +827,7 @@ void Task_InitOWFishingMinigame(u8 taskId)
     }
 
     tilemapBuffer = AllocZeroed(GetDecompressedDataSize(gFishingGameOWBG_Gfx));
-    DecompressDataWithHeaderVram (gFishingGameOWBG_Gfx, tilemapBuffer);
+    DecompressDataWithHeaderWram(gFishingGameOWBG_Gfx, tilemapBuffer);
     CopyToBgTilemapBuffer(0, gFishingGameOWBG_Tilemap, 0, 0);
     CopyBgTilemapBufferToVram(0);
     LoadPalette(gFishingGameOWBG_Pal, BG_PLTT_ID(13), PLTT_SIZE_4BPP);
@@ -814,7 +838,10 @@ void Task_InitOWFishingMinigame(u8 taskId)
     taskData.tGameStateBits &= ~FG_SEPARATE_SCREEN;
     CreateMinigameSprites(taskId);
 
-    taskData.func = Task_FishingGame;
+    if (FG_FLAG_FIRST_TIME_TUTORIAL != 0 && !FlagGet(FG_FLAG_FIRST_TIME_TUTORIAL))
+        taskData.func = Task_FishingGameStartTutorial;
+    else
+        taskData.func = Task_FishingGame;
 }
 
 static void Task_UnableToUseOW(u8 taskId)
@@ -1123,12 +1150,78 @@ static void CB2_FishingGame(void)
     UpdatePaletteFade();
 }
 
+static void Task_FishingGameStartTutorial(u8 taskId)
+{
+    if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
+        DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
+    else
+        LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(14));
+
+    AddTextPrinterParameterized(0, FONT_NORMAL, gText_Tutorial, 0, 1, 1, NULL);
+    ScheduleBgCopyTilemapToVram(0);
+    RunTextPrinters();
+    taskData.func = Task_FishingDoTutorial;
+}
+
+#define tTutorialState  data[0]
+
+static void Task_FishingDoTutorial(u8 taskId)
+{
+    RunTextPrinters();
+
+    if (!gPaletteFade.active && !IsTextPrinterActive(0))
+    {
+        switch (taskData.tTutorialState)
+        {
+        case 0:
+            if (!IsTextPrinterActive(0))
+            {
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gText_Tutorial2, 0, 1, 1, NULL);
+                ScheduleBgCopyTilemapToVram(0);
+                taskData.tTutorialState++;
+            }
+            break;
+        case 1:
+            if (!IsTextPrinterActive(0))
+            {
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gText_Tutorial3, 0, 1, 1, NULL);
+                ScheduleBgCopyTilemapToVram(0);
+                taskData.tTutorialState++;
+            }
+            break;
+        case 2:
+            if (!IsTextPrinterActive(0))
+            {
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gText_TutorialReady, 0, 1, 1, NULL);
+                ScheduleBgCopyTilemapToVram(0);
+                taskData.tTutorialState++;
+            }
+            break;
+        case 3:
+            if (!IsTextPrinterActive(0))
+            {
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gText_TutorialGo, 0, 1, 1, NULL);
+                ScheduleBgCopyTilemapToVram(0);
+                FlagSet(FG_FLAG_FIRST_TIME_TUTORIAL);
+                taskData.tFrameCounter = 0;
+                taskData.func = Task_FishingPauseUntilFadeIn;
+            }
+            break;
+        }
+    }
+}
+
 static void Task_FishingGame(u8 taskId)
 {
     if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
     else
         LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(14));
+
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReelItIn, 0, 1, 0, NULL); // Show the fishing game instructions.
     ScheduleBgCopyTilemapToVram(0);
     taskData.func = Task_FishingPauseUntilFadeIn;
@@ -1234,6 +1327,7 @@ static void Task_ReeledInFish(u8 taskId)
             PlaySE(SE_PIN);
         }
 
+        FlagSet(FG_FLAG_FIRST_TIME_TUTORIAL);
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
         StringExpandPlaceholders(gStringVar4, gText_ReeledInAPokemon);
         AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
@@ -2131,7 +2225,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             RoomForItem = TRUE;
             LoadMessageBoxAndBorderGfx();
             DrawDialogueFrame(0, TRUE);
-            StringCopy(gStringVar2, GetItemName(gSpecialVar_ItemId));
+            CopyItemName(gSpecialVar_ItemId, gStringVar2);
             StringExpandPlaceholders(gStringVar4, gText_ReeledInTreasure);
             AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
             TaskState = FISHTASK_FIELD_MOVE_ANIM;
@@ -2162,6 +2256,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 }
                 else
                 {
+                    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(TAG_FISHING_BAR), TRUE);
                     spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_POST_GAME_X, TREASURE_POST_GAME_Y, 1);
                     spriteData.sTaskId = taskId;
                     TreasureSpriteId = spriteId;
@@ -2212,7 +2307,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 ItemSpriteId = spriteId;
                 ItemSprite.x = TREASURE_POST_GAME_X;
                 ItemSprite.y = TREASURE_POST_GAME_Y;
-                StringCopy(gStringVar2, GetItemName(gSpecialVar_ItemId));
+                CopyItemName(gSpecialVar_ItemId, gStringVar2);
                 StringExpandPlaceholders(gStringVar4, gText_FoundATreasureItem);
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
                 AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
@@ -2257,6 +2352,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
 
                     switch (GetItemPocket(gSpecialVar_ItemId))
                     {
+                        default:
                         case POCKET_ITEMS:
                             StringCopy(gStringVar3, gText_Items);
                             break;

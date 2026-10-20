@@ -78,6 +78,4 @@ static const struct FishingAbilityModifier sAbilityEffects[] =
     }
 };
 
-
-
 #endif // GUARD_FISHING_GAME_ABILITY_EFFECTS_H

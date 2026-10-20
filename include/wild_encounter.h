@@ -82,5 +82,4 @@ bool32 MapHasNoEncounterData(void);
 enum TimeOfDay GetTimeOfDayForEncounters(u32 headerId, enum WildPokemonArea area);
 void UpdateChainFishingStreak();
 
-
 #endif // GUARD_WILD_ENCOUNTER_H

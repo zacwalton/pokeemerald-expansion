@@ -151,6 +151,34 @@ enum {
     FISHTASK_END_TASK
 };
 
+// Possible values for happensWhen
+enum {
+    FG_HAPPENS_ALWAYS,
+    FG_HAPPENS_WHEN_FISH_INSIDE_BAR,
+    FG_HAPPENS_WHEN_FISH_OUTSIDE_BAR,
+    FG_HAPPENS_WHEN_TREASURE_INSIDE_BAR,
+    FG_HAPPENS_WHEN_TREASURE_OUTSIDE_BAR
+};
+
+// Ability effect types
+enum {
+    FG_EFFECT_BAR_SIZE,             // Width of the fishing bar.
+    FG_EFFECT_FISH_SPEED,           // Speed a fish travels during a movement.
+    FG_EFFECT_FISH_MOVE_DELAY,      // Delay between fish movements.
+    FG_EFFECT_FISH_MOVE_DISTANCE,   // How far a fish will travel in a movement.
+    FG_EFFECT_SCORE_START,          // The score at the beginning of the game.
+    FG_EFFECT_SCORE_INCREASE,       // How much the score will increase by every frame.
+    FG_EFFECT_SCORE_DECREASE        // How much the score will decrease every frame.
+};
+
+// Operands for ability modifiers
+enum {
+    FG_ADD,
+    FG_SUBTRACT,
+    FG_MULTIPLY,
+    FG_DIVIDE
+};
+
 #define FISH_DIR_LEFT   0
 #define FISH_DIR_RIGHT  1
 
