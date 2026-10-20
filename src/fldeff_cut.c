@@ -177,7 +177,7 @@ bool32 SetUpFieldMove_Cut(void)
     s16 x, y;
     u8 i, j;
     u8 tileBehavior;
-    u16 userAbility;
+    enum Ability userAbility;
     u16 moveId = VarGet(VAR_0x8008);
     bool8 cutTiles[CUT_NORMAL_AREA];
     bool8 ret;
@@ -192,7 +192,7 @@ bool32 SetUpFieldMove_Cut(void)
     else
     {
         PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
-        userAbility = GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]);
+        userAbility = GetMonAbility(&gParties[B_TRAINER_PLAYER][GetCursorSelectionMonId()]);
 		VarSet(VAR_0x8007, userAbility);
         if (HasHyperCutAbility(userAbility) || (MoveHasBonusRadius(moveId)))
         {
