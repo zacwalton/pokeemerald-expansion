@@ -1,7 +1,6 @@
 #ifndef GUARD_WILD_ENCOUNTER_H
 #define GUARD_WILD_ENCOUNTER_H
 
-#include "followmon.h"
 #include "rtc.h"
 #include "constants/wild_encounter.h"
 
@@ -58,7 +57,6 @@ extern bool8 gIsFishingEncounter;
 extern bool8 gIsSurfingEncounter;
 extern u8 gChainFishingDexNavStreak;
 
-bool8 GenerateFollowMon(struct FollowMon *followMon, bool8 inWater);
 void DisableWildEncounters(bool8 disabled);
 u8 PickWildMonNature(void);
 bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior);

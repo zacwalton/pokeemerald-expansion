@@ -24,7 +24,6 @@
 #include "fldeff.h"
 #include "follower_npc.h"
 #include "follower_helper.h"
-#include "followmon.h"
 #include "gpu_regs.h"
 #include "graphics.h"
 #include "mauville_old_man.h"
@@ -1553,11 +1552,6 @@ static void RemoveObjectEventInternal(struct ObjectEvent *objectEvent)
 {
     struct SpriteFrameImage image;
     
-    if(FollowMon_IsMonObject(objectEvent))
-    {
-        FollowMon_OnObjectEventRemoved(objectEvent);
-    }
-
     image.size = GetObjectEventGraphicsInfo(objectEvent->graphicsId)->size;
     gSprites[objectEvent->spriteId].images = &image;
     // It's possible that this function is called while the sprite pointed to `== sDummySprite`, i.e during map resume;
@@ -1737,17 +1731,8 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
 
     sprite = &gSprites[spriteId];
     // Use palette from species palette table
-    if (spriteTemplate->paletteTag == OBJ_EVENT_PAL_TAG_DYNAMIC) {
-        if(objectEvent->graphicsId >= OBJ_EVENT_GFX_FOLLOW_MON_FIRST && objectEvent->graphicsId <= OBJ_EVENT_GFX_FOLLOW_MON_LAST) {
-            u16 tmpGraphicsId = GetFollowMonObjectEventGraphicsId(objectEvent->graphicsId);
-             sprite->oam.paletteNum = LoadDynamicFollowerPalette(
-                tmpGraphicsId & OBJ_EVENT_MON_SPECIES_MASK,
-                tmpGraphicsId & OBJ_EVENT_MON_SHINY,
-                tmpGraphicsId & OBJ_EVENT_MON_FEMALE);
-        } else {
-            sprite->oam.paletteNum = LoadDynamicFollowerPalette(OW_SPECIES(objectEvent), OW_SHINY(objectEvent), OW_FEMALE(objectEvent));
-        }
-    }
+    if (spriteTemplate->paletteTag == OBJ_EVENT_PAL_TAG_DYNAMIC)
+        sprite->oam.paletteNum = LoadDynamicFollowerPalette(OW_SPECIES(objectEvent), OW_SHINY(objectEvent), OW_FEMALE(objectEvent));
     if (OW_GFX_COMPRESS && sprite->usingSheet)
         sprite->sheetSpan = GetSpanPerImage(sprite->oam.shape, sprite->oam.size);
     GetMapCoordsFromSpritePos(objectEvent->currentCoords.x + cameraX, objectEvent->currentCoords.y + cameraY, &sprite->x, &sprite->y);
@@ -1788,10 +1773,6 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     if (subspriteTables)
         SetSubspriteTables(&gSprites[gObjectEvents[objectEventId].spriteId], subspriteTables);
 
-    if(FollowMon_IsMonObject(&gObjectEvents[objectEventId]))
-    {
-        FollowMon_OnObjectEventSpawned(&gObjectEvents[objectEventId]);
-    }
     return objectEventId;
 }
 
@@ -2892,15 +2873,7 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
 
     if (spriteTemplate.paletteTag == OBJ_EVENT_PAL_TAG_DYNAMIC)
     {
-        u32 paletteNum;
-        if(objectEvent->graphicsId >= OBJ_EVENT_GFX_FOLLOW_MON_FIRST && objectEvent->graphicsId <= OBJ_EVENT_GFX_FOLLOW_MON_LAST) {
-            u16 tmpGraphicsId = GetFollowMonObjectEventGraphicsId(objectEvent->graphicsId);
-            paletteNum = LoadDynamicFollowerPalette(
-                tmpGraphicsId & OBJ_EVENT_MON_SPECIES_MASK,
-                tmpGraphicsId & OBJ_EVENT_MON_SHINY,
-                tmpGraphicsId & OBJ_EVENT_MON_FEMALE);
-        } else 
-            paletteNum = LoadDynamicFollowerPalette(OW_SPECIES(objectEvent), OW_SHINY(objectEvent), OW_FEMALE(objectEvent));
+        u32 paletteNum = LoadDynamicFollowerPalette(OW_SPECIES(objectEvent), OW_SHINY(objectEvent), OW_FEMALE(objectEvent));
         spriteTemplate.paletteTag = GetSpritePaletteTagByPaletteNum(paletteNum);
     }
     else if (spriteTemplate.paletteTag != TAG_NONE)
@@ -3110,9 +3083,6 @@ const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u16 graphicsId)
 
     if (graphicsId == OBJ_EVENT_GFX_BARD)
         return gMauvilleOldManGraphicsInfoPointers[GetCurrentMauvilleOldMan()];
-
-    if (graphicsId >= OBJ_EVENT_GFX_FOLLOW_MON_FIRST && graphicsId <= OBJ_EVENT_GFX_FOLLOW_MON_LAST)
-        graphicsId = GetFollowMonObjectEventGraphicsId(graphicsId);
 
     if (graphicsId & OBJ_EVENT_MON)
         return SpeciesToGraphicsInfo(graphicsId & OBJ_EVENT_MON_SPECIES_MASK, graphicsId & OBJ_EVENT_MON_SHINY, graphicsId & OBJ_EVENT_MON_FEMALE);
@@ -6493,8 +6463,7 @@ u32 GetObjectObjectCollidesWith(struct ObjectEvent *objectEvent, s16 x, s16 y, b
     {
         curObject = &gObjectEvents[i];
         if (curObject->active && (curObject->movementType != MOVEMENT_TYPE_FOLLOW_PLAYER || objectEvent != &gObjectEvents[gPlayerAvatar.objectEventId]) && curObject != objectEvent
-         && !FollowerNPC_IsCollisionExempt(curObject, objectEvent) // Partner
-         && !FollowMon_IsCollisionExempt(curObject, objectEvent) // Wild Pokemon
+         && !FollowerNPC_IsCollisionExempt(curObject, objectEvent)
          )
         {
             // check for collision if curObject is active, not the object in question, and not exempt from collisions
@@ -11700,15 +11669,6 @@ bool8 MovementAction_ShakeVertical_Step1(struct ObjectEvent *objectEvent, struct
         sprite->sActionFuncId = 2;
     }
     return FALSE;
-}
-
-bool8 MovementAction_FollowMonSpawn(enum FollowMonSpawnAnim spawnAnimType, struct ObjectEvent *objEvent) {
-    gFieldEffectArguments[0] = objEvent->currentCoords.x;
-    gFieldEffectArguments[1] = objEvent->currentCoords.y;
-    gFieldEffectArguments[2] = gSprites[objEvent->spriteId].oam.priority + 1;
-    gFieldEffectArguments[3] = spawnAnimType;
-    FieldEffectStart(FLDEFF_BUBBLES); // Commandeer this field effect for the spawn anims
-    return TRUE;
 }
 
 u8 GetObjectEventApricornTreeId(u8 objectEventId)

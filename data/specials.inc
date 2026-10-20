@@ -578,7 +578,6 @@ gSpecials::
 	def_special RockSmashFindItem
 	def_special CutWildEncounter
 	def_special DouseWildEncounter
-	def_special CreateFollowMonEncounter
 	def_special DoRivalNamingScreen
 	def_special SetHiddenNature
 	def_special SetAbility
