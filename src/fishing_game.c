@@ -2368,8 +2368,6 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                         case POCKET_KEY_ITEMS:
                             StringCopy(gStringVar3, gText_Key_Items);
                             break;
-                        default:
-                            break;
                     }
                 }
 

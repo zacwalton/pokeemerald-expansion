@@ -11709,6 +11709,8 @@ bool8 MovementAction_FollowMonSpawn(enum FollowMonSpawnAnim spawnAnimType, struc
     gFieldEffectArguments[3] = spawnAnimType;
     FieldEffectStart(FLDEFF_BUBBLES); // Commandeer this field effect for the spawn anims
     return TRUE;
+}
+
 u8 GetObjectEventApricornTreeId(u8 objectEventId)
 {
     return gObjectEvents[objectEventId].trainerRange_berryTreeId;

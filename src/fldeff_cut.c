@@ -27,6 +27,8 @@
 #include "constants/metatile_labels.h"
 #include "constants/moves.h"
 
+#include "field_specials.h"
+
 extern struct MapPosition gPlayerFacingPosition;
 
 extern const u8 FarawayIsland_Interior_EventScript_HideMewWhenGrassCut[];
@@ -192,7 +194,7 @@ bool32 SetUpFieldMove_Cut(void)
     else
     {
         PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
-        userAbility = GetMonAbility(&gParties[B_TRAINER_PLAYER][GetCursorSelectionMonId()]);
+        userAbility = GetMonAbility(&gPlayerParty[GetCursorSelectionMonId()]);
 		VarSet(VAR_0x8007, userAbility);
         if (HasHyperCutAbility(userAbility) || (MoveHasBonusRadius(moveId)))
         {
