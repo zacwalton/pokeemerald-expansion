@@ -54,15 +54,20 @@ static u8 windid2;
 
 extern const u8 sMapHealLocations[][3];
 
-static const struct WindowTemplate sPopupWindowTemplate =
+static const struct WindowTemplate sPopupWindowTemplate[] =
 {
-	0, // BG number
-	1, // tilemap left coordinate
-	1, // tilemap top coordinate
-	12, // width
-	2, // height
-	15, // palette number
-	BG0_TILEMAP_OFFSET / 0x800, // BG screen base block
+    {
+        0, // BG number
+        1, // tilemap left coordinate
+        1, // tilemap top coordinate
+        12, // width
+        2, // height
+        15, // palette number
+        BG0_TILEMAP_OFFSET / 0x800,
+    },
+    {
+        .bg = 0xFF,
+    },
 };
 
 // For now, just use the region map graphics
@@ -307,7 +312,7 @@ static void CB2_LoadSoarGraphics(void)
 	case 1:
 		LoadUserWindowBorderGfx(0, 1, 14);
 		LoadPalette(GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->pal, 0xE0, 0x20);
-		windid = InitWindows(&sPopupWindowTemplate);
+		windid = InitWindows(sPopupWindowTemplate);
 		LoadMessageBoxGfx(0, 10, 15);
 		windid2 = CreateWindowFromRect(1, 14, 27, 4);
 
