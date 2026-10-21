@@ -2174,7 +2174,7 @@ static const struct NamingScreenTemplate sWaldaWordsScreenTemplate =
 };
 
 static const u8 sText_EnterCode[] = _("Enter code:");
-static const struct NamingScreenTemplate sCodeScreenTemplate = 
+static const struct NamingScreenTemplate sCodeScreenTemplate =
 {
     .copyExistingString = FALSE,
     .maxChars = CODE_NAME_LENGTH,
@@ -2652,5 +2652,3 @@ static const struct SpritePalette sSpritePalettes[] =
     {gNamingScreenMenu_Pal[4], PALTAG_OK_BUTTON},
     {}
 };
-
-
