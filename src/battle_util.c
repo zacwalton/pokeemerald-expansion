@@ -11346,7 +11346,7 @@ bool32 IsAffectedByPowderMove(u32 battler, u32 ability, enum HoldEffect holdEffe
 {
     if ((GetConfig(B_POWDER_OVERCOAT) >= GEN_6 && ability == ABILITY_OVERCOAT)
         || (GetConfig(B_POWDER_GRASS) >= GEN_6 && IS_BATTLER_OF_TYPE(battler, TYPE_GRASS))
-        || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
+        || (holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         || !(gBattleMons[gBattlerAttacker].species == SPECIES_SHEDINJA && GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_WAX_HUSK))    //ZETA - Wax Husk item prevents shedinja being affected by powder
         return FALSE;
 
