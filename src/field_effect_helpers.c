@@ -8,6 +8,7 @@
 #include "gpu_regs.h"
 #include "metatile_behavior.h"
 #include "palette.h"
+#include "pokeride.h"
 #include "sound.h"
 #include "sprite.h"
 #include "trig.h"
@@ -52,6 +53,7 @@ u32 FldEff_Shadow(void);
 #define sReflectionObjEventId       data[0]
 #define sReflectionObjEventLocalId  data[1]
 #define sReflectionVerticalOffset   data[2]
+#define sIsPokeRide                 data[3]
 #define sIsStillReflection          data[7]
 
 void SetUpShadow(struct ObjectEvent *objectEvent)
@@ -62,7 +64,7 @@ void SetUpShadow(struct ObjectEvent *objectEvent)
     FldEff_Shadow();
 }
 
-void SetUpReflection(struct ObjectEvent *objectEvent, struct Sprite *sprite, bool8 stillReflection)
+void SetUpReflection(struct ObjectEvent *objectEvent, struct Sprite *sprite, bool8 stillReflection, bool8 isPokeRide)
 {
     struct Sprite *reflectionSprite;
 
@@ -78,6 +80,7 @@ void SetUpReflection(struct ObjectEvent *objectEvent, struct Sprite *sprite, boo
     reflectionSprite->subspriteTableNum = 0;
     reflectionSprite->sReflectionObjEventId = sprite->sReflectionObjEventId;
     reflectionSprite->sReflectionObjEventLocalId = objectEvent->localId;
+    reflectionSprite->sIsPokeRide = isPokeRide;
     reflectionSprite->sIsStillReflection = stillReflection;
     LoadObjectReflectionPalette(objectEvent, reflectionSprite);
 
@@ -193,7 +196,19 @@ static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *objectEven
 static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
 {
     struct ObjectEvent *objectEvent = &gObjectEvents[reflectionSprite->sReflectionObjEventId];
-    struct Sprite *mainSprite = &gSprites[objectEvent->spriteId];
+    struct Sprite *mainSprite;
+
+    if (reflectionSprite->sIsPokeRide && PokeRide_GetMonSpriteId(objectEvent) == SPRITE_NONE)
+    {
+        reflectionSprite->inUse = FALSE;
+        FieldEffectFreePaletteIfUnused(reflectionSprite->oam.paletteNum);
+        return;
+    }
+
+    if (reflectionSprite->sIsPokeRide)
+       mainSprite = &gSprites[PokeRide_GetMonSpriteId(objectEvent)];
+    else
+       mainSprite = &gSprites[objectEvent->spriteId];
 
     if (!objectEvent->active || !objectEvent->hasReflection || objectEvent->localId != reflectionSprite->sReflectionObjEventLocalId)
     {
@@ -231,6 +246,7 @@ static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
     reflectionSprite->oam.size = mainSprite->oam.size;
     reflectionSprite->oam.matrixNum = mainSprite->oam.matrixNum | ST_OAM_VFLIP;
     reflectionSprite->oam.tileNum = mainSprite->oam.tileNum;
+    reflectionSprite->subpriority = mainSprite->subpriority;
     reflectionSprite->subspriteTables = mainSprite->subspriteTables;
     reflectionSprite->invisible = mainSprite->invisible;
     reflectionSprite->x = mainSprite->x;
@@ -263,6 +279,7 @@ static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
 #undef sReflectionObjEventId
 #undef sReflectionObjEventLocalId
 #undef sReflectionVerticalOffset
+#undef sIsPokeRide
 #undef sIsStillReflection
 
 extern const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[];

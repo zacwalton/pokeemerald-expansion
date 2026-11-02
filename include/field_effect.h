@@ -56,4 +56,7 @@ void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 void FieldEff_CaveDust(void);
 void DoFieldMoveFriendshipChance(struct Pokemon *mon);
 
+void StartPokeRideMountFieldEffect(void);
+void StartPokeRideUnmountFieldEffect(void);
+
 #endif // GUARD_FIELD_EFFECTS_H

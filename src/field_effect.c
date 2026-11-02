@@ -4597,3 +4597,84 @@ u8 FldEff_UseSludge(void)
     return FALSE;
 }
 
+#define tState        data[0]
+
+static void Task_PokeRideMountEffect(u8);
+static void Task_PokeRideMountEffect_Init(struct Task*);
+static void Task_PokeRideMountEffect_WaitHideFollower(struct Task*);
+static void Task_PokeRideMountEffect_End(struct Task*);
+
+void StartPokeRideMountFieldEffect(void)
+{
+    LockPlayerFieldControls();
+    FreezeObjectEvents();
+    CreateTask(Task_PokeRideMountEffect, 80);
+}
+
+static void (*const sPokeRideMountEffectFuncs[])(struct Task *) = {
+    Task_PokeRideMountEffect_Init,
+    Task_PokeRideMountEffect_WaitHideFollower,
+    Task_PokeRideMountEffect_End
+};
+
+static void Task_PokeRideMountEffect(u8 taskId)
+{
+    sPokeRideMountEffectFuncs[gTasks[taskId].tState](&gTasks[taskId]);
+}
+
+static void Task_PokeRideMountEffect_Init(struct Task *task)
+{
+     HideFollowerForFieldEffect();
+     task->tState++;
+}
+
+static void Task_PokeRideMountEffect_WaitHideFollower(struct Task *task)
+{
+      struct ObjectEvent *follower = GetFollowerObject();
+      if (ObjectEventClearHeldMovementIfFinished(follower))
+      {
+          task->tState++;
+      }
+}
+
+static void Task_PokeRideMountEffect_End(struct Task *task) {
+    RemoveFollowingPokemon();
+    UnlockPlayerFieldControls();
+    UnfreezeObjectEvents();
+    DestroyTask(FindTaskIdByFunc(Task_PokeRideMountEffect));
+}
+
+static void Task_PokeRideUnmountEffect(u8);
+static void Task_PokeRideUnmountEffect_Init(struct Task*);
+static void Task_PokeRideUnmountEffect_End(struct Task*);
+
+void StartPokeRideUnmountFieldEffect(void)
+{
+    LockPlayerFieldControls();
+    FreezeObjectEvents();
+    CreateTask(Task_PokeRideUnmountEffect, 80);
+}
+
+static void (*const sPokeRideUnmountEffectFuncs[])(struct Task *) = {
+    Task_PokeRideUnmountEffect_Init,
+    Task_PokeRideUnmountEffect_End
+};
+
+static void Task_PokeRideUnmountEffect(u8 taskId)
+{
+    sPokeRideUnmountEffectFuncs[gTasks[taskId].tState](&gTasks[taskId]);
+}
+
+static void Task_PokeRideUnmountEffect_Init(struct Task *task)
+{
+    UpdateFollowingPokemon();
+    task->tState++;
+}
+
+static void Task_PokeRideUnmountEffect_End(struct Task *task) {
+    UnlockPlayerFieldControls();
+    UnfreezeObjectEvents();
+    DestroyTask(FindTaskIdByFunc(Task_PokeRideUnmountEffect));
+}
+
+#undef tState

@@ -33,6 +33,7 @@
 #include "party_menu.h"
 #include "pokeblock.h"
 #include "pokemon.h"
+#include "pokeride.h"
 #include "script.h"
 #include "sound.h"
 #include "strings.h"
@@ -63,6 +64,7 @@ static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
 static void Task_AccessPokemonBoxLink(u8);
 static void ItemUseOnFieldCB_Bike(u8);
+static void ItemUseOnFieldCB_RideCapsule(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
 static void ItemUseOnFieldCB_Berry(u8);
@@ -292,6 +294,54 @@ static void ItemUseOnFieldCB_Bike(u8 taskId)
     UnlockPlayerFieldControls();
     DestroyTask(taskId);
 }
+
+void ItemUseOutOfBattle_RideCapsule(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    s16 coordsY;
+    s16 coordsX;
+    u8 behavior;
+    PlayerGetDestCoords(&coordsX, &coordsY);
+    behavior = MapGridGetMetatileBehaviorAt(coordsX, coordsY);
+    if (FlagGet(FLAG_SYS_CYCLING_ROAD) == TRUE || MetatileBehavior_IsVerticalRail(behavior) == TRUE || MetatileBehavior_IsHorizontalRail(behavior) == TRUE || MetatileBehavior_IsIsolatedVerticalRail(behavior) == TRUE || MetatileBehavior_IsIsolatedHorizontalRail(behavior) == TRUE)
+    {
+        DisplayCannotDismountBikeMessage(taskId, tUsingRegisteredKeyItem);
+    }
+    else
+    {
+        if (Overworld_IsBikingAllowed() && !IsBikingDisallowedByPlayer() && FollowerNPCCanBike())
+        {
+            sItemUseOnFieldCB = ItemUseOnFieldCB_RideCapsule;
+            SetUpItemUseOnFieldCallback(taskId);
+        }
+        else
+        {
+            DisplayDadsAdviceCannotUseItemMessage(taskId, tUsingRegisteredKeyItem);
+        }
+    }
+}
+
+static void ItemUseOnFieldCB_RideCapsule(u8 taskId)
+{
+    bool8 wasRiding = TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING);
+
+    GetOnOffPokeRide();
+    ScriptUnfreezeObjectEvents();
+    UnlockPlayerFieldControls();
+
+    bool8 isRiding = TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING);
+
+    if (wasRiding != isRiding)
+    {
+        if (isRiding)
+            StartPokeRideMountFieldEffect();
+        else
+            StartPokeRideUnmountFieldEffect();
+    }
+
+    DestroyTask(taskId);
+}
+
 
 static bool32 CanFish(void)
 {

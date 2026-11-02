@@ -184,6 +184,7 @@ void MoveObjectEventToMapCoords(struct ObjectEvent *objectEvent, s16 x, s16 y);
 void TryOverrideObjectEventTemplateCoords(u8 localId, u8 mapNum, u8 mapGroup);
 void InitObjectEventPalettes(u8 reflectionType);
 void UpdateObjectEventCurrentMovement(struct ObjectEvent *objectEvent, struct Sprite *sprite, bool8 (*callback)(struct ObjectEvent *, struct Sprite *));
+void UpdatePokeRideOnSpawn(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 bool8 ObjectEventFaceOppositeDirection(struct ObjectEvent *objectEvent, u8 direction);
 u8 GetOppositeDirection(u8 direction);
 u8 GetWalkInPlaceFasterMovementAction(u32);

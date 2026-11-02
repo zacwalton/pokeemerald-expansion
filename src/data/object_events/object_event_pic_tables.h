@@ -37,6 +37,18 @@ static const struct SpriteFrameImage sPicTable_BrendanUnderwater[] = {
     overworld_frame(gObjectEventPic_BrendanUnderwater, 4, 4, 2),
 };
 
+static const struct SpriteFrameImage sPicTable_BrendanRiding[] = {
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 2),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 2),
+    overworld_frame(gObjectEventPic_BrendanRiding, 2, 4, 2),
+};
+
 static const struct SpriteFrameImage sPicTable_BrendanFieldMove[] = {
     overworld_ascending_frames(gObjectEventPic_BrendanFieldMove, 4, 4),
 };
@@ -462,6 +474,18 @@ static const struct SpriteFrameImage sPicTable_MayUnderwater[] = {
     overworld_frame(gObjectEventPic_MayUnderwater, 4, 4, 1),
     overworld_frame(gObjectEventPic_MayUnderwater, 4, 4, 2),
     overworld_frame(gObjectEventPic_MayUnderwater, 4, 4, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_MayRiding[] = {
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 2),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 0),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 1),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 2),
+    overworld_frame(gObjectEventPic_MayRiding, 2, 4, 2),
 };
 
 static const struct SpriteFrameImage sPicTable_MayFieldMove[] = {

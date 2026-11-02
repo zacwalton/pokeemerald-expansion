@@ -1392,9 +1392,9 @@
 
 #define FLAG_EON_LATI								(SYSTEM_FLAGS + 0x21) // Unused Flag
 #define FLAG_SPAWN_OVERWORLD_MON                    (SYSTEM_FLAGS + 0x22) // Overworld Encounters
-#define FLAG_UNUSED_0x883                           (SYSTEM_FLAGS + 0x23) // Unused Flag
-#define FLAG_UNUSED_0x884                           (SYSTEM_FLAGS + 0x24) // Unused Flag
-#define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag
+#define FLAG_SYS_POKERIDE_JUMP                      (SYSTEM_FLAGS + 0x23) // ZETA - PokéRide
+#define FLAG_SYS_POKERIDE_SURF                      (SYSTEM_FLAGS + 0x24) // ZETA - PokéRide 
+#define FLAG_SYS_POKERIDE_FLY                       (SYSTEM_FLAGS + 0x25) // ZETA - PokéRide
 #define FLAG_SYS_USE_WATERFALL                      (SYSTEM_FLAGS + 0x26) // Dont force waterfall interact each time
 #define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x27) // Unused Flag
 

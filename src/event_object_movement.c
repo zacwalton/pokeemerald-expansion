@@ -34,6 +34,7 @@
 #include "party_menu.h"
 #include "pokemon.h"
 #include "pokeball.h"
+#include "pokeride.h"
 #include "random.h"
 #include "region_map.h"
 #include "rtc.h"
@@ -2240,6 +2241,7 @@ void UpdateFollowingPokemon(void)
     // 2. Map is indoors and gfx is larger than 32x32
     // 3. flag is set
     // 4. a follower NPC is present
+    // 5. a PokeRide is active
     if (OW_POKEMON_OBJECT_EVENTS == FALSE
      || OW_FOLLOWERS_ENABLED == FALSE
      || FlagGet(B_FLAG_FOLLOWERS_DISABLED)
@@ -2248,6 +2250,7 @@ void UpdateFollowingPokemon(void)
      || (gMapHeader.mapType == MAP_TYPE_INDOOR && SpeciesToGraphicsInfo(species, shiny, female)->oam->size > ST_OAM_SIZE_2)
      || FlagGet(FLAG_TEMP_HIDE_FOLLOWER)
      || PlayerHasFollowerNPC()
+     || TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING)
      )
     {
         RemoveFollowingPokemon();
@@ -6507,7 +6510,10 @@ u32 GetObjectObjectCollidesWith(struct ObjectEvent *objectEvent, s16 x, s16 y, b
             if ((curObject->currentCoords.x == x && curObject->currentCoords.y == y) || (curObject->previousCoords.x == x && curObject->previousCoords.y == y))
             {
                 if (AreElevationsCompatible(objectEvent->currentElevation, curObject->currentElevation))
-                    return i;
+                {
+                    if (!PokeRide_IsRideCollisionExempt(curObject, objectEvent))
+                        return i;
+                }
             }
         }
     }
@@ -6765,6 +6771,11 @@ u8 ObjectEventGetHeldMovementActionId(struct ObjectEvent *objectEvent)
 
 void UpdateObjectEventCurrentMovement(struct ObjectEvent *objectEvent, struct Sprite *sprite, bool8 (*callback)(struct ObjectEvent *, struct Sprite *))
 {
+    if (PokeRide_IsActiveObject(sprite->sObjEventId))
+    {
+        sprite->x2 = 0;
+        sprite->y2 = 0;
+    }
     DoGroundEffects_OnSpawn(objectEvent, sprite);
     TryEnableObjectEventAnim(objectEvent, sprite);
 
@@ -6778,6 +6789,13 @@ void UpdateObjectEventCurrentMovement(struct ObjectEvent *objectEvent, struct Sp
     UpdateObjectEventSpriteAnimPause(objectEvent, sprite);
     UpdateObjectEventVisibility(objectEvent, sprite);
     ObjectEventUpdateSubpriority(objectEvent, sprite);
+    PokeRide_OnObjectEventMovement(sprite->sObjEventId);
+}
+
+void UpdatePokeRideOnSpawn(struct ObjectEvent *objectEvent, struct Sprite *sprite) {
+    objectEvent->triggerGroundEffectsOnMove = TRUE;
+    objectEvent->hasReflection = FALSE;
+    DoGroundEffects_OnSpawn(objectEvent, sprite);
 }
 
 #define dirn_to_anim(name, table)\
@@ -9822,6 +9840,13 @@ u8 GetLedgeJumpDirection(s16 x, s16 y, u8 direction)
         [DIR_EAST - 1]  = MetatileBehavior_IsJumpEast,
     };
 
+    static bool8 (*const invLedgeBehaviorFuncs[])(u8) = {
+        [DIR_SOUTH - 1] = MetatileBehavior_IsJumpNorth,
+        [DIR_NORTH - 1] = MetatileBehavior_IsJumpSouth,
+        [DIR_WEST - 1]  = MetatileBehavior_IsJumpEast,
+        [DIR_EAST - 1]  = MetatileBehavior_IsJumpWest,
+    };
+
     u8 behavior;
     u8 index = direction;
 
@@ -9835,6 +9860,11 @@ u8 GetLedgeJumpDirection(s16 x, s16 y, u8 direction)
 
     if (ledgeBehaviorFuncs[index](behavior) == TRUE)
         return index + 1;
+
+    if(TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING)
+       && PokeRide_CanRideInvJumpLedge()
+       && invLedgeBehaviorFuncs[index](behavior) == TRUE)
+       return index + 1;
 
     return DIR_NONE;
 }
@@ -10026,12 +10056,26 @@ void GroundEffect_StepOnLongGrass(struct ObjectEvent *objEvent, struct Sprite *s
 
 void GroundEffect_WaterReflection(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
-    SetUpReflection(objEvent, sprite, FALSE);
+    SetUpReflection(objEvent, sprite, FALSE, FALSE);
+
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING))
+    {
+        u8 spriteId = PokeRide_GetMonSpriteId(objEvent);
+        if (spriteId != SPRITE_NONE)
+            SetUpReflection(objEvent, &gSprites[spriteId], FALSE, TRUE);
+    }
 }
 
 void GroundEffect_IceReflection(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
-    SetUpReflection(objEvent, sprite, TRUE);
+    SetUpReflection(objEvent, sprite, TRUE, FALSE);
+
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING))
+    {
+        u8 spriteId = PokeRide_GetMonSpriteId(objEvent);
+        if (spriteId != SPRITE_NONE)
+            SetUpReflection(objEvent, &gSprites[spriteId], TRUE, TRUE);
+    }
 }
 
 void GroundEffect_FlowingWater(struct ObjectEvent *objEvent, struct Sprite *sprite)

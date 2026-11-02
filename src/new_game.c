@@ -37,6 +37,7 @@
 #include "item_menu.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_jump.h"
+#include "pokeride.h"
 #include "random.h"
 #include "decoration_inventory.h"
 #include "secret_base.h"
@@ -217,6 +218,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+    ClearPokeRideData();
     SetRandomHiddenStarter();
 }
 
