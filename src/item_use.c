@@ -281,9 +281,11 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
 static void ItemUseOnFieldCB_Bike(u8 taskId)
 {
     if (GetItemSecondaryId(gSpecialVar_ItemId) == MACH_BIKE)
-        GetOnOffBike(PLAYER_AVATAR_FLAG_MACH_BIKE);
+        VarSet(VAR_PLAYER_AVATAR_BIKE, VAR_PLAYER_AVATAR_BIKE_MACH);
     else // ACRO_BIKE
-        GetOnOffBike(PLAYER_AVATAR_FLAG_ACRO_BIKE);
+        VarSet(VAR_PLAYER_AVATAR_BIKE, VAR_PLAYER_AVATAR_BIKE_ACRO);
+
+    GetOnOffBike(PLAYER_AVATAR_FLAG_BIKE);
 
     FollowerNPC_HandleBike();
     ScriptUnfreezeObjectEvents();

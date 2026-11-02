@@ -324,16 +324,16 @@ static const u8 sPlayerAvatarGfxToStateFlag[GENDER_COUNT][5][2] =
     [MALE] =
     {
         {OBJ_EVENT_GFX_BRENDAN_NORMAL,     PLAYER_AVATAR_FLAG_ON_FOOT},
-        {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_MACH_BIKE},
-        {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_ACRO_BIKE},
+        {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_BIKE},
+        {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_BIKE},
         {OBJ_EVENT_GFX_BRENDAN_SURFING,    PLAYER_AVATAR_FLAG_SURFING},
         {OBJ_EVENT_GFX_BRENDAN_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},
     },
     [FEMALE] =
     {
         {OBJ_EVENT_GFX_MAY_NORMAL,         PLAYER_AVATAR_FLAG_ON_FOOT},
-        {OBJ_EVENT_GFX_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_MACH_BIKE},
-        {OBJ_EVENT_GFX_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_ACRO_BIKE},
+        {OBJ_EVENT_GFX_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_BIKE},
+        {OBJ_EVENT_GFX_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_BIKE},
         {OBJ_EVENT_GFX_MAY_SURFING,        PLAYER_AVATAR_FLAG_SURFING},
         {OBJ_EVENT_GFX_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
     }
@@ -440,7 +440,7 @@ static void npc_clear_strange_bits(struct ObjectEvent *objEvent)
 
 static void MovePlayerAvatarUsingKeypadInput(u8 direction, u16 newKeys, u16 heldKeys)
 {
-    if (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+    if (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_BIKE))
         MovePlayerOnBike(direction, newKeys, heldKeys);
     else
         MovePlayerNotOnBike(direction, heldKeys);
@@ -1111,6 +1111,7 @@ static void PlayerAvatarTransition_Dummy(struct ObjectEvent *objEvent)
 
 static void PlayerAvatarTransition_Normal(struct ObjectEvent *objEvent)
 {
+    VarSet(VAR_PLAYER_AVATAR_BIKE, VAR_PLAYER_AVATAR_BIKE_NONE);
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
     ObjectEventTurn(objEvent, objEvent->movementDirection);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ON_FOOT);
@@ -1120,7 +1121,7 @@ static void PlayerAvatarTransition_MachBike(struct ObjectEvent *objEvent)
 {
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_MACH_BIKE));
     ObjectEventTurn(objEvent, objEvent->movementDirection);
-    SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_MACH_BIKE);
+    SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_BIKE);
     BikeClearState(0, 0);
 }
 
@@ -1128,7 +1129,7 @@ static void PlayerAvatarTransition_AcroBike(struct ObjectEvent *objEvent)
 {
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_ACRO_BIKE));
     ObjectEventTurn(objEvent, objEvent->movementDirection);
-    SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ACRO_BIKE);
+    SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_BIKE);
     BikeClearState(0, 0);
     Bike_HandleBumpySlopeJump();
 }
@@ -1524,7 +1525,7 @@ void StopPlayerAvatar(void)
 
     npc_clear_strange_bits(playerObjEvent);
     SetObjectEventDirection(playerObjEvent, playerObjEvent->facingDirection);
-    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_BIKE))
     {
         Bike_HandleBumpySlopeJump();
         Bike_UpdateBikeCounterSpeed(0);
@@ -1732,6 +1733,15 @@ u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
 {
     u8 i;
     u8 flags = gPlayerAvatar.flags;
+
+    if (flags & PLAYER_AVATAR_FLAG_BIKE)
+    {
+    if (VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_ACRO)
+        return gPlayerAvatar.gender == MALE ? OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE : OBJ_EVENT_GFX_MAY_ACRO_BIKE;
+
+    else
+        return gPlayerAvatar.gender == MALE ? OBJ_EVENT_GFX_BRENDAN_MACH_BIKE : OBJ_EVENT_GFX_MAY_MACH_BIKE;
+    }
 
     for (i = 0; i < ARRAY_COUNT(sPlayerAvatarGfxToStateFlag[0]); i++)
     {

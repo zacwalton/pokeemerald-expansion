@@ -731,7 +731,7 @@ u32 DetermineFollowerNPCState(struct ObjectEvent *follower, u32 state, u32 direc
     if (IsStateMovement(state) && delayedState)
     {
         // Lock face direction for Acro side jump.
-        if (delayedState == MOVEMENT_ACTION_JUMP_DOWN && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_ACRO_BIKE))
+        if (delayedState == MOVEMENT_ACTION_JUMP_DOWN && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_BIKE) && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_ACRO)
             follower->facingDirectionLocked = TRUE;
 
         newState = delayedState + (direction -1);
@@ -900,7 +900,7 @@ u32 DetermineFollowerNPCState(struct ObjectEvent *follower, u32 state, u32 direc
         // Acro side hop.
         if (delayedState == MOVEMENT_ACTION_JUMP_DOWN)
         {
-            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_ACRO_BIKE))
+            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_BIKE) && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_ACRO)
                 follower->facingDirectionLocked = TRUE;
 
             return newState;
@@ -1174,9 +1174,9 @@ void FollowerNPC_HandleSprite(void)
 {
     if (CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_BIKE))
     {
-        if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
+        if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_BIKE && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_MACH)
             SetFollowerNPCSprite(FOLLOWER_NPC_SPRITE_INDEX_MACH_BIKE);
-        else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ACRO_BIKE)
+        else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_BIKE && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_ACRO)
             SetFollowerNPCSprite(FOLLOWER_NPC_SPRITE_INDEX_ACRO_BIKE);
     }
     else if (gMapHeader.mapType == MAP_TYPE_UNDERWATER)
@@ -1314,11 +1314,11 @@ void FollowerNPC_HandleBike(void)
     if (GetFollowerNPCData(FNPC_DATA_CURRENT_SPRITE) == FOLLOWER_NPC_SPRITE_INDEX_SURF)
         return;
 
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE && FollowerNPCCanBike() && GetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR) != FNPC_DOOR_NEEDS_TO_EXIT) //Coming out door
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_BIKE && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_MACH && FollowerNPCCanBike() && GetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR) != FNPC_DOOR_NEEDS_TO_EXIT) //Coming out door
     {
         SetFollowerNPCSprite(FOLLOWER_NPC_SPRITE_INDEX_MACH_BIKE);
     }
-    else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ACRO_BIKE && FollowerNPCCanBike() && GetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR) != FNPC_DOOR_NEEDS_TO_EXIT) //Coming out door
+    else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_BIKE && VarGet(VAR_PLAYER_AVATAR_BIKE) == VAR_PLAYER_AVATAR_BIKE_ACRO && FollowerNPCCanBike() && GetFollowerNPCData(FNPC_DATA_COME_OUT_DOOR) != FNPC_DOOR_NEEDS_TO_EXIT) //Coming out door
     {
         SetFollowerNPCSprite(FOLLOWER_NPC_SPRITE_INDEX_ACRO_BIKE);
     }
