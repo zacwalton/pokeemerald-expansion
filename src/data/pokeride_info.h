@@ -806,6 +806,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
             },
         }
     },
+    [SPECIES_RHYHORN] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-4,
+                .playerY=-5,
+                .monX=2,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
     [SPECIES_RHYDON] =
     {
         .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB,
@@ -1175,6 +1206,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
                 .monX=4,
                 .monY=1,
                 .playerRendersInFront=FALSE,
+            },
+        }
+    },
+    [SPECIES_DRAGONAIR] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-4,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-4,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-4,
+                .playerY=-4,
+                .monX=2,
+                .monY=1,
+                .playerRendersInFront=TRUE,
             },
         }
     },
@@ -2387,6 +2449,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
             },
         }
     },
+    [SPECIES_WAILMER] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-8,
+                .monX=0,
+                .monY=0,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-9,
+                .monX=0,
+                .monY=0,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-10,
+                .playerY=-9,
+                .monX=1,
+                .monY=0,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
     [SPECIES_WAILORD] =
     {
         .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
@@ -2762,6 +2855,68 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     [SPECIES_CRAWDAUNT] =
     {
         .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-3,
+                .playerY=-5,
+                .monX=3,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
+    [SPECIES_CRADILY] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-5,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-3,
+                .playerY=-5,
+                .monX=3,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
+    [SPECIES_ARMALDO] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -3312,6 +3467,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
                 .playerX=-5,
                 .playerY=-5,
                 .monX=2,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
+    [SPECIES_LAIRON] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-8,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-7,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-4,
+                .playerY=-8,
+                .monX=3,
                 .monY=1,
                 .playerRendersInFront=TRUE,
             },
@@ -6324,6 +6510,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
             },
         }
     },
+    [SPECIES_TORNADUS_THERIAN] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-9,
+                .monX=0,
+                .monY=-15,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-9,
+                .monX=0,
+                .monY=-13,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-5,
+                .playerY=-8,
+                .monX=0,
+                .monY=-14,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
     [SPECIES_THUNDURUS] =
     {
         .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
@@ -6351,6 +6568,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
                 .playerY=-8,
                 .monX=3,
                 .monY=0,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
+    [SPECIES_THUNDURUS_THERIAN] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-6,
+                .monX=0,
+                .monY=-12,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-8,
+                .monX=0,
+                .monY=-16,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-3,
+                .playerY=-11,
+                .monX=-3,
+                .monY=-17,
                 .playerRendersInFront=TRUE,
             },
         }
@@ -6444,6 +6692,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
                 .playerY=-7,
                 .monX=3,
                 .monY=0,
+                .playerRendersInFront=TRUE,
+            },
+        }
+    },
+    [SPECIES_LANDORUS_THERIAN] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-8,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-11,
+                .monX=0,
+                .monY=1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-3,
+                .playerY=-7,
+                .monX=0,
+                .monY=1,
                 .playerRendersInFront=TRUE,
             },
         }
@@ -10846,6 +11125,37 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
                 .playerY=-8,
                 .monX=1,
                 .monY=0,
+                .playerRendersInFront=FALSE,
+            },
+        }
+    },
+    [SPECIES_NECROZMA_ULTRA] =
+    {
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .spriteInfo =
+        {
+            [POKERIDE_SPRITE_UP] =
+            {
+                .playerX=0,
+                .playerY=-3,
+                .monX=0,
+                .monY=-1,
+                .playerRendersInFront=TRUE,
+            },
+            [POKERIDE_SPRITE_DOWN] =
+            {
+                .playerX=0,
+                .playerY=-4,
+                .monX=0,
+                .monY=-2,
+                .playerRendersInFront=FALSE,
+            },
+            [POKERIDE_SPRITE_SIDE] =
+            {
+                .playerX=-3,
+                .playerY=-6,
+                .monX=2,
+                .monY=-2,
                 .playerRendersInFront=FALSE,
             },
         }
