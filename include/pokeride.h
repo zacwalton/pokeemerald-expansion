@@ -37,4 +37,7 @@ bool8 PokeRide_IsRideCollisionExempt(struct ObjectEvent* obstacle, struct Object
 
 void MovePlayerOnPokeRide(u8 direction, u16 newKeys, u16 heldKeys);
 
+void CheckFollowerFriendship(void);
+void ActivateRidemon(void);
+
 #endif //GUARD_POKERIDE_H

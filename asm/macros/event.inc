@@ -2856,3 +2856,19 @@
 	.macro calculateandsetflashlevel 
 	callnative CalculateAndSetFlashLevel
 	.endm
+
+	@ returns follower friendship value
+	.macro checkfollowerfriendship 
+	callnative CheckFollowerFriendship
+	.endm
+
+	@ calls PokéRide function
+	.macro activateridemon 
+	callnative ItemUseOnFieldCB_RideCapsule
+	.endm
+
+	@ checks if the follower has the Allow PokéRide Flag
+	.macro followerspeciescanride
+	callnative FollowerSpeciesCanRide
+	.endm
+	

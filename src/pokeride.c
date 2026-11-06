@@ -5,6 +5,8 @@
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
+#include "field_specials.h"
+#include "field_effect.h"
 #include "metatile_behavior.h"
 #include "pokemon.h"
 #include "pokeride.h"
@@ -82,6 +84,14 @@ static void UpdateRideSpriteInternal(struct PokeRideObjectEvent* rideObject, con
 static bool8 AdjustFlyingAnimation(struct PokeRideObjectEvent* rideObject);
 static u16 GetCurrentRideMonSpecies();
 static const struct PokeRideInfo* GetPokeRideInfoForSpecies(u16 species);
+
+#define POKERIDE_B_LONG_HOLD_COUNTER 30
+static u16 sPokeRideBHoldTimer;
+static bool16 sPokeRideBWasPressed;
+static bool16 sPokeRideBShortPress;
+static bool16 sPokeRideBLongHold;
+static bool16 sPokeRideBLongHoldFired;
+static void PokeRideUpdateBButton(void);
 
 #include "data/pokeride_info.h"
 
@@ -305,10 +315,52 @@ static bool8 CanCycleRideMons()
     return !PokeRide_IsRideFlying() && !PokeRide_IsRideSwimming();
 }
 
+
+static void PokeRideUpdateBButton(void)
+{
+    sPokeRideBShortPress = FALSE;
+
+    if (JOY_NEW(B_BUTTON) && (!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP)))
+    {
+        sPokeRideBHoldTimer = 0;
+        sPokeRideBWasPressed = TRUE;
+        sPokeRideBLongHold = FALSE;
+        sPokeRideBLongHoldFired = FALSE;
+    }
+    if (sPokeRideBWasPressed && JOY_HELD(B_BUTTON) && (!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP)))
+    {
+        if (sPokeRideBHoldTimer < POKERIDE_B_LONG_HOLD_COUNTER)
+            sPokeRideBHoldTimer++;
+        if ((sPokeRideBHoldTimer >= POKERIDE_B_LONG_HOLD_COUNTER) && (sPokeRideBLongHoldFired == FALSE))
+            sPokeRideBLongHold = TRUE;
+    }
+    if (sPokeRideBWasPressed && !JOY_HELD(B_BUTTON))
+    {
+        if (sPokeRideBHoldTimer < POKERIDE_B_LONG_HOLD_COUNTER)
+            sPokeRideBShortPress = TRUE;
+
+        sPokeRideBHoldTimer = 0;
+        sPokeRideBWasPressed = FALSE;    
+        sPokeRideBLongHold = FALSE;
+        sPokeRideBLongHoldFired = FALSE;
+    }
+}
+
 bool8 PokeRide_ProcessInput()
 {
     if (PokeRide_IsRideActive())
     {
+        PokeRideUpdateBButton();
+
+        if (sPokeRideBShortPress)
+        {
+            GetOnOffPokeRide();
+            StartPokeRideUnmountFieldEffect();
+            sPokeRideBHoldTimer = 0;
+            sPokeRideBWasPressed = FALSE;
+            sPokeRideBShortPress = FALSE;
+        }
+        /*
         // Cycle through mons, when pressing L or R
         if (JOY_NEW(L_BUTTON))
         {
@@ -333,7 +385,7 @@ bool8 PokeRide_ProcessInput()
             {
                 PlaySE(SE_FAILURE);
             }
-        }
+        }*/
     }
 
     // Never block input from here
@@ -447,6 +499,7 @@ bool8 PokeRide_IsValidRideFlySpecies(u16 species)
     return TestRideFlags(species, POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY);
 }
 
+// Grabs movement speed based on Base Speed
 static u8 CalculateMovementModeFor(u16 species)
 {
     u8 speed = gSpeciesInfo[species].baseSpeed;
@@ -857,10 +910,13 @@ static u8 CheckMovementInputOnRideMon(u8 direction)
 
 static void PlayerOnRideMonNotMoving(u8 direction, u16 newKeys, u16 heldKeys)
 {
-    if (newKeys & B_BUTTON && (PokeRide_IsRideFlying() || PokeRide_CanRideFly()))
+    if ((!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP) && sPokeRideBLongHold)
+         && (PokeRide_IsRideFlying() || PokeRide_CanRideFly()))
     {
         // Toggle between flying modes
         bool8 desiredFlyState = !sPokeRideData.rideObject.state.flyingState;
+        sPokeRideBLongHold = FALSE;
+        sPokeRideBLongHoldFired = TRUE;
 
         if (!desiredFlyState && CheckForPlayerLandingCollision())
         {
@@ -1116,3 +1172,17 @@ static void PlayCollisionSoundIfNotFacingWarp(u8 direction)
         PlaySE(SE_WALL_HIT);
     }
 }
+
+void CheckFollowerFriendship(void)
+{
+    gSpecialVar_Result = GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_FRIENDSHIP);
+}
+
+void FollowerSpeciesCanRide(void)
+{
+    if ((sPokeRideInfo[GetMonData(&gPlayerParty[GetFollowerMonIndex()], MON_DATA_SPECIES)].flags & POKERIDE_FLAG_CAN_RIDE))
+        gSpecialVar_Result = TRUE;
+    else
+        gSpecialVar_Result = FALSE;
+}
+

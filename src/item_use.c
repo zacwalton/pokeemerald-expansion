@@ -64,7 +64,6 @@ static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
 static void Task_AccessPokemonBoxLink(u8);
 static void ItemUseOnFieldCB_Bike(u8);
-static void ItemUseOnFieldCB_RideCapsule(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
 static void ItemUseOnFieldCB_Berry(u8);
@@ -321,7 +320,7 @@ void ItemUseOutOfBattle_RideCapsule(u8 taskId)
     }
 }
 
-static void ItemUseOnFieldCB_RideCapsule(u8 taskId)
+void ItemUseOnFieldCB_RideCapsule(u8 taskId)
 {
     bool8 wasRiding = TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING);
 

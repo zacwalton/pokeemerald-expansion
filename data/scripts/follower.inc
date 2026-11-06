@@ -10,14 +10,76 @@ gText_FollowerDefault::
 gText_WantsToFly::
 	.string "{STR_VAR_1} looks up at the\nsky restlessly.\pWould you like to use FLY?$"
 
+gText_FollowerThrilledToRide::
+	.string "{STR_VAR_1} is honored to carry you.$"
+
+gText_FollowerHappyToRide::
+	.string "{STR_VAR_1} offers you a ride.$"
+	
+gText_FollowerIgnoreToRide::
+	.string "{STR_VAR_1} doesn't seem keen.$"
+
+gText_FollowerRejectToRide::
+	.string "{STR_VAR_1} really dislikes the idea.$"
+	
+gText_FollowerAskToRide::
+	.string "Ask to ride$"
+	
+gText_FollowerInteract::
+	.string "Interact$"
+
 EventScript_Follower::
 	lock
 	bufferlivemonnickname 0
+	followerspeciescanride
+	compare VAR_RESULT, TRUE
+	goto_if_eq EventScript_Follower_Dialogue
+EventScript_Follower_Continue:
 	playfirstmoncry
 	getfolloweraction
 EventScript_FollowerEnd::
 	waitfieldeffect FLDEFF_EMOTE
 	release
+	end
+
+EventScript_Follower_Dialogue:
+	dynmultichoice 0, 0, FALSE, 2, 0, DYN_MULTICHOICE_CB_NONE, gText_FollowerAskToRide, gText_FollowerInteract 
+	switch VAR_RESULT
+	case 0, EventScript_Follower_AskToRide
+	case 1, EventScript_Follower_Continue
+	releaseall
+	end
+
+EventScript_Follower_AskToRide:
+	playfirstmoncry
+	checkfollowerfriendship
+	compare VAR_RESULT, 60
+	goto_if_ge EventScript_Follower_AskToRide_Indifferent
+	msgbox gText_FollowerRejectToRide, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_Follower_AskToRide_Indifferent:
+	compare VAR_RESULT, 100
+	goto_if_ge EventScript_Follower_AskToRide_Happy
+	msgbox gText_FollowerIgnoreToRide, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_Follower_AskToRide_Happy:
+	compare VAR_RESULT, 150
+	goto_if_ge EventScript_Follower_AskToRide_Thrilled
+	msgbox gText_FollowerHappyToRide, MSGBOX_DEFAULT
+	hidefollower
+	activateridemon
+	releaseall
+	end
+	
+EventScript_Follower_AskToRide_Thrilled:
+	msgbox gText_FollowerThrilledToRide, MSGBOX_DEFAULT
+	hidefollower
+	activateridemon
+	releaseall
 	end
 
 EventScript_FollowerLovesYou::
