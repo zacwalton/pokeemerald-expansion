@@ -42,6 +42,7 @@ enum
 #define POKERIDE_FLAG_CAN_JUMP      (1 << 2)
 #define POKERIDE_FLAG_CAN_FLY       (1 << 3)
 #define POKERIDE_FLAG_CAN_SMASH     (1 << 4)
+#define POKERIDE_FLAG_CAN_PUSH      (1 << 5)
 
 #define POKERIDE_FLY_HEIGHT 12
 
@@ -667,6 +668,14 @@ bool8 PokeRide_CanRideSmash()
     return (
         FlagGet(FLAG_SYS_POKERIDE_SMASH)
         && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_SMASH)
+    );
+}
+
+bool8 PokeRide_CanRidePush()
+{
+    return (
+        FlagGet(FLAG_SYS_POKERIDE_PUSH)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_PUSH)
     );
 }
 

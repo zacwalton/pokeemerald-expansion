@@ -1072,7 +1072,7 @@ static bool8 ShouldJumpLedge(s16 x, s16 y, u8 direction)
 
 static bool8 TryPushBoulder(s16 x, s16 y, u8 direction)
 {
-    if (FlagGet(FLAG_SYS_USE_STRENGTH))
+    if (FlagGet(FLAG_SYS_USE_STRENGTH) || (FlagGet(FLAG_SYS_POKERIDE_PUSH) && PokeRide_CanRidePush()))
     {
         u8 objectEventId = GetObjectEventIdByXY(x, y);
 

@@ -65,7 +65,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_BLASTOISE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -222,7 +222,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_NIDOQUEEN] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -285,7 +285,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_NIDOKING] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -442,7 +442,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_POLIWRATH] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SWIM | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SWIM | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -504,7 +504,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MACHOKE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -535,7 +535,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MACHAMP] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -629,7 +629,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GRAVELER] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -693,7 +693,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GOLEM] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -914,7 +914,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ONIX] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -1038,7 +1038,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_RHYDON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -1070,7 +1070,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_KANGASKHAN] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -1258,7 +1258,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TAUROS] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -1447,7 +1447,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_SNORLAX] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -1638,7 +1638,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MEGANIUM] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -2045,7 +2045,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_STEELIX] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -2390,7 +2390,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_DONPHAN] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -2548,7 +2548,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TYRANITAR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -3486,7 +3486,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_HARIYAMA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -3548,7 +3548,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_CAMERUPT] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -3703,7 +3703,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_VIGOROTH] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -3734,7 +3734,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_SLAKING] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4048,7 +4048,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_LAIRON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4079,7 +4079,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_AGGRON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4205,7 +4205,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_METAGROSS] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_FLY,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_FLY | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4236,7 +4236,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_REGIROCK] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4298,7 +4298,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_REGISTEEL] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4360,7 +4360,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GROUDON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4518,7 +4518,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TORTERRA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -4798,7 +4798,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_RAMPARDOS] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -4830,7 +4830,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_BASTIODON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -5083,7 +5083,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_HIPPOWDON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5177,7 +5177,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ABOMASNOW] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5302,7 +5302,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_RHYPERIOR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5364,7 +5364,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ELECTIVIRE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5395,7 +5395,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MAGMORTAR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5488,7 +5488,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MAMOSWINE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -5738,7 +5738,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_REGIGIGAS] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -5958,7 +5958,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_EMBOAR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -6147,7 +6147,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GIGALITH] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -6178,7 +6178,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_CONKELDURR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -6209,7 +6209,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_EXCADRILL] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -7143,7 +7143,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_DRUDDIGON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -7174,7 +7174,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GOLURK] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_FLY,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_FLY | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -7394,7 +7394,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TERRAKION] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -7798,7 +7798,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_CHESNAUGHT] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -8174,7 +8174,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TYRANTRUM] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -8551,7 +8551,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_VOLCANION] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SWIM | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -8613,7 +8613,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_INCINEROAR] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9329,7 +9329,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TAPU_BULU] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9486,7 +9486,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_BUZZWOLE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9579,7 +9579,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_CELESTEELA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9610,7 +9610,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GUZZLORD] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9704,7 +9704,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_STAKATAKA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -9767,7 +9767,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_MELMETAL] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -9798,7 +9798,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_RILLABOOM] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -10080,7 +10080,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_COALOSSAL] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -10390,7 +10390,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_RUNERIGUS] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -10671,7 +10671,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_DURALUDON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -10799,7 +10799,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ZAMAZENTA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -10924,7 +10924,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_REGIELEKI] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -11113,7 +11113,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_URSALUNA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -11330,7 +11330,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GRAVELER_ALOLA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -11362,7 +11362,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GOLEM_ALOLA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -12145,7 +12145,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_HOOPA_UNBOUND] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_FLY | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -12519,7 +12519,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_GARGANACL] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 1,
         .spriteInfo =
         {
@@ -13022,7 +13022,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_CETITAN] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -13115,7 +13115,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ANNIHILAPE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -13644,7 +13644,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TING_LU] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
@@ -13770,7 +13770,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TAUROS_PALDEA_COMBAT] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -13802,7 +13802,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TAUROS_PALDEA_BLAZE] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP | POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -13834,7 +13834,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_TAUROS_PALDEA_AQUA] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP| POKERIDE_FLAG_CAN_SMASH,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP| POKERIDE_FLAG_CAN_SMASH | POKERIDE_FLAG_CAN_PUSH,
         .rideSpeed = 3,
         .spriteInfo =
         {
@@ -13990,7 +13990,7 @@ static const struct PokeRideInfo sPokeRideInfo[NUM_SPECIES] =
     },
     [SPECIES_ARCHALUDON] =
     {
-        .flags = POKERIDE_FLAG_CAN_RIDE,
+        .flags = POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_PUSH,
         .spriteInfo =
         {
             [POKERIDE_SPRITE_UP] =
