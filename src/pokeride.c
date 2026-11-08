@@ -32,6 +32,8 @@ enum
     POKERIDE_MOVEMENT_AVERAGE,
     POKERIDE_MOVEMENT_ACCELERATE_FAST,
     POKERIDE_MOVEMENT_FAST,
+    POKERIDE_MOVEMENT_ACCELERATE_VERY_FAST,
+    POKERIDE_MOVEMENT_VERY_FAST,
 };
 
 #define POKERIDE_FLAG_NONE          (0)
@@ -56,6 +58,7 @@ struct PokeRideInfo
 {
     struct PokeRideSpriteInfo spriteInfo[POKERIDE_SPRITE_COUNT];
     u8 flags;
+    u8 rideSpeed;
 };
 
 struct PokeRideObjectEvent
@@ -502,8 +505,15 @@ bool8 PokeRide_IsValidRideFlySpecies(u16 species)
 // Grabs movement speed based on Base Speed
 static u8 CalculateMovementModeFor(u16 species)
 {
-    u8 speed = gSpeciesInfo[species].baseSpeed;
+    u8 speed = sPokeRideInfo[species].rideSpeed;
 
+    if (speed == 1)
+        return POKERIDE_MOVEMENT_SLOW;
+    if (speed == 3)
+        return POKERIDE_MOVEMENT_FAST;
+    if (speed == 4)
+        return POKERIDE_MOVEMENT_VERY_FAST;
+    /*
     if (speed <= 70)
         return POKERIDE_MOVEMENT_SLOW;
 
@@ -515,8 +525,8 @@ static u8 CalculateMovementModeFor(u16 species)
 
     if (speed <= 110)
         return POKERIDE_MOVEMENT_ACCELERATE_FAST;
-
-    return POKERIDE_MOVEMENT_FAST;
+*/
+    return POKERIDE_MOVEMENT_AVERAGE;           //ZETA - Default to average speed
 }
 
 static u16 GetCurrentRideMonSpecies()
@@ -759,8 +769,6 @@ static void UpdateRideSpriteInternal(struct PokeRideObjectEvent* rideObject, con
         if (rideSpeed <= POKERIDE_MOVEMENT_ACCELERATE_AVERAGE) {
             idleAnim = ANIM_STD_FACE_SOUTH;
             movingAnim = ANIM_STD_GO_SOUTH;
-            if (sPokeRideData.rideFrameCounter % 4 == 0)
-                mountSprite->animDelayCounter++;
         }
 
         if (rideSpeed > POKERIDE_MOVEMENT_ACCELERATE_AVERAGE)
@@ -993,25 +1001,35 @@ static void PlayerOnRideMonMoving(u8 direction, u16 newKeys, u16 heldKeys)
 
         switch (CalculateMovementModeFor(GetCurrentRideMonSpecies()))
         {
-        case POKERIDE_MOVEMENT_SLOW:
-            PlayerWalkFast(direction);
-            break;
+            case POKERIDE_MOVEMENT_SLOW:        //ZETA - Very slow pokemon have slow speed (dexnav creep/sneak speed), holding B to dash does normal walk speed
+            {
+                if (JOY_HELD(B_BUTTON))
+                    PlayerWalkNormal(direction);
+                else
+                    PlayerWalkSlow(direction);
+                break;
+            }
+/*
+            case POKERIDE_MOVEMENT_ACCELERATE_AVERAGE:
+                frameIdx = sPokeRideData.rideFrameCounter / 4;
 
-        case POKERIDE_MOVEMENT_ACCELERATE_AVERAGE:
-            frameIdx = sPokeRideData.rideFrameCounter / 4;
+                if (sPokeRideData.rideFrameCounter == 0)
+                    PlayerWalkNormal(direction);
+                else if (frameIdx == 0)
+                    PlayerWalkFast(direction);
+                else
+                    PlayerRideWaterCurrent(direction);
+                break;*/
 
-            if (sPokeRideData.rideFrameCounter == 0)
-                PlayerWalkNormal(direction);
-            else if (frameIdx == 0)
-                PlayerWalkFast(direction);
-            else
-                PlayerRideWaterCurrent(direction);
-            break;
-
-        case POKERIDE_MOVEMENT_AVERAGE:
-            PlayerRideWaterCurrent(direction);
-            break;
-
+        case POKERIDE_MOVEMENT_FAST:        //ZETA - Hold B to Acro Bike speed, else do walk speed
+            {
+                if (JOY_HELD(B_BUTTON))
+                    PlayerRideWaterCurrent(direction);
+                else
+                    PlayerWalkNormal(direction);
+                break;
+            }
+/*
         case POKERIDE_MOVEMENT_ACCELERATE_FAST:
             frameIdx = (sPokeRideData.rideFrameCounter - 1) / 3;
 
@@ -1021,13 +1039,34 @@ static void PlayerOnRideMonMoving(u8 direction, u16 newKeys, u16 heldKeys)
                 PlayerRideWaterCurrent(direction);
             else
                 PlayerWalkFaster(direction);
-            break;
+            break;*/
 
-        case POKERIDE_MOVEMENT_FAST:
-            PlayerWalkFaster(direction);
-            break;
+         case POKERIDE_MOVEMENT_VERY_FAST:
+            {
+                if (JOY_HELD(B_BUTTON))     //ZETA - Mach Bike speed when holding B to dash, otherwise do running speed
+                {
+                    frameIdx = (sPokeRideData.rideFrameCounter - 1) / 3;
+                    if (sPokeRideData.rideFrameCounter == 0)
+                        PlayerWalkFast(direction);
+                    else if (frameIdx == 0)
+                        PlayerRideWaterCurrent(direction);
+                    else
+                        PlayerWalkFaster(direction);
+                }
+                else
+                    PlayerWalkFast(direction);
+                break;
+            }
 
         default:
+        case POKERIDE_MOVEMENT_AVERAGE:        //ZETA - hold B to dash (running speed), else do normal walk speed
+            {
+                if (JOY_HELD(B_BUTTON))
+                    PlayerWalkFast(direction);
+                else
+                    PlayerWalkNormal(direction);
+                break;
+            }
             break;
         }
 

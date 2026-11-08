@@ -129,7 +129,6 @@ static bool8 PlayerIsAnimActive(void);
 static bool8 PlayerCheckIfAnimFinishedOrInactive(void);
 
 static void PlayerWalkSlowStairs(u8 direction);
-static void UNUSED PlayerWalkSlow(u8 direction);
 static void PlayerRunSlow(u8 direction);
 static void PlayerRun(u8);
 static void PlayerNotOnBikeCollide(u8);
@@ -1308,7 +1307,7 @@ static void PlayerWalkSlowStairs(u8 direction)
 }
 
 // slow
-static void UNUSED PlayerWalkSlow(u8 direction)
+void PlayerWalkSlow(u8 direction)
 {
     PlayerSetAnimId(GetWalkSlowMovementAction(direction), 2);
 }
