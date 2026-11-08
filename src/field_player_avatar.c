@@ -3,6 +3,7 @@
 #include "bike.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "field_camera.h"
 #include "field_effect.h"
 #include "field_effect_helpers.h"
@@ -111,6 +112,7 @@ static bool8 CanStartSwimming(s16, s16, u8);
 static bool8 CanStopSwimming(s16, s16, u8 direction);
 static bool8 ShouldJumpLedge(s16, s16, u8);
 static bool8 TryPushBoulder(s16, s16, u8);
+static bool8 TryAutoRockSmash(s16, s16, u8);
 static void CheckAcroBikeCollision(s16, s16, u8, u8 *);
 
 static void DoPlayerAvatarTransition(void);
@@ -985,6 +987,7 @@ u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u
         return collision;
     }
 
+
     if (ShouldJumpLedge(x, y, direction))
     {
         IncrementGameStat(GAME_STAT_JUMPED_DOWN_LEDGES);
@@ -992,6 +995,12 @@ u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u
     }
     if (collision == COLLISION_OBJECT_EVENT && TryPushBoulder(x, y, direction))
         return COLLISION_PUSHED_BOULDER;
+    //ZETA - Smash Rocks Automatically, when using PokeRide
+    if (collision == COLLISION_OBJECT_EVENT && TryAutoRockSmash(x, y, direction))
+    {
+        ScriptContext_SetupScript(EventScript_UseRockSmash_PokeRide);
+        return COLLISION_NONE;
+    }
 
     if (collision == COLLISION_NONE)
     {
@@ -1078,6 +1087,21 @@ static bool8 TryPushBoulder(s16 x, s16 y, u8 direction)
                 StartStrengthAnim(objectEventId, direction);
                 return TRUE;
             }
+        }
+    }
+    return FALSE;
+}
+
+static bool8 TryAutoRockSmash(s16 x, s16 y, u8 direction)
+{
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_RIDING && FlagGet(FLAG_SYS_POKERIDE_SMASH) && PokeRide_CanRideSmash() && JOY_HELD(B_BUTTON))
+    {
+        u8 objectEventId = GetObjectEventIdByXY(x, y);
+
+        if (objectEventId != OBJECT_EVENTS_COUNT && (gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_BREAKABLE_ROCK))
+        {
+            VarSet(VAR_LAST_TALKED, gObjectEvents[objectEventId].localId);
+            return TRUE;
         }
     }
     return FALSE;

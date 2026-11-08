@@ -1396,7 +1396,7 @@
 #define FLAG_SYS_POKERIDE_SURF                      (SYSTEM_FLAGS + 0x24) // ZETA - PokéRide 
 #define FLAG_SYS_POKERIDE_FLY                       (SYSTEM_FLAGS + 0x25) // ZETA - PokéRide
 #define FLAG_SYS_USE_WATERFALL                      (SYSTEM_FLAGS + 0x26) // Dont force waterfall interact each time
-#define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x27) // Unused Flag
+#define FLAG_SYS_POKERIDE_SMASH                     (SYSTEM_FLAGS + 0x27) // ZETA - PokéRide
 
 #define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x28)
 #define FLAG_SYS_USE_STRENGTH                       (SYSTEM_FLAGS + 0x29)

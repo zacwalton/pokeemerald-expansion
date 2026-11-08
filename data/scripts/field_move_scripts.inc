@@ -191,6 +191,19 @@ Text_CantCut:
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SMASH
 
+@ Automatically Smash Rocks when using PokéRide
+EventScript_UseRockSmash_PokeRide::
+	Playse SE_M_ROCK_THROW
+	applymovement VAR_LAST_TALKED, Movement_SmashRock
+	waitmovement 0
+	removeobject VAR_LAST_TALKED
+	special RockSmashWildEncounter
+	goto_if_eq VAR_RESULT, FALSE, EventScript_EndSmash
+	waitstate
+	releaseall
+	end
+	
+
 @ Use rock smash from party menu
 EventScript_UseRockSmash::
 	lockall

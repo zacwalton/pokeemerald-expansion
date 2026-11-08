@@ -29,6 +29,7 @@ bool8 PokeRide_IsValidRideFlySpecies(u16 species);
 bool8 PokeRide_CanRideInvJumpLedge();
 bool8 PokeRide_CanRideSwim();
 bool8 PokeRide_CanRideFly();
+bool8 PokeRide_CanRideSmash();
 
 bool8 PokeRide_IsRideActive();
 bool8 PokeRide_IsRideSwimming();

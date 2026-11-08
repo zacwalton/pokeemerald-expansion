@@ -39,8 +39,9 @@ enum
 #define POKERIDE_FLAG_NONE          (0)
 #define POKERIDE_FLAG_CAN_RIDE      (1 << 0)
 #define POKERIDE_FLAG_CAN_SWIM      (1 << 1)
-#define POKERIDE_FLAG_CAN_CLIMB     (1 << 2)
+#define POKERIDE_FLAG_CAN_JUMP      (1 << 2)
 #define POKERIDE_FLAG_CAN_FLY       (1 << 3)
+#define POKERIDE_FLAG_CAN_SMASH     (1 << 4)
 
 #define POKERIDE_FLY_HEIGHT 12
 
@@ -489,7 +490,7 @@ bool8 PokeRide_IsValidRideSpecies(u16 species)
 
 bool8 PokeRide_IsValidRideClimbSpecies(u16 species)
 {
-    return TestRideFlags(species, POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_CLIMB);
+    return TestRideFlags(species, POKERIDE_FLAG_CAN_RIDE | POKERIDE_FLAG_CAN_JUMP);
 }
 
 bool8 PokeRide_IsValidRideSwimSpecies(u16 species)
@@ -641,7 +642,7 @@ bool8 PokeRide_CanRideInvJumpLedge()
 {
     return (
         FlagGet(FLAG_SYS_POKERIDE_JUMP)
-        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_CLIMB)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_JUMP)
     );
 }
 
@@ -658,6 +659,14 @@ bool8 PokeRide_CanRideFly()
     return (
         FlagGet(FLAG_SYS_POKERIDE_FLY)
         && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_FLY)
+    );
+}
+
+bool8 PokeRide_CanRideSmash()
+{
+    return (
+        FlagGet(FLAG_SYS_POKERIDE_SMASH)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_SMASH)
     );
 }
 
