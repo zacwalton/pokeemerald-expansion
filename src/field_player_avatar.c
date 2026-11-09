@@ -559,6 +559,10 @@ static bool8 DoForcedMovementInCurrentDirection(void (*moveFunc)(u8))
 
 static bool8 ForcedMovement_Slip(void)
 {
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_RIDING
+     && ((FlagGet(FLAG_SYS_POKERIDE_ICE) && PokeRide_CanRideIce() && JOY_HELD(B_BUTTON))
+     || (PokeRide_IsRideFlying())))
+		return FALSE;
     return DoForcedMovementInCurrentDirection(PlayerWalkFast);
 }
 

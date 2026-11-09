@@ -43,6 +43,7 @@ enum
 #define POKERIDE_FLAG_CAN_FLY       (1 << 3)
 #define POKERIDE_FLAG_CAN_SMASH     (1 << 4)
 #define POKERIDE_FLAG_CAN_PUSH      (1 << 5)
+#define POKERIDE_FLAG_CAN_ICE       (1 << 6)
 
 #define POKERIDE_FLY_HEIGHT 12
 
@@ -290,7 +291,10 @@ static void PlayRideMonCry()
 // Based on GetOnOffBike
 void GetOnOffPokeRide()
 {
-    if (PokeRide_IsRideFlying() || PokeRide_IsRideSwimming())
+    if (PokeRide_IsRideFlying()
+     || PokeRide_IsRideSwimming()
+     || MetatileBehavior_IsForcedMovementTile(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)
+      || (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED_MOVE))
     {
         // We're not allowed to dismount here
         PlaySE(SE_WALL_HIT);
@@ -679,6 +683,14 @@ bool8 PokeRide_CanRidePush()
     );
 }
 
+bool8 PokeRide_CanRideIce()
+{
+    return (
+        FlagGet(FLAG_SYS_POKERIDE_ICE)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_ICE)
+    );
+}
+
 bool8 PokeRide_IsRideActive()
 {
     return TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING);
@@ -1042,7 +1054,12 @@ static void PlayerOnRideMonMoving(u8 direction, u16 newKeys, u16 heldKeys)
         case POKERIDE_MOVEMENT_FAST:        //ZETA - Hold B to Acro Bike speed, else do walk speed
             {
                 if (JOY_HELD(B_BUTTON))
-                    PlayerRideWaterCurrent(direction);
+                {
+                    if (MetatileBehavior_IsIce_2(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+                        PlayerWalkNormal(direction);
+                    else
+                        PlayerRideWaterCurrent(direction);
+                }
                 else
                     PlayerWalkNormal(direction);
                 break;
@@ -1063,13 +1080,18 @@ static void PlayerOnRideMonMoving(u8 direction, u16 newKeys, u16 heldKeys)
             {
                 if (JOY_HELD(B_BUTTON))     //ZETA - Mach Bike speed when holding B to dash, otherwise do running speed
                 {
-                    frameIdx = (sPokeRideData.rideFrameCounter - 1) / 3;
-                    if (sPokeRideData.rideFrameCounter == 0)
-                        PlayerWalkFast(direction);
-                    else if (frameIdx == 0)
-                        PlayerRideWaterCurrent(direction);
+                    if (MetatileBehavior_IsIce_2(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+                        PlayerWalkNormal(direction);
                     else
-                        PlayerWalkFaster(direction);
+                    {
+                        frameIdx = (sPokeRideData.rideFrameCounter - 1) / 3;
+                        if (sPokeRideData.rideFrameCounter == 0)
+                            PlayerWalkFast(direction);
+                        else if (frameIdx == 0)
+                            PlayerRideWaterCurrent(direction);
+                        else
+                            PlayerWalkFaster(direction);
+                    }
                 }
                 else
                     PlayerWalkFast(direction);
@@ -1080,7 +1102,12 @@ static void PlayerOnRideMonMoving(u8 direction, u16 newKeys, u16 heldKeys)
         case POKERIDE_MOVEMENT_AVERAGE:        //ZETA - hold B to dash (running speed), else do normal walk speed
             {
                 if (JOY_HELD(B_BUTTON))
-                    PlayerWalkFast(direction);
+                {
+                    if (MetatileBehavior_IsIce_2(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+                        PlayerWalkNormal(direction);
+                    else
+                        PlayerWalkFast(direction);
+                }
                 else
                     PlayerWalkNormal(direction);
                 break;
