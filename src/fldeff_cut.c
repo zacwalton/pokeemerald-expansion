@@ -171,6 +171,84 @@ static bool8 MoveHasBonusRadius(u16 moveId)
     }
 }
 
+bool8 SetUpFieldMove_Cut_PokeRide(void)
+{
+    s16 x, y;
+    u8 i, j;
+    u8 tileBehavior;
+    bool8 cutTiles[CUT_NORMAL_AREA];
+    bool8 ret;
+
+    PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+    sCutSquareSide = CUT_NORMAL_SIDE;
+    sTileCountFromPlayer_X = 1;
+    sTileCountFromPlayer_Y = 1;
+
+    for (i = 0; i < CUT_NORMAL_AREA; i++)
+        cutTiles[i] = FALSE;
+    for (i = 0; i < CUT_HYPER_AREA; i++)
+        sHyperCutTiles[i] = FALSE;
+
+    ret = FALSE;
+
+    for (i = 0; i < CUT_NORMAL_SIDE; i++)
+    {
+        y = i - 1 + gPlayerFacingPosition.y;
+
+        for (j = 0; j < CUT_NORMAL_SIDE; j++)
+        {
+            x = j - 1 + gPlayerFacingPosition.x;
+
+            if (MapGridGetElevationAt(x, y) == gPlayerFacingPosition.elevation)
+            {
+                tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+                if (MetatileBehavior_IsPokeGrass(tileBehavior) == TRUE
+                || MetatileBehavior_IsAshGrass(tileBehavior) == TRUE)
+                {
+                    // Standing in front of grass.
+                    sHyperCutTiles[6 + (i * 5) + j] = TRUE;
+                    ret = TRUE;
+                }
+                // Collision has a range 0-3, any value != 0 is impassable
+                if (MapGridGetCollisionAt(x, y))
+                {
+                    cutTiles[i * 3 + j] = FALSE;
+                }
+                else
+                {
+                   cutTiles[i * 3 + j] = TRUE;
+                    if (MetatileBehavior_IsCuttableGrass(tileBehavior) == TRUE)
+                        sHyperCutTiles[6 + (i * 5) + j] = TRUE;
+                }
+            }
+            else
+            {
+                cutTiles[i * 3 + j] = FALSE;
+            }
+        }
+    }
+
+    bool8 tileCuttable;
+    for (i = 0; i < 16; i++)
+    {
+        x = gPlayerFacingPosition.x + sHyperCutStruct[i].x;
+        y = gPlayerFacingPosition.y + sHyperCutStruct[i].y;
+        tileCuttable = TRUE;
+
+        for (j = 0; j < 2; ++j)
+        {
+            if (sHyperCutStruct[i].unk2[j] == 0) break; // one line required to match -g
+            if (cutTiles[(u8)(sHyperCutStruct[i].unk2[j] - 1)] == FALSE)
+            {
+                tileCuttable = FALSE;
+                break;
+            }
+        }
+    }
+    return ret;
+
+}
+
 // code
 bool8 SetUpFieldMove_Cut(void)
 {
@@ -890,6 +968,91 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 	}
 }
 
+bool8 FldEff_UseCutOnGrass_PokeRide(void)
+{    
+    s16 x, y;
+    u8 i = 0;
+	u8 yieldCount = 0;
+	u8 itemChance = 0;
+    u16 *ashGatherCount;
+
+    PlaySE(SE_M_CUT);
+    LoadSpritePalette(&gSpritePalette_CutGrass);
+    PlayerGetDestCoords(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+    for (i = 0; i < CUT_HYPER_AREA; i++)
+    {
+        if (sHyperCutTiles[i] == TRUE)
+        {
+            s8 xAdd = (i % 5) - 2;
+            s8 yAdd = (i / 5) - 2;
+
+            x = xAdd + gPlayerFacingPosition.x;
+            y = yAdd + gPlayerFacingPosition.y;
+
+			// ZETA- Do Items and Harvestable yields
+			if (IsTileTallGrass(x, y) == TRUE)
+			{
+				yieldCount += Random() % 2;
+				itemChance += 2;
+			}
+			//ZETA- Do Ash grass yield
+			if (MetatileBehavior_IsAshGrass(MapGridGetMetatileBehaviorAt(x, y)))
+			{
+				// Try to gather ash
+				if (CheckBagHasItem(ITEM_SOOT_SACK, 1))
+				{
+					ashGatherCount = GetVarPointer(VAR_ASH_GATHER_COUNT);
+					if (*ashGatherCount < 9999)
+						(*ashGatherCount)++;
+				}
+			}
+			
+            SetCutGrassMetatile(x, y);
+            AllowObjectAtPosTriggerGroundEffects(x, y);
+        }
+    }
+	//ZETA- Give items based on yields
+	if (yieldCount > 0)
+	{
+		VarSet(VAR_0x8009, yieldCount);
+		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript);
+	}
+	if ((Random() % 200) < itemChance)
+	{
+		ScriptContext_SetupScript(EventScript_Harvest_CutGrassScript_Item);
+	}
+
+    SetCutGrassMetatiles(gPlayerFacingPosition.x - sTileCountFromPlayer_X, gPlayerFacingPosition.y - (1 + sTileCountFromPlayer_Y));
+    DrawWholeMapView();
+	//Check surrounding tiles for autotile system
+	for (i = 0; i < (CUT_MAX_AREA); i++)
+    {
+            s8 xAdd = (i % 7) - 3;
+            s8 yAdd = (i / 7) - 3;
+
+            x = xAdd + gPlayerFacingPosition.x;
+            y = yAdd + gPlayerFacingPosition.y;
+			
+		if (IsTileTallGrass(x, y) == TRUE)
+		{			
+		SetAutotileMetatileId(x, y);
+		}
+    }
+	
+    DrawWholeMapView();
+    sCutGrassSpriteArrayPtr = AllocZeroed(CUT_SPRITE_ARRAY_COUNT);
+
+    // populate sprite ID array
+    for (i = 0; i < CUT_SPRITE_ARRAY_COUNT; i++)
+    {
+        sCutGrassSpriteArrayPtr[i] = CreateSprite(&sSpriteTemplate_CutGrass,
+        gSprites[gPlayerAvatar.spriteId].oam.x + 8, gSprites[gPlayerAvatar.spriteId].oam.y + 20, 0);
+        gSprites[sCutGrassSpriteArrayPtr[i]].data[2] = 32 * i;
+    }
+
+    FreeSpritePaletteByTag(FLDEFF_PAL_TAG_CUT_GRASS);
+    return FALSE;
+}
 
 
 bool8 FldEff_CutGrass(void)

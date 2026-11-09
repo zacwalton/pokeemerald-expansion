@@ -2,14 +2,17 @@
 #include "bike.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "field_specials.h"
 #include "field_effect.h"
+#include "fldeff.h"
 #include "metatile_behavior.h"
 #include "pokemon.h"
 #include "pokeride.h"
+#include "script.h"
 #include "sound.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
@@ -44,6 +47,7 @@ enum
 #define POKERIDE_FLAG_CAN_SMASH     (1 << 4)
 #define POKERIDE_FLAG_CAN_PUSH      (1 << 5)
 #define POKERIDE_FLAG_CAN_ICE       (1 << 6)
+#define POKERIDE_FLAG_CAN_CUT       (1 << 7)
 
 #define POKERIDE_FLY_HEIGHT 12
 
@@ -691,6 +695,14 @@ bool8 PokeRide_CanRideIce()
     );
 }
 
+bool8 PokeRide_CanRideCut()
+{
+    return (
+        FlagGet(FLAG_SYS_POKERIDE_CUT)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_CUT)
+    );
+}
+
 bool8 PokeRide_IsRideActive()
 {
     return TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_RIDING);
@@ -948,23 +960,43 @@ static u8 CheckMovementInputOnRideMon(u8 direction)
 
 static void PlayerOnRideMonNotMoving(u8 direction, u16 newKeys, u16 heldKeys)
 {
-    if ((!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP) && sPokeRideBLongHold)
-         && (PokeRide_IsRideFlying() || PokeRide_CanRideFly()))
+    if (!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP) && sPokeRideBLongHold)
     {
-        // Toggle between flying modes
-        bool8 desiredFlyState = !sPokeRideData.rideObject.state.flyingState;
-        sPokeRideBLongHold = FALSE;
-        sPokeRideBLongHoldFired = TRUE;
-
-        if (!desiredFlyState && CheckForPlayerLandingCollision())
+        if(PokeRide_IsRideFlying() || PokeRide_CanRideFly())
         {
-            // We're not allowed to land here
-            PlaySE(SE_FAILURE);
-            return;
-        }
+            // Toggle between flying modes
+            bool8 desiredFlyState = !sPokeRideData.rideObject.state.flyingState;
+            sPokeRideBLongHold = FALSE;
+            sPokeRideBLongHoldFired = TRUE;
 
-        sPokeRideData.rideObject.state.flyingState = desiredFlyState;
-        PlaySE(sPokeRideData.rideObject.state.flyingState ? SE_M_FLY : SE_M_WING_ATTACK);
+            if (!desiredFlyState && CheckForPlayerLandingCollision())
+            {
+                // We're not allowed to land here
+                PlaySE(SE_FAILURE);
+                return;
+            }
+
+            sPokeRideData.rideObject.state.flyingState = desiredFlyState;
+            PlaySE(sPokeRideData.rideObject.state.flyingState ? SE_M_FLY : SE_M_WING_ATTACK);
+        }
+        else if (PokeRide_CanRideCut())
+        {
+            if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUTTABLE_TREE) == TRUE)
+            {
+                sPokeRideBLongHold = FALSE;
+                sPokeRideBLongHoldFired = TRUE;
+                ScriptContext_SetupScript(EventScript_CutTree_PokeRide);
+            }
+            else if (SetUpFieldMove_Cut_PokeRide())
+            {
+                sPokeRideBLongHold = FALSE;
+                sPokeRideBLongHoldFired = TRUE;
+                gSpecialVar_0x8008 = 0;
+                gSpecialVar_0x8007 = 0;
+                FldEff_UseCutOnGrass_PokeRide();
+                return;
+            }
+        }
     }
     else
     {

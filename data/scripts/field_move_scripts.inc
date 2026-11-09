@@ -111,6 +111,19 @@ Movement_JumpLeft:
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ CUT
 
+@ PokéRide cuttable tree
+EventScript_CutTree_PokeRide::
+	Playse SE_M_CUT
+	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
+	waitmovement 0
+	removeobject VAR_LAST_TALKED
+	special CutWildEncounter
+	random 5
+    addvar VAR_RESULT, 1
+    giveitem ITEM_WOOD, VAR_RESULT
+	releaseall
+	end
+
 @ Interact with cuttable tree
 EventScript_CutTree::
 	lockall

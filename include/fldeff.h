@@ -2,9 +2,11 @@
 #define GUARD_FLDEFF_H
 
 // cut
+bool8 SetUpFieldMove_Cut_PokeRide(void);
 bool8 SetUpFieldMove_Cut(void);
 bool8 FldEff_UseCutOnGrass(void);
 bool8 FldEff_UseCutOnTree(void);
+bool8 FldEff_UseCutOnGrass_PokeRide(void);
 bool8 FldEff_CutGrass(void);
 void FixLongGrassMetatilesWindowTop(s16 x, s16 y);
 void FixLongGrassMetatilesWindowBottom(s16 x, s16 y);
