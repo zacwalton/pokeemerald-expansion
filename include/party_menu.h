@@ -111,5 +111,6 @@ void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
 void UpdatePartyMonStatusGfx(u8 partyId);
+void StartDigFieldEffect_PokeRide(void);
 
 #endif // GUARD_PARTY_MENU_H

@@ -1566,7 +1566,7 @@
 #define FLAG_UNUSED_0x91B                           (SYSTEM_FLAGS + 0xBB) // Unused Flag
 #define FLAG_SYS_POKERIDE_ICE                       (SYSTEM_FLAGS + 0xBC) // ZETA- PokéRide
 #define FLAG_SYS_POKERIDE_CUT                       (SYSTEM_FLAGS + 0xBD) // ZETA- PokéRide
-#define FLAG_UNUSED_0x91E                           (SYSTEM_FLAGS + 0xBE) // Unused Flag
+#define FLAG_SYS_POKERIDE_DIG                       (SYSTEM_FLAGS + 0xBE) // ZETA- PokéRide
 #define FLAG_UNUSED_0x91F                           (SYSTEM_FLAGS + 0xBF) // Unused Flag
 
 // Daily Flags

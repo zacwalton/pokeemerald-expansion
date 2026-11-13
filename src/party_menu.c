@@ -15,6 +15,7 @@
 #include "easy_chat.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "event_scripts.h"
 #include "evolution_scene.h"
 #include "field_control_avatar.h"
 #include "field_effect.h"
@@ -8262,5 +8263,22 @@ void CursorCb_MoveItem(u8 taskId)
 void UpdatePartyMonStatusGfx(u8 partyId)
 {
     SetPartyMonAilmentGfx(&gPlayerParty[partyId], &sPartyMenuBoxes[partyId]);
+}
+
+void StartDigFieldEffect_PokeRide(void)
+{
+    const struct MapHeader *mapHeader;
+
+    mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->escapeWarp.mapGroup, gSaveBlock1Ptr->escapeWarp.mapNum);
+    GetMapNameGeneric(gStringVar1, mapHeader->regionMapSectionId);
+    StringExpandPlaceholders(gStringVar4, gText_EscapeFromHere);
+    ScriptContext_SetupScript(EventScript_UseDig_PokeRide);
+}
+
+void DoDigWarpPokeRide(void)
+{
+    u8 taskId;
+    taskId = CreateTask(Task_UseDigEscapeRopeOnField, 8);
+    gTasks[taskId].data[0] = 0;
 }
 

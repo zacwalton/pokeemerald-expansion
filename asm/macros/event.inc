@@ -2871,4 +2871,9 @@
 	.macro followerspeciescanride
 	callnative FollowerSpeciesCanRide
 	.endm
+
+	@ SetUpDig via PokeRide ineraction
+	.macro dodigwarppokeride
+	callnative DoDigWarpPokeRide
+	.endm
 	

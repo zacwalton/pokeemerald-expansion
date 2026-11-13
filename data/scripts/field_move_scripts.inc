@@ -667,6 +667,18 @@ EventScript_UseDig::
 	lockall
 	goto EventScript_DigCommon
 	
+@ Use Dig from PokeRide
+EventScript_UseDig_PokeRide::
+	lockall
+	msgbox gText_EscapeFromHere, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, EventScript_UseDig_PokeRide_Confirm
+	releaseall
+	end
+	
+EventScript_UseDig_PokeRide_Confirm:
+	dodigwarppokeride
+	releaseall
+	end
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ CLIMB
 	

@@ -33,6 +33,7 @@ bool8 PokeRide_CanRideSmash();
 bool8 PokeRide_CanRidePush();
 bool8 PokeRide_CanRideIce();
 bool8 PokeRide_CanRideCut();
+bool8 PokeRide_CanRideDig();
 
 bool8 PokeRide_IsRideActive();
 bool8 PokeRide_IsRideSwimming();

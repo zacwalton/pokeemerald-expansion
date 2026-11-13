@@ -410,6 +410,7 @@ extern const u8 EventScript_UseRockSmash_PokeRide[];
 extern const u8 EventScript_UseHeadbutt[];
 extern const u8 EventScript_UseWhirlpool[];
 extern const u8 EventScript_UseDig[];
+extern const u8 EventScript_UseDig_PokeRide[];
 extern const u8 EventScript_UseDouse[];
 extern const u8 EventScript_UseCutGrass[];
 extern const u8 EventScript_Harvest_CutGrassScript[];

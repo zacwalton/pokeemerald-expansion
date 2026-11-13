@@ -9,7 +9,9 @@
 #include "field_specials.h"
 #include "field_effect.h"
 #include "fldeff.h"
+#include "item_use.h"
 #include "metatile_behavior.h"
+#include "party_menu.h"
 #include "pokemon.h"
 #include "pokeride.h"
 #include "script.h"
@@ -47,7 +49,8 @@ enum
 #define POKERIDE_FLAG_CAN_SMASH     (1 << 4)
 #define POKERIDE_FLAG_CAN_PUSH      (1 << 5)
 #define POKERIDE_FLAG_CAN_ICE       (1 << 6)
-#define POKERIDE_FLAG_CAN_CUT       (1 << 7)
+#define POKERIDE_FLAG_CAN_DIG       (1 << 7)
+#define POKERIDE_FLAG_CAN_CUT       (1 << 8)
 
 #define POKERIDE_FLY_HEIGHT 12
 
@@ -64,7 +67,7 @@ struct PokeRideSpriteInfo
 struct PokeRideInfo
 {
     struct PokeRideSpriteInfo spriteInfo[POKERIDE_SPRITE_COUNT];
-    u8 flags;
+    u16 flags;
     u8 rideSpeed;
 };
 
@@ -88,7 +91,7 @@ struct PokeRideData
 static EWRAM_DATA struct PokeRideData sPokeRideData = {0};
 
 static void UpdatePlayerRideState();
-static inline bool8 TestRideFlags(u16 species, u8 flags);
+static inline bool8 TestRideFlags(u16 species, u16 flags);
 static void UpdateRideMonSprites(struct PokeRideObjectEvent* rideObject);
 static void UpdateRideSpriteInternal(struct PokeRideObjectEvent* rideObject, const struct PokeRideInfo* rideInfo);
 static bool8 AdjustFlyingAnimation(struct PokeRideObjectEvent* rideObject);
@@ -482,7 +485,7 @@ static const struct PokeRideInfo* GetPokeRideInfoForSpecies(u16 species)
     return rideInfo;
 }
 
-static inline bool8 TestRideFlags(u16 species, u8 flags)
+static inline bool8 TestRideFlags(u16 species, u16 flags)
 {
     const struct PokeRideInfo* rideInfo = GetPokeRideInfoForSpecies(species);
 
@@ -700,6 +703,14 @@ bool8 PokeRide_CanRideCut()
     return (
         FlagGet(FLAG_SYS_POKERIDE_CUT)
         && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_CUT)
+    );
+}
+
+bool8 PokeRide_CanRideDig()
+{
+    return (
+        FlagGet(FLAG_SYS_POKERIDE_DIG)
+        && TestRideFlags(GetCurrentRideMonSpecies(), POKERIDE_FLAG_CAN_DIG)
     );
 }
 
@@ -962,7 +973,13 @@ static void PlayerOnRideMonNotMoving(u8 direction, u16 newKeys, u16 heldKeys)
 {
     if (!JOY_HELD(DPAD_DOWN) && !JOY_HELD(DPAD_LEFT) && !JOY_HELD(DPAD_RIGHT) && !JOY_HELD(DPAD_UP) && sPokeRideBLongHold)
     {
-        if(PokeRide_IsRideFlying() || PokeRide_CanRideFly())
+        if (PokeRide_CanRideDig() && CanUseDigOrEscapeRopeOnCurMap())
+        {
+            StartDigFieldEffect_PokeRide();
+            sPokeRideBLongHold = FALSE;
+            sPokeRideBLongHoldFired = TRUE;
+        }
+        else if(PokeRide_IsRideFlying() || PokeRide_CanRideFly())
         {
             // Toggle between flying modes
             bool8 desiredFlyState = !sPokeRideData.rideObject.state.flyingState;
