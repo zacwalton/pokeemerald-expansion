@@ -25,6 +25,7 @@
 #include "party_menu.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
+#include "pokeride.h"
 #include "random.h"
 #include "script.h"
 #include "sound.h"
@@ -4339,14 +4340,35 @@ static u8 CreateRockClimbBlob(void)
 {
     u8 spriteId;
     struct Sprite *sprite;
+    u16 graphicsId = GetMonGraphicsId(&gPlayerParty[gSpecialVar_0x8008]);
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_ROCK_CLIMB_BLOB], gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+    //spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_ROCK_CLIMB_BLOB], gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+    switch (GetPlayerFacingDirection())
+    {
+    case DIR_SOUTH:
+        spriteId = CreateObjectGraphicsSprite(graphicsId, UpdateClimbBlobFieldEffect, gFieldEffectArguments[0], gFieldEffectArguments[1], 8);
+        StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
+        break;
+    case DIR_EAST:
+        spriteId = CreateObjectGraphicsSprite(graphicsId, UpdateClimbBlobFieldEffect, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+        StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_EAST);
+        break;
+    case DIR_WEST:
+        spriteId = CreateObjectGraphicsSprite(graphicsId, UpdateClimbBlobFieldEffect, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+        StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_WEST);
+        break;
+    default:
+    case DIR_NORTH:
+        spriteId = CreateObjectGraphicsSprite(graphicsId, UpdateClimbBlobFieldEffect, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+        StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_NORTH);
+        break;
+    }
     if (spriteId != MAX_SPRITES)
     {
         sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
-        sprite->oam.paletteNum = LoadPlayerObjectEventPalette(gSaveBlock2Ptr->playerGender);
+        //sprite->oam.paletteNum = LoadPlayerObjectEventPalette(gSaveBlock2Ptr->playerGender);
         sprite->data[2] = gFieldEffectArguments[2];
         sprite->data[3] = -1;
         sprite->data[6] = -1;
@@ -4425,8 +4447,22 @@ static bool8 RockClimb_JumpOnRockClimbBlob(struct Task *task, struct ObjectEvent
 {
     if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
     {
+        struct Sprite *playerSprite;
+        playerSprite = &gSprites[objectEvent->spriteId];
         ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_SURFING));
         ObjectEventClearHeldMovementIfFinished(objectEvent);
+        switch (GetPlayerFacingDirection())
+            {
+                case DIR_EAST:
+                    playerSprite->x2 = -6;
+                    break;
+                case DIR_WEST:
+                    playerSprite->x2 = 6;
+                    break;
+                default:
+                case DIR_NORTH:
+                    break;
+            }
         ObjectEventSetHeldMovement(objectEvent, GetJumpSpecialMovementAction(objectEvent->movementDirection));
         gFieldEffectArguments[0] = task->tDestX;
         gFieldEffectArguments[1] = task->tDestY;
@@ -4538,7 +4574,7 @@ static bool8 RockClimb_StopRockClimbInit(struct Task *task, struct ObjectEvent *
 
     RockClimbDust(objectEvent, DIR_NONE);   //dust on final spot
     ObjectEventSetHeldMovement(objectEvent, GetJumpSpecialMovementAction(sRockClimbMovement[objectEvent->movementDirection].jumpDir));
-    SetSurfBlob_BobState(objectEvent->fieldEffectSpriteId, BOB_NONE);
+    //SetSurfBlob_BobState(objectEvent->fieldEffectSpriteId, BOB_NONE);
     task->tState++;
     return TRUE;
 }
@@ -4546,6 +4582,8 @@ static bool8 RockClimb_StopRockClimbInit(struct Task *task, struct ObjectEvent *
 static bool8 RockClimb_WaitStopRockClimb(struct Task *task, struct ObjectEvent *objectEvent)
 {
     struct ObjectEvent *followerObject = GetFollowerObject();
+    struct Sprite *playerSprite;
+    playerSprite = &gSprites[gPlayerAvatar.spriteId];
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
         ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
@@ -4558,6 +4596,8 @@ static bool8 RockClimb_WaitStopRockClimb(struct Task *task, struct ObjectEvent *
         UnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         DestroySprite(&gSprites[objectEvent->fieldEffectSpriteId]);
+        playerSprite->x2 = 0;
+        playerSprite->y2 = 0;
         FieldEffectActiveListRemove(FLDEFF_USE_ROCK_CLIMB);
         objectEvent->triggerGroundEffectsOnMove = TRUE; // e.g. if dismount on grass
         DestroyTask(FindTaskIdByFunc(Task_UseRockClimb));

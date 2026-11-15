@@ -6,6 +6,7 @@
 #endif
 
 void PokeRide_Init();
+u16 GetMonGraphicsId(struct Pokemon* mon);
 void SavePokeRideData(struct PokeRide *pokeRide);
 void LoadPokeRideData(struct PokeRide *pokeRide);
 void ClearPokeRideData(void);

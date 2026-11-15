@@ -8133,6 +8133,7 @@ void IsLastMonThatKnowsSurf(void)
 static void FieldCallback_RockClimb(void)
 {
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
+    gSpecialVar_0x8008 = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_ROCK_CLIMB);
 }
 

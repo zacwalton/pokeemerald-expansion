@@ -30,6 +30,7 @@ void UpdateTallGrassFieldEffect(struct Sprite *sprite);
 void WaitFieldEffectSpriteAnim(struct Sprite *sprite);
 void UpdateAshFieldEffect(struct Sprite *sprite);
 void UpdateSurfBlobFieldEffect(struct Sprite *sprite);
+void UpdateClimbBlobFieldEffect(struct Sprite *sprite);
 void UpdateJumpImpactEffect(struct Sprite *sprite);
 void UpdateFootprintsTireTracksFieldEffect(struct Sprite *sprite);
 void UpdateSplashFieldEffect(struct Sprite *sprite);

@@ -10834,7 +10834,10 @@ static u8 DoJumpSpecialSpriteMovement(struct Sprite *sprite)
     if (sprite->sDistance != JUMP_DISTANCE_IN_PLACE && !(sprite->sTimer & 1))
         Step1(sprite, sprite->sDirection);
 
-    sprite->y2 = GetJumpY(sprite->sTimer >> distanceToShift[sprite->sDistance], sprite->sJumpType);
+    if (IsRockClimbActive())
+        sprite->y2 = GetJumpY(sprite->sTimer >> distanceToShift[sprite->sDistance], sprite->sJumpType) + 2;
+    else
+        sprite->y2 = GetJumpY(sprite->sTimer >> distanceToShift[sprite->sDistance], sprite->sJumpType);
 
     sprite->sTimer++;
 
@@ -10843,7 +10846,10 @@ static u8 DoJumpSpecialSpriteMovement(struct Sprite *sprite)
 
     if (sprite->sTimer >= distanceToTime[sprite->sDistance])
     {
-        sprite->y2 = 0;
+        if (IsRockClimbActive())
+            sprite->y2 = 2;
+        else
+            sprite->y2 = 0;
         result = JUMP_FINISHED;
     }
 

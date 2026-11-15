@@ -3,6 +3,7 @@
 #include "field_camera.h"
 #include "field_effect.h"
 #include "field_effect_helpers.h"
+#include "field_player_Avatar.h"
 #include "field_weather.h"
 #include "fieldmap.h"
 #include "gpu_regs.h"
@@ -39,6 +40,7 @@ static void UpdateAshFieldEffect_End(struct Sprite *);
 void SynchroniseSurfAnim(struct ObjectEvent *, struct Sprite *);
 void SynchroniseSurfPosition(struct ObjectEvent *, struct Sprite *);
 void UpdateBobbingEffect(struct ObjectEvent *, struct Sprite *, struct Sprite *);
+void UpdateBobbingEffect_Climb(struct ObjectEvent *, struct Sprite *, struct Sprite *);
 static void SpriteCB_UnderwaterSurfBlob(struct Sprite *);
 static u32 ShowDisguiseFieldEffect(u8, u8, u8);
 u32 FldEff_Shadow(void);
@@ -420,7 +422,8 @@ void UpdateShadowFieldEffect(struct Sprite *sprite)
          || MetatileBehavior_IsPokeGrass(objectEvent->currentMetatileBehavior)
          || MetatileBehavior_IsPuddle(objectEvent->currentMetatileBehavior)
          || MetatileBehavior_IsSurfableWaterOrUnderwater(objectEvent->currentMetatileBehavior)
-         || MetatileBehavior_IsSurfableWaterOrUnderwater(objectEvent->previousMetatileBehavior))
+         || MetatileBehavior_IsSurfableWaterOrUnderwater(objectEvent->previousMetatileBehavior)
+         || IsRockClimbActive())
         {
             FieldEffectStop(sprite, FLDEFF_SHADOW);
         }
@@ -1261,6 +1264,16 @@ static u8 GetSurfBlob_HasPlayerOffset(struct Sprite *sprite)
     return (sprite->sBitfield & 0xF00) >> 8;
 }
 
+void UpdateClimbBlobFieldEffect(struct Sprite *sprite)
+{
+    struct ObjectEvent *playerObj = &gObjectEvents[sprite->sPlayerObjId];
+    struct Sprite *playerSprite = &gSprites[playerObj->spriteId];
+    //SynchroniseSurfAnim(playerObj, sprite);
+    SynchroniseSurfPosition(playerObj, sprite);
+    UpdateBobbingEffect_Climb(playerObj, playerSprite, sprite);
+    sprite->oam.priority = playerSprite->oam.priority;
+}
+
 void UpdateSurfBlobFieldEffect(struct Sprite *sprite)
 {
     struct ObjectEvent *playerObj = &gObjectEvents[sprite->sPlayerObjId];
@@ -1342,6 +1355,51 @@ void UpdateBobbingEffect(struct ObjectEvent *playerObj, struct Sprite *playerSpr
                 playerSprite->y2 = sprite->sPlayerOffset + sprite->y2;
             sprite->x = playerSprite->x;
             sprite->y = playerSprite->y + 8;
+        }
+    }
+}
+
+void UpdateBobbingEffect_Climb(struct ObjectEvent *playerObj, struct Sprite *playerSprite, struct Sprite *sprite)
+{
+    // The frame interval at which to update the blob's y movement.
+    // Normally every 4th frame, but every 8th frame while dismounting.
+    u16 intervals[] = {0x3, 0x7};
+
+    u8 bobState = GetSurfBlob_BobState(sprite);
+    if (bobState != BOB_NONE)
+    {
+        // Update vertical position of surf blob
+        if (((u16)(++sprite->sTimer) & intervals[sprite->sIntervalIdx]) == 0)
+            sprite->y2 += sprite->sVelocity;
+
+        // Reverse bob direction
+        if ((sprite->sTimer & 15) == 0)
+            sprite->sVelocity = -sprite->sVelocity;
+
+        if (bobState != BOB_JUST_MON)
+        {
+            // Update vertical position of player
+            if (!GetSurfBlob_HasPlayerOffset(sprite))
+                playerSprite->y2 = sprite->y2;
+            else
+                playerSprite->y2 = sprite->sPlayerOffset + sprite->y2;
+            sprite->x = playerSprite->x;
+            sprite->y = playerSprite->y + 8;
+            switch (GetPlayerFacingDirection())
+            {
+                case DIR_SOUTH:
+                    playerSprite->y2 -= 4;
+                    break;
+                case DIR_EAST:
+                    playerSprite->x2 = -4;
+                    break;
+                case DIR_WEST:
+                    playerSprite->x2 = 4;
+                    break;
+                default:
+                case DIR_NORTH:
+                    break;
+            }
         }
     }
 }

@@ -170,7 +170,7 @@ static u8 GetRideOptionCount()
     return GetRideOptionCountFor();
 }
 
-static u16 GetMonGraphicsId(struct Pokemon* mon)
+u16 GetMonGraphicsId(struct Pokemon* mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     bool8 isShiny = GetMonData(mon, MON_DATA_IS_SHINY);

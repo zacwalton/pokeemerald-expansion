@@ -3064,7 +3064,10 @@ u8 ScrCmd_checkmovefieldeffectflag(struct ScriptContext *ctx)
 			{
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
-			gSpecialVar_0x8008 = moveId;
+            if (fieldeffectflag == IS_FIELD_MOVE_CLIMB)
+			    gSpecialVar_0x8008 = i;
+            else
+			    gSpecialVar_0x8008 = moveId;
             break;
 			}
 		}
