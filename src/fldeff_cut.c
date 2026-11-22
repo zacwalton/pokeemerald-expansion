@@ -970,6 +970,7 @@ static void SetAutotileMetatileId (s16 x, s16 y)
 
 bool8 FldEff_UseCutOnGrass_PokeRide(void)
 {    
+    LockPlayerFieldControls();
     s16 x, y;
     u8 i = 0;
 	u8 yieldCount = 0;
@@ -1051,6 +1052,7 @@ bool8 FldEff_UseCutOnGrass_PokeRide(void)
     }
 
     FreeSpritePaletteByTag(FLDEFF_PAL_TAG_CUT_GRASS);
+    UnlockPlayerFieldControls();
     return FALSE;
 }
 

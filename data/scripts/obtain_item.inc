@@ -51,8 +51,8 @@ EventScript_ObtainedItem::
 	compare VAR_0x8001, TRUE
 EventScript_ContinueObtainedItem:
 	delay 10
-	showitemtoast VAR_0x8006, AMOUNT
-@	delay 10
+	queueitemtoast VAR_0x8006, AMOUNT
+	delay 10
 	setvar VAR_RESULT, TRUE
 	return
 
@@ -115,8 +115,8 @@ EventScript_PickUpItem::
 	call_if_eq VAR_0x8008, TRUE, EventScript_FoundTMHM
 	call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
 	delay 10
-	showitemtoast VAR_0x8004, VAR_0x8005
-@	delay 10
+	queueitemtoast VAR_0x8004, VAR_0x8005
+	delay 10
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
 	return
@@ -176,8 +176,8 @@ EventScript_FoundHiddenItem::
 
 EventScript_PutHiddenItemInPocket::
 	delay 10
-	showitemtoast VAR_0x8004, 1
-@	delay 10
+	queueitemtoast VAR_0x8004, 1
+	delay 10
 	special TryPutTreasureInvestigatorsOnAir
 	special SetHiddenItemFlag
 	releaseall

@@ -101,6 +101,7 @@ Harvest_Resource_Collected::
 	
 EventScript_Harvest_CutGrassScript::
 	giveitem ITEM_PLANT_FIBRE, VAR_0x8009
+	delay 10
 	releaseall
 	end
 	
@@ -119,16 +120,19 @@ EventScript_Harvest_CutGrassScript_Item::
 
 EventScript_Harvest_CutGrassScript_Pokeball::
 	giveitem ITEM_POKE_BALL
+	delay 10
 	releaseall
 	end
 
 EventScript_Harvest_CutGrassScript_GreatBall::
 	giveitem ITEM_GREAT_BALL
+	delay 10
 	releaseall
 	end
 
 EventScript_Harvest_CutGrassScript_Potion::
 	giveitem ITEM_POTION
+	delay 10
 	releaseall
 	end
 	
@@ -151,27 +155,27 @@ EventScript_GiveRandomFeather::
 
 EventScript_GiveRandomFeather_Pretty::
 	giveitem ITEM_PRETTY_FEATHER
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomFeather_Health::
 	giveitem ITEM_HEALTH_FEATHER
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomFeather_Muscle::
 	giveitem ITEM_MUSCLE_FEATHER
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomFeather_Resist::
 	giveitem ITEM_RESIST_FEATHER
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomFeather_Genius::
 	giveitem ITEM_GENIUS_FEATHER
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomFeather_Clever::
@@ -181,7 +185,7 @@ EventScript_GiveRandomFeather_Clever::
 
 EventScript_GiveRandomFeather_Swift::
 	giveitem ITEM_SWIFT_FEATHER
-	releaseall
+	return
 	end
 	
 	
@@ -214,6 +218,7 @@ EventScript_GiveRandomBerry_Common::
 	case 7, EventScript_GiveRandomBerry_Persim
 	case 8, EventScript_GiveRandomBerry_Oran
 	case 9, EventScript_GiveRandomBerry_Oran
+	delay 10
 	releaseall
 	end
 	
@@ -235,6 +240,7 @@ EventScript_GiveRandomBerry_Uncommon::
 	case 12, EventScript_GiveRandomBerry_Tamato
 	case 13, EventScript_GiveRandomBerry_Sitrus
 	case 14, EventScript_GiveRandomBerry_Sitrus
+	delay 10
 	releaseall
 	end
 	
@@ -266,237 +272,238 @@ EventScript_GiveRandomBerry_Rare::
 	case 22, EventScript_GiveRandomBerry_Apicot
 	case 23, EventScript_GiveRandomBerry_Kee
 	case 24, EventScript_GiveRandomBerry_Maranga
+	delay 10
 	releaseall
 	end
 	
 EventScript_GiveRandomBerry_Cheri::
 	giveitem ITEM_CHERI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Chesto::
 	giveitem ITEM_CHESTO_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Pecha::
 	giveitem ITEM_PECHA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Rawst::
 	giveitem ITEM_RAWST_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Aspear::
 	giveitem ITEM_ASPEAR_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Leppa::
 	giveitem ITEM_LEPPA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Oran::
 	giveitem ITEM_ORAN_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Persim::
 	giveitem ITEM_PERSIM_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Lum::
 	giveitem ITEM_LUM_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Sitrus::
 	giveitem ITEM_SITRUS_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Figy::
 	giveitem ITEM_FIGY_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Wiki::
 	giveitem ITEM_WIKI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Mago::
 	giveitem ITEM_MAGO_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Aguav::
 	giveitem ITEM_AGUAV_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Iapapa::
 	giveitem ITEM_IAPAPA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Pomeg::
 	giveitem ITEM_POMEG_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Kelpsy::
 	giveitem ITEM_KELPSY_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Qualot::
 	giveitem ITEM_QUALOT_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Hondew::
 	giveitem ITEM_HONDEW_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Grepa::
 	giveitem ITEM_GREPA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Tamato::
 	giveitem ITEM_TAMATO_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Occa::
 	giveitem ITEM_OCCA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Passho::
 	giveitem ITEM_PASSHO_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Wacan::
 	giveitem ITEM_WACAN_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Rindo::
 	giveitem ITEM_RINDO_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Yache::
 	giveitem ITEM_YACHE_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Chople::
 	giveitem ITEM_CHOPLE_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Kebia::
 	giveitem ITEM_KEBIA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Shuca::
 	giveitem ITEM_SHUCA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Coba::
 	giveitem ITEM_COBA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Payapa::
 	giveitem ITEM_PAYAPA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Tanga::
 	giveitem ITEM_TANGA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Charti::
 	giveitem ITEM_CHARTI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Kasib::
 	giveitem ITEM_KASIB_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Haban::
 	giveitem ITEM_HABAN_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Colbur::
 	giveitem ITEM_COLBUR_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Babiri::
 	giveitem ITEM_BABIRI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Chilan::
 	giveitem ITEM_CHILAN_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Roseli::
 	giveitem ITEM_ROSELI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Liechi::
 	giveitem ITEM_LIECHI_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Ganlon::
 	giveitem ITEM_GANLON_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Salac::
 	giveitem ITEM_SALAC_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Petaya::
 	giveitem ITEM_PETAYA_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Apicot::
 	giveitem ITEM_APICOT_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Kee::
 	giveitem ITEM_KEE_BERRY
-	releaseall
+	return
 	end
 
 EventScript_GiveRandomBerry_Maranga::
 	giveitem ITEM_MARANGA_BERRY
-	releaseall
+	return
 	end
 
 
