@@ -25,22 +25,60 @@
 #define ITEM_ICON_Y             24 + 16
 #define ITEM_TAG                0x2722 //same as money label
 #define tTimer                  data[0]
-#define ITEM_TOAST_DURATION     90
-static bool8 sToastActive = FALSE;      //Uses a bool to check if task is active - to be replaced with more robust task states
+#define tState                  data[1]
+
+#define ITEM_TOAST_DURATION     90      //number of frames each toast will display for (divide by 60 to get seconds)
+#define TOAST_QUEUE_SIZE        8       //number of entries the toast queue can hold - 8 should be sufficient
+
+//Task states
+enum{
+    STATE_TOAST_DRAW,
+    STATE_TOAST_WAIT,
+};
 
 EWRAM_DATA static u8 sHeaderBoxWindowId = 0;
 EWRAM_DATA u8 sItemToastIconSpriteId = 0;
 EWRAM_DATA u8 sItemToastIconSpriteId2 = 0;
 
+static void Task_ItemToastDraw(u8 taskId);
+static void Task_ItemToastWait(u8 taskId);
+
+//Circular Queue (Ring Buffer) data
+struct ToastMessage
+{
+    u16 item;
+    u16 quantity;
+};
+
+//defines the RingBuf (circular queue) structure
+typedef struct RingBuf
+{
+    size_t readPtr;
+    size_t writePtr;
+    struct ToastMessage arr[TOAST_QUEUE_SIZE];
+    bool8 full;
+}RingBuf;
+
+//Maps toast task state to functions
+static void (*const sToastTaskFunctions[])(u8) = 
+{
+    [STATE_TOAST_DRAW]       = Task_ItemToastDraw,
+    [STATE_TOAST_WAIT]       = Task_ItemToastWait,
+};
+
+static RingBuf sRingBuf = {0};                      //initialize sRingBuf
+
 static void ConstructItemToastMessage(u16 item, u16 amount);
 static void ShowItemToastIconSprite(u16 item, bool8 firstTime, bool8 flash);
-static void Task_HideItemToast(u8 taskId);
 static void DestroyItemToastIconSprite(void);
+static void ToastRingBufferWrite(RingBuf* rb, struct ToastMessage newToast);
+static struct ToastMessage ToastRingBufferRead(RingBuf* rb);
+static void DestroyItemToast(void);
 
 //Item Toast strings
-static u8 sToastMessage[40];
+static u8 sToastMessage[ITEM_NAME_LENGTH + MOVE_NAME_LENGTH];                           //Actual size of the array doesnt seem to matter
 static u8 sToastItemAmount[3];
-static u8 sToastItemName[ITEM_NAME_LENGTH + 2];
+static u8 sToastItemName[ITEM_NAME_LENGTH];
 
 //Constructs Item Toast message from strings
 static void ConstructItemToastMessage(u16 item, u16 amount)
@@ -49,98 +87,137 @@ static void ConstructItemToastMessage(u16 item, u16 amount)
     StringCopy(sToastItemName, GetItemName(item));
     //Set sToastItemAmount to amount
     ConvertIntToDecimalStringN(sToastItemAmount, amount, STR_CONV_MODE_LEFT_ALIGN, 3); //converts amount into string
+
+    u8 *txtPtr = sToastMessage;
     //Appends string sections
-    //Text Colour is set in the string
-    StringCopy(sToastMessage, gText_ItemToastPlus);
-    StringAppend(sToastMessage, sToastItemAmount);
-    StringAppend(sToastMessage, gText_Space);
-    StringAppend(sToastMessage, sToastItemName);
+    //Text Colour is set in the initial string, and reset at the end string
+    txtPtr = StringCopy(txtPtr, gText_ItemToastPlus);
+    txtPtr = StringAppend(txtPtr, sToastItemAmount);
+    StringAppend(txtPtr, gText_Space);
+    StringAppend(txtPtr, sToastItemName);
 
     switch (GetPocketByItemId(item))
     {
         default:
         case POCKET_NONE:
-            StringAppend(sToastMessage, gText_ItemToastEndNoPocket);                //If no pocket is found: Empty string that sets text colour back to default
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndNoPocket);                //If no pocket is found: Empty string that sets text colour back to default
             break;
         case POCKET_ITEMS:
-            StringAppend(sToastMessage, gText_ItemToastNewline);
-            StringAppend(sToastMessage, gText_Items);
-            StringAppend(sToastMessage, gText_ItemToastEndBracket);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastNewline);
+            txtPtr = StringAppend(txtPtr, gText_Items);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndBracket);
             break;
         case POCKET_POKE_BALLS:
-            StringAppend(sToastMessage, gText_ItemToastNewline);
-            StringAppend(sToastMessage, gText_Poke_Balls);
-            StringAppend(sToastMessage, gText_ItemToastEndBracket);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastNewline);
+            txtPtr = StringAppend(txtPtr, gText_Poke_Balls);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndBracket);
             break;
         case POCKET_TM_HM:
-            StringAppend(sToastMessage, gText_ItemToastColon);                      //For TMs and HMs - append move name after colon
-            StringAppend(sToastMessage, GetMoveName(ItemIdToBattleMoveId(item)));
-            StringAppend(sToastMessage, gText_ItemToastNewline);
-            StringAppend(sToastMessage, gText_TMs_Hms);
-            StringAppend(sToastMessage, gText_ItemToastEndBracket);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastColon);                      //For TMs and HMs - append move name after colon
+            txtPtr = StringAppend(txtPtr, GetMoveName(ItemIdToBattleMoveId(item)));
+            txtPtr = StringAppend(txtPtr, gText_ItemToastNewline);
+            txtPtr = StringAppend(txtPtr, gText_TMs_Hms);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndBracket);
             break;
         case POCKET_BERRIES:
-            StringAppend(sToastMessage, gText_ItemToastNewline);
-            StringAppend(sToastMessage, gText_Berries2);
-            StringAppend(sToastMessage, gText_ItemToastEndBracket);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastNewline);
+            txtPtr = StringAppend(txtPtr, gText_Berries2);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndBracket);
             break;
         case POCKET_KEY_ITEMS:
-            StringAppend(sToastMessage, gText_ItemToastNewline);
-            StringAppend(sToastMessage, gText_Key_Items);
-            StringAppend(sToastMessage, gText_ItemToastEndBracket);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastNewline);
+            txtPtr = StringAppend(txtPtr, gText_Key_Items);
+            txtPtr = StringAppend(txtPtr, gText_ItemToastEndBracket);
             break;
     }
 }
 
-
-void ScriptShowItemToast(struct ScriptContext *ctx)
+//Checks if toast task is NOT active
+bool8 ItemToastIsNotActive(void)
 {
+    if ((FindTaskIdByFunc(Task_ItemToastMessage) == TASK_NONE))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+//Function that gets called from scripts when obtaining items
+void ScriptCreateItemToast(struct ScriptContext *ctx)
+{
+    struct ToastMessage newToast;
+    newToast.item = VarGet(ScriptReadHalfword(ctx));
+    newToast.quantity = VarGet(ScriptReadHalfword(ctx));
+    ToastRingBufferWrite(&sRingBuf, newToast);
+
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
-    if (sToastActive == TRUE)
-        DestroyItemToastIconSprite();               //ToDo: Add circular queue. For now, it just destroy existing sprite before creating a new one
+    if (ItemToastIsNotActive())
+    {
+        gTasks[CreateTask(Task_ItemToastMessage, 0)].tState = STATE_TOAST_DRAW;
+    }
+}
+
+//Calls the function based on the task state
+void Task_ItemToastMessage(u8 taskId)
+{
+    sToastTaskFunctions[gTasks[taskId].tState](taskId);
+}
+
+//Task to setup and draw the sprite and toast text
+static void Task_ItemToastDraw(u8 taskId)
+{
+    struct ToastMessage toast = ToastRingBufferRead(&sRingBuf);
+    //If next index is empty, destroy the task
+    if (toast.item == 0 && toast.quantity == 0)
+    {
+        DestroyTask(taskId);
+        return;
+    }
 
     struct WindowTemplate template;
-    u16 item = VarGet(ScriptReadHalfword(ctx));
-    u16 amount = VarGet(ScriptReadHalfword(ctx));
     u8 textY = 0;
     bool8 handleFlash = FALSE;
-    u8 color[3] = {0, 2, 3};                    //Defines BG colour 0 (transparent)
-    ConstructItemToastMessage(item, amount);    //Construct toast popup message from item and amount
+    u8 color[3] = {0, 2, 3};                                    //Defines BG colour 0 (transparent), actual text colour is set in the strings
 
-    if (GetFlashLevel() > 0 || InBattlePyramid_())
+    ConstructItemToastMessage(toast.item, toast.quantity);    //Construct toast popup message from item and quantity
+
+    if (GetFlashLevel() > 0 || InBattlePyramid_())          //Prevents flash tint blending over icons
         handleFlash = TRUE;
 
     //Sets up window template for text
     SetWindowTemplateFields(&template, 0, 1, 3, 18, 3, 15, 8);
     sHeaderBoxWindowId = AddWindow(&template);
+    FillWindowPixelBuffer(sHeaderBoxWindowId, PIXEL_FILL(0));   //This should not have been removed in the previous commit, fixes some display issues
     PutWindowTilemap(sHeaderBoxWindowId);
     CopyWindowToVram(sHeaderBoxWindowId, 3);
     
-    PlayFanfare(MUS_OBTAIN_ITEM);               //Moves fanfare SFX to item toast to sync with display
-    ShowItemToastIconSprite(item, TRUE, handleFlash);
+    PlayFanfare(MUS_OBTAIN_ITEM);                               //Moves fanfare SFX to item toast to sync with display
+    ShowItemToastIconSprite(toast.item, TRUE, handleFlash);     //Creates icon sprite
     AddTextPrinterParameterized4(sHeaderBoxWindowId, FONT_SMALL, ITEM_ICON_X + 2, textY, 1, 0, color, TEXT_SKIP_DRAW, sToastMessage);  //Used by things like Credits for transparent BG text
-    sToastActive = TRUE;
-    CreateTask(Task_HideItemToast, 0);
+    gTasks[taskId].tTimer = 0;                                  //Reset task timer to 0
+    gTasks[taskId].tState = STATE_TOAST_WAIT;                   //Advance toast state to WAIT after toast is drawn
 }
 
-static void Task_HideItemToast(u8 taskId)
+//Wait task - continue displaying toast until ITEM_TOAST_DURATION is reached
+static void Task_ItemToastWait(u8 taskId)
 {
-    s16 *data = gTasks[taskId].data;
-    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
-    if (tTimer >= ITEM_TOAST_DURATION)
+    if (++gTasks[taskId].tTimer >= ITEM_TOAST_DURATION)
     {
-        DestroyItemToastIconSprite();
-        ClearStdWindowAndFrameToTransparent(sHeaderBoxWindowId, FALSE);
-        CopyWindowToVram(sHeaderBoxWindowId, 3);
-        RemoveWindow(sHeaderBoxWindowId);
-        sToastActive = FALSE;
-        tTimer = 0;
-        DestroyTask(taskId);
+        DestroyItemToast();
+        gTasks[taskId].tState = STATE_TOAST_DRAW;
     }
-    else
-        tTimer++;
 }
 
+//Destroy the toast when done, clears icon sprite and text window
+static void DestroyItemToast(void)
+{
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
+    DestroyItemToastIconSprite();
+    ClearStdWindowAndFrameToTransparent(sHeaderBoxWindowId, FALSE);
+    CopyWindowToVram(sHeaderBoxWindowId, 3);
+    RemoveWindow(sHeaderBoxWindowId);
+}
+
+//Cloned from ShowItemIconSprite in overworld.c
 static void ShowItemToastIconSprite(u16 item, bool8 firstTime, bool8 flash)
 {
     s16 x = 0, y = 0;
@@ -188,6 +265,7 @@ static void ShowItemToastIconSprite(u16 item, bool8 firstTime, bool8 flash)
     sItemToastIconSpriteId = iconSpriteId;
 }
 
+//Cloned from DestroyItemIconSprite in overworld.c
 static void DestroyItemToastIconSprite(void)
 {
     FreeSpriteTilesByTag(ITEM_TAG);
@@ -202,4 +280,39 @@ static void DestroyItemToastIconSprite(void)
     }
 }
 
+//------
+//Circular Queue (Ring Buffer)
+//Writes incoming toast data to the circular queue
+static void ToastRingBufferWrite(RingBuf* rb, struct ToastMessage newToast)
+{
+    if (rb->full == TRUE)
+    {
+        rb->readPtr += 1;                           //increment read pointer by 1
+        if (rb->readPtr > (TOAST_QUEUE_SIZE - 1))
+            rb->readPtr = 0;                        //if index is about to exceed que size, loop back to index 0
+    }
+    rb->arr[rb->writePtr] = newToast;
+    rb->writePtr += 1;                              //increment write pointer by 1
+    if (rb->writePtr > (TOAST_QUEUE_SIZE - 1))      //Out of bounds check for writePtr
+        rb->writePtr = 0;
+    if (rb->writePtr == rb->readPtr)
+        rb->full = TRUE;                            //if write pointer == read pointer, set full to TRUE
+}
+
+//Reads next (oldest first) toast data from circular queue
+static struct ToastMessage ToastRingBufferRead(RingBuf* rb)
+{
+    struct ToastMessage toastData = {0};                      //initialize ToastMessage struct (set data to 0)
+    if (rb->readPtr != rb->writePtr || rb->full == TRUE)
+    {
+        toastData = rb->arr[rb->readPtr];
+        rb->readPtr += 1;
+        rb->full = FALSE;
+        if (rb->readPtr > (TOAST_QUEUE_SIZE - 1))
+            rb->readPtr = 0;
+    }
+    return toastData;
+}
+
 #undef tTimer
+#undef tState
