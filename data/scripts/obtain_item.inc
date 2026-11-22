@@ -9,9 +9,6 @@ Std_ObtainItem::
 	return
 
 EventScript_ObtainItemMessage::
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
-	checkitemtype ITEMID
-	call EventScript_BufferPocketNameAndTryFanfare
 	call_if_eq VAR_0x8007, TRUE, EventScript_ObtainedItem
 	call_if_eq VAR_0x8007, FALSE, EventScript_NoRoomForItem
 	return
@@ -52,18 +49,10 @@ EventScript_BufferBerriesPocket::
 
 EventScript_ObtainedItem::
 	compare VAR_0x8001, TRUE
-	goto_if_eq EventScript_ObtainedItemMessage
-	buffernumberstring 0, VAR_0x8001
-	message gText_ObtainedTheItems
-	goto EventScript_ContinueObtainedItem
-EventScript_ObtainedItemMessage:
-	message gText_ObtainedTheItem
 EventScript_ContinueObtainedItem:
 	delay 10
-	showitemdescription
-	waitfanfare
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
-	hideitemdescription
+	showitemtoast VAR_0x8006, AMOUNT
+@	delay 10
 	setvar VAR_RESULT, TRUE
 	return
 
@@ -112,9 +101,6 @@ Std_FindItem::
 	copyvar VAR_0x8005, AMOUNT
 	checkitemspace ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
-	checkitemtype ITEMID
-	call EventScript_BufferPocketNameAndTryFanfare
 	call_if_eq VAR_0x8007, TRUE, EventScript_PickUpItem
 	call_if_eq VAR_0x8007, FALSE, EventScript_NoRoomToPickUpItem
 	release
@@ -129,14 +115,10 @@ EventScript_PickUpItem::
 	call_if_eq VAR_0x8008, TRUE, EventScript_FoundTMHM
 	call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
 	delay 10
-	showitemdescription
-	waitfanfare
-	waitmessage
-	bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
+	showitemtoast VAR_0x8004, VAR_0x8005
+@	delay 10
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
-	hideitemdescription
 	return
 
 EventScript_PutBattlePyramidItemInBag::
@@ -148,22 +130,16 @@ EventScript_FoundTMHM::
 	bufferitemnameplural STR_VAR_1, VAR_0x8004, VAR_0x8005
 	compare VAR_0x8005, 2
 	goto_if_lt EventScript_FoundTMHMMessage
-	buffernumberstring STR_VAR_3, VAR_0x8005
-	message gText_PlayerFoundTMHMs
 	goto EventScript_BufferTMHMsPocket
 	return
 EventScript_FoundTMHMMessage::
-	message gText_PlayerFoundOneTMHM
 	return
 
 EventScript_FoundItem::
 	compare VAR_0x8001, TRUE
 	goto_if_eq EventScript_FoundItemMessage
-	buffernumberstring 0, VAR_0x8001
-	message gText_PlayerFoundItems
 	return
 EventScript_FoundItemMessage::
-	message gText_PlayerFoundOneItem
 	return
 
 EventScript_NoRoomToPickUpItem::
@@ -178,9 +154,6 @@ EventScript_HiddenItemScript::
 	copyvar VAR_0x8006, VAR_0x8005
 	additem VAR_0x8005
 	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, VAR_0x8005, 1
-	checkitemtype VAR_0x8005
-	call EventScript_BufferPocketNameAndTryFanfare
 	goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpHiddenItem
 	goto_if_eq VAR_0x8007, FALSE, EventScript_NoRoomForHiddenItem
 	end
@@ -194,25 +167,17 @@ EventScript_PickUpHiddenItem::
 	end
 
 EventScript_FoundHiddenTMHM::
-	bufferitemnameplural STR_VAR_1, VAR_0x8004, 1
-	message gText_PlayerFoundOneTMHM
 	goto EventScript_PutHiddenItemInPocket
 	end
 
 EventScript_FoundHiddenItem::
-	message gText_PlayerFoundOneItem
 	goto EventScript_PutHiddenItemInPocket
 	end
 
 EventScript_PutHiddenItemInPocket::
 	delay 10
-	showitemdescription
-	waitmessage
-	waitfanfare
-	bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
-	copyvar VAR_0x8004, VAR_0x8008
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
-	hideitemdescription
+	showitemtoast VAR_0x8004, 1
+@	delay 10
 	special TryPutTreasureInvestigatorsOnAir
 	special SetHiddenItemFlag
 	releaseall

@@ -1327,6 +1327,13 @@ const u8 gText_NameRater[] = _("Name Rater");
 const u8 gText_MoveDeleter[] = _("Move Deleter");
 const u8 gText_MoveRelearner[] = _("Move Relearner");
 
+//Item Toast Construction
+const u8 gText_ItemToastPlus[] = _("{COLOR WHITE}{SHADOW DARK_GRAY}+ ");
+const u8 gText_ItemToastColon[] = _(": ");
+const u8 gText_ItemToastNewline[] = _("\n (");
+const u8 gText_ItemToastEndBracket[] = _("){COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}");
+const u8 gText_ItemToastEndNoPocket[] = _("{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}");
+
 const u8 gText_CannotSendMonToBoxHM[] = _("Cannot send that mon to the box,\nbecause it knows a HM move.{PAUSE_UNTIL_PRESS}");
 
 

@@ -2368,6 +2368,13 @@ extern const u8 gText_Smartness[];
 extern const u8 gText_Cuteness[];
 extern const u8 gText_Beauty3[];
 
+//Item Toast Construction
+extern const u8 gText_ItemToastPlus[];
+extern const u8 gText_ItemToastColon[];
+extern const u8 gText_ItemToastNewline[];
+extern const u8 gText_ItemToastEndBracket[];
+extern const u8 gText_ItemToastEndNoPocket[];
+
 ////side quests
 //generic strings
 extern const u8 gText_QuestAnnounce[];

@@ -2877,3 +2877,9 @@
 	callnative DoDigWarpPokeRide
 	.endm
 	
+	@ Create Item Toast popup message ala Legends Arceus
+	.macro showitemtoast itemId:req, amount:req
+	callnative ScriptShowItemToast, requests_effects=1
+	.2byte \itemId
+	.2byte \amount
+	.endm
